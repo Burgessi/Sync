@@ -1,0 +1,25 @@
+.page-heading .page-title .text-subtitle{margin-bottom: 0.3rem;}
+
+.align-center {
+    text-align: center;
+}
+
+.text-part {
+    padding-right: 15px;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex-row-side {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}

@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Passion+One:wght@400;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body, input {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* .container:before {
+    content: '';
+    position: absolute;
+    width: 2000px;
+    height: 2000px;
+    border-radius: 50%;
+    background: linear-gradient(-45deg, #7D6CFF, #7d6cfe);
+    top: -10%;
+    right: 45%;
+    transform: translateY(-40%);
+} */
+
+.form-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.signin {
+    position: absolute;
+    top: 47%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    z-index: 1;
+}
+
+.signin-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 5rem;
+    overflow: hidden;
+    
+}
+.signin-form:focus {
+    background-color: #223055; 
+  }
+
+.title {
+    font-size: 4rem;
+    color: #FFB7CA;
+    margin-bottom: 0px;
+    font-weight: 700;
+    font-family: 'Passion One', sans-serif;
+}
+
+.sub-title {
+    margin-bottom: 22px;
+    font-size: 1rem;
+    color: #FFE1E9;
+    font-weight: 600;
+}
+
+.input-field {
+    max-width: 380px;
+    width: 100%;
+    height: 60px;
+    background-color: #223055;
+    margin: 10px 0;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 0 .4rem;
+}
+
+.input-field i {
+    text-align: center;
+    line-height: 55px;
+    color: #FFE1E9;
+    font-size: 1.1rem;
+}
+
+.input-field input {
+    background: none;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.input-field input::placeholder {
+    color: #fff;
+    font-weight: 500;
+}
+
+.login-btn {
+    width: 200px;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #FFB7CA;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    transition: .5s;
+}
+
+.login-btn:hover {
+    background-color: #8a7bfc;
+    color: #fff;
+}
+
+.login-info {
+    display: flex;
+    max-width: 340px;
+    width: 100%;
+    justify-content: space-between;
+    padding: .4rem 0 .8rem;
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+.save-id {
+    color: #9082fd;
+    padding-top: 2px;
+}
+
+.find-idpwd, 
+.find-idpwd button {
+    color: #8a8a8a;
+    padding: 0;
+}
+
+.find-idpwd button:hover,
+.save-id:hover  {
+    color: #7d6cfe;
+    font-weight: 600;
+}
+
+.panel-container {
+    position: absolute;
+    width: 65%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.panel {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 6rem 4% 2rem;
+}
+
+.panel .content {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    margin-bottom: 15px;
+    color: #7D6CFF;
+}
+
+.panel h3 {
+    margin-top: 1rem;
+    font-weight: 600;
+    line-height: 1;
+    font-size: 1.4rem;
+}
+
+.panel p {
+    font-size: 0.9rem;
+    padding: 0.7rem 0;
+}
+
+.btn.login-btn.transparent {
+    margin: 0;
+    width: 150px;
+    height: 40px;
+    font-size: 1.1rem;
+    color: #7D6CFF;
+    background: #F4F3FF;
+    border: 1px solid #7D6CFF;
+}
+
+.btn.login-btn.transparent:hover {
+    text-decoration: none;
+    font-weight: 600;
+    color: #fff;
+    background: #8a7bfe;
+    border: 1px solid #8a7bfe;
+}
+
+.image {
+    width: 100%;
+}
+
+.media-panel {
+    display: none;
+    text-align: center;
+    margin-top: 5px;
+    font-size: .9rem;
+    color: #8a8a8a;
+    font-weight: 500;
+}
+
+@media (max-width: 1000px){
+    .container{
+        min-height: 800px;
+        height: 100vh;
+    }
+
+    .panel-container {
+        display: none;
+    }
+
+    .signin {
+        width: 100%;
+        left: 50%;
+        top: 40%;
+    }
+
+    .media-panel {
+        display: block;
+    }
+
+    .media-panel a:hover {
+        font-weight: 600;
+        color: #7D6CFF;
+    }
+
+}

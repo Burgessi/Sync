@@ -1,0 +1,277 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.pro.sync</groupId>
+  <artifactId>Sync</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Sync Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+      <!-- 전자정부 표준 프레임웍 4.2.0의 기본버전-->
+      <org.springframework-version>5.3.27</org.springframework-version>
+      <!-- Spring AOP 관점지향프로그래밍-->
+      <org.aspectj-version>1.9.9.1</org.aspectj-version>
+      <!-- 로그처리 -->
+      <org.slf4j-version>2.0.7</org.slf4j-version>
+   </properties>
+  
+  <dependencies>
+     <!-- Spring 관련 core, MVC 개발에 필요한 라이브러리-->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context</artifactId>
+         <version>${org.springframework-version}</version>
+         <exclusions>
+            <!-- Exclude는 현재 artifactId에서 제외하기 위한 선언  -->
+            <exclusion>
+               <groupId>commons-logging</groupId>
+               <artifactId>commons-logging</artifactId>
+             </exclusion>
+         </exclusions>
+      </dependency>
+      <!-- Spring MVC 개발에 SteroType인 @Component @Controller @Service @Repository의 Annotation기능을 사용함-->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-webmvc</artifactId>
+         <version>${org.springframework-version}</version>
+      </dependency>
+      
+      <!-- 로그처리를 자동으로 처리해주는 라이브러리 log4.jar보다 향상된 기능-->
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-api</artifactId>
+         <version>${org.slf4j-version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>jcl-over-slf4j</artifactId>
+         <version>${org.slf4j-version}</version>
+         <scope>runtime</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-log4j12</artifactId>
+         <version>${org.slf4j-version}</version>
+         <scope>runtime</scope>
+      </dependency>
+      <dependency>
+         <groupId>log4j</groupId>
+         <artifactId>log4j</artifactId>
+         <version>1.2.15</version>
+         <exclusions>
+            <exclusion>
+               <groupId>javax.mail</groupId>
+               <artifactId>mail</artifactId>
+            </exclusion>
+            <exclusion>
+               <groupId>javax.jms</groupId>
+               <artifactId>jms</artifactId>
+            </exclusion>
+            <exclusion>
+               <groupId>com.sun.jdmk</groupId>
+               <artifactId>jmxtools</artifactId>
+            </exclusion>
+            <exclusion>
+               <groupId>com.sun.jmx</groupId>
+               <artifactId>jmxri</artifactId>
+            </exclusion>
+         </exclusions>
+         <scope>runtime</scope>
+      </dependency>
+      
+      <!-- 
+         @Inject 생성된 Bean을 주입하는 방식 중에 하나 java를 통해서 주입
+         타입기반의 주입 @Autowired
+         이름기반의 주입 @Rsource   
+      -->
+      <dependency>
+         <groupId>javax.inject</groupId>
+         <artifactId>javax.inject</artifactId>
+         <version>1</version>
+      </dependency>
+      
+      <!-- 
+         Servlet tomcatd이 가지고 있는 라이브러리 
+         tomcat 4.0 deployment descriptor
+         배포가 되면 tomcat에 배포하기 때문에 필요가 없음
+      -->
+      <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>servlet-api</artifactId>
+         <version>2.5</version>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>javax.servlet.jsp</groupId>
+         <artifactId>jsp-api</artifactId>
+         <version>2.1</version>
+         <scope>provided</scope>
+      </dependency>
+      
+      <!-- 
+         tomcat 4.0이면 jstl은 javax.servlet에 사용됨
+         tomcat 5.0~6.0이라면 jakarata로 변경되었기 때문에 새로운 JSTL사용함
+      -->
+      <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>jstl</artifactId>
+         <version>1.2</version>
+      </dependency>
+      
+      <!-- 
+         AspectJ 관점지향프로그래밍 개발자 주관심(DAO, Controller 등)
+         제외한 로그, Transaction, 예외처리를 자동으로 처리해주는 방법
+      -->
+      <dependency>
+         <groupId>org.aspectj</groupId>
+         <artifactId>aspectjrt</artifactId>
+         <version>${org.aspectj-version}</version>
+      </dependency>   
+      <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjweaver</artifactId>
+          <version>${org.aspectj-version}</version>
+      </dependency>
+      
+      <!-- JAVA의 문자열을 쉽게 처리할 수 있는 메소드를 제공해주는 라이브러리 -->
+      
+      <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-lang3</artifactId>
+          <version>3.12.0</version>
+      </dependency>
+      
+      <!-- TODO 014 오라클 접속 드라이버  -->
+      <dependency>
+          <groupId>com.oracle.database.jdbc</groupId>
+          <artifactId>ojdbc11</artifactId>
+          <version>23.3.0.23.09</version>
+      </dependency>
+
+      <!-- TODO 014 MyBatis 라이브러리 2.X, 3.X-->
+      <dependency>
+          <groupId>org.mybatis</groupId>
+          <artifactId>mybatis</artifactId>
+          <version>3.5.6</version>
+      </dependency>
+
+      <!-- TODO 014 DB접속정보 값인 properties파일을 Bean으로 생성하기 위한 라이브러리-->
+      <dependency>
+          <groupId>commons-dbcp</groupId>
+          <artifactId>commons-dbcp</artifactId>
+          <version>1.4</version>
+      </dependency>
+
+      
+      <!-- TODO 014 Spring에서 MyBatis를 Bean으로 사용하기 위한 라이브러리 -->
+      <dependency>
+          <groupId>org.mybatis</groupId>
+          <artifactId>mybatis-spring</artifactId>
+          <version>3.0.3</version>
+      </dependency>
+
+      
+      <!-- TODO 014 Spring에서 transaction을 처리 하기 위한 라이브러리-->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-orm</artifactId>
+         <version>${org.springframework-version}</version>
+      </dependency>
+      
+      
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-test</artifactId>
+         <version>${org.springframework-version}</version>
+         <scope>test</scope>
+      </dependency>
+      
+	<dependency>
+	    <groupId>com.googlecode.json-simple</groupId>
+	    <artifactId>json-simple</artifactId>
+	    <version>1.1.1</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>2.16.1</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.codehaus.jackson</groupId>
+	    <artifactId>jackson-core-asl</artifactId>
+	    <version>1.9.13</version>
+	</dependency>
+	
+	<!-- mail -->
+	<dependency>
+	    <groupId>javax.mail</groupId>
+	    <artifactId>mail</artifactId>
+	    <version>1.4.7</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId>
+	    <version>${org.springframework-version}</version>
+	</dependency>
+	
+	
+	<dependency>
+	    <groupId>commons-io</groupId>
+	    <artifactId>commons-io</artifactId>
+	    <version>2.11.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>commons-fileupload</groupId>
+	    <artifactId>commons-fileupload</artifactId>
+	    <version>1.5</version>
+	</dependency>
+	
+	<dependency>
+		    <groupId>javax.websocket</groupId>
+		    <artifactId>javax.websocket-api</artifactId>
+		    <version>1.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+
+
+      <!-- Test -->
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.12</version>
+         <scope>test</scope>
+      </dependency>   
+      
+      <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>1.18.32</version>
+      </dependency>
+     </dependencies>
+  <build>
+    <finalName>Sync</finalName>
+    <plugins>
+    	<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-compiler-plugin</artifactId>
+    		 <version>3.11.0</version>
+    		 <configuration>
+    		 	<source>17</source>
+    		 	<target>17</target>
+    		 </configuration>
+    	</plugin>
+    	<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-war-plugin</artifactId>
+    		 <version>3.3.2</version>
+    	</plugin>
+    </plugins>
+  </build>
+</project>

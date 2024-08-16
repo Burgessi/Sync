@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Passion+One:wght@400;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+body, input {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #fff;
+    overflow: hidden;
+    align-content: center;
+    margin: 80px auto;
+}
+
+.signup-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.title a {
+    font-size: 3.8rem;
+    color: #7D6CFF;
+    font-weight: 700;
+    font-family: 'Passion One', sans-serif;
+}
+
+.title a:hover {
+    color: #6753ff;
+}
+
+.sub-title {
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    color: #7D6CFF;
+    font-weight: 600;
+}
+
+.input-field {
+    min-width: 500px;
+    max-width: 800px;
+    width: 80%;
+    height: 60px;
+    background-color: #eae9fb;
+    margin: 10px 0;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 27% 73%;
+    padding: 0 .4rem;
+}
+
+.id-field {
+    grid-template-columns: 27% 48% 25%;
+}
+
+.id-field button {
+    margin: auto;
+}
+
+.email-field {
+    grid-template-columns: 27% 27% 46%;
+    grid-template-rows: 50% 50%;
+    height: 120px;
+}
+
+.usernum-field {
+    grid-template-columns: 27% 20% 10% 42%;
+}
+
+.address-field {
+    height: 240px;
+}
+
+.input-field label,
+.input-field span {
+    text-align: center;
+    line-height: 60px;
+    color: #8b7cfd;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.input-field span {
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+.input-field input, .input-field select {
+    background: none;
+    border: none;
+    height: 60px;
+    outline: none;
+    line-height: 1;
+    font-weight: 400;
+    font-size: 1rem;
+    color: black;
+}
+
+.input-field input[type=button] {
+    border: 1px solid #998cf8;
+    height: 32px;
+    width: 100px;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #7D6CFF;
+}
+
+.input-field input[type=button]:hover {
+    background-color: #d9d2ff
+}
+
+.input-field select {
+    margin: auto;
+    margin-left: 0;
+    height: 40px;
+}
+
+.input-field select:checked {
+    background: inherit;
+}
+
+.input-field input::placeholder {
+    color: #aaa;
+    font-weight: 400;
+}
+
+.btn {
+    width: 200px;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #8a7bfe;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 30px 0;
+    transition: .5s;
+}
+
+.btn:hover {
+    background-color: #7968fc;
+    color: #fff;
+}
+
+.input-btn {
+    border: 1.5px solid #a195fc;
+    background-color: #f0effb;
+    color: #7D6CFF;
+    height: 35px;
+    width: 90px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.input-btn:hover {
+    background-color: #e4e1ff;
+}
+
