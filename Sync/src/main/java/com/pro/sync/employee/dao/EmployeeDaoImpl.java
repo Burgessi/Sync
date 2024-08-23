@@ -25,9 +25,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
   
   	@Override
 	public int insertEmployee(EmployeeVo employeeVo) {
-		log.info("새로운 사원 등록");
-
-		return session.insert(NS + "insertEmployee", employeeVo);
+		return sessionTemplate.insert(NS + "insertEmployee", employeeVo);
 	}
 
 }
