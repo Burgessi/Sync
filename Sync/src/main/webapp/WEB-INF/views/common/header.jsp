@@ -108,10 +108,10 @@
               <h6 class="dropdown-header" style="margin-left: -15px">${loginDto.emp_name }님 환영합니다!</h6>
             </li>
             <li>
-              <a class="dropdown-item" href="./mypage.do" ><img src="./resources/img/mypage.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-person me-2"></i>마이페이지</a>
+              <a class="dropdown-item" href="${root}/mypage.do" ><img src="${root}/resources/img/mypage.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-person me-2"></i>마이페이지</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#"><img src="./resources/img/document.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-gear me-2"></i>내 결재문서</a>
+              <a class="dropdown-item" href="#"><img src="${root}/resources/img/document.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-gear me-2"></i>내 결재문서</a>
             </li>
             <c:if test="${loginMember.opLevel eq 2}">
 	            <li>
