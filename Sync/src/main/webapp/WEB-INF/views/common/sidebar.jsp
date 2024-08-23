@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <c:set var="root" value="${pageContext.request.contextPath}" />
 
 <!-- datepicker -->
@@ -19,9 +20,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${root}/resources/css/common/bootstrap.css">
+
 <link rel="stylesheet" href="${root}/resources/vendors/perfect-scrollbar/perfect-scrollbar.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="${root}/resources/css/sidebar.css">
+
 
 
 <!-- jstree -->
@@ -37,9 +40,10 @@
     <div class="sidebar-wrapper active">
          <div class="sidebar-header">
             <div class="d-flex justify-content-between">
-         
-                  <div class="logo">
-                  <h3>SYNC</h3>
+
+                <div class="logo">
+                    <h3>SYNC</h3>
+
                 </div>         
             </div>
             
@@ -64,6 +68,7 @@
         </div>
         <div class="sidebar-menu">
             <ul class="menu mt-1" style="padding-left: 25px">
+
                 
                 <li class="sidebar-item has-sub">
                     <a href="#" class='sidebar-link'>
@@ -85,12 +90,9 @@
                     </a>
                     <ul class="submenu" id="calendar">
                         <li class="submenu-item" id="calendar">
-
                             <a href="${root}/plan/calendar.do">사내 일정</a>
-
-							<a href="${root}/plan/calendar">일정</a>
-						</li>
-                        
+							              <a href="${root}/plan/calendar">일정</a>
+                      </li>                   
                     </ul>
                 </li> 
                                 

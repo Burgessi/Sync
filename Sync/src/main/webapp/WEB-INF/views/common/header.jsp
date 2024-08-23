@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <link rel="stylesheet" href="${root}/resources/vendors/bootstrap-icons/bootstrap-icons.css" />
 <link rel="stylesheet" href="${root}/resources/css/common/app.css"/>
 
@@ -16,6 +16,7 @@
 
 <%@ include file="/WEB-INF/views/common/toastify.jsp" %>
     
+
 <header style="width: 100%">
   <nav class="navbar navbar-expand navbar-light navbar-top" style="padding-left: 0; padding-right: 5px;">
     <div class="container-fluid p-0" >
@@ -110,13 +111,15 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton" style="min-width: 10.5rem;" data-ps-popper="static" >
             <li>
-              <h6 class="dropdown-header" style="margin-left: -15px">홍길동님 환영합니다!</h6> <!-- 여기에 홍길동 지우고 사원이름 넣으세요 -->
+
+              <h6 class="dropdown-header" style="margin-left: -15px">${loginDto.emp_name }님 환영합니다!</h6>
             </li>
             <li>
-              <a class="dropdown-item" href="${root}/mypage" ><img src="${root}/resources/img/mypage.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-person me-2"></i>마이페이지</a>
+              <a class="dropdown-item" href="./mypage.do" ><img src="./resources/img/mypage.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-person me-2"></i>마이페이지</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#"><img src="${root}/resources/img/document.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-gear me-2"></i>내 결재문서</a>
+              <a class="dropdown-item" href="#"><img src="./resources/img/document.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-gear me-2"></i>내 결재문서</a>
+
             </li>
             <c:if test="${loginMember.opLevel eq 2}">
 	            <li>
@@ -127,7 +130,7 @@
               <hr class="dropdown-divider" />
             </li>
             <li>
-              <a class="dropdown-item" href="${root}/logout"><img src="${root}/resources/img/logout.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-box-arrow-left me-2"></i> 로그아웃</a>
+              <a class="dropdown-item" href="./"><img src="./resources/img/logout.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-box-arrow-left me-2"></i> 로그아웃</a>
             </li>
           </ul>
         </div>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pro.sync.mypage.dao.MypageDaoImpl">
+
+	<!-- 사용한 연차 갯수 구하기 -->
+	<select id="getUsedOff" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(oh.OFF_HISTORY_ID) 
+			FROM EMPLOYEE e 
+			JOIN OFF_HISTORY oh ON e.EMP_ID = oh.EMP_ID 
+			WHERE e.EMP_ID =#{emp_id}
+	</select>
+	
+	<!-- 특정 사원의 연차이력 -->
+	<select id="getOffHistory" parameterType="java.lang.String" resultType="OffVo">
+		SELECT OFF_HISTORY_ID, OFF_DATE, OFF_REASON ,oh.EMP_ID 
+			FROM OFF_HISTORY oh 
+			JOIN EMPLOYEE e ON e.EMP_ID = oh.EMP_ID 
+			WHERE oh.EMP_ID = #{emp_id}
+	</select>
+	
+	<!-- 개인정보 수정 -->
+	<update id="updateMyInfo" parameterType="java.util.Map">
+		UPDATE EMPLOYEE 
+			SET EMP_EMAIL = #{emp_email}, EMP_PHONE = #{emp_phone},
+				ADDR1 = #{addr1}, ADDR2 = #{addr2}
+			WHERE EMP_ID = #{emp_id}
+	</update>
+	
+</mapper>
