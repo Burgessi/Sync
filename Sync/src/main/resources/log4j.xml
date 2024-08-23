@@ -11,14 +11,14 @@
 		</layout>
 	</appender>
 	
-	<appender name="RollingAppender" class="org.apache.log4j.DailyRollingFileAppender">
-       <param name="File" value="./log/spring.log" />
-       <param name="DatePattern" value="'.'yyyy-MM-dd" />
-       <param name="Append" value="true"/>
-       <layout class="org.apache.log4j.PatternLayout">
-          <param name="ConversionPattern" value="[%p] %d %c %M - %m%n" />          
-       </layout>
-    </appender>
+<!-- 	<appender name="RollingAppender" class="org.apache.log4j.DailyRollingFileAppender"> -->
+<!--        <param name="File" value="./log/spring.log" /> -->
+<!--        <param name="DatePattern" value="'.'yyyy-MM-dd" /> -->
+<!--        <param name="Append" value="true"/> -->
+<!--        <layout class="org.apache.log4j.PatternLayout"> -->
+<!--           <param name="ConversionPattern" value="[%p] %d %c %M - %m%n" />           -->
+<!--        </layout> -->
+<!--     </appender> -->
 	
 	<!-- Application Loggers -->
 	<logger name="com.min.edu">
@@ -63,7 +63,7 @@
 	<root>
 		<priority value="trace" />
 		<appender-ref ref="console" />
-		<appender-ref ref="RollingAppender" />
+<!-- 		<appender-ref ref="RollingAppender" /> -->
 	</root>
 	
 </log4j:configuration>

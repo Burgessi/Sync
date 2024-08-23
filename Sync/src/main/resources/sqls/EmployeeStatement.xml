@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pro.sync.employee.dao.EmployeeDaoImpl">
+
+	<select id="getAllEmployee" resultType="EmployeeVo">
+			SELECT *
+				FROM EMPLOYEE JOIN TEAM  
+				ON EMPLOYEE.TEAM_CODE = TEAM.TEAM_CODE 
+				JOIN "RANK" r 
+				ON EMPLOYEE.RANK_ID = r.RANK_ID
+	</select>
+
+
+</mapper>

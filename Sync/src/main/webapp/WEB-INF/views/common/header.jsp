@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <link rel="stylesheet" href="${root}/resources/vendors/bootstrap-icons/bootstrap-icons.css" />
-<link rel="stylesheet" href="${root}/resources/css/common/app.css" />
+<link rel="stylesheet" href="${root}/resources/css/common/app.css"/>
 
 <style>
   #main {
@@ -10,11 +10,11 @@
   .ch{
   	width: 25px;
   	height: 25px; 	
+  	margin-top: 25%
   }
 </style>
 
 <%@ include file="/WEB-INF/views/common/toastify.jsp" %>
-    
     
 
 <header style="width: 100%">
@@ -40,7 +40,7 @@
           <li class="nav-item dropdown me-3">
           	<a class="nav-link" style="margin-right: -12px;" href="">
 	          	<i>
-	          		<img alt="채팅" src="./resources/img/chat.png" class="ch">
+	          		<img alt="채팅" src="${root}/resources/img/chat.png" class="ch">
 	          	</i>
           	</a>
           </li>
@@ -111,6 +111,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton" style="min-width: 10.5rem;" data-ps-popper="static" >
             <li>
+
               <h6 class="dropdown-header" style="margin-left: -15px">${loginDto.emp_name }님 환영합니다!</h6>
             </li>
             <li>
@@ -118,6 +119,7 @@
             </li>
             <li>
               <a class="dropdown-item" href="#"><img src="./resources/img/document.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-gear me-2"></i>내 결재문서</a>
+
             </li>
             <c:if test="${loginMember.opLevel eq 2}">
 	            <li>

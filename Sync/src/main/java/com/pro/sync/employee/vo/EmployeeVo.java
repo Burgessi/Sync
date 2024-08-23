@@ -1,6 +1,9 @@
 package com.pro.sync.employee.vo;
 
-import java.util.Date;
+
+import com.pro.sync.division.vo.DivisionVo;
+import com.pro.sync.team.vo.TeamVo;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,12 +29,14 @@ public class EmployeeVo {
 	private String emp_phone;
 	private String addr1;
 	private String addr2;
-	private Date emp_hire_date;
+	private String emp_hire_date;
+
 	private String emp_status;
 	private String emp_profile_pic;
 	private String team_code;
 	private String rank_id;
 	private String authority;
+
 	private String emp_lead;
 	private String emp_signature;
 	private int total_off;
@@ -45,5 +50,13 @@ public class EmployeeVo {
 	private String relation_to_emp;
 	
 	private int used_off;
+
+	
+
+	private TeamVo teamVo;
+	
+	private DivisionVo divisionVo;
+	
+
 	
 }

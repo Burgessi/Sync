@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
-	<typeAliases>
+
+  
+<typeAliases>
 		<typeAlias type="com.pro.sync.employee.vo.EmployeeVo" alias="EmployeeVo"/>
-		<typeAlias type="com.pro.sync.off.vo.OffVo" alias="OffVo"/>
+    <typeAlias type="com.pro.sync.off.vo.OffVo" alias="OffVo"/>
+		<typeAlias type="com.pro.sync.team.vo.TeamVo" alias="TeamVo"/>
+		<typeAlias type="com.pro.sync.division.vo.DivisionVo" alias="DivisionVo"/>
+		<typeAlias type="com.pro.sync.approval.vo.ApprovalVo" alias="ApprovalVo"/>
+    <typeAlias type="com.pro.sync.plan.vo.ScheduleVo" alias="ScheduleVo"/>
+		<typeAlias type="com.pro.sync.notice.vo.NoticeVo" alias="NoticeVo"/>
 	</typeAliases>
-
-<mappers>
-	<mapper resource="sqls/Login_Statement.xml"/>
-	<mapper resource="sqls/Mypage_Statement.xml"/>
-</mappers>
-
+	
+	<mappers>
+		<mapper resource="sqls/DivisionStatement.xml"/>
+		<mapper resource="sqls/EmployeeStatement.xml"/>
+		<mapper resource="sqls/TeamStatement.xml"/>
+		<mapper resource="sqls/ApprovalStatement.xml"/>
+    <mapper resource="sqls/Schedule.xml"/>
+    <mapper resource="sqls/Notice.xml"/>
+    <mapper resource="sqls/Login_Statement.xml"/>
+	  <mapper resource="sqls/Mypage_Statement.xml"/>
+	</mappers>
 
 
 </configuration>
+
