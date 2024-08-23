@@ -12,7 +12,6 @@
   	height: 25px; 	
 
   	margin-top: 25%
-
   }
 </style>
 

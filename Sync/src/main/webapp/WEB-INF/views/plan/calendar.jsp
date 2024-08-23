@@ -7,7 +7,6 @@
 <meta charset='utf-8' />
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/main.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="${root}/fullcalendar/cal.css" />
 <style>
 
@@ -96,6 +95,7 @@
 </style>
 </head>
 <body>
+
 	
 	<div id="app">
 		 <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>	
@@ -254,20 +254,13 @@
  </form>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.10/index.global.min.js"></script>
 <script type="text/javascript" src="./fullcalendar/packages/core/locales/ko.global.min.js"></script>
 <script>
 
-
-toastr.options.escapeHtml = true;
-toastr.options.closeButton = true;
-toastr.options.newestOnTop = false;
-toastr.options.progressBar = true;
-toastr.options.positionClass = 'toast-top-center';
 
 var calendar;
 
