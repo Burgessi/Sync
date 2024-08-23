@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
-<c:set var="root" value="${pageContext.request.contextPath}" />
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
-
 <c:set var="root" value="${pageContext.request.contextPath}" />
 
 <!-- datepicker -->
@@ -28,7 +21,6 @@
 <link rel="stylesheet" href="${root}/resources/css/sidebar.css">
 
 
-
 <!-- jstree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
@@ -36,7 +28,6 @@
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Passion+One:wght@400;700&display=swap");
-
 </style>
 
 <div id="sidebar" class="active">
@@ -73,12 +64,7 @@
         </div>
         <div class="sidebar-menu">
             <ul class="menu mt-1" style="padding-left: 25px">
-
                 
-                
-
-                 <li class="sidebar-item has-sub">
-
                 <li class="sidebar-item" id="address">
                     <a href="${root}/address/1" class='sidebar-link'>
                         <i class="bi bi-person-square"></i>
