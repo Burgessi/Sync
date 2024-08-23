@@ -33,10 +33,10 @@ window.addEventListener('resize', (event) => {
 document.querySelector('.burger-btn').addEventListener('click', () => {
     document.getElementById('sidebar').classList.toggle('active');
 })
-document.querySelector('.sidebar-hide').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.toggle('active');
-
-})
+//document.querySelector('.sidebar-hide').addEventListener('click', () => {
+//    document.getElementById('sidebar').classList.toggle('active');
+//
+//})
 
 
 // Perfect Scrollbar Init

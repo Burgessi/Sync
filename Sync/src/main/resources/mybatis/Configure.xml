@@ -2,9 +2,14 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
+	<typeAliases>
+		<typeAlias type="com.pro.sync.plan.vo.ScheduleVo" alias="ScheduleVo"/>
+		<typeAlias type="com.pro.sync.notice.vo.NoticeVo" alias="NoticeVo"/>
+	</typeAliases>
 
-
-
-
+	<mappers>
+        <mapper resource="sql/Schedule.xml"/>
+        <mapper resource="sql/Notice.xml"/>
+    </mappers>
 
 </configuration>
