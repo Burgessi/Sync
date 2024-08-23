@@ -6,7 +6,9 @@
 	<display-name>Web Application</display-name>
 	
 	<welcome-file-list>
+
 		<welcome-file>/WEB-INF/views/approval/home.jsp</welcome-file>
+
 	</welcome-file-list>
 	
 	

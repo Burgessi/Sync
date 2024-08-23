@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<c:set var="root" value="${pageContext.request.contextPath}" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+
 <c:set var="root" value="${pageContext.request.contextPath}" />
 
 <!-- datepicker -->
@@ -11,6 +18,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/i18n/jquery.ui.datepicker-ko.min.js"></script>
 
 
+
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${root}/resources/css/common/bootstrap.css">
@@ -19,9 +27,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="${root}/resources/css/sidebar.css">
 
+
+
 <!-- jstree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Passion+One:wght@400;700&display=swap");
@@ -32,8 +43,12 @@
     <div class="sidebar-wrapper active">
          <div class="sidebar-header">
             <div class="d-flex justify-content-between">
-                <div class="logo">
+         
+                   <div class="logo">
+                  <h3>SYNC</h3>
+
                     <h3>FOR-WORKS</h3>
+
                 </div>         
             </div>
             
@@ -61,6 +76,9 @@
 
                 
                 
+
+                 <li class="sidebar-item has-sub">
+
                 <li class="sidebar-item" id="address">
                     <a href="${root}/address/1" class='sidebar-link'>
                         <i class="bi bi-person-square"></i>
@@ -174,48 +192,51 @@
                     
                 </li>
                       <li class="sidebar-item has-sub">
+
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-card-checklist"></i>
                         <span>일정관리</span>
                     </a>
                     <ul class="submenu" id="calendar">
                         <li class="submenu-item" id="calendar">
+
+                            <a href="${root}/plan/calendar.do">사내 일정</a>
+
                             <a href="${root}/plan/calendar">일정</a>
                         </li>
-                        <li class="submenu-item" id="todo">
-                            <a href="${root}/todo/newTodo">해야할일</a>
-                        </li>
+                        
                     </ul>
                 </li> 
                 
+
+                
+                <!-- 게시판 -->
                <li class="sidebar-item has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-pencil-square"></i>
-                        <span>게시판관리</span>
+                        <span>게시판</span>
                     </a>
                     <ul class="submenu" id="doc-part">
                         <li class="submenu-item" id="doc-list">
-                            <a href="${root}/notice/list">공지사항</a>
+                            <a href="${root}/board/userBoard.do">자유게시판</a>
                         </li>
                         <li class="submenu-item" id="doc-list">
-                            <a href="${root}/community/list/1">커뮤니티</a>
+                            <a href="${root}/notice/noticeBoard.do">공지게시판</a>
                         </li>
                     </ul>
                 </li>
-
-                <li class="sidebar-item has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-inbox"></i>
-                        <span>투표/설문관리</span>
+                
+                <!-- 시설예약  -->
+                <li class="sidebar-item">
+                    <a href="${root}/noBoard/noticeBoard.do" class='sidebar-link'>
+                        <i class="bi bi-card-checklist"></i>
+                        <span>시설예약</span>
                     </a>
-                    <ul class="submenu" id="doc-part">
-                        <li class="submenu-item" id="doc-list">
-                            <a href="${root}/vote/list/1">투표</a>
-                        </li>
-                        <li class="submenu-item" id="doc-list">
-                            <a href="${root}/QA/list/1">설문조사</a>
-                        </li>
-                    </ul>
+
+
+
+              
+
                 </li>
             </ul>
         </div>
