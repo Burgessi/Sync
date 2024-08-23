@@ -2,9 +2,13 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
+<typeAliases>
+	<typeAlias type="com.pro.sync.employee.vo.EmployeeVo" alias="EmployeeVo"/>
+</typeAliases>
 
-
-
+<mappers>
+	<mapper resource="sqls/EmployeeStatement.xml"/>
+</mappers>
 
 
 </configuration>

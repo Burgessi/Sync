@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+/* 컨테이너를 가운데 정렬 */
+.radio-group {
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+	gap: 20px; /* 버튼 간격 설정 */
+	margin-top: 0px;
+	margin-right: 20%;
+}
+
+/* 라디오 버튼과 레이블을 같은 라인에 배치 */
+.radio-item {
+	display: flex;
+	align-items: center;
+}
+
+/* 레이블의 여백 조정 */
+.radio-item label {
+	margin-left: 5px; /* 라디오 버튼과 레이블 사이의 간격 */
+}
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #343a40;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    th {
+        background-color: #f1f3f5;
+        text-align: left;
+    }
+
+    td input, td select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        background-color: #fff;
+        color: #495057;
+        box-sizing: border-box;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    td input:focus, td select:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.2);
+        outline: none;
+    }
+
+    .button-group {
+        margin-top: 20px;
+        text-align: right;
+    }
+
+    .button-group input[type="submit"], .button-group input[type="button"] {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        background-color: #007bff;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+
+    .button-group input[type="button"] {
+        background-color: #6c757d;
+    }
+
+    .button-group input[type="submit"]:hover, .button-group input[type="button"]:hover {
+        background-color: #0056b3;
+    }
+
+    .button-group input[type="button"]:hover {
+        background-color: #5a6268;
+    }
