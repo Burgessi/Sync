@@ -1,0 +1,507 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath}"/>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기안서 작성</title>
+<style type="text/css">
+	.highlight{
+		color: skyblue;
+	}
+</style>
+</head>
+<body>
+
+<form id="approvalForm" method="post">
+	<div id="app">
+     	<%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
+
+		<div id="main">
+        <%@ include file="/WEB-INF/views/common/header.jsp" %>
+		
+			<main>
+				
+				<div class="container">
+					
+					<div class="main-header">
+							<h4>기안서 작성</h4>
+					</div>		
+					
+					
+					<div class="card">
+								
+								
+						<div class="row">
+							
+							<!-- 메인 왼쪽 양식 검색 -->
+							<div class="col-md-3">
+								<div class="card-header">
+									<div class="approval-searchBox">
+										<span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="text-choco-700"><path d="M226.83,221.17l-52.7-52.7a84.1,84.1,0,1,0-5.66,5.66l52.7,52.7a4,4,0,0,0,5.66-5.66ZM36,112a76,76,0,1,1,76,76A76.08,76.08,0,0,1,36,112Z"></path></svg></span>
+										<input class="approval-input" type="text" style="border: none;" placeholder="양식명 검색">
+									</div>
+								</div>
+								
+								<div class="card-body">
+									<div class="approval-searchContent">
+										<ul style="padding: 0; margin: 0;">
+											<li class="search-list" id="list001">
+												<div class="search-div">
+													<p class="search-p">휴가신청서</p>
+												</div>
+											</li>
+											<li class="search-list" id="list002">
+												<div class="search-div">
+													<p class="search-p">보고서</p>
+												</div>
+											</li>
+											<li class="search-list" id="list003">
+												<div class="search-div">
+													<p class="search-p">지출결의서</p>
+												</div>
+											</li>
+											<li class="search-list" id="list004">
+												<div class="search-div">
+													<p class="search-p">휴가휴가휴가</p>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								
+							</div>
+							
+							
+							
+							<!-- 메인 오른쪽 content 영역 -->
+							<div class="col-md-9">
+								
+								
+								
+									<div class="card-header">
+										<div style="text-align: right;">
+											<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#approvalLineModal">결재선 지정</button>
+											<button type="button" class="btn btn-sm btn-info" onclick="temporarySave(event)">임시 저장</button>
+											<button type="button" class="btn btn-sm btn-secondary" onclick="approvalRequest(event)">결재 상신</button>
+										</div>		
+									</div>
+								
+									
+									<div class="card-body">
+									
+										<!-- 검색된 양식의 html 출력 -->
+										<div id="document-content"></div>
+										
+									</div>
+								
+							</div>
+						</div>
+						
+						
+						
+					</div>
+					
+		
+		
+				</div>			
+		
+			</main>
+		
+		</div>
+	  
+	</div>   
+        
+        
+        
+        
+     <!-- 결재선 지정 modal -->  
+        
+        <div class="modal fade" tabindex="-1" role="dialog" id="approvalLineModal">
+			 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				 <div class="modal-content rounded-4 shadow">
+						<div class="modal-header p-5 pb-4 border-bottom-0">
+							<h4 class="fw-bold mb-0 fs-4">결재선 지정</h4>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body p-5 pt-0">
+							<jsp:include page="./approvalTree.jsp"></jsp:include>
+						</div>
+				</div>
+			</div>
+		  </div>
+</form>
+        
+        
+        
+        
+    <%@ include file="/WEB-INF/views/common/footer.jsp" %>   
+
+</body>
+<script type="text/javascript">
+
+	var message = '${message}';
+	var details = '${details}';
+	if(message){
+		toastr.success(details, message);
+	}
+
+
+
+//임시저장버튼
+function temporarySave(event){
+	event.preventDefault();
+	
+	var line = $("#approvalLineForm");
+	var approval = $("#approvalForm");
+	
+	if(confirm('임시저장 하시겠습니까?')){
+		
+		if($("#content").val() == ""){
+			toastr.error("작성중인 내용이 없습니다.");
+		}
+		
+		
+		approval.attr('action','./approvalTemporarySave.do');
+		approval.submit();
+	}
+	
+	
+	
+	
+	
+}
+
+
+//결재상신버튼
+function approvalRequest(event){
+	event.preventDefault();
+	
+	console.log('결재상신');
+	
+	var line = $("#approvalLineForm");
+	var approval = $("#approvalForm");
+	
+	var startDate = $("#startDate").val();
+	var endDate = $("#endDate").val();
+	var content = $("#content").val();
+	
+	
+	if(confirm('결재를 요청합니다.')){
+		console.log('o');
+		
+		//유효성 검사
+		if(startDate == ""){
+			toastr.error("시작날짜를 입력해주세요.");
+			$("#startDate").focus();
+			return;
+		} else if(endDate == ""){
+			toastr.error("종료날짜를 입력해주세요.");
+			$("#endDate").focus();
+			return;
+		} else if(content == ""){
+			toastr.error("휴가사유를 입력해주세요.");
+			$("#content").focus();
+			return;
+		}
+		
+		
+		approval.attr('action','./approvalSubmit.do');
+		approval.submit();
+		
+	} else{
+		console.log('x');
+		return ;
+	}
+	
+}
+
+
+	
+	//jstree 및 form 요청 
+	var menu_json = null;
+
+
+	$(document).ready(function(){
+		
+		//페이지 로드시 바로 ajax요청 -> form 띄우기
+		$.ajax({
+			url:'./form.do',
+			type: 'get',
+			data: {id:'list001'},
+			success:function(data){
+				$("#document-content").html(data);
+				console.log('hie');
+			}
+		})
+			
+		
+		//선택한 form 열기
+		$(".search-list").click(function(event){
+			event.preventDefault();
+			
+			//선택된li의 id 탐색
+			var selected = $(this).attr("id");
+			//선택된div
+			var selectedDiv = $(this).children();
+			
+			$(".search-div").removeClass("search-div-selected");
+			selectedDiv.addClass("search-div-selected");
+			
+			$.ajax({
+				url: './form.do',
+				type: "get",
+				data: {id : selected},
+				success : function(data){
+					$("#document-content").html(data);
+				}
+				
+			})
+		});
+		
+		
+		//검색한 단어 찾기
+		$(".approval-input").on("input", function(){
+			
+			//input에 쓴 단어
+			var search = $(this).val();
+			
+			//list 탐색
+			$(".search-list").each(function(){
+			
+				var text = $(this).text();
+				//list의 text 가 input의 search와 같다면
+				if(text.indexOf(search) != -1){
+					$(this).show();
+				} else{
+					$(this).hide();
+				}
+				
+			});
+			
+		});
+		
+		
+		
+		
+			//조직도 jsTree
+			
+			// 서버에 데이터 요청
+			$.ajax({
+			   	type : "POST",
+			   	url : './approvalJstree.do',
+			   	success: function(data){
+				        menu_json = data;
+// 			   			console.log(menu_json);
+// 				        console.log('ooooooooo');
+				        CreateJSTrees();
+			    }
+			});
+			
+			
+			// 서버에서 가져온 데이터로 JSTree 만듦
+			function CreateJSTrees(){
+// 				console.log('22');
+// 				console.log(menu_json);
+				
+				$('#approvalLine').jstree({ 
+					  'core' : {
+					    'data' : menu_json,
+					    
+					    "check_callback" : true
+					
+					  },
+					  'checkbox' : {
+					        'three_state': false
+					    },
+					  "search": {
+					        "show_only_matches": true,
+					        "show_only_matches_children": true
+					   },
+					   "themes" : {
+				            "responsive": true
+				        },
+					  "plugins" : ["search", "checkbox"],
+					 
+					});
+			}
+			
+			
+			// 검색 상자
+			var to = false;
+			$('#treeSearchInput').keyup(function () {
+			    if(to) { clearTimeout(to); }
+			    to = setTimeout(function () {
+			        var v = $('#treeSearchInput').val();
+			        $('#approvalLine').jstree(true).search(v);
+			    }, 250);
+			});
+			
+			
+			
+			// 서버에 값 보낼때 필요하기 때문에 전역변수로
+			var selectedNodes = "";
+			
+			
+			// 체크박스 선택 값 담기 -> 체크 변할때마다
+			// 결재선이 선택될때마다 변경 이벤트
+			 $('#approvalLine').on("changed.jstree", function (e, data) {
+//		 		 console.log($('#tree').jstree("get_selected", true));
+//		 		 console.log($('#tree').jstree("get_checked", true));
+				 
+				 //현재 선택된 모든 노드
+		         selectedNodes = $('#approvalLine').jstree("get_selected", true);
+				 console.log(selectedNodes);
+				 
+				 let rowCount = $("#approvalTable>tbody>tr").length;
+				 let addCount = 3-rowCount; //추가가능한 행의 수
+				 
+				 
+				 //선택된 노드 개수 제한하기 최대 3개만 가능
+				 if(selectedNodes.length > 3){
+					 $('#approvalLine').jstree(true).deselect_node(data.node);
+					 toastr.info("3명만 선택 가능합니다.");
+					 //error , success 
+				 }
+				 
+			 }); 
+			
+			
+			
+			
+			
+			var lineIdx = 1;
+			
+			//결재선 추가 버튼
+			$("#addLine").on("click", function(){
+				
+				let currentRowCount01 = $("#approvalTable>tbody>tr").length;
+				let maxRow = 3 - currentRowCount01; //추가가능한 행의 수
+				
+				//선택노드 갯수 vs 추가가능한 row 중 작은 것 선택
+				let rowsToAdd = Math.min(selectedNodes.length, maxRow);
+				
+				if (rowsToAdd <= 0) {
+			        toastr.info("추가할 수 있는 결재선이 없습니다.");
+			        $('#approvalLine').jstree("deselect_all");
+			        return false;
+			    }
+				
+				console.log(lineIdx);
+				
+// 				// 결재선 3명만 선택가능
+// 				if(currentRowCount01 >= 3){
+// 					toastr.info("최대 3명까지 추가할 수 있습니다.");
+// 					return;
+// 				}
+				
+// 				let addRow = Math.min(selectedNodes.length, maxRow);
+				 
+				// 선택한 row append	
+				for(let i=0; i<rowsToAdd; i++){
+					console.log(lineIdx);
+					 var appendRow = '<tr>' +
+					                    '<td>' + lineIdx + '</td>' +
+					                    '<td>' + selectedNodes[i].text + '</td>' +
+					                    '<td>' + selectedNodes[i].original.rank + '</td>' +
+					                    '<td style="width: 125px;">' + selectedNodes[i].original.team + '</td>' +
+					                    '<td>' +
+			                                '<input type="button" class="removeLineBtn">' +
+			                                '<input type="hidden" name="approvalLine' + lineIdx+1 + '" value="' + selectedNodes[i].id + '">' +
+		                            	'</td>' +
+					                 '</tr>';
+					 $("#approvalTable>tbody").append(appendRow);
+					 
+				 }
+				 
+				console.log(lineIdx);
+				lineIdx++;
+				 
+				 //jstree 선택 없애기.
+				 $('#approvalLine').jstree("deselect_all");
+				 
+				 //인덱스 갱신
+				 updateRowIndices();
+				 
+			});
+			
+			
+			//결재선 취소 버튼
+			$("#removeLine").on("click", function(){
+				$("#approvalTable>tbody").html("");
+				//인덱스 초기화
+				lineIdx = 1;
+				$('#approvalLine').jstree("deselect_all");
+			});
+			
+			//각 사원 정보 옆 x 버튼
+			$(document).on("click", ".removeLineBtn", function(){
+				$(this).closest("tr").remove();
+				//인덱스 갱신
+				updateRowIndices();
+// 				lineIndex = $(this).find("td:").text
+			})
+			
+			//행 index 재설정.
+			function updateRowIndices() {
+				let index = 1;
+			    $("#approvalTable>tbody>tr").each(function() {
+			        $(this).find("td:first").text(index);
+			        $(this).find("input[type='hidden']").attr("name", "approvalLine" + index); // name 속성 업데이트
+			        index++;
+			    });
+			    lineIdx = index;
+			    
+			}
+			
+			
+			
+			
+			
+			//참조 추가
+			$("#addReferrer").on("click", function(){
+				
+				let currentRowCount02 = $("#referrerTable>tbody>tr").length;
+				let maxRowCount = 5;
+				
+				let rowsToAdd = Math.min(selectedNodes.length, maxRowCount - currentRowCount02);
+				
+				if(rowsToAdd <=0){
+					toastr.info("최대 5명까지 추가 가능합니다.");
+					$('#approvalLine').jstree("deselect_all");
+					return false;
+				}
+				
+				for(let i=0; i<rowsToAdd; i++){
+					 var appendRow = '<tr>' +
+					                    '<td>' + selectedNodes[i].text + '</td>' +
+					                    '<td>' + selectedNodes[i].original.rank + '</td>' +
+					                    '<td style="width: 125px;">' + selectedNodes[i].original.team + '</td>' +
+					                    '<td style="width: 35px;">' +
+			                                '<input type="button" class="removeLineBtn">' +
+			                                '<input type="hidden" name="referrer" value="' + selectedNodes[i].id + '">' +
+		                            	'</td>' +
+					                 '</tr>';
+					 $("#referrerTable>tbody").append(appendRow);
+					 
+				 }
+				
+				$('#approvalLine').jstree("deselect_all");
+			});
+			
+			
+			//참조 취소 버튼
+			$("#removeReferrer").on("click", function(){
+				$("#referrerTable>tbody").html("");
+				$('#approvalLine').jstree("deselect_all");
+			});
+			
+			
+		
+		
+	})
+</script>
+</html>
