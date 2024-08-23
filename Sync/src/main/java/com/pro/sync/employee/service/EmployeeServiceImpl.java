@@ -21,9 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
   
   	@Override
-	public int insertEmployee(EmployeeVo employeeVo) {
-		log.info("EmployeeServiceImpl {}", "insertEmployee");
-		
+	public int insertEmployee(EmployeeVo employeeVo) {	
 		return dao.insertEmployee(employeeVo); 
 	}
 
