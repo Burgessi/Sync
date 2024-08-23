@@ -19,5 +19,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<EmployeeVo> getAllEmployee() {
 		return dao.getAllEmployee();
 	}
+  
+  	@Override
+	public int insertEmployee(EmployeeVo employeeVo) {
+		log.info("EmployeeServiceImpl {}", "insertEmployee");
+		
+		return dao.insertEmployee(employeeVo); 
+	}
 
 }
+
