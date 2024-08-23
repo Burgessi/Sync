@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+	<typeAliases>
+		<typeAlias type="com.pro.sync.employee.vo.EmployeeVo" alias="EmployeeVo"/>
+		<typeAlias type="com.pro.sync.off.vo.OffVo" alias="OffVo"/>
+	</typeAliases>
 
-
-
+<mappers>
+	<mapper resource="sqls/Login_Statement.xml"/>
+	<mapper resource="sqls/Mypage_Statement.xml"/>
+</mappers>
 
 
 
