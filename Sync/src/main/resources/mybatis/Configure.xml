@@ -15,8 +15,8 @@
 		<mapper resource="sqls/EmployeeStatement.xml"/>
 		<mapper resource="sqls/TeamStatement.xml"/>
 		<mapper resource="sqls/ApprovalStatement.xml"/>
-    <mapper resource="sql/Schedule.xml"/>
-    <mapper resource="sql/Notice.xml"/>
+    	<mapper resource="sqls/Schedule.xml"/>
+    	<mapper resource="sqls/Notice.xml"/>
 	</mappers>
 
 </configuration>
