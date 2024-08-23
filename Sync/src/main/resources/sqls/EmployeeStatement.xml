@@ -23,7 +23,7 @@
 	</insert>
 
 	<!-- 사원 전체 조회 -->
-	<select id="employeeSelectAll" resultType="EmployeeVo">
+	<select id="getAllEmployee" resultType="EmployeeVo">
 		SELECT e.EMP_ID AS
 		emp_id,
 		e.EMP_NAME AS emp_name,
@@ -59,3 +59,4 @@
 		WHERE e.EMP_ID =#{emp_id}
 	</select>
 </mapper>
+

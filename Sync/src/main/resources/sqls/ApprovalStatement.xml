@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pro.sync.approval.dao.ApprovalDaoImpl">
+
+<!-- <selectKey order="BEFORE" keyProperty="approvalId"> -->
+<!-- 			SELECT TO_CHAR(CURRENT_DATE,'YYYYMMDD') || LPAD(COALESCE(SUBSTR(MAX(APPROVAL_ID),-3),'0') + 1,3,'0')  -->
+<!-- 			FROM APPROVAL -->
+<!-- 		</selectKey> -->
+	
+				
+
+	<!-- 결재 요청-->
+	<insert id="requestApproval">
+		<selectKey keyProperty="approval_id" resultType="String" order="BEFORE">
+			SELECT TO_CHAR(CURRENT_DATE,'YYYYMMDD') || LPAD(COALESCE(SUBSTR(MAX(APPROVAL_ID),-3),'0') + 1,3,'0') 
+					FROM APPROVAL
+		</selectKey>
+		INSERT INTO APPROVAL
+					(APPROVAL_ID, DOCUMENT_TYPE, APPROVAL_CONTENT, 
+					TEMP_SAVE_FLAG, DELETE_FLAG, REQUESTER_ID, 
+					REQUEST_DATE)
+			VALUES( #{approval_id}, #{document_type}, #{approval_content}, 
+						'N'	, 'N'	, #{requester_id}, 
+						CURRENT_DATE)
+	</insert>
+	
+	
+	
+	<!-- 결재라인 저장 -->
+<!-- 	<insert id="insertApprovalLines" parameterType="list"> -->
+<!-- 			INSERT INTO APPROVAL_LINE -->
+<!-- 						(APPROVAL_LINE_ID, APPROVAL_ID, RECIPIENT_ID,  -->
+<!-- 							RECIPIENT_TYPE, STATUS,STEP) -->
+<!-- 			<foreach collection="list" item="line" separator=" UNION ALL ">			 -->
+<!-- 			SELECT (SELECT COALESCE(MAX(APPROVAL_LINE_ID),0) + 1 -->
+<!-- 					FROM APPROVAL_LINE) , -->
+<!-- 					#{line.approval_id},  -->
+<!-- 					#{line.recipient_id}, -->
+<!-- 					#{line.recipient_type}, -->
+<!-- 					0, -->
+<!-- 					<choose> -->
+<!-- 						<when test="line.step == 1 or line.step == 2 or line.step == 3"> -->
+<!-- 							${line.step} -->
+<!-- 						</when> -->
+<!-- 						<otherwise> -->
+<!-- 							0 -->
+<!-- 						</otherwise> -->
+<!-- 					</choose> -->
+<!-- 					) -->
+<!-- 					FROM DUAL -->
+<!-- 			</foreach>	 -->
+			
+<!-- 		</insert> -->
+			
+			<insert id="insertApprovalLines" parameterType="list">
+					INSERT INTO APPROVAL_LINE
+						(APPROVAL_LINE_ID, APPROVAL_ID, RECIPIENT_ID, 
+							RECIPIENT_TYPE, STATUS,STEP)
+				<foreach collection="list" item="line" index="index" separator=" UNION ALL ">
+					SELECT 
+						(SELECT NVL(MAX(APPROVAL_LINE_ID), 0) + #{index} + 1
+							FROM APPROVAL_LINE),
+							#{line.approval_id}, 
+							#{line.recipient_id},
+							#{line.recipient_type},
+							0,
+							<choose>
+								<when test="line.step == 1 or line.step == 2 or line.step == 3">
+									${line.step}
+								</when>
+								<otherwise>
+									0
+								</otherwise>
+							</choose>
+							FROM DUAL
+				</foreach>
+			</insert>
+	
+	<!-- 임시 저장 -->
+	<insert id="tempSaveApproval">
+		INSERT INTO APPROVAL
+					(APPROVAL_ID, DOCUMENT_TYPE, APPROVAL_CONTENT, 
+					TEMP_SAVE_FLAG, DELETE_FLAG, REQUESTER_ID, 
+					REQUEST_DATE)
+			VALUES((SELECT TO_CHAR(CURRENT_DATE,'YYYYMMDD') || LPAD(COALESCE(SUBSTR(MAX(APPROVAL_ID),-3),'0') + 1,3,'0') 
+			FROM APPROVAL), #{document_type}, #{approval_content}, 
+						'Y'	, 'N'	, #{requester_id}, 
+						CURRENT_DATE)
+	</insert>
+
+	
+	
+
+</mapper>

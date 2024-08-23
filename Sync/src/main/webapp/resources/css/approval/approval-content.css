@@ -1,0 +1,143 @@
+
+	.jstree-checkbox {
+    display: none !important;
+	}
+	
+	.jstree-node .jstree-anchor {
+           font-size:0.7em; /* 원하는 글씨 크기로 변경 */
+     }	
+	
+	
+	.rightArrow{
+		background: url("../../img/approval_img/rightArrow.png");
+		background-repeat: no-repeat;
+		width: 52px;
+		height:52px;
+		border: none;
+	}
+	
+	.leftArrow{
+		background: url("../../img/approval_img/leftArrow.png");
+		background-repeat: no-repeat;
+		width: 52px;
+		height:52px;
+		border: none;
+	}
+	
+	.removeLineBtn{
+		background: url("../../img/approval_img/xIcon.png");
+		background-repeat: no-repeat;
+		width: 17px;
+		height: 17px;
+		border: none;
+	}
+	
+	
+/* 	Tree에서 사용  */
+	.approval-line-table{
+		font: 0.8em sans-serif; 
+		font-weight: bold;
+		text-align: center;
+		vertical-align: middle;
+	}
+
+	.approval-line-table>thead{
+		background: #F2F2F2;
+	}
+	
+	
+     
+	.approval-drafter-info{
+		width: 250px;
+	}
+	
+	.approval-table{
+		vertical-align: middle;
+	}
+	
+	.approval-searchBox{
+		width: 100%;
+	    border: 0.7px solid gainsboro;
+	    border-radius: 3px;
+	    padding: 5px;
+	    min-width: 250px;
+	    
+	    display: flex;
+	    align-items: center;
+	    box-sizing: border-box;
+	}
+	
+	.approval-searchContent{
+		width: 100%;
+	    border: 0.7px solid gainsboro;
+	    border-radius: 3px;
+	    padding: 5px;
+	    min-width: 250px;
+	    height: 600px;
+	}
+	.search-p{
+		margin: 0;
+		font: 0.8em sans-serif;
+		
+	}
+	.search-list{
+		list-style: none;
+	}
+	
+	.search-div{
+		padding: 10px;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	
+	.search-div:hover{
+		cursor: pointer;
+		background: #F2F2F2;
+		font-weight: bolder;
+		background-image: url("../../img/approval_img/write.png");
+		background-repeat: no-repeat;
+		background-position: center;
+		background-position: right;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	.search-div-selected{
+		cursor: pointer;
+		background: #F2F2F2;
+		font-weight: bolder;
+	}
+	
+	
+	#search-input{
+		width: 220px;
+		flex: 1;
+		border: none;
+		box-sizing: border-box;
+	}
+	
+	.approval-input{
+		margin-left: 10px;
+	    margin-right: 10px;
+		padding: 5px;
+		padding-left : 10px;
+	    border-radius: 8px;
+	    border: 1px solid #cccccc;
+	    font-size: 0.8em;
+	    width: 100%;
+	    
+	}
+	
+	.approval-input::placeholder{
+		color: #cccccc;
+		vertical-align: middle;
+		font-weight: 0.8em;
+	}
+	
+	
+	
+	
+	<!-- -->
+
+	

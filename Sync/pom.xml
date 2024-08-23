@@ -157,13 +157,12 @@
       </dependency>
 
       <!-- TODO 014 DB접속정보 값인 properties파일을 Bean으로 생성하기 위한 라이브러리-->
-      <dependency>
-          <groupId>commons-dbcp</groupId>
-          <artifactId>commons-dbcp</artifactId>
-          <version>1.4</version>
-      </dependency>
-
-      
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-dbcp2</artifactId>
+	    <version>2.9.0</version>
+	</dependency>
+    
       <!-- TODO 014 Spring에서 MyBatis를 Bean으로 사용하기 위한 라이브러리 -->
       <dependency>
           <groupId>org.mybatis</groupId>
@@ -204,6 +203,14 @@
 	    <artifactId>jackson-core-asl</artifactId>
 	    <version>1.9.13</version>
 	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+	<dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	    <version>2.8.9</version>
+	</dependency>
+
 	
 	<!-- mail -->
 	<dependency>
