@@ -78,7 +78,6 @@
 			          </div>
 			          <div class="page-content">
 			            <section class="section d-flex">
-			              <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
 			              <div class="card" style="width: 30%; min-width: 260px; height:500px; padding: 5px; overflow: auto">
 			                <div class="card-header mt-1">
 			                  <h4>메인 컨텐츠 영역1 - 출퇴근</h4>
@@ -97,7 +96,6 @@
 			              </div>
 			            </section>
 			            <section class="section d-flex">
-			              <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
 			              <div class="card" style="width: 50%; min-width: 500px; height:500px; padding: 5px; overflow: auto">
 			                <div class="card-header mt-1">
 			                  <h4>메인 컨텐츠 영역3 - 소속아티스트 음원 순위 현황(추이)</h4>
@@ -116,7 +114,6 @@
 			              </div>
 			            </section>
 			            <section class="section d-flex">
-			              <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
 			              <div class="card" style="width: 50%; min-width: 500px; height:500px;padding: 5px; overflow: auto">
 			                <div class="card-header mt-1">
 			                  <h4>메인 컨텐츠 영역5 - 공지사항</h4>
@@ -135,7 +132,6 @@
 			              </div>
 			            </section>
 			            <section class="section d-flex">
-			              <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
 			              <div class="card" style="width: 100%; min-width: 500px; padding: 5px; overflow: auto">
 			                <div class="card-header mt-1">
 			                  <h4>메인 컨텐츠 영역7 - 주가</h4>
