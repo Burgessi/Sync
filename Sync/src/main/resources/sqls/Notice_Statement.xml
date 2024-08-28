@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pro.sync.notice.mapper.NoticeDaoImpl">
+
+<select id="selectNotice" parameterType="map" resultType="NoticeVo">
+   SELECT * FROM (
+    SELECT 
+        n.NOTICE_SEQ, 
+        n.NOTICE_TITLE, 
+        DBMS_LOB.SUBSTR(n.NOTICE_CONTENT, 4000, 1) AS NOTICE_CONTENT,  
+        n.NOTICE_REGDATE, 
+        n.NOTICE_DELFLAG, 
+        n.NOTICE_PINBTN,
+        n.EMP_ID AS NOTICE_EMP,
+        e.EMP_NAME AS EMPLOYEE_NAME,
+        ROW_NUMBER() OVER (ORDER BY n.NOTICE_PINBTN DESC, n.NOTICE_SEQ DESC) AS RN
+    FROM NOTICE n
+    JOIN EMPLOYEE e ON n.EMP_ID = e.EMP_ID
+    WHERE n.NOTICE_DELFLAG = 'N'
+) WHERE RN BETWEEN #{startIndex} AND #{endIndex}
+</select>
+
+<select id="totalCount" resultType="Integer">
+SELECT COUNT(*)
+FROM NOTICE n 
+WHERE NOTICE_DELFLAG = 'N'
+</select>
+
+<delete id="deleteNotice">
+UPDATE NOTICE SET NOTICE_DELFLAG = 'Y'
+WHERE NOTICE_DELFLAG ='N'
+AND NOTICE_SEQ IN
+	<foreach collection="list" item="notice_seq" open="(" separator="," close=")">
+		#{notice_seq}
+	</foreach>
+</delete>
+
+<select id="detailNotice"  resultType="NoticeVo">
+SELECT n.NOTICE_SEQ, n.NOTICE_TITLE, n.NOTICE_CONTENT, 
+TO_CHAR(NOTICE_REGDATE, 'YYYY/MM/DD HH:mi:ss')NOTICE_REGDATE, 
+n.NOTICE_DELFLAG, n.NOTICE_PINBTN, n.EMP_ID, e.EMP_NAME AS EMPLOYEE_NAME
+FROM NOTICE n 
+JOIN EMPLOYEE e ON n.EMP_ID = e.EMP_ID
+WHERE NOTICE_SEQ = #{notice_seq}
+</select>
+
+<update id="modifyNotice">
+UPDATE NOTICE SET NOTICE_CONTENT = #{notice_content}, NOTICE_TITLE = #{notice_title}
+WHERE NOTICE_SEQ = #{notice_seq}
+</update>
+
+<select id="cntPin" resultType="integer">
+SELECT COUNT(*) FROM NOTICE WHERE NOTICE_PINBTN = 'Y'
+</select>
+
+<update id="noticePin">
+UPDATE NOTICE
+SET NOTICE_PINBTN = 'Y'
+WHERE NOTICE_SEQ IN
+	<foreach collection="list" item="notice_seq" open="(" close=")" separator=",">
+        #{notice_seq}
+    </foreach>
+</update>
+
+<update id="noticePinCancel">
+UPDATE NOTICE
+SET NOTICE_PINBTN = 'N'
+WHERE NOTICE_SEQ IN
+	<foreach collection="list" item="notice_seq" open="(" close=")" separator=",">
+        #{notice_seq}
+    </foreach>
+</update>
+
+<select id="searchNotice" resultType="NoticeVo">
+SELECT n.NOTICE_SEQ, n.NOTICE_TITLE, e.EMP_NAME AS EMPLOYEE_NAME
+FROM NOTICE n  
+JOIN EMPLOYEE e ON n.EMP_ID = e.EMP_ID
+WHERE  NOTICE_DELFLAG = 'N'
+	<choose>
+        <when test="opt == 'author'">
+            AND e.EMP_NAME LIKE '%' || #{keyword} || '%'
+        </when>
+        <otherwise>
+            AND n.NOTICE_TITLE LIKE '%' || #{keyword} || '%'
+        </otherwise>
+    </choose>
+</select>
+
+<insert id="insertNotice">
+	<selectKey order="BEFORE" resultType="Integer" keyProperty="notice_seq">
+		SELECT NVL(MAX(NOTICE_SEQ),0)+1 FROM NOTICE n
+	</selectKey>
+	INSERT INTO NOTICE
+	(
+	NOTICE_SEQ, 
+	NOTICE_TITLE, 
+	NOTICE_CONTENT, 
+	NOTICE_REGDATE, 
+	NOTICE_DELFLAG,
+	NOTICE_PINBTN, 
+	EMP_ID 
+	)VALUES(
+	#{notice_seq},
+	#{notice_title},
+	#{notice_content},
+	CURRENT_DATE,
+	'N',
+	'N',
+	#{emp_id})
+</insert>
+
+
+</mapper>

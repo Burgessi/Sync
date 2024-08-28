@@ -21,5 +21,10 @@ public class ApprovalLineVo {
 	private String recipient_type;
 	private int step;
 	private int status;
+	private String approval_date;
+	private String signature;
+	
+	private String recipient_name;
+	private String rank_name;
 
 }

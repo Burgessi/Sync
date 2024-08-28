@@ -22,4 +22,5 @@ public interface IScheduleDao {
 	//일정 수정
 	public boolean updateScd(Map<String, Object> map);
 	
+	
 }

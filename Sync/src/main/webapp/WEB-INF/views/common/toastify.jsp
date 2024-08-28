@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link rel="stylesheet" href="${root}/resources/css/toastify.css" />
@@ -22,8 +19,6 @@
 	toastr.options.positionClass = 'toast-top-center';
 </script>
 
-
-
 <style>
 	@keyframes toast-animation {
         0% {
@@ -33,7 +28,6 @@
           top: 20px;
         }
       }
-
 </style>
 <div
     id="toastify"

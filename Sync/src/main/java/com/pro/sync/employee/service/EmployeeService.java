@@ -8,4 +8,12 @@ public interface EmployeeService {
 
 	public List<EmployeeVo> getAllEmployee();
 	
+	public int insertEmployee(EmployeeVo employeeVo);
+	
+	public EmployeeVo employeeSelectDetail(String emp_id);
+	
+	public int updateEmployee(EmployeeVo employeeVo);
+	
+	public int deleteEmployee(String emp_id);
+	
 }

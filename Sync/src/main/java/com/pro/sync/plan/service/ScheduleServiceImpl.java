@@ -29,7 +29,7 @@ public class ScheduleServiceImpl implements IScheduleService {
 		log.info("전체 스케줄 보기");
 		return dao.selectScd();
 	}
-
+	
 	@Override
 	public ScheduleVo detailScd(int scd_no) {
 		log.info("일정 상세보기");

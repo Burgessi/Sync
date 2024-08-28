@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="root" value="${pageContext.request.contextPath}" />
+
 
 <!-- datepicker -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
@@ -25,7 +27,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="${root}/resources/css/sidebar.css">
 
-
+<!-- sign -->
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
 
 <!-- jstree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
@@ -40,10 +43,8 @@
     <div class="sidebar-wrapper active">
          <div class="sidebar-header">
             <div class="d-flex justify-content-between">
-
                 <div class="logo">
                     <h3>SYNC</h3>
-
                 </div>         
             </div>
             
@@ -68,8 +69,23 @@
         </div>
         <div class="sidebar-menu">
             <ul class="menu mt-1" style="padding-left: 25px">
+            
+            <!-- 인사 관리 -->
+            	    <li class="sidebar-item has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-card-checklist"></i>
+                        <span>인사관리</span>
+                    </a>
+                    <ul class="submenu" id="calendar">
+                        <li class="submenu-item" id="calendar">
+                            <a href="${root}/employeeSelectAll.do">사원 관리</a>	
+                            <a href="#">본부/팀 관리</a>						              
+                      	</li>                   
+                    </ul>
+                </li>
 
                 
+
                 <li class="sidebar-item has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-archive"></i>
@@ -77,7 +93,19 @@
                     </a>
                     <ul class="submenu" id="approv-part">
                         <li class="submenu-item" id="approv-main">
-                            <a href="${root}/approv/main">결재메인</a>
+                            <a href="${root}/approval/main.do">결재메인</a>
+                        </li>
+                        <li class="submenu-item" id="approv-main">
+                            <a href="${root}/approval/progress.do">기안문서함</a>
+                        </li>
+                        <li class="submenu-item" id="approv-main">
+                            <a href="${root}/approval/receive.do">수신문서함</a>
+                        </li>
+                        <li class="submenu-item" id="approv-main">
+                            <a href="${root}/approval/tempsave.do">임시저장함</a>
+                        </li>
+                         <li class="submenu-item" id="approv-main">
+                            <a href="${root}/approval/complete.do">완료문서함</a>
                         </li>
                     </ul>
                 </li>
@@ -94,8 +122,7 @@
 							              <a href="${root}/plan/calendar">일정</a>
                       </li>                   
                     </ul>
-                </li> 
-                                
+                </li>                   
                 <!-- 게시판 -->
                <li class="sidebar-item has-sub">
                     <a href="#" class='sidebar-link'>
@@ -104,14 +131,13 @@
                     </a>
                     <ul class="submenu" id="doc-part">
                         <li class="submenu-item" id="doc-list">
-                            <a href="${root}/board/userBoard.do">자유게시판</a>
-                        </li>
-                        <li class="submenu-item" id="doc-list">
                             <a href="${root}/notice/noticeBoard.do">공지게시판</a>
                         </li>
+                        <li class="submenu-item" id="doc-list">
+                            <a href="${root}/board/userBoard.do">자유게시판</a>
+                        </li>
                     </ul>
-                </li>
-                
+                </li>               
                 <!-- 시설예약  -->
                 <li class="sidebar-item">
                     <a href="${root}/noBoard/noticeBoard.do" class='sidebar-link'>
