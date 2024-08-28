@@ -1,6 +1,7 @@
 package com.pro.sync.approval.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,32 @@ public class ApprovalDaoImpl implements IApprovalDao{
 	public int tempSaveApproval(ApprovalVo vo) {
 		return sessionTemplate.insert(NS+"tempSaveApproval", vo);
 	}
+
+	@Override
+	public List<ApprovalVo> getApprovalsList(String employeeId) {
+		return sessionTemplate.selectList(NS+"getApprovalsList", employeeId);
+	}
+
+	@Override
+	public ApprovalVo getApprovalDetail(Map<String, String> info) {
+		return sessionTemplate.selectOne(NS+"getApprovalDetail", info);
+	}
+
+	@Override
+	public int updateApprovalFlag(Map<String, String> flag) {
+		return sessionTemplate.update(NS+"updateApprovalFlag", flag);
+	}
+
+	@Override
+	public int modifyApproval(Map<String, String> info) {
+		return sessionTemplate.update(NS+"modifyApproval", info);
+	}
+
+	@Override
+	public List<ApprovalVo> getAllReceivedApproval(String employeeId) {
+		return sessionTemplate.selectList(NS+"getAllReceivedApproval", employeeId);
+	}
+
 
 
 	

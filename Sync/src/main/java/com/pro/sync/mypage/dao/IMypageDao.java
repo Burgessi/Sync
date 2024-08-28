@@ -3,7 +3,7 @@ package com.pro.sync.mypage.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.pro.sync.off.vo.OffVo;
+import com.pro.sync.employee.vo.OffVo;
 
 public interface IMypageDao {
 

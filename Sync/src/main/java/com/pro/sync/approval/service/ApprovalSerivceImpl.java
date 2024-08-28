@@ -36,8 +36,10 @@ public class ApprovalSerivceImpl implements IApprovalService {
 		ApprovalLineVo approvalLineVo3 = new ApprovalLineVo();
 		
 		//결재 양식 
-		String title = inMap.remove("title"); //db에서 document_type
-		approval.setDocument_type(title);
+		String documentType = inMap.remove("documentType"); //db에서 document_type
+		approval.setDocument_type(documentType);
+		
+		approval.setApproval_title(inMap.remove("title"));
 		
 		//결재자 id 추출
 		approvalLineVo1.setRecipient_id(inMap.remove("approvalLine1"));
@@ -51,7 +53,6 @@ public class ApprovalSerivceImpl implements IApprovalService {
 		//결재DB입력 후 결재ID 받기
 		dao.requestApproval(approval);
 		String approvalId = approval.getApproval_id();
-		
 		
 		
 		//결재자 vo가 notnull일 경우 데이터 set
@@ -96,6 +97,32 @@ public class ApprovalSerivceImpl implements IApprovalService {
 	public int tempSaveApproval(ApprovalVo vo) {
 		return dao.tempSaveApproval(vo);
 	}
+
+	@Override
+	public List<ApprovalVo> getApprovalsList(String employeeId) {
+		return dao.getApprovalsList(employeeId);
+	}
+
+	@Override
+	public ApprovalVo getApprovalDetail(Map<String, String> info){
+		return dao.getApprovalDetail(info);
+	}
+
+	@Override
+	public int updateApprovalFlag(Map<String, String> flag) {
+		return dao.updateApprovalFlag(flag);
+	}
+
+	@Override
+	public int modifyApproval(Map<String, String> info) {
+		return dao.modifyApproval(info);
+	}
+
+	@Override
+	public List<ApprovalVo> getAllReceivedApproval(String employeeId) {
+		return dao.getAllReceivedApproval(employeeId);
+	}
+
 
 
 }

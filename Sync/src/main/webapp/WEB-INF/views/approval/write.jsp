@@ -49,22 +49,22 @@
 								<div class="card-body">
 									<div class="approval-searchContent">
 										<ul style="padding: 0; margin: 0;">
-											<li class="search-list" id="list001">
+											<li class="search-list" id="form001">
 												<div class="search-div">
 													<p class="search-p">휴가신청서</p>
 												</div>
 											</li>
-											<li class="search-list" id="list002">
+											<li class="search-list" id="form002">
 												<div class="search-div">
-													<p class="search-p">보고서</p>
+													<p class="search-p">출장보고서</p>
 												</div>
 											</li>
-											<li class="search-list" id="list003">
+											<li class="search-list" id="form003">
 												<div class="search-div">
 													<p class="search-p">지출결의서</p>
 												</div>
 											</li>
-											<li class="search-list" id="list004">
+											<li class="search-list" id="form004">
 												<div class="search-div">
 													<p class="search-p">휴가휴가휴가</p>
 												</div>
@@ -89,13 +89,10 @@
 											<button type="button" class="btn btn-sm btn-secondary" onclick="approvalRequest(event)">결재 상신</button>
 										</div>		
 									</div>
-								
 									
 									<div class="card-body">
-									
 										<!-- 검색된 양식의 html 출력 -->
 										<div id="document-content"></div>
-										
 									</div>
 								
 							</div>
@@ -125,14 +122,20 @@
 				 <div class="modal-content rounded-4 shadow">
 						<div class="modal-header p-5 pb-4 border-bottom-0">
 							<h4 class="fw-bold mb-0 fs-4">결재선 지정</h4>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
 						</div>
 						<div class="modal-body p-5 pt-0">
 							<jsp:include page="./approvalTree.jsp"></jsp:include>
+							<div style="text-align: right; margin-top: 5px; margin-right: 5px;">
+								<button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+								<button type="button" id="lineRemoveBtn" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+							</div>
 						</div>
+						
 				</div>
 			</div>
-		  </div>
+		</div>
+		
 </form>
         
         
@@ -142,84 +145,27 @@
 
 </body>
 <script type="text/javascript">
+	
+	//현재날짜
+	var nowDate = new Date();
+	var year = nowDate.getFullYear();
+	var month = nowDate.getMonth() +1;
+	var day = nowDate.getDate();
+	
+	month = month < 10 ? '0' + month : month;
+	day = day < 10 ? '0' + day : day;
+	
+	
+	var today = year+"-"+month+"-"+day;
+	
+	
 
+	//저장, 상신 완료시 띄울 메세지
 	var message = '${message}';
 	var details = '${details}';
 	if(message){
 		toastr.success(details, message);
 	}
-
-
-
-//임시저장버튼
-function temporarySave(event){
-	event.preventDefault();
-	
-	var line = $("#approvalLineForm");
-	var approval = $("#approvalForm");
-	
-	if(confirm('임시저장 하시겠습니까?')){
-		
-		if($("#content").val() == ""){
-			toastr.error("작성중인 내용이 없습니다.");
-		}
-		
-		
-		approval.attr('action','./approvalTemporarySave.do');
-		approval.submit();
-	}
-	
-	
-	
-	
-	
-}
-
-
-//결재상신버튼
-function approvalRequest(event){
-	event.preventDefault();
-	
-	console.log('결재상신');
-	
-	var line = $("#approvalLineForm");
-	var approval = $("#approvalForm");
-	
-	var startDate = $("#startDate").val();
-	var endDate = $("#endDate").val();
-	var content = $("#content").val();
-	
-	
-	if(confirm('결재를 요청합니다.')){
-		console.log('o');
-		
-		//유효성 검사
-		if(startDate == ""){
-			toastr.error("시작날짜를 입력해주세요.");
-			$("#startDate").focus();
-			return;
-		} else if(endDate == ""){
-			toastr.error("종료날짜를 입력해주세요.");
-			$("#endDate").focus();
-			return;
-		} else if(content == ""){
-			toastr.error("휴가사유를 입력해주세요.");
-			$("#content").focus();
-			return;
-		}
-		
-		
-		approval.attr('action','./approvalSubmit.do');
-		approval.submit();
-		
-	} else{
-		console.log('x');
-		return ;
-	}
-	
-}
-
-
 	
 	//jstree 및 form 요청 
 	var menu_json = null;
@@ -227,14 +173,17 @@ function approvalRequest(event){
 
 	$(document).ready(function(){
 		
+		//상신일자 입력
+		
+		
 		//페이지 로드시 바로 ajax요청 -> form 띄우기
 		$.ajax({
 			url:'./form.do',
 			type: 'get',
-			data: {id:'list001'},
+			data: {form:'form001'},
 			success:function(data){
 				$("#document-content").html(data);
-				console.log('hie');
+				$("#requsterDate").text(today);
 			}
 		})
 			
@@ -254,12 +203,15 @@ function approvalRequest(event){
 			$.ajax({
 				url: './form.do',
 				type: "get",
-				data: {id : selected},
+				data: {form : selected},
 				success : function(data){
 					$("#document-content").html(data);
+					//상신일자 입력
+					$("#requsterDate").text(today);
 				}
 				
 			})
+			
 		});
 		
 		
@@ -285,8 +237,6 @@ function approvalRequest(event){
 		});
 		
 		
-		
-		
 			//조직도 jsTree
 			
 			// 서버에 데이터 요청
@@ -294,9 +244,8 @@ function approvalRequest(event){
 			   	type : "POST",
 			   	url : './approvalJstree.do',
 			   	success: function(data){
+			   		var url = location.href;
 				        menu_json = data;
-// 			   			console.log(menu_json);
-// 				        console.log('ooooooooo');
 				        CreateJSTrees();
 			    }
 			});
@@ -307,7 +256,7 @@ function approvalRequest(event){
 // 				console.log('22');
 // 				console.log(menu_json);
 				
-				$('#approvalLine').jstree({ 
+				$('#approvalLine').jstree({
 					  'core' : {
 					    'data' : menu_json,
 					    
@@ -326,7 +275,7 @@ function approvalRequest(event){
 				        },
 					  "plugins" : ["search", "checkbox"],
 					 
-					});
+				});
 			}
 			
 			
@@ -385,7 +334,7 @@ function approvalRequest(event){
 				let rowsToAdd = Math.min(selectedNodes.length, maxRow);
 				
 				if (rowsToAdd <= 0) {
-			        toastr.info("추가할 수 있는 결재선이 없습니다.");
+			        toastr.info("추가할 수 있는 결재자가 없습니다.");
 			        $('#approvalLine').jstree("deselect_all");
 			        return false;
 			    }
@@ -429,13 +378,27 @@ function approvalRequest(event){
 			});
 			
 			
-			//결재선 취소 버튼
+			//결재모달 취소 버튼 (결재자, 참조자 전부 취소 후 모달 닫기)
+			$("#lineRemoveBtn").on("click", function(){
+				console.log('dddddd');
+				$("#approvalTable>tbody").html("");
+				//인덱스 초기화
+				lineIdx = 1;
+				$("#referrerTable>tbody").html("");
+				$('#approvalLine').jstree("deselect_all");
+				
+			});
+			
+			
+			//결재선 취소 < 이미지 클릭
 			$("#removeLine").on("click", function(){
 				$("#approvalTable>tbody").html("");
 				//인덱스 초기화
 				lineIdx = 1;
 				$('#approvalLine').jstree("deselect_all");
+				
 			});
+			
 			
 			//각 사원 정보 옆 x 버튼
 			$(document).on("click", ".removeLineBtn", function(){
@@ -470,7 +433,7 @@ function approvalRequest(event){
 				let rowsToAdd = Math.min(selectedNodes.length, maxRowCount - currentRowCount02);
 				
 				if(rowsToAdd <=0){
-					toastr.info("최대 5명까지 추가 가능합니다.");
+					toastr.warning("추가할 수 있는 참조자가 없습니다.");
 					$('#approvalLine').jstree("deselect_all");
 					return false;
 				}
@@ -501,7 +464,131 @@ function approvalRequest(event){
 			
 			
 		
-		
 	})
+	//end
+	
+	
+	
+	//임시저장버튼
+function temporarySave(event){
+	event.preventDefault();
+	
+	var line = $("#approvalLineForm");
+	var approval = $("#approvalForm");
+	
+	
+	Swal.fire({
+		  title: "임시저장 하시겠습니까?",
+		  icon: "warning",
+		  showCancelButton: true,
+		  confirmButtonColor: "#3085d6",
+		  cancelButtonColor: "#d33",
+		  confirmButtonText: "저장",
+		  cancelButtonText: "취소"
+		}).then((result) => {
+			if (result.isConfirmed) {
+			  
+			if($("#title").val() ==""){
+				toastr.error("작성중인 내용이 없습니다.");
+				return ;
+			}
+			 
+			approval.attr('action','./approvalTemporarySave.do');
+			approval.submit();
+		  }
+		});
+	
+}
+
+
+//결재상신버튼
+function approvalRequest(event){
+	event.preventDefault();
+	
+	console.log('결재상신');
+	
+	var line = $("#approvalLineForm");
+	var approval = $("#approvalForm");
+	
+	var remainingLeave = $("#remainingLeave").val();
+	var applicationLeave = $("#applicationLeave").val();
+	var startDate = $("#startDate").val();
+	var endDate = $("#endDate").val();
+	var content = $("#content").val();
+	
+	
+	Swal.fire({
+		  title: "결재를 요청합니다",
+		  icon: "success",
+		  showCancelButton: true,
+		  confirmButtonColor: "#3085d6",
+		  cancelButtonColor: "#d33",
+		  confirmButtonText: "확인",
+		  cancelButtonText: "취소"
+		}).then((result) => {
+			if (result.isConfirmed) {
+			  
+				//유효성검사 공통
+				if($("#title").val() == ""){
+					toastr.error("제목을 입력해주세요.");
+					$("#title").focus();
+					return;
+				} else if(startDate == "") {
+					toastr.error("시작날짜를 입력해주세요.");
+					return;
+				} else if(endDate == ""){
+					toastr.error("종료날짜를 입력해주세요.");
+					return;
+				} 
+				
+				//휴가신청서
+				if(content == ""){
+					toastr.error("휴가사유를 입력해주세요.");
+					$("#content").focus();
+					return;
+				}
+				
+				if(parseInt($("#remainingLeave").val()) < parseInt($("#applicationLeave").val())){
+					toastr.error("잔여연차보다 신청연차가 많습니다.");
+					$("#endDate").focus();
+					return;
+				}
+				
+				
+				//출장보고서
+				if($("#businessTripDestination").val() == ""){
+					toastr.error("출장지를 입력해주세요.");
+					return;
+				} else if($("#businessTripPurpose").val() == ""){
+					toastr.error("출장목적을 입력해주세요.");
+					return;
+				} else if($("#reportItem1").val() == ""){
+					toastr.error("보고항목을 입력해주세요.");
+					return;
+				} else if($("#contentDetails1").val() == ""){
+					toastr.error("보고내용을 입력해주세요.");
+					return;
+				} 
+				
+				
+				
+				//결재선이 있는지 확인후 전송 없다면 전송불가
+				var approvalTableTr = $("#approvalTable>tbody>Tr");
+				
+				if(approvalTableTr.length > 0){
+					approval.attr('action','./approvalSubmit.do');
+					approval.submit();
+				} else{
+					toastr.error("결재자를 선택해주세요..");
+					return ;
+				}
+			
+			
+			}
+			
+		});
+	
+}
+	
 </script>
 </html>

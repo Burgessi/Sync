@@ -49,12 +49,23 @@
      
 	.approval-drafter-info{
 		width: 250px;
+		margin: 0;
+    margin-top: 32px;
 	}
 	
 	.approval-table{
 		vertical-align: middle;
+		border: 1px solid #dfdfdf;
 	}
 	
+	.approval-table th {
+		width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;
+		text-align: center;
+	}
+	
+	.approval-table td {
+		font: 0.8em sans-serif;
+	}
 	.approval-searchBox{
 		width: 100%;
 	    border: 0.7px solid gainsboro;
@@ -118,13 +129,12 @@
 	}
 	
 	.approval-input{
-		margin-left: 10px;
 	    margin-right: 10px;
 		padding: 5px;
 		padding-left : 10px;
 	    border-radius: 8px;
 	    border: 1px solid #cccccc;
-	    font-size: 0.8em;
+	    font-size: 0.9em;
 	    width: 100%;
 	    
 	}
@@ -136,8 +146,75 @@
 	}
 	
 	
+	 .badge-sm {
+	      font-size: 0.75rem; /* Smaller font size */
+	      padding: 0.25em 0.4em; /* Adjust padding */
+    }
 	
 	
-	<!-- -->
+/* 	/* 결재 서명 table*/ 
+/* 	.approval-line-signature-table { */
+/* 	    width: 100%; */
+/* 	    border-collapse: collapse; Ensures borders collapse into a single border */
+/* 	    margin: 0; */
+/* 	} */
+	
+/* 	.approval-line-signature-table th, .approval-line-signature-table td { */
+/* 	    padding: 8px; */
+/* 	    text-align: center; */
+/* 	} */
+	
+/* 	/* Merged column styling */ 
+/* 	.approval-line-signature-table .unique-merged-column { */
+/* 	    background-color: #F2F2F2; */
+/* 	} */
+	
+/* 	.unique-merged-column{ */
+/* 		width: 35px; */
+/* 	} */
+	
+/* 	/* Narrow row height styling for specific rows */ 
+/* 	.approval-line-signature-table thead  */
+/* 	.approval-line-signature-table thead { */
+/* 	    height: 30px; Adjust height as needed */
+/* 	} */
+	
+/* 	.approval-line-signature{ */
+/* 		height: 100px; */
+/* 	} */
+	
+/* 	.approval-line-signature-table tbody .unique-row-1, */
+/* 	.approval-line-signature-table tbody .unique-row-3 { */
+/* 	    height: 30px; Adjust height as needed */
+/* 	} */
+	
+/* 	/* Header and subheader styling */ 
+/* 	.approval-line-signature-table .approval-line-rank { */
+/* 	    background-color: #F2F2F2; */
+/* 	    padding:2px; */
+/* 	    font-size:0.7em; */
+/* 	} */
+	
+/* 	.approval-line-signature-table .approval-line-name { */
+/* 	    background-color: #F2F2F2; */
+/* 	    padding:2px; */
+/* 	    font-size:0.7em; */
+/* 	} */
+	
+/* 	.approval-line-approvalDate{ */
+/* 		border-top: 1px solid white !important; */
+/* 		font-size: 0.6em; */
+/* 		padding: 0px !important; */
+/* 	} */
+	
+/* 	결재서명 div */
+	.approval-line-signature{
+		display:inline-block; padding: 0; font:0.8em sans-serif; text-align: center; vertical-align: middle;
+	}
+	
+	.businessTrip-table td {
+	height: 33px;
+	}
 
 	
+/* 사인*/

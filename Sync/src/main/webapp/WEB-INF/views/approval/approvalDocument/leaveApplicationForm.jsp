@@ -4,13 +4,6 @@
 <html>
 <head>
 </head>	
-<!--datepicker-->
-<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" type="text/javascript"></script> -->
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/i18n/jquery.ui.datepicker-ko.min.js"></script> -->
 <body>
 
 
@@ -28,13 +21,13 @@
 							<tr>
 								<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">기안자</th>
 								<td>
-									<div id="requesterId"></div>
+									<div id="requesterId">${loginVo.emp_name}</div>
 								</td>
 							</tr>
 							<tr>
 								<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">기안부서</th>
 								<td>
-									<div id="requesterTeam"></div>
+									<div id="requesterTeam">${loginVo.team_name}</div>
 								</td>
 							</tr>
 							<tr>
@@ -47,36 +40,15 @@
 					</div>
 					<div class="col-md-3"></div>
 					<div class="col-md-5">
-					
-					
-<!-- 						<table class="table table-bordered" style="font-size: 0.6em; text-align: center;"> -->
-<!-- 							<tr> -->
-<!-- 								<td rowspan="4" style="width: 20px; font-size: 12.8px" >결재</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<td>대리</td> -->
-<!-- 								<td>과장</td> -->
-<!-- 								<td>부장</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<td>1</td> -->
-<!-- 								<td>2</td> -->
-<!-- 								<td>3</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<td>김나라</td> -->
-<!-- 								<td>고고고</td> -->
-<!-- 								<td>박부장</td> -->
-<!-- 							</tr> -->
-<!-- 						</table> -->
 					</div>					
 				</div>
 				
-				<table class="table table-bordered approval-table">
+				<table class="table table-bordered approval-table" style="margin-top: 40px;">
 					<tr>
 						<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">제목</th>
 						<td>
-							<input class="approval-input form-control" type="text" id="title" name="title" placeholder="휴가신청서" value="휴가신청서" readonly="readonly">
+							<input type="hidden" name="documentType" value="휴가신청서">
+							<input class="approval-input form-control" type="text" id="title" name="title" placeholder="제목">
 						</td>
 					</tr>
 					<tr>
@@ -88,11 +60,11 @@
 								</div>
 									<span>~</span>
 								<div class="input-group">
-								     <input type="text" autocomplete="off" id="endDate" name="endDate" class="form-control datepicker approval-input" placeholder="종료날짜">
+								     <input type="text" autocomplete="off" id="endDate" style="margin-left: 10px;"  name="endDate" class="form-control datepicker approval-input" placeholder="종료날짜">
 								</div>
 							</div>
 							<div style="display: inline-flex;">
-								<span style="display: inline-flex;"> (총<input type="text" id="totalDay" name='totalDay' class="form-control approval-input" readonly="readonly" style="width: 70px; text-align: center;">일) </span>
+								<span style="display: inline-flex;"> (총<input type="text" id="totalDay" name='totalDay' class="form-control approval-input" readonly="readonly" style="width: 70px; margin-left:10px; text-align: center;">일) </span>
 							</div>
 						</td>
 					</tr>
@@ -105,7 +77,7 @@
 									<span style="font-size: 0.8em; margin-left: 10px;">잔여연차:&nbsp;</span>
 								</div>
 								<div class="input-group" style="width: 200px; display: inline;">
-								     <input style="display: inline; width: 100px; text-align: center;" type="text" id="remainingLeave" class="form-control approval-input" readonly="readonly">
+								     <input style="display: inline; width: 100px; text-align: center;" type="text" id="remainingLeave" name='remainingLeave' class="form-control approval-input" readonly="readonly" value="${loginVo.total_off}">
 								</div>
 								
 								<div style="display: inline;">
@@ -113,7 +85,7 @@
 								</div>
 								
 								<div class="input-group" style=" width: 200px; display: inline;">
-								     <input style="display: inline; width: 100px; text-align: center;" type="text" id="applicationLeave" class="form-control approval-input" readonly="readonly">
+								     <input style="display: inline; width: 100px; text-align: center;" type="text" id="applicationLeave" name='applicationLeave' class="form-control approval-input" readonly="readonly">
 								</div>
 							</div>
 						</td>
@@ -121,7 +93,7 @@
 					<tr>
 						<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">휴가사유</th>
 						<td>
-							<textarea rows="5" class="form-control" id="content" name="content" style="resize: none;" placeholder="휴가사유를 입력해주세요."></textarea>
+							<textarea rows="5" class="approval-input form-control" id="content" name="content" style="resize: none;" placeholder="휴가사유를 입력해주세요."></textarea>
 						</td>
 					</tr>
 					<tr>
@@ -142,27 +114,8 @@
 <script type="text/javascript">
 	//폼
 	var frm = $("form")[0];
-// 	console.log(frm);
-
-	//현재날짜
-	var nowDate = new Date();
-	var year = nowDate.getFullYear();
-	var month = nowDate.getMonth() +1;
-	var day = nowDate.getDate();
-	
-	month = month < 10 ? '0' + month : month;
-	day = day < 10 ? '0' + day : day;
-	
-// 	var today = `${year}-${month}-${day}`;
-	
-	var today2 = year+"-"+month+"-"+day;
-	
-	
-	
-	
 	
 	$(document).ready(function(){
-		
 		
 		// datepicker 설정
 		$(function() {
@@ -203,20 +156,6 @@
 			});
 			language: 'ko';
 		});
-		
-// 		console.log(nowDate);
-// 		console.log(year);
-// 		console.log(month);
-// 		console.log(day);
-// 		console.log(today);
-// 		console.log(today2);
-		
-		//상신일자 입력
-		$("#requsterDate").text(today2);
-		
-		//totalDay
-// 		console.log($("#startDate").val());
-// 		console.log($("#endDate").val());
 		
 		
 		// 주말 제외 일자 count
@@ -261,8 +200,6 @@
                  }
        		  }   
 		 }
-		
-		
 		
 		
 // 		$("#endDate").on("change",function(){
