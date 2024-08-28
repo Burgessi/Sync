@@ -1,7 +1,4 @@
-package com.pro.sync.off.vo;
-
-import java.util.Date;
-
+package com.pro.sync.mypage.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +16,7 @@ import lombok.ToString;
 public class OffVo {
 
 	private String off_history_id;
-	private Date off_date;
+	private String off_date;
 	private String off_reason;
 	private String emp_id;
 }

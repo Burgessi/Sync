@@ -7,7 +7,7 @@
 	
 	<welcome-file-list>
 
-		<welcome-file>/WEB-INF/views/approval/home.jsp</welcome-file>
+		<welcome-file>/WEB-INF/views/common/login.jsp</welcome-file>
 
 	</welcome-file-list>
 	
@@ -15,7 +15,10 @@
 	<!-- needed for ContextLoaderListener -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/appServlet/root-context.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/appServlet/root-context.xml
+			/WEB-INF/spring/appServlet/file-context.xml
+		</param-value>
 	</context-param>
 
 	<!-- Bootstraps the root web application context before servlet initialization -->

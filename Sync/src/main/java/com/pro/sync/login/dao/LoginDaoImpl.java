@@ -26,4 +26,5 @@ public class LoginDaoImpl implements ILoginDao {
 		log.info("LoginDaoImpl 로그인 : "+map);
 		return session.selectOne(NS+"getLogin", map);
 	}
+	
 }

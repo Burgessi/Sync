@@ -22,5 +22,6 @@ public class LoginServiceImpl implements ILoginService {
 		log.info("로그인 서비스 : {}", map);
 		return dao.getLogin(map);
 	}
+	
 
 }

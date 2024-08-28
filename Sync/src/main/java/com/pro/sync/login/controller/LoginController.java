@@ -31,7 +31,6 @@ public class LoginController {
 		
 		System.out.println(loginDto);
 		if (loginDto != null) { // 로그인 성공
-			loginDto.setEmp_ssn(formatSSN(loginDto.getEmp_ssn()));
             session.setAttribute("loginDto", loginDto);
             model.addAttribute("loginDto",loginDto);
             return "common/main"; // 메인 페이지로 이동
