@@ -23,5 +23,8 @@ public class NoticeVo {
 	private String notice_delflag;
 	private String notice_pinbtn;
 	private String emp_id;
+	
+	
+	private String employee_name;
 
 }
