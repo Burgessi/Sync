@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pro.sync.employee.vo.EmployeeVo;
 import com.pro.sync.login.service.ILoginService;
+import com.pro.sync.mypage.service.IMypageService;
+import com.pro.sync.mypage.vo.AccountVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,6 +24,9 @@ public class LoginController {
 
 	@Autowired
 	private ILoginService service;
+	
+	@Autowired
+	private IMypageService mservice;
 
 	//로그인
 	@PostMapping(value = "/login.do")
@@ -32,7 +37,16 @@ public class LoginController {
 		System.out.println(loginDto);
 		if (loginDto != null) { // 로그인 성공
             session.setAttribute("loginDto", loginDto);
+            String emp_id = loginDto.getEmp_id();
+          //정보 dto, 계좌 dto 가져오는부분
+    		EmployeeVo infoDto = mservice.getInfo(emp_id);
+    		AccountVo accDto = mservice.getAccountInfo(emp_id);
+    		
             model.addAttribute("loginDto",loginDto);
+            //세션에 info,acc정보 담아줌
+            session.setAttribute("infoDto", infoDto);
+            session.setAttribute("accDto", accDto);
+            
             return "common/main"; // 메인 페이지로 이동
         } else { // 로그인 실패
             model.addAttribute("loginFailed", true);

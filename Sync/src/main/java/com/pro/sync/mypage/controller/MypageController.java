@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 
 import com.pro.sync.employee.vo.EmployeeVo;
-import com.pro.sync.employee.vo.OffVo;
 import com.pro.sync.mypage.service.IMypageService;
 import com.pro.sync.mypage.vo.AccountVo;
 import com.pro.sync.mypage.vo.OffVo;
@@ -32,30 +31,23 @@ public class MypageController {
 	@Autowired
 	IMypageService service;
 
-	//마이페이지 이동
+	//마이페이지 이동 - 연차
 	@GetMapping("/mypage.do")
-	public String Mypage(@SessionAttribute("loginDto") EmployeeVo loginDto, Model model) {
+	public String Mypage(@SessionAttribute("loginDto") EmployeeVo loginDto, 
+			@SessionAttribute("infoDto") EmployeeVo infoDto, 
+			@SessionAttribute("accDto") AccountVo accDto, 
+			Model model) {
 		log.info("mypage 이동");
 		
-//		EmployeeVo loginDto = (EmployeeVo) session.getAttribute("loginDto");
 		String emp_id = loginDto.getEmp_id();
 		
-		//정보 dto, 계좌 dto 가져오는부분
-		EmployeeVo infoDto = service.getInfo(emp_id);
-		AccountVo accDto = service.getAccountInfo(emp_id);
 		
 		if(loginDto != null) {
 			infoDto.setEmp_ssn(formatSSN(infoDto.getEmp_ssn()));
 			int usedOff = service.getUsedOff(emp_id);
 			infoDto.setUsed_off(usedOff);
 			List<OffVo> offVo = service.getOffHistory(emp_id);
-			//정보 dto, 계좌 dto model에 담아주기
 			model.addAttribute("offVo",offVo);
-			model.addAttribute("infoDto",infoDto);
-			
-			if(accDto != null) {
-				model.addAttribute("accDto",accDto);
-			}
 			
 		}
 		return "mypage/mypage";
