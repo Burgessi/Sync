@@ -101,10 +101,10 @@
                     </a>
                     <ul class="submenu" id="doc-part">
                         <li class="submenu-item" id="doc-list">
-                            <a href="${root}/board/userBoard.do">자유게시판</a>
+                            <a href="${root}/notice/noticeBoard.do">공지게시판</a>
                         </li>
                         <li class="submenu-item" id="doc-list">
-                            <a href="${root}/notice/noticeBoard.do">공지게시판</a>
+                            <a href="${root}/board/userBoard.do">자유게시판</a>
                         </li>
                     </ul>
                 </li>               

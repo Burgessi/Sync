@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pro.sync.board.mapper.BoardDaoImpl">
+
+
+<!-- 게시글 리스트 -->
+<select id="selectBoard" resultType="BoardVo">
+SELECT * FROM (
+    SELECT 
+        b.BD_SEQ, 
+        e.EMP_NAME AS EMPLOYEE_NAME, 
+        b.BD_TITLE, 
+        b.BD_CONTENT, 
+        b.BD_POST, 
+        b.BD_COMMENT, 
+        b.BD_DATE, 
+        b.BD_DEL,
+        ROW_NUMBER() OVER (ORDER BY b.BD_SEQ DESC) AS RN
+    FROM BOARD b
+    JOIN EMPLOYEE e ON b.EMP_ID = e.EMP_ID
+    WHERE b.BD_DEL = 'N' AND b.BD_COMMENT = '0'
+) 
+WHERE RN BETWEEN #{startIndex} AND #{endIndex}
+</select>
+
+<!-- 댓글 제외 게시글 총 개수 -->
+<select id="totalCount" resultType="Integer">
+SELECT COUNT(*)
+FROM BOARD b 
+WHERE BD_DEL = 'N'AND BD_COMMENT = '0'
+</select>
+
+<!-- 댓글 리스트 -->
+<select id="selectComment" resultType="BoardVo">
+SELECT BD_SEQ, EMP_NAME, BD_TITLE, BD_CONTENT, BD_POST, BD_COMMENT, BD_DATE, BD_DEL 
+FROM BOARD b 
+JOIN EMPLOYEE e ON b.EMP_ID = e.EMP_ID 
+WHERE BD_POST = #{bd_post} AND BD_COMMENT > 0 AND BD_DEL ='N'
+ORDER BY BD_COMMENT DESC 
+</select>
+
+
+<!-- 본글 insert -->
+<insert id="insertBoard">
+	<selectKey order="BEFORE" resultType="Integer" keyProperty="bd_seq">
+		SELECT NVL(MAX(BD_SEQ),0)+1 FROM BOARD n
+	</selectKey>
+INSERT INTO BOARD
+(BD_SEQ, 
+EMP_ID, 
+BD_TITLE, 
+BD_CONTENT, 
+BD_POST, 
+BD_COMMENT, 
+BD_DATE, 
+BD_DEL)VALUES(
+#{bd_seq}, 
+#{emp_id}, 
+#{bd_title},
+#{bd_content}, 
+(SELECT NVL(MAX(BD_POST),0)+1 FROM BOARD b),
+0,
+CURRENT_DATE,
+'N')
+</insert>
+
+<!-- 댓글 insert -->
+<insert id="insertComment">
+	<selectKey order="BEFORE" keyProperty="bd_seq" resultType="Integer">
+		SELECT NVL(MAX(BD_SEQ),0)+1 FROM BOARD n
+	</selectKey>
+INSERT INTO BOARD
+(BD_SEQ, 
+EMP_ID, 
+BD_TITLE, 
+BD_CONTENT, 
+BD_POST, 
+BD_COMMENT, 
+BD_DATE, 
+BD_DEL)VALUES(
+#{bd_seq}, 
+#{emp_id},
+#{bd_title},
+#{bd_content}, 
+(SELECT BD_POST FROM BOARD b WHERE BD_SEQ = #{seq}), 
+(SELECT NVL(MAX(BD_COMMENT),0)+1 FROM BOARD b), 
+CURRENT_DATE, 
+'N')
+</insert>
+
+<!-- 본문 삭제 -->
+<delete id="deleteBoard">
+UPDATE BOARD SET BD_DEL = 'Y'
+WHERE BD_DEL = 'N'
+AND BD_SEQ = #{bd_seq}
+</delete>
+
+<!-- 댓글 삭제 -->
+<delete id="deleteComment">
+UPDATE BOARD  SET BD_DEL = 'Y'
+WHERE BD_DEL = 'N'
+AND BD_POST = #{bd_post} AND BD_COMMENT = #{bd_comment}
+</delete>
+
+<!-- 본문 수정 -->
+<update id="modifyBoard">
+UPDATE BOARD SET BD_CONTENT = #{bd_content} , BD_TITLE = #{bd_title}
+WHERE BD_SEQ = #{bd_seq}
+</update>
+
+<!-- 댓글 수정 -->
+<update id="modifyComment">
+UPDATE BOARD SET BD_CONTENT = #{bd_content}
+WHERE BD_POST = #{bd_post} AND BD_COMMENT = #{bd_comment}
+</update>
+
+<!-- 본문 상세보기 -->
+<select id="detailBoard" resultType="BoardVo">
+SELECT BD_SEQ, EMP_NAME, BD_TITLE, BD_CONTENT, BD_POST, BD_COMMENT, BD_DATE, BD_DEL 
+FROM BOARD b 
+JOIN EMPLOYEE e ON b.EMP_ID = e.EMP_ID 
+WHERE BD_SEQ = #{bd_seq}
+</select>
+
+ 
+</mapper>
