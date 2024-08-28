@@ -7,8 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pro.sync.employee.vo.OffVo;
 
+import com.pro.sync.employee.vo.EmployeeVo;
+import com.pro.sync.mypage.vo.AccountVo;
+import com.pro.sync.mypage.vo.OffVo;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -19,6 +21,8 @@ public class MypageDaoImpl implements IMypageDao {
 	private SqlSessionTemplate session;
 	
 	private final String NS = "com.pro.sync.mypage.dao.MypageDaoImpl.";
+	
+	
 	
 	@Override
 	public int getUsedOff(String emp_id) {
@@ -33,8 +37,43 @@ public class MypageDaoImpl implements IMypageDao {
 	}
 
 	@Override
-	public int updateMyInfo(Map<String, Object> map) {
-		log.info("MypageDaoImpl 개인정보 수정 : "+ map);
-		return session.update(NS+"updateEmpInfo", map);
+	public EmployeeVo getInfo(String emp_id) {
+		log.info("MypageDaoImpl getInfo 조회 : "+ emp_id);
+		return session.selectOne(NS+"getInfo", emp_id);
+	}
+	@Override
+	public AccountVo getAccountInfo(String emp_id) {
+		// TODO Auto-generated method stub
+		return session.selectOne(NS+"getAccountInfo", emp_id);
+	}
+	
+	@Override
+	public int updateEmailAddr(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.update(NS+"updateEmailAddr", map);
+	}
+	
+	@Override
+	public int updateAccount(AccountVo vo) {
+		// TODO Auto-generated method stub
+		return session.update(NS+"updateAccount", vo);
+	}
+	
+	@Override
+	public int insertAccount(AccountVo vo) {
+		// TODO Auto-generated method stub
+		return session.insert(NS+"insertAccount", vo);
+	}
+	
+	@Override
+	public int updatePassword(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.update(NS+"updatePassword", map);
+	}
+	
+	@Override
+	public int updateProfilepic(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.update(NS+"updateProfilepic", map);
 	}
 }

@@ -2,24 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pro.sync.login.dao.LoginDaoImpl">
 
+	
+	
 	<select id="getLogin" parameterType="java.util.Map" resultType="EmployeeVo" >
-		SELECT e.EMP_ID, EMP_NAME,
-				EMP_GENDER, EMP_SSN, EMP_EMAIL, 
-				EMP_PHONE, ADDR1, ADDR2, 
-				EMP_HIRE_DATE, EMP_STATUS, EMP_PROFILE_PIC, 
-				e.TEAM_CODE, e.RANK_ID, AUTHORITY, 
-				EMP_LEAD, EMP_SIGNATURE, 
-				TOTAL_OFF, 
-				TEAM_NAME,d.DIVISION_NAME ,
-				r.RANK_NAME,
-				a.BANK_NAME ,a.ACCOUNT_NUM ,a.ACCOUNT_HOLDER ,a.RELATION_TO_EMP
+		SELECT e.EMP_ID, EMP_NAME
 		FROM EMPLOYEE e
-		JOIN TEAM t ON e.TEAM_CODE = t.TEAM_CODE 
-		JOIN DIVISION d ON t.UPSTAIRS_DIVISION_CODE = d.DIVISION_CODE
-		JOIN "RANK" r ON e.RANK_ID = r.RANK_ID 
-		JOIN ACCOUNT a ON e.EMP_ID = a.EMP_ID 
 		WHERE e.EMP_ID = #{emp_id} AND e.EMP_PASSWORD = #{emp_password}
 	</select>
 	
+		
 
 </mapper>

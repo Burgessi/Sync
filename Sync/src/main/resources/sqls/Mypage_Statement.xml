@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pro.sync.mypage.dao.MypageDaoImpl">
 
+
+	
 	<!-- 사용한 연차 갯수 구하기 -->
 	<select id="getUsedOff" parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT COUNT(oh.OFF_HISTORY_ID) 
@@ -12,18 +14,79 @@
 	
 	<!-- 특정 사원의 연차이력 -->
 	<select id="getOffHistory" parameterType="java.lang.String" resultType="OffVo">
-		SELECT OFF_HISTORY_ID, OFF_DATE, OFF_REASON ,oh.EMP_ID 
+		SELECT OFF_HISTORY_ID, TO_CHAR(e.EMP_HIRE_DATE, 'YYYY-MM-DD') AS OFF_DATE, OFF_REASON ,oh.EMP_ID 
 			FROM OFF_HISTORY oh 
 			JOIN EMPLOYEE e ON e.EMP_ID = oh.EMP_ID 
 			WHERE oh.EMP_ID = #{emp_id}
 	</select>
 	
-	<!-- 개인정보 수정 -->
-	<update id="updateMyInfo" parameterType="java.util.Map">
+	<!-- 회원정보 가져오기 -->
+	<select id="getInfo" parameterType="java.lang.String" resultType="EmployeeVo" >
+		SELECT e.EMP_ID, EMP_NAME,
+				EMP_GENDER, EMP_SSN, EMP_EMAIL, 
+				EMP_PHONE, ADDR1, ADDR2, 
+				TO_CHAR(e.EMP_HIRE_DATE, 'YYYY-MM-DD') AS EMP_HIRE_DATE, EMP_STATUS, EMP_PROFILE_PIC, 
+				e.TEAM_CODE, e.RANK_ID, AUTHORITY, 
+				EMP_LEAD, EMP_SIGNATURE, 
+				TOTAL_OFF, 
+				TEAM_NAME,d.DIVISION_NAME ,
+				r.RANK_NAME
+		FROM EMPLOYEE e
+		JOIN TEAM t ON e.TEAM_CODE = t.TEAM_CODE 
+		JOIN DIVISION d ON t.UPSTAIRS_DIVISION_CODE = d.DIVISION_CODE
+		JOIN "RANK" r ON e.RANK_ID = r.RANK_ID 
+		WHERE e.EMP_ID = #{emp_id}
+	</select>
+	
+	<!-- 계좌정보 가져오기 -->
+	<select id="getAccountInfo" parameterType="java.lang.String" resultType="AccountVo">
+		SELECT ACCOUNT_ID , a.EMP_ID , BANK_NAME , ACCOUNT_NUM ,ACCOUNT_HOLDER ,RELATION_TO_EMP 
+			FROM EMPLOYEE e 
+			JOIN ACCOUNT a ON e.EMP_ID = a.EMP_ID 
+			WHERE e.EMP_ID = #{emp_id}
+	</select>
+	
+	<!-- 이메일,주소 수정 -->
+	<update id="updateEmailAddr" parameterType="java.util.Map">
 		UPDATE EMPLOYEE 
 			SET EMP_EMAIL = #{emp_email}, EMP_PHONE = #{emp_phone},
 				ADDR1 = #{addr1}, ADDR2 = #{addr2}
 			WHERE EMP_ID = #{emp_id}
 	</update>
 	
+	<!-- 계좌 수정 -->
+	<update id="updateAccount" parameterType="AccountVo">
+		UPDATE ACCOUNT 
+			SET ACCOUNT_NUM = #{account_num},
+				ACCOUNT_HOLDER =#{account_holder}, 
+				BANK_NAME =#{bank_name}, 
+				RELATION_TO_EMP =#{relation_to_emp}
+			WHERE EMP_ID =#{emp_id}
+	</update>
+	
+	<!-- 계좌 입력 -->
+	<insert id="insertAccount" parameterType="AccountVo">
+		INSERT INTO ACCOUNT a 
+				(ACCOUNT_ID, BANK_NAME, ACCOUNT_NUM, ACCOUNT_HOLDER, RELATION_TO_EMP, EMP_ID)
+		VALUES (
+		    (SELECT 'ACCOUNT' || LPAD(NVL(MAX(TO_NUMBER(SUBSTR(ACCOUNT_ID, 8))), 0) + 1, 3, '0') 
+		     FROM ACCOUNT a2),
+		    #{bank_name},
+		    #{account_num}, #{account_holder}, 
+		    #{relation_to_emp}, #{emp_id}
+		)
+	</insert>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePassword" parameterType="java.util.Map">
+		UPDATE EMPLOYEE SET EMP_PASSWORD = #{emp_password}
+			WHERE EMP_ID =#{emp_id}
+	</update>
+	
+	<!-- 프로필 이미지 업데이트 -->
+	<update id="updateProfilepic" parameterType="java.util.Map">
+		UPDATE EMPLOYEE 
+			SET EMP_PROFILE_PIC = #{emp_profile_pic}
+			WHERE EMP_ID =#{emp_id}
+	</update>
 </mapper>

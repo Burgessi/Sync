@@ -1,3 +1,4 @@
+
 package com.pro.sync.employee.vo;
 
 
@@ -44,14 +45,8 @@ public class EmployeeVo {
 	private String team_name;
 	private String division_name;
 	private String rank_name;
-	private String bank_name;
-	private String account_num;
-	private String account_holder;
-	private String relation_to_emp;
 	
 	private int used_off;
-	
-	
 
 	
 
