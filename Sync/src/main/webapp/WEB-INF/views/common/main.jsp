@@ -1,66 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="root" value="${pageContext.request.contextPath}"/>
+<c:set var="root" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sync_Main</title>
-<style>
-      .input-size {
-        max-width: 350px;
-      }
-
-      .img-edit-plus {
-        top: -10px;
-      }
-
-      .info-flex {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .info-span {
-        padding-bottom: 25px;
-      }
-
-      .user-edit {
-        margin-left: 20px;
-      }
-
-      #profile {
-        position: absolute;
-      }
-
-      #profile-img {
-        margin-left: 5px;
-        bottom: 5px;
-      }
-
-      #profile-edit {
-        position: relative;
-        top: 22px;
-        right: 25px;
-        width: 30px;
-        height: 30px;
-        background-color: #ffffff;
-        border: 1px solid #eeeeee;
-        border-radius: 50%;
-        padding-top: 5px;
-        padding-left: 5px;
-      }
-
-      #profile-edit:hover {
-        border: 1px solid #d3d3d3;
-      }
-    </style>
 </head>
 <body>
 	<div id="app">
 		<!-- 사이드바 include -> 메뉴 이동 -->
-      <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
+		<%@ include file="/WEB-INF/views/common/sidebar.jsp"%>
 		<!--헤더 include -> 상단 로그인정보 등 -->
 		<div id="main">
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -155,5 +107,15 @@
 </body>
 </html>
 
+						</section>
+					</div>
+				</div>
+			</div>
 
 
+		</div>
+
+	</div>
+	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+</body>
+</html>

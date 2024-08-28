@@ -2,12 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pro.sync.approval.dao.ApprovalDaoImpl">
 
-<!-- <selectKey order="BEFORE" keyProperty="approvalId"> -->
-<!-- 			SELECT TO_CHAR(CURRENT_DATE,'YYYYMMDD') || LPAD(COALESCE(SUBSTR(MAX(APPROVAL_ID),-3),'0') + 1,3,'0')  -->
-<!-- 			FROM APPROVAL -->
-<!-- 		</selectKey> -->
-	
-				
+
+	<resultMap id="approvalLineResultMap" type="ApprovalLineVo" >
+		<result property="approval_line_id" column="APPROVAL_LINE_ID"/>
+		<result property="approval_id" column="APPROVAL_ID"/>
+		<result property="recipient_id" column="RECIPIENT_ID"/>
+		<result property="recipient_type" column="RECIPIENT_TYPE"/>
+		<result property="step" column="STEP"/>
+		<result property="status" column="STATUS"/>
+		<result property="recipient_name" column="RECIPIENT_NAME"/>
+		<result property="approval_date" column="APPROVAL_DATE"/>
+		<result property="rank_name" column="RANK_NAME"/>
+		<result property="signature" column="SIGNATURE"/>
+	</resultMap>
+
+	<resultMap id="approvalResultMap" type="ApprovalVo">
+		<result property="approval_id" column="APPROVAL_ID"/>
+		<result property="document_type" column="DOCUMENT_TYPE"/>
+		<result property="approval_title" column="APPROVAL_TITLE"/>
+		<result property="approval_content" column="APPROVAL_CONTENT"/>
+		<result property="temp_save_flag" column="TEMP_SAVE_FLAG"/>
+		<result property="delete_flag" column="DELETE_FLAG"/>
+		<result property="requester_id" column="REQUESTER_ID"/>
+		<result property="requester_name" column="REQUESTER_NAME"/>
+		<result property="team_name" column="TEAM_NAME"/>
+		<result property="request_date" column="REQUEST_DATE"/>
+		<result property="modified_date" column="MODIFIED_DATE"/>
+		<collection property="lineList" resultMap="approvalLineResultMap"></collection>
+	</resultMap>
+
 
 	<!-- 결재 요청-->
 	<insert id="requestApproval">
@@ -16,17 +39,17 @@
 					FROM APPROVAL
 		</selectKey>
 		INSERT INTO APPROVAL
-					(APPROVAL_ID, DOCUMENT_TYPE, APPROVAL_CONTENT, 
+					(APPROVAL_ID, DOCUMENT_TYPE, APPROVAL_CONTENT, APPROVAL_TITLE,
 					TEMP_SAVE_FLAG, DELETE_FLAG, REQUESTER_ID, 
 					REQUEST_DATE)
-			VALUES( #{approval_id}, #{document_type}, #{approval_content}, 
+			VALUES( #{approval_id}, #{document_type}, #{approval_content}, #{approval_title},
 						'N'	, 'N'	, #{requester_id}, 
 						CURRENT_DATE)
 	</insert>
 	
 	
 	
-	<!-- 결재라인 저장 -->
+	<!-- 결재라인 -->
 <!-- 	<insert id="insertApprovalLines" parameterType="list"> -->
 <!-- 			INSERT INTO APPROVAL_LINE -->
 <!-- 						(APPROVAL_LINE_ID, APPROVAL_ID, RECIPIENT_ID,  -->
@@ -51,44 +74,151 @@
 <!-- 			</foreach>	 -->
 			
 <!-- 		</insert> -->
-			
-			<insert id="insertApprovalLines" parameterType="list">
-					INSERT INTO APPROVAL_LINE
-						(APPROVAL_LINE_ID, APPROVAL_ID, RECIPIENT_ID, 
-							RECIPIENT_TYPE, STATUS,STEP)
-				<foreach collection="list" item="line" index="index" separator=" UNION ALL ">
-					SELECT 
-						(SELECT NVL(MAX(APPROVAL_LINE_ID), 0) + #{index} + 1
-							FROM APPROVAL_LINE),
-							#{line.approval_id}, 
-							#{line.recipient_id},
-							#{line.recipient_type},
-							0,
-							<choose>
-								<when test="line.step == 1 or line.step == 2 or line.step == 3">
-									${line.step}
-								</when>
-								<otherwise>
-									0
-								</otherwise>
-							</choose>
-							FROM DUAL
-				</foreach>
-			</insert>
+
+
+
+	<!-- 결재라인 -->
+	<insert id="insertApprovalLines" parameterType="list">
+			INSERT INTO APPROVAL_LINE
+				(APPROVAL_LINE_ID, APPROVAL_ID, RECIPIENT_ID, 
+					RECIPIENT_TYPE, STATUS, STEP)
+		<foreach collection="list" item="line" index="index" separator=" UNION ALL ">
+			SELECT 
+				(SELECT NVL(MAX(APPROVAL_LINE_ID), 0) + #{index} + 1
+					FROM APPROVAL_LINE),
+					#{line.approval_id}, 
+					#{line.recipient_id},
+					#{line.recipient_type},
+					0,
+					<choose>
+						<when test="line.step == 1 or line.step == 2 or line.step == 3">
+							${line.step}
+						</when>
+						<otherwise>
+							0
+						</otherwise>
+					</choose>
+					FROM DUAL
+		</foreach>
+	</insert>
 	
 	<!-- 임시 저장 -->
 	<insert id="tempSaveApproval">
 		INSERT INTO APPROVAL
-					(APPROVAL_ID, DOCUMENT_TYPE, APPROVAL_CONTENT, 
-					TEMP_SAVE_FLAG, DELETE_FLAG, REQUESTER_ID, 
-					REQUEST_DATE)
+					(APPROVAL_ID, DOCUMENT_TYPE,  
+					APPROVAL_TITLE, APPROVAL_CONTENT, TEMP_SAVE_FLAG, 
+					DELETE_FLAG, REQUESTER_ID, REQUEST_DATE)
 			VALUES((SELECT TO_CHAR(CURRENT_DATE,'YYYYMMDD') || LPAD(COALESCE(SUBSTR(MAX(APPROVAL_ID),-3),'0') + 1,3,'0') 
-			FROM APPROVAL), #{document_type}, #{approval_content}, 
-						'Y'	, 'N'	, #{requester_id}, 
-						CURRENT_DATE)
+					FROM APPROVAL), #{document_type}, 
+					#{approval_title}, #{approval_content}, 'Y', 
+					'N'	, #{requester_id}, CURRENT_DATE)
 	</insert>
 
 	
+	<!-- 문서 전체 조회(기안문서함) -->
+	<select id="getApprovalsList" resultMap="approvalResultMap">
+		SELECT a.APPROVAL_ID , DOCUMENT_TYPE, APPROVAL_TITLE, REQUESTER_ID, e.EMP_NAME AS REQUESTER_NAME, t.TEAM_NAME,
+		TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') AS REQUEST_DATE , TO_CHAR(a.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
+		e2.EMP_NAME AS RECIPIENT_NAME ,STEP, STATUS, APPROVAL_DATE
+			FROM APPROVAL a JOIN APPROVAL_LINE al 
+				ON a.APPROVAL_ID = al.APPROVAL_ID 
+			JOIN EMPLOYEE e 
+				ON a.REQUESTER_ID = e.EMP_ID 
+			JOIN TEAM t 
+				ON t.TEAM_CODE = e.TEAM_CODE
+			JOIN EMPLOYEE e2 
+				ON e2.EMP_ID = al.RECIPIENT_ID 
+			WHERE REQUESTER_ID = #{requester_id}
+			AND TEMP_SAVE_FLAG = 'N'
+			AND a.DELETE_FLAG = 'N'
+			ORDER BY a.APPROVAL_ID DESC, al.STEP ASC  
+	</select>
 	
+	<!-- 문서 상세 조회 -->
+	<select id="getApprovalDetail" resultMap="approvalResultMap">
+<!-- 			SELECT a.APPROVAL_ID , DOCUMENT_TYPE, REQUESTER_ID , APPROVAL_TITLE, APPROVAL_CONTENT,TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') AS REQUEST_DATE , MODIFIED_DATE, STEP, STATUS, e.EMP_NAME AS RECIPIENT_NAME , r.RANK_NAME  -->
+<!-- 				FROM APPROVAL a JOIN APPROVAL_LINE al  -->
+<!-- 				ON a.APPROVAL_ID = al.APPROVAL_ID  -->
+<!-- 				JOIN EMPLOYEE e  -->
+<!-- 				ON e.EMP_ID = al.RECIPIENT_ID  -->
+<!-- 				JOIN "RANK" r  -->
+<!-- 				ON e.RANK_ID = r.RANK_ID  -->
+<!-- 				WHERE REQUESTER_ID = #{requester_id} -->
+<!-- 				AND TEMP_SAVE_FLAG = 'N' -->
+<!-- 				AND DELETE_FLAG = 'N' -->
+<!-- 				AND a.APPROVAL_ID = #{approval_id} -->
+<!-- 				AND DOCUMENT_TYPE = #{document_type} -->
+<!-- 				ORDER BY a.APPROVAL_ID DESC, al.STEP ASC -->
+
+		SELECT a.APPROVAL_ID , DOCUMENT_TYPE, REQUESTER_ID , APPROVAL_TITLE, 
+				APPROVAL_CONTENT, TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') AS REQUEST_DATE , 
+				TO_CHAR(a.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE, STEP, STATUS, 
+				RECIPIENT_ID, e.EMP_NAME AS RECIPIENT_NAME , r.RANK_NAME , e2.EMP_NAME AS REQUESTER_NAME, 
+				t2.TEAM_NAME, APPROVAL_DATE, e.EMP_SIGNATURE AS SIGNATURE
+					FROM APPROVAL a JOIN APPROVAL_LINE al 
+						ON a.APPROVAL_ID = al.APPROVAL_ID 
+						JOIN EMPLOYEE e 
+							ON e.EMP_ID = al.RECIPIENT_ID 
+						JOIN EMPLOYEE e2 
+							ON e2.EMP_ID = a.REQUESTER_ID 
+						JOIN "RANK" r 
+							ON e.RANK_ID = r.RANK_ID 
+						JOIN TEAM t2 
+							ON e2.TEAM_CODE = t2.TEAM_CODE 
+					WHERE REQUESTER_ID = #{requester_id}
+					AND a.TEMP_SAVE_FLAG = 'N'
+					AND a.DELETE_FLAG = 'N'
+					AND a.APPROVAL_ID = #{approval_id}
+					AND DOCUMENT_TYPE = #{document_type}
+					ORDER BY a.APPROVAL_ID DESC, al.STEP ASC
+	</select>
+	
+	<!-- 수신문서함 -->
+	<select id="getAllReceivedApproval" resultMap="approvalResultMap">
+		SELECT a.APPROVAL_ID , DOCUMENT_TYPE, APPROVAL_TITLE, REQUESTER_ID, e.EMP_NAME AS REQUESTER_NAME, t.TEAM_NAME,
+		TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') AS REQUEST_DATE , TO_CHAR(a.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
+		al.RECIPIENT_ID  ,e2.EMP_NAME AS RECIPIENT_NAME ,STEP, STATUS, APPROVAL_DATE
+			FROM APPROVAL a JOIN APPROVAL_LINE al 
+				ON a.APPROVAL_ID = al.APPROVAL_ID 
+			JOIN EMPLOYEE e 
+				ON a.REQUESTER_ID = e.EMP_ID 
+			JOIN TEAM t 
+				ON t.TEAM_CODE = e.TEAM_CODE
+			JOIN EMPLOYEE e2 
+				ON e2.EMP_ID = al.RECIPIENT_ID 
+			WHERE TEMP_SAVE_FLAG = 'N'
+			AND a.DELETE_FLAG = 'N'
+			AND a.APPROVAL_ID IN (SELECT APPROVAL_ID 
+									FROM APPROVAL_LINE al 	
+									WHERE RECIPIENT_ID = #{recipient_id})
+			ORDER BY a.APPROVAL_ID DESC, al.STEP ASC
+	</select>
+	
+	
+	<!-- 결재 업데이트(삭제,임시서장상태변경) -->
+	<update id="updateApprovalFlag">
+		UPDATE APPROVAL
+			<set>
+				<if test="delete_flag != null">
+					DELETE_FLAG = 'Y',
+				</if>
+				<if test="temp_save_flag != null">
+					TEMP_SAVE_FLAG = 'N',
+				</if>
+					MODIFIED_DATE = CURRENT_DATE
+			</set>
+				
+			WHERE APPROVAL_ID = #{approval_id}
+	</update>
+	
+
+	<!-- 결재내용 수정 -->
+	<update id="modifyApproval">
+		UPDATE APPROVAL 
+			SET APPROVAL_TITLE = #{approval_title}, 
+				APPROVAL_CONTENT = #{approval_content}, 
+					MODIFIED_DATE = CURRENT_DATE 
+			WHERE APPROVAL_ID = #{approval_id}
+	</update>
 
 </mapper>

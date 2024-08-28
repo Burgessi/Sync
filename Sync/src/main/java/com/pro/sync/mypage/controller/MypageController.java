@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.pro.sync.employee.vo.EmployeeVo;
+import com.pro.sync.employee.vo.OffVo;
 import com.pro.sync.mypage.service.IMypageService;
-import com.pro.sync.off.vo.OffVo;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package com.pro.sync.off.vo;
+package com.pro.sync.employee.vo;
 
 import java.util.Date;
 

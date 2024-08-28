@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="root" value="${pageContext.request.contextPath}" />
 
@@ -25,6 +26,9 @@
 <link rel="stylesheet" href="${root}/resources/vendors/perfect-scrollbar/perfect-scrollbar.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="${root}/resources/css/sidebar.css">
+
+<!-- sign -->
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
 
 <!-- jstree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
@@ -75,7 +79,19 @@
                     </a>
                     <ul class="submenu" id="approv-part">
                         <li class="submenu-item" id="approv-main">
-                            <a href="${root}/approv/main">결재메인</a>
+                            <a href="${root}/approval/main.do">결재메인</a>
+                        </li>
+                        <li class="submenu-item" id="approv-main">
+                            <a href="${root}/approval/progress.do">기안문서함</a>
+                        </li>
+                        <li class="submenu-item" id="approv-main">
+                            <a href="${root}/approval/receive.do">수신문서함</a>
+                        </li>
+                        <li class="submenu-item" id="approv-main">
+                            <a href="${root}/approval/tempsave.do">임시저장함</a>
+                        </li>
+                         <li class="submenu-item" id="approv-main">
+                            <a href="${root}/approval/complete.do">완료문서함</a>
                         </li>
                     </ul>
                 </li>

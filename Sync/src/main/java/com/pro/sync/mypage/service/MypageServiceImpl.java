@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pro.sync.employee.vo.OffVo;
 import com.pro.sync.mypage.dao.IMypageDao;
-import com.pro.sync.off.vo.OffVo;
 
 import lombok.extern.slf4j.Slf4j;
 
