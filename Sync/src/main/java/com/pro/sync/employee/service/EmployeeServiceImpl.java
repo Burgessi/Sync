@@ -24,6 +24,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int insertEmployee(EmployeeVo employeeVo) {	
 		return dao.insertEmployee(employeeVo); 
 	}
-
+  	
+  	@Override
+  	public EmployeeVo employeeSelectDetail(String emp_id) {
+  		return dao.employeeSelectDetail(emp_id);
+  	}
+  	
+ 	@Override
+  	public int updateEmployee(EmployeeVo employeeVo) {
+  		return dao.updateEmployee(employeeVo);
+  	}
+  	
+  	@Override
+  	public int deleteEmployee(String emp_id) {
+  		return dao.deleteEmployee(emp_id);
+  	}
 }
 
