@@ -8,4 +8,6 @@ public interface EmployeeService {
 
 	public List<EmployeeVo> getAllEmployee();
 	
+	public int insertEmployee(EmployeeVo employeeVo);
+	
 }

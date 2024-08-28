@@ -73,15 +73,15 @@
     <div class="container">
       <div class="form-container">
         <div class="signin">
-          <form action="./login.do" class="signin-form" autocomplete="off" method="post">
+          <form action="./login.do" class="signin-form" autocomplete=off method="post">
             <h1 class="title">SYNC</h1>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input name="emp_id" type="text" autocomplete="off" placeholder="아이디" required />
+              <input name="emp_id" type="text" autocomplete="on" placeholder="아이디" required />
             </div>
             <div class="input-field">
               <i class="fa-solid fa-shield-halved"></i>
-              <input name="emp_password" type="password" placeholder="비밀번호"  autocomplete="off" required />
+              <input name="emp_password" type="password" placeholder="비밀번호"  autocomplete="on" required />
             </div>
             <div class="login-info">
               <div class="save-id form-check form-switch">
@@ -99,7 +99,11 @@
           
         </div>
       </div>
-      
+      <div class="panel-container">
+        <div class="panel">
+          <img src="${root}/resources/img/구름이.png" class="image" alt="" />
+        </div>
+      </div>
     </div>
     
     

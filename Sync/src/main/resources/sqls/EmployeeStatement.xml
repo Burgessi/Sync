@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pro.sync.employee.dao.EmployeeDaoImpl">
+	<!-- 사원 등록 -->
+	<insert id="insertEmployee">
+		INSERT INTO EMPLOYEE (
+		EMP_ID,
+		EMP_NAME,
+		EMP_SSN,
+		EMP_GENDER,
+		RANK_ID,
+		EMP_LEAD,
+		TEAM_CODE,
+		EMP_HIRE_DATE
 
+		) VALUES ((SELECT
+		'A' || LPAD(NVL(MAX(TO_NUMBER(SUBSTR(EMP_ID, 2))), 0)
+		+ 1, 3, '0')
+		FROM
+		EMPLOYEE),#{emp_name},#{emp_ssn},
+		#{emp_gender},#{rank_id},#{emp_lead},#{team_code}
+		,CURRENT_DATE)
+	</insert>
+
+	<!-- 사원 전체 조회 -->
 	<select id="getAllEmployee" resultType="EmployeeVo">
-			SELECT *
-				FROM EMPLOYEE JOIN TEAM  
-				ON EMPLOYEE.TEAM_CODE = TEAM.TEAM_CODE 
-				JOIN "RANK" r 
-				ON EMPLOYEE.RANK_ID = r.RANK_ID
+		SELECT e.EMP_ID AS
+		emp_id,
+		e.EMP_NAME AS emp_name,
+		e.EMP_EMAIL AS emp_email,
+		t.TEAM_NAME AS
+		team_name,
+		r.RANK_NAME AS rank_name,
+		TO_CHAR(e.EMP_HIRE_DATE,
+		'YYYY-MM-DD') AS emp_hire_date,
+		e.EMP_STATUS AS emp_status,
+		d.DIVISION_NAME AS division_name
+		FROM EMPLOYEE e
+		JOIN TEAM t ON
+		t.TEAM_CODE =
+		e.TEAM_CODE
+		JOIN "RANK" r ON r.RANK_ID =e.RANK_ID
+		JOIN
+		DIVISION d ON
+		t.UPSTAIRS_DIVISION_CODE =d.DIVISION_CODE
+		ORDER BY EMP_ID
 	</select>
 
-
+	<!-- 사원 상세 조회 -->
+	<select id="employeeSelectDetail">
+		SELECT e.EMP_ID, e.EMP_NAME ,d.DIVISION_NAME
+		,t.TEAM_NAME , r.RANK_NAME ,e.EMP_LEAD , e.EMP_EMAIL ,e.EMP_STATUS
+		,a.BANK_NAME ,a.RELATION_TO_EMP ,e.ADDR1
+		FROM EMPLOYEE e
+		JOIN TEAM t ON t.TEAM_CODE = e.TEAM_CODE
+		JOIN "RANK" r ON r.RANK_ID =e.RANK_ID
+		JOIN DIVISION d ON t.UPSTAIRS_DIVISION_CODE =d.DIVISION_CODE
+		JOIN ACCOUNT a ON a.EMP_ID =e.EMP_ID
+		WHERE e.EMP_ID =#{emp_id}
+	</select>
 </mapper>

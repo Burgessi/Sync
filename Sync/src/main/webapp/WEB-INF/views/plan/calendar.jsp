@@ -411,7 +411,7 @@ function detailschedule(info) {
 		    modal.show();
 		},
 		error:function(e){
-			toastr.error('알 수 없는 오류가 떴습니다');
+			toastr.error('데이터를 가져올 수 없습니다.');
 		}
 	});
 	

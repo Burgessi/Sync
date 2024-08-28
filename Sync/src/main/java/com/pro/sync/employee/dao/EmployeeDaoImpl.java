@@ -1,3 +1,4 @@
+
 package com.pro.sync.employee.dao;
 
 import java.util.List;
@@ -21,5 +22,11 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	public List<EmployeeVo> getAllEmployee() {
 		return sessionTemplate.selectList(NS+"getAllEmployee");
 	}
+  
+  	@Override
+	public int insertEmployee(EmployeeVo employeeVo) {
+		return sessionTemplate.insert(NS + "insertEmployee", employeeVo);
+	}
 
 }
+
