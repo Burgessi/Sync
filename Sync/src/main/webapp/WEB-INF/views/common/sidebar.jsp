@@ -69,6 +69,20 @@
         </div>
         <div class="sidebar-menu">
             <ul class="menu mt-1" style="padding-left: 25px">
+            
+            <!-- 인사 관리 -->
+            	    <li class="sidebar-item has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-card-checklist"></i>
+                        <span>인사관리</span>
+                    </a>
+                    <ul class="submenu" id="calendar">
+                        <li class="submenu-item" id="calendar">
+                            <a href="${root}/employeeSelectAll.do">사원 관리</a>	
+                            <a href="#">본부/팀 관리</a>						              
+                      	</li>                   
+                    </ul>
+                </li>
 
                 
 

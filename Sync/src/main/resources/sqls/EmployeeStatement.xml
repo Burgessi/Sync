@@ -47,15 +47,48 @@
 	</select>
 
 	<!-- 사원 상세 조회 -->
-	<select id="employeeSelectDetail">
-		SELECT e.EMP_ID, e.EMP_NAME ,d.DIVISION_NAME
-		,t.TEAM_NAME , r.RANK_NAME ,e.EMP_LEAD , e.EMP_EMAIL ,e.EMP_STATUS
-		,a.BANK_NAME ,a.RELATION_TO_EMP ,e.ADDR1
+	<select id="employeeSelectDetail" resultType="EmployeeVo">
+		SELECT
+		e.EMP_ID,
+		e.EMP_NAME,
+		d.DIVISION_NAME,
+		t.TEAM_NAME,
+		r.RANK_NAME,
+		e.EMP_LEAD,
+		e.EMP_EMAIL,
+		e.EMP_STATUS,
+		a.BANK_NAME,
+		a.RELATION_TO_EMP,
+		e.ADDR1, e.ADDR2,
+		TO_CHAR(e.EMP_HIRE_DATE, 'YYYY-MM-DD') AS EMP_HIRE_DATE
 		FROM EMPLOYEE e
-		JOIN TEAM t ON t.TEAM_CODE = e.TEAM_CODE
-		JOIN "RANK" r ON r.RANK_ID =e.RANK_ID
-		JOIN DIVISION d ON t.UPSTAIRS_DIVISION_CODE =d.DIVISION_CODE
-		JOIN ACCOUNT a ON a.EMP_ID =e.EMP_ID
-		WHERE e.EMP_ID =#{emp_id}
+		FULL OUTER JOIN TEAM t ON t.TEAM_CODE = e.TEAM_CODE
+		FULL OUTER JOIN "RANK" r ON r.RANK_ID = e.RANK_ID
+		FULL OUTER JOIN DIVISION d ON t.UPSTAIRS_DIVISION_CODE = d.DIVISION_CODE
+		FULL OUTER JOIN ACCOUNT a ON a.EMP_ID = e.EMP_ID
+		WHERE e.EMP_ID = #{emp_id}
 	</select>
+
+
+	<!-- 사원 수정 -->
+	<update id="updateEmployee" parameterType="EmployeeVo">
+		UPDATE EMPLOYEE
+		SET	
+			EMP_STATUS = #{emp_status},
+			TEAM_CODE = #{team_code},
+			RANK_ID = #{rank_id},
+			AUTHORITY = #{authority},
+			EMP_LEAD = #{emp_lead}
+		WHERE EMP_ID = #{emp_id}
+	</update>
+
+
+
+
+	<!-- 사원 삭제 -->
+	<delete id="deleteEmployee">
+		DELETE FROM EMPLOYEE WHERE EMP_ID=#{emp_id}
+	</delete>
+
+
 </mapper>

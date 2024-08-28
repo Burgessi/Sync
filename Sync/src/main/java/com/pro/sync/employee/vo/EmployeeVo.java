@@ -50,6 +50,8 @@ public class EmployeeVo {
 	private String relation_to_emp;
 	
 	private int used_off;
+	
+	
 
 	
 
