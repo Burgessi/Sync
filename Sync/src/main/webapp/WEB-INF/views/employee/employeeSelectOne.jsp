@@ -200,6 +200,8 @@
 
     <!-- JavaScript for dynamically updating the team options -->
     <script>
+ 
+	
  // 팀 목록을 본부별로 정의 (code와 name 포함)
     var teams = {
         "SPD": [
@@ -258,6 +260,11 @@
 
     // 페이지 로드 시 초기화
     window.onload = updateTeams;
+    
+    var message = '${message}';
+	if(message && message.trim()!==""){
+		toastr.info(message);
+	}
 
     </script>
 </body>

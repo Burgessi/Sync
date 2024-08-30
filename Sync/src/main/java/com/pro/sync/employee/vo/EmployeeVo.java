@@ -3,8 +3,8 @@ package com.pro.sync.employee.vo;
 
 
 import com.pro.sync.division.vo.DivisionVo;
+import com.pro.sync.mypage.vo.AccountVo;
 import com.pro.sync.team.vo.TeamVo;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,12 +47,16 @@ public class EmployeeVo {
 	private String rank_name;
 	
 	private int used_off;
-
 	
-
+	private String bank_name;
+	private String relation_to_emp;
+	private String account_num;
+	
 	private TeamVo teamVo;
 	
 	private DivisionVo divisionVo;
+	
+	
 	
 
 	
