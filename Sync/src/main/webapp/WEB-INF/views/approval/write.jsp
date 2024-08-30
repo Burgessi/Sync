@@ -236,7 +236,6 @@
 			
 		});
 		
-		
 			//조직도 jsTree
 			
 			// 서버에 데이터 요청
@@ -249,7 +248,6 @@
 				        CreateJSTrees();
 			    }
 			});
-			
 			
 			// 서버에서 가져온 데이터로 JSTree 만듦
 			function CreateJSTrees(){

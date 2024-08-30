@@ -99,13 +99,10 @@
                             <a href="${root}/approval/progress.do">기안문서함</a>
                         </li>
                         <li class="submenu-item" id="approv-main">
-                            <a href="${root}/approval/receive.do">수신문서함</a>
-                        </li>
-                        <li class="submenu-item" id="approv-main">
                             <a href="${root}/approval/tempsave.do">임시저장함</a>
                         </li>
-                         <li class="submenu-item" id="approv-main">
-                            <a href="${root}/approval/complete.do">완료문서함</a>
+                        <li class="submenu-item" id="approv-main">
+                            <a href="${root}/approval/receive.do">수신문서함</a>
                         </li>
                     </ul>
                 </li>

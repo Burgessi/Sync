@@ -55,17 +55,26 @@ public class ApprovalController {
 	
 	//결재 상세 조회 페이지
 	@GetMapping("/getApprovalDetail.do")
-	public String getApprovalDetail(HttpSession session, String approval_id, String requester_id, String document_type, Model model){
-		log.info("받은값 : {},{}", approval_id, requester_id, document_type);
+	public String getApprovalDetail(HttpSession session, String approval_id, String requester_id, String document_type, String temp_save_flag, Model model){
+		log.info("받은값 : {},{},{}", approval_id, requester_id, document_type);
 		Map<String, String> info = new HashMap<String, String>();
 		//상세정보 가져올 문서번호, 양식, 결재요청자의 id
 		info.put("requester_id", requester_id);
 		info.put("approval_id", approval_id);
 		info.put("document_type", document_type);
 		
-		ApprovalVo approvalDetail = approvalService.getApprovalDetail(info);
-		model.addAttribute("approvalDetail", approvalDetail);
-		log.info("[approvalDetail]: {}", approvalDetail);
+		// 임시저장이 아닌경우의 상세조회
+		if(temp_save_flag.equals("N")) {
+			ApprovalVo approvalDetail = approvalService.getApprovalDetail(info);
+			model.addAttribute("approvalDetail", approvalDetail);
+			log.info("임시서장 아닌 경우 상세조회 [approvalDetail]: {}", approvalDetail);
+			
+		// 임시저장인 경우 상세조회
+		} else {
+			ApprovalVo tempApproval = approvalService.getTempApprovalDetail(info);
+			model.addAttribute("approvalDetail", tempApproval);
+			log.info("임시서장인경우 상세조회 [approvalDetail]: {}", tempApproval);
+		}
 		
 		switch (document_type) {
 			case "휴가신청서": return "approval/approvalDetail/leaveApplicationDetail";
@@ -78,16 +87,24 @@ public class ApprovalController {
 
 	//상세 -> 수정페이지 이동(결재 내용 들고가기)
 	@GetMapping("/modifyApproval.do")
-	public String modifyApproval(HttpSession session, String document_type, String approval_id, Model model) {
+	public String modifyApproval(HttpSession session, String document_type, String approval_id, Model model, String temp_save_flag) {
 		log.info("전달 결재id :{}", approval_id);
 		Map<String, String> info = new HashMap<String, String>();
 		EmployeeVo loginVo = (EmployeeVo)session.getAttribute("loginDto");
 		info.put("requester_id", loginVo.getEmp_id());
 		info.put("document_type", document_type);
 		info.put("approval_id", approval_id);
-		ApprovalVo approval = approvalService.getApprovalDetail(info);
-		model.addAttribute("loginVo", loginVo);
-		model.addAttribute("approval", approval);
+		
+		if(temp_save_flag.equals("N")) {
+			ApprovalVo approval = approvalService.getApprovalDetail(info);
+			model.addAttribute("approval", approval);
+			log.info("상세->수정페이지 이동 temp_save_flag가 N인경우 : 전달 값 approval : {}", approval);
+		} else {
+			ApprovalVo tempApproval = approvalService.getTempApprovalDetail(info);
+			model.addAttribute("approval", tempApproval);
+			log.info("상세->수정페이지 이동 temp_save_flag가 Y인경우 : 전달 값 approval : {}", tempApproval);
+		}
+		
 		switch (document_type) {
 			case "휴가신청서": return "approval/approvalModification/leaveApplicationModification";
 			case "출장보고서": return "approval/approvalModification/businessTripModification";
@@ -105,15 +122,27 @@ public class ApprovalController {
 		String approval_id = inMap.remove("approvalId");
 		String document_type = inMap.remove("documentType");
 		String approval_title = inMap.remove("title");
+		String temp_save_flag = inMap.remove("temp_save_flag");
+		String requester_id = inMap.remove("requester_id");
+		
 		Map<String, String> info = new HashMap<String, String>();
 		info.put("approval_id", approval_id);
 		info.put("approval_title", approval_title);
 		info.put("approval_content", new Gson().toJson(inMap));
 		
-		approvalService.modifyApproval(info);
+		//만약 N이라면 >> 일반 수정..
+		if(temp_save_flag.equals("N")) {
+			approvalService.modifyApproval(info);
+		} else { //Y라면 임시저장의 경우..
+			
+		}
+		
+		
 		
 		redirectAttributes.addAttribute("approval_id",approval_id);
 		redirectAttributes.addAttribute("document_type",document_type);
+		redirectAttributes.addAttribute("temp_save_flag", temp_save_flag);
+		redirectAttributes.addAttribute("requester_id", requester_id);
 		redirectAttributes.addFlashAttribute("message", "문서수정 완료");
 		redirectAttributes.addFlashAttribute("details", "문서 수정이 성공적으로 완료되었습니다.");
 		
@@ -147,18 +176,15 @@ public class ApprovalController {
 		return "approval/receive";
 	}
 	
-	@GetMapping("/tempsave.do")
 	// 사이드바 -> 임시저장함
-	public String tempsave() {
+	@GetMapping("/tempsave.do")
+	public String tempsave(HttpSession session, Model model) {
+		EmployeeVo loginVo = (EmployeeVo)session.getAttribute("loginDto");
+		String id = loginVo.getEmp_id();
+		List<ApprovalVo> tempApproval = approvalService.getTempSaveList(id);
+		model.addAttribute("tempApproval", tempApproval);
 		return "approval/tempsave";
 	}
-	
-	@GetMapping("/complete.do")
-	// 사이드바 -> 결재완료함
-	public String complete() {
-		return "approval/complete";
-	}
-	
 	
 	// Home -> 결재 작성화면 이동
 	@GetMapping(value = "/write.do")
@@ -188,10 +214,25 @@ public class ApprovalController {
 		
 	}
 	
+	//임시저장 결재상신
+	@PostMapping("/tempApprovalSubmit.do")
+	public String tempApprovalSubmit(RedirectAttributes redirectAttributes, HttpSession session, @RequestParam Map<String, String> inMap, @RequestParam(required = false) List<String> referrer) {
+		
+		log.info("임시저장 문서 제출 {},{}",inMap,referrer);
+		
+		approvalService.requestTempApproval(inMap, referrer);
+		
+		redirectAttributes.addFlashAttribute("message", "결재상신 완료");
+		redirectAttributes.addFlashAttribute("details", "결재 요청이 성공적으로 전송되었습니다.");
+		
+		return "redirect:/approval/tempsave.do";
+	}
+	
+	
 	
 	//결재 상신
 	@PostMapping("/approvalSubmit.do")
-	public String approval_form(RedirectAttributes redirectAttributes, HttpSession session, @RequestParam Map<String, String> inMap, @RequestParam(required = false) List<String> referrer) {
+	public String approvalSubmit(RedirectAttributes redirectAttributes, HttpSession session, @RequestParam Map<String, String> inMap, @RequestParam(required = false) List<String> referrer) {
 	
 		ApprovalVo approval = new ApprovalVo();
 		
@@ -249,6 +290,10 @@ public class ApprovalController {
 
 		return "redirect:/approval/write.do";
 	}
+	
+	
+	
+	
 	
 	
 }

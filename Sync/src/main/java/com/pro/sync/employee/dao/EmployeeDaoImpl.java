@@ -2,6 +2,7 @@
 package com.pro.sync.employee.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -34,8 +35,8 @@ public class EmployeeDaoImpl implements EmployeeDao{
   	}
 	
 	@Override
-	public int updateEmployee(EmployeeVo employeeVo) {
-		return sessionTemplate.update(NS+"updateEmployee",employeeVo);
+	public int updateEmployee(Map<String, String> inMap) {
+		return sessionTemplate.update(NS+"updateEmployee",inMap);
 	}
 	
 	@Override

@@ -67,18 +67,20 @@ public class EmployeeController {
 //	    log.info("전달받은 employeeVo : {}", employeeVo);
 
 //	    // empId가 employeeVo에 포함되어 있는지 확인 (혹은 employeeVo에 setEmpId 메서드를 호출하여 설정)
-	    employeeVo.setEmp_id(empId);
+//	    employeeVo.setEmp_id(empId);
+//
+//	    int n = employeeService.updateEmployee(employeeVo);
 
-	    int n = employeeService.updateEmployee(employeeVo);
-
-	    if (n == 1) {
-	        session.setAttribute("toastMsg", "사원 정보 수정 완료!");
-	        return "redirect:/employeeSelectAll.do"; // 수정 후 목록 페이지로 리다이렉트
-	    } else {
-	        session.setAttribute("toastMsg", "사원 정보 수정 실패. 다시 시도해주세요");
-	        return "redirect:/employeeSelectAll.do"; 
-	    }
+//	    if (n == 1) {
+//	        session.setAttribute("toastMsg", "사원 정보 수정 완료!");
+//	        return "redirect:/employeeSelectAll.do"; // 수정 후 목록 페이지로 리다이렉트
+//	    } else {
+//	        session.setAttribute("toastMsg", "사원 정보 수정 실패. 다시 시도해주세요");
+//	        return "redirect:/employeeSelectAll.do"; 
+//	    }
 	 
+	    return "";
+	    
 	}
 	
 	//새로 만든 컨트롤러

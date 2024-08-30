@@ -14,13 +14,13 @@
 							<tr>
 								<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">기안자</th>
 								<td>
-									<div id="requesterId">${loginVo.emp_name}</div>
+									<div id="requesterId">${infoDto.emp_name}</div>
 								</td>
 							</tr>
 							<tr>
 								<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">기안부서</th>
 								<td>
-									<div id="requesterTeam">${loginVo.team_name}</div>
+									<div id="requesterTeam">${infoDto.team_name}</div>
 								</td>
 							</tr>
 							<tr>

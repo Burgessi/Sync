@@ -18,9 +18,15 @@
 				<div class="container">
 					<div class="card">
 						<div class="card-body">
-							<div style="text-align: right;">
-								<button id="modifyApproval" class="btn btn-sm btn-primary" onclick="modify(event)">완료</button>
-							</div>
+							<c:choose>
+							<c:when test="${approval.temp_save_flag eq 'N'}">
+								<div style="text-align: right;">
+									<input type="hidden" name="requester_id" value="${approval.requester_id}">
+									<input type="hidden" name="temp_save_flag" value="${approval.temp_save_flag}">
+									<button id="modifyApproval" class="btn btn-sm btn-primary" onclick="modify(event)">완료</button>
+								</div>	
+							</c:when>
+						</c:choose>
 								<h4 style="text-align: center;">지출결의서</h4>
 									<div>
 										<div class="row">
@@ -77,7 +83,7 @@
 												<tr>
 													<td><input type="text" autocomplete="off" id="expenseDate1" name="expenseDate1" class="form-control expenseDate approval-input"></td>
 													<td style="text-align: center;">
-														<select class="form-control approval-input" id="expenseCategory1" name="expenseCategory1">
+														<select class="form-control approval-input approval-select" id="expenseCategory1" name="expenseCategory1">
 															<option style="color: #c4c4c4;" disabled selected>선택하세요</option>
 															<option value="travel">출장비</option>
 															<option value="officeSupplies">사무용품</option>
@@ -93,7 +99,7 @@
 												<tr>
 													<td><input type="text" autocomplete="off" id="expenseDate2" name="expenseDate2" class="form-control expenseDate approval-input"></td>
 													<td style="text-align: center;">
-														<select class="form-control approval-input" id="expenseCategory2" name="expenseCategory2">
+														<select class="form-control approval-input approval-select" id="expenseCategory2" name="expenseCategory2">
 															<option style="color: #c4c4c4;" disabled selected>선택하세요</option>
 															<option value="travel">출장비</option>
 															<option value="officeSupplies">사무용품</option>
@@ -109,7 +115,7 @@
 												<tr>
 													<td><input type="text" autocomplete="off" id="expenseDate3" name="expenseDate3" class="form-control expenseDate approval-input"></td>
 													<td style="text-align: center;">
-														<select class="form-control approval-input" id="expenseCategory3" name="expenseCategory3">
+														<select class="form-control approval-input approval-select" id="expenseCategory3" name="expenseCategory3">
 															<option style="color: #c4c4c4;" disabled selected>선택하세요</option>
 															<option value="travel">출장비</option>
 															<option value="officeSupplies">사무용품</option>
@@ -125,7 +131,7 @@
 												<tr>
 													<td><input type="text" autocomplete="off" id="expenseDate4" name="expenseDate4" class="form-control expenseDate approval-input"></td>
 													<td style="text-align: center;">
-														<select class="form-control approval-input" id="expenseCategory4" name="expenseCategory4">
+														<select class="form-control approval-input approval-select" id="expenseCategory4" name="expenseCategory4">
 															<option style="color: #c4c4c4;" disabled selected>선택하세요</option>
 															<option value="travel">출장비</option>
 															<option value="officeSupplies">사무용품</option>
@@ -141,7 +147,7 @@
 												<tr>
 													<td><input type="text" autocomplete="off" id="expenseDate5" name="expenseDate5" class="form-control expenseDate approval-input"></td>
 													<td style="text-align: center;">
-														<select class="form-control approval-input" id="expenseCategory5" name="expenseCategory5">
+														<select class="form-control approval-input approval-select" id="expenseCategory5" name="expenseCategory5">
 															<option style="color: #c4c4c4;" disabled selected>선택하세요</option>
 															<option value="travel">출장비</option>
 															<option value="officeSupplies">사무용품</option>
@@ -223,17 +229,16 @@ function valueChangeCheck(data) {
 }
 
 //수정완료 버튼
-	function modify(event){
-		event.preventDefault();
-		var frm = $("#modifyForm");
-		
-		if(valueChangeCheck(jsonData)=="N"){
-			toastr.error("변경된 내용이 없습니다.");
-			return;
-		} else{
-			frm.submit();
-		}
-		
+function modify(event){
+	event.preventDefault();
+	var frm = $("#modifyForm");
+	
+	if(valueChangeCheck(jsonData)=="N"){
+		toastr.error("변경된 내용이 없습니다.");
+		return;
+	} else{
+		frm.attr("action","./modifyApproval.do")
+		frm.submit();
 	}
 
 

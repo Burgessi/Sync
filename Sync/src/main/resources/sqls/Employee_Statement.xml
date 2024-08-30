@@ -34,7 +34,8 @@
 		TO_CHAR(e.EMP_HIRE_DATE,
 		'YYYY-MM-DD') AS emp_hire_date,
 		e.EMP_STATUS AS emp_status,
-		d.DIVISION_NAME AS division_name
+		d.DIVISION_NAME AS division_name,
+		e.TEAM_CODE
 		FROM EMPLOYEE e
 		JOIN TEAM t ON
 		t.TEAM_CODE =
@@ -71,18 +72,28 @@
 
 
 	<!-- 사원 수정 -->
-	<update id="updateEmployee" parameterType="EmployeeVo">
-		UPDATE EMPLOYEE
-		SET	
-			EMP_STATUS = #{emp_status},
-			TEAM_CODE = #{team_code},
-			RANK_ID = #{rank_id},
-			AUTHORITY = #{authority},
-			EMP_LEAD = #{emp_lead}
-		WHERE EMP_ID = #{emp_id}
-	</update>
-
-
+	   <update id="updateEmployee" parameterType="java.util.Map">
+	      UPDATE EMPLOYEE e
+	      <set>
+	         <if test="team_code != null and team_code != ''">
+	            TEAM_CODE = #{team_code},
+	         </if>
+	         <if test="rank_id != null and rank_id != ''">
+	            RANK_ID = #{rank_id},
+	         </if>
+	         <if test="authority != null and authority != ''">
+	            AUTHORITY = #{authority},
+	         </if>
+	         <if test="emp_lead != null and emp_lead != ''">
+	            EMP_LEAD = #{emp_lead},
+	         </if>
+	         <if test="emp_signature != null and emp_signature != ''">
+	         	EMP_SIGNATURE = #{emp_signature},
+	         </if>
+	      </set>
+	      WHERE e.EMP_ID = #{emp_id}
+	   </update>
+	
 
 
 	<!-- 사원 삭제 -->

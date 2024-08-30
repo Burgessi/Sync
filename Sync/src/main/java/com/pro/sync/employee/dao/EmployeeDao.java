@@ -1,6 +1,7 @@
 package com.pro.sync.employee.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pro.sync.employee.vo.EmployeeVo;
 
@@ -12,7 +13,7 @@ public interface EmployeeDao {
 	
 	public EmployeeVo employeeSelectDetail(String emp_id);
 	
-	public int updateEmployee(EmployeeVo employeeVo);
+	public int updateEmployee(Map<String, String> inMap);
 	
 	public int deleteEmployee(String emp_id);
 	
