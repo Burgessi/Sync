@@ -72,17 +72,17 @@
         <!--헤더 include -> 상단 로그인정보 등 -->
         <div id="main">
             <%@ include file="/WEB-INF/views/common/header.jsp"%>
-            <h3>공지사항</h3>
+            <h3>자유게시판</h3>
             <div class="container">
                 <div class="card">
                     <div class="card-header">
                         
                     </div>
                     <div class="card-body">
-                        <form action="${root}/notice/insertNotice.do" method="post">
+                        <form action="${root}/board/insertBoard.do" method="post">
                              <table class="table">
                                 <tr>
-                                    <td class="tb"><strong>이&nbsp;&nbsp;&nbsp;&nbsp;름ㄴ</strong></td>
+                                    <td class="tb"><strong>이&nbsp;&nbsp;&nbsp;&nbsp;름</strong></td>
                                     <td>
                                     	<input type="text" name="employee_name" value="${infoDto.emp_name}" class="input-hide">
                                     </td>
@@ -90,13 +90,13 @@
                                 <tr>
                                     <td class="tb"><strong>제&nbsp;&nbsp;&nbsp;&nbsp;목</strong></td>
                                     <td>
-                                        <input type="text" class="input-hide" name="notice_title" >
+                                        <input type="text" class="input-hide" name="bd_title" >
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="tb"><strong>내&nbsp;&nbsp;&nbsp;&nbsp;용</strong></td>
                                     <td>
-                                        <textarea id="editor" name="notice_content"></textarea>
+                                        <textarea id="editor" name="bd_content"></textarea>
                                     </td>
                                 </tr>                
                              </table>

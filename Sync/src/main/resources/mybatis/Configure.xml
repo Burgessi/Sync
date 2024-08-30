@@ -6,12 +6,12 @@
   
 <typeAliases>
 	<typeAlias type="com.pro.sync.employee.vo.EmployeeVo" alias="EmployeeVo"/>
-    	<typeAlias type="com.pro.sync.mypage.vo.OffVo" alias="OffVo"/>
-    	<typeAlias type="com.pro.sync.mypage.vo.AccountVo" alias="AccountVo"/>
+    <typeAlias type="com.pro.sync.mypage.vo.OffVo" alias="OffVo"/>
+    <typeAlias type="com.pro.sync.mypage.vo.AccountVo" alias="AccountVo"/>
 	<typeAlias type="com.pro.sync.team.vo.TeamVo" alias="TeamVo"/>
 	<typeAlias type="com.pro.sync.division.vo.DivisionVo" alias="DivisionVo"/>
 	<typeAlias type="com.pro.sync.approval.vo.ApprovalVo" alias="ApprovalVo"/>
-    	<typeAlias type="com.pro.sync.plan.vo.ScheduleVo" alias="ScheduleVo"/>
+    <typeAlias type="com.pro.sync.plan.vo.ScheduleVo" alias="ScheduleVo"/>
 	<typeAlias type="com.pro.sync.approval.vo.ApprovalLineVo" alias="ApprovalLineVo"/>
 	<typeAlias type="com.pro.sync.notice.vo.NoticeVo" alias="NoticeVo"/>
 	<typeAlias type="com.pro.sync.board.vo.BoardVo" alias="BoardVo"/>
