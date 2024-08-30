@@ -92,7 +92,7 @@
             <section class="section d-flex">
               <div class="card" style="width: 50%; min-width: 500px; height:500px; padding: 5px; overflow: auto">
                 <div class="card-header mt-1">
-                  <h4>메인 컨텐츠 영역3 - 소속아티스트 음원 순위 현황(추이)</h4>
+                  <h4>메인 컨텐츠 영역3 - 전자결재 현황</h4>
                 </div>
                 <div class="card-body">
 <!--                   컨텐츠 내용 -->
@@ -100,7 +100,7 @@
               </div>
               <div class="card" style="width: 55%; min-width: 500px; padding: 5px; margin-left:10px; overflow: auto">
                 <div class="card-header mt-1">
-                  <h4>메인 컨텐츠 영역4 - 실시간 음원차트</h4>
+                  <h4>메인 컨텐츠 영역4 - 시설예약 현황</h4>
                 </div>
                 <div class="card-body">
 <!--                   컨텐츠 내용 -->
@@ -118,7 +118,7 @@
               </div>
               <div class="card" style="width: 55%; min-width: 500px; padding: 5px; margin-left:10px; overflow: auto">
                 <div class="card-header mt-1">
-                  <h4>메인 컨텐츠 영역6 - 연예뉴스</h4>
+                  <h4>메인 컨텐츠 영역6 - 사원 현황</h4>
                 </div>
                 <div class="card-body">
 <!--                   컨텐츠 내용 -->
@@ -145,7 +145,100 @@
     
     <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
+  <!-- 비밀번호 변경 모달 -->
+<div class="modal fade" id="passwordChangeModal" tabindex="-1" aria-labelledby="passwordChangeModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="passwordChangeModalLabel">비밀번호 변경</h5>
+            </div>
+            <div class="modal-body">
+                <form id="passwordChangeForm" action="./changePassword.do" method="post">
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">새 비밀번호</label>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">비밀번호 확인</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">변경</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-  
+<!-- 비밀번호 변경 성공 모달 -->
+<div class="modal fade" id="passwordChangeSuccessModal" tabindex="-1" aria-labelledby="passwordChangeSuccessModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="passwordChangeSuccessModalLabel">비밀번호 변경 완료</h5>
+            </div>
+            <div class="modal-body">
+                비밀번호가 변경되었습니다. 다시 로그인해주세요.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmButton">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript code -->
+<script>
+    $(document).ready(function() {
+        <% 
+            EmployeeVo loginDto = (EmployeeVo) request.getAttribute("loginDto");
+            EmployeeVo infoDto = (EmployeeVo) request.getAttribute("infoDto");
+            
+            if (loginDto != null && "A".equals(infoDto.getEmp_status())) {
+        %>
+            $('#passwordChangeModal').modal('show');
+        <% 
+            } 
+        %>
+
+        // 비밀번호 유효성 검사 함수
+        function isValidPassword(password) {
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+            return passwordRegex.test(password);
+        }
+
+        // 비밀번호 변경 폼 유효성 검사 후 제출
+        $('#passwordChangeForm').on('submit', function(event) {
+            event.preventDefault(); // 기본 폼 제출 막기
+
+            var newPassword = $('#newPassword').val();
+            var confirmPassword = $('#confirmPassword').val();
+
+            // 비밀번호 유효성 검사
+            if (!isValidPassword(newPassword)) {
+            	toastr.error('비밀번호는 영문 대소문자와 숫자를 포함하여 8자 이상이어야 합니다.');
+                return; // 유효성 검사를 통과하지 못하면 제출 중단
+            }
+
+            // 비밀번호와 비밀번호 확인이 일치하는지 확인
+            if (newPassword !== confirmPassword) {
+            	toastr.error('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+                return; // 유효성 검사를 통과하지 못하면 제출 중단
+            }
+
+            // 유효성 검사를 통과했을 경우 폼을 실제로 제출
+            $.post($(this).attr('action'), $(this).serialize(), function(response) {
+                $('#passwordChangeModal').modal('hide'); // 비밀번호 변경 모달 숨기기
+                $('#passwordChangeSuccessModal').modal('show'); // 성공 모달 보여주기
+            });
+        });
+
+        // 성공 모달에서 확인 버튼 클릭 시 로그인 페이지로 리다이렉트
+        
+        $('#confirmButton').on('click', function() {
+            window.location.href = './'; // 로그인 페이지 URL로 변경
+        });
+    });
+</script>
+
   </body>
 </html>

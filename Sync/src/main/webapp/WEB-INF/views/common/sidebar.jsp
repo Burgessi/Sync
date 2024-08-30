@@ -51,11 +51,11 @@
 	            <div class="profile d-flex p-1">
 	                <div class="avatar avatar-xl" style="border-radius: 10%">
 	               <c:choose>
-	                <c:when test="${not empty loginMember.empProfile}">
-	                    <img style="border-radius: 30%; width: 65px; height: 65px; object-fit: cover" src="${root}/resources/upload/profile/${loginMember.empProfile}" alt="이미지" />
+	                <c:when test="${not empty infoDto.emp_profile_pic}">
+	                    <img id="sidebarPreview" style="border-radius: 50%; width: 65px; height: 65px; object-fit: cover" src="${infoDto.emp_profile_pic}" alt="이미지" />
 	                </c:when>
 	                <c:otherwise>
-	              		<img style="width: 60px; height: 60px;" src="${root}/resources/img/member-imgs/user.png" alt="profile" />
+	              		<img id="sidebarPreview" style="border-radius: 50%; width: 65px; height: 65px; object-fit: cover" src="${root}/resources/img/member-imgs/user.png" alt="profile" />
 	                </c:otherwise>
 	               </c:choose>
 	             </div>

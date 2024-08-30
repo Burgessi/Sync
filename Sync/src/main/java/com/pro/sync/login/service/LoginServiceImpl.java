@@ -23,5 +23,10 @@ public class LoginServiceImpl implements ILoginService {
 		return dao.getLogin(map);
 	}
 	
+	@Override
+	public int updatePwStatus(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return dao.updatePwStatus(map);
+	}
 
 }

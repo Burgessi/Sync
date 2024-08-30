@@ -7,4 +7,6 @@ import com.pro.sync.employee.vo.EmployeeVo;
 public interface ILoginService {
 
 	public EmployeeVo getLogin(Map<String, Object> map);
+	public int updatePwStatus(Map<String, Object> map);
+
 }

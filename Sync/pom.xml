@@ -247,6 +247,13 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 
+	<!-- Maven 의존성 추가 -->
+		<dependency>
+		    <groupId>org.mindrot</groupId>
+		    <artifactId>jbcrypt</artifactId>
+		    <version>0.4</version>
+		</dependency>
+
 
       <!-- Test -->
       <dependency>
