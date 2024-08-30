@@ -34,7 +34,8 @@
 		TO_CHAR(e.EMP_HIRE_DATE,
 		'YYYY-MM-DD') AS emp_hire_date,
 		e.EMP_STATUS AS emp_status,
-		d.DIVISION_NAME AS division_name
+		d.DIVISION_NAME AS division_name,
+		e.TEAM_CODE
 		FROM EMPLOYEE e
 		JOIN TEAM t ON
 		t.TEAM_CODE =
@@ -108,16 +109,11 @@
 		WHERE e.EMP_ID = #{emp_id}
 	</update>
 
-
-
-
-
 	<!-- 사원 삭제 -->
 	<update id="deleteEmployee">
 		UPDATE EMPLOYEE
 		SET EMP_STATUS ='D'
 		WHERE EMP_ID =#{emp_id}
-
 	</update>
 
 

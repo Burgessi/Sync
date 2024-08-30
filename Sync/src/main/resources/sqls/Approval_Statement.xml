@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pro.sync.approval.dao.ApprovalDaoImpl">
 
-
 	<resultMap id="approvalLineResultMap" type="ApprovalLineVo" >
 		<result property="approval_line_id" column="APPROVAL_LINE_ID"/>
 		<result property="approval_id" column="APPROVAL_ID"/>
@@ -13,6 +12,7 @@
 		<result property="recipient_name" column="RECIPIENT_NAME"/>
 		<result property="approval_date" column="APPROVAL_DATE"/>
 		<result property="rank_name" column="RANK_NAME"/>
+		<result property="rejection" column="REJECTION"/>
 		<result property="signature" column="SIGNATURE"/>
 	</resultMap>
 
@@ -28,6 +28,7 @@
 		<result property="team_name" column="TEAM_NAME"/>
 		<result property="request_date" column="REQUEST_DATE"/>
 		<result property="modified_date" column="MODIFIED_DATE"/>
+		<result property="order" column="ORDER"/>
 		<collection property="lineList" resultMap="approvalLineResultMap"></collection>
 	</resultMap>
 
@@ -117,7 +118,7 @@
 	
 	<!-- 문서 전체 조회(기안문서함) -->
 	<select id="getApprovalsList" resultMap="approvalResultMap">
-		SELECT a.APPROVAL_ID , DOCUMENT_TYPE, APPROVAL_TITLE, REQUESTER_ID, e.EMP_NAME AS REQUESTER_NAME, t.TEAM_NAME,
+		SELECT a.APPROVAL_ID , DOCUMENT_TYPE, APPROVAL_TITLE, REQUESTER_ID, e.EMP_NAME AS REQUESTER_NAME, t.TEAM_NAME, TEMP_SAVE_FLAG,
 		TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') AS REQUEST_DATE , TO_CHAR(a.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
 		e2.EMP_NAME AS RECIPIENT_NAME ,STEP, STATUS, APPROVAL_DATE
 			FROM APPROVAL a JOIN APPROVAL_LINE al 
@@ -136,25 +137,11 @@
 	
 	<!-- 문서 상세 조회 -->
 	<select id="getApprovalDetail" resultMap="approvalResultMap">
-<!-- 			SELECT a.APPROVAL_ID , DOCUMENT_TYPE, REQUESTER_ID , APPROVAL_TITLE, APPROVAL_CONTENT,TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') AS REQUEST_DATE , MODIFIED_DATE, STEP, STATUS, e.EMP_NAME AS RECIPIENT_NAME , r.RANK_NAME  -->
-<!-- 				FROM APPROVAL a JOIN APPROVAL_LINE al  -->
-<!-- 				ON a.APPROVAL_ID = al.APPROVAL_ID  -->
-<!-- 				JOIN EMPLOYEE e  -->
-<!-- 				ON e.EMP_ID = al.RECIPIENT_ID  -->
-<!-- 				JOIN "RANK" r  -->
-<!-- 				ON e.RANK_ID = r.RANK_ID  -->
-<!-- 				WHERE REQUESTER_ID = #{requester_id} -->
-<!-- 				AND TEMP_SAVE_FLAG = 'N' -->
-<!-- 				AND DELETE_FLAG = 'N' -->
-<!-- 				AND a.APPROVAL_ID = #{approval_id} -->
-<!-- 				AND DOCUMENT_TYPE = #{document_type} -->
-<!-- 				ORDER BY a.APPROVAL_ID DESC, al.STEP ASC -->
-
 		SELECT a.APPROVAL_ID , DOCUMENT_TYPE, REQUESTER_ID , APPROVAL_TITLE, 
-				APPROVAL_CONTENT, TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') AS REQUEST_DATE , 
+				APPROVAL_CONTENT, TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') AS REQUEST_DATE , TEMP_SAVE_FLAG,
 				TO_CHAR(a.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE, STEP, STATUS, 
 				RECIPIENT_ID, e.EMP_NAME AS RECIPIENT_NAME , r.RANK_NAME , e2.EMP_NAME AS REQUESTER_NAME, 
-				t2.TEAM_NAME, APPROVAL_DATE, e.EMP_SIGNATURE AS SIGNATURE
+				t2.TEAM_NAME, APPROVAL_DATE, e.EMP_SIGNATURE AS SIGNATURE, al.REJECTION
 					FROM APPROVAL a JOIN APPROVAL_LINE al 
 						ON a.APPROVAL_ID = al.APPROVAL_ID 
 						JOIN EMPLOYEE e 
@@ -175,23 +162,63 @@
 	
 	<!-- 수신문서함 -->
 	<select id="getAllReceivedApproval" resultMap="approvalResultMap">
+			SELECT a.APPROVAL_ID , DOCUMENT_TYPE, APPROVAL_TITLE, REQUESTER_ID, e.EMP_NAME AS REQUESTER_NAME, t.TEAM_NAME, "ORDER", TEMP_SAVE_FLAG,
+			TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') AS REQUEST_DATE , TO_CHAR(a.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
+			al.RECIPIENT_ID  ,e2.EMP_NAME AS RECIPIENT_NAME ,STEP, STATUS, APPROVAL_DATE
+				FROM APPROVAL a JOIN APPROVAL_LINE al 
+					ON a.APPROVAL_ID = al.APPROVAL_ID 
+				JOIN EMPLOYEE e 
+					ON a.REQUESTER_ID = e.EMP_ID 
+				JOIN TEAM t 
+					ON t.TEAM_CODE = e.TEAM_CODE
+				JOIN EMPLOYEE e2 
+					ON e2.EMP_ID = al.RECIPIENT_ID 
+				WHERE TEMP_SAVE_FLAG = 'N'
+				AND a.DELETE_FLAG = 'N'
+				AND a.APPROVAL_ID IN (SELECT al.APPROVAL_ID 
+										FROM APPROVAL_LINE al 	JOIN APPROVAL a 
+										ON al.APPROVAL_ID = a.APPROVAL_ID  
+										WHERE RECIPIENT_ID = #{recipient_id}
+										AND "ORDER" >= STEP
+										AND al.RECIPIENT_TYPE = 'A')
+				OR a.APPROVAL_ID IN (SELECT al.APPROVAL_ID 
+										FROM APPROVAL_LINE al 	JOIN APPROVAL a 
+										ON al.APPROVAL_ID = a.APPROVAL_ID  
+										WHERE RECIPIENT_ID = #{recipient_id}	
+										AND al.RECIPIENT_TYPE = 'R')
+				ORDER BY a.APPROVAL_ID DESC, al.STEP ASC
+	</select>
+	
+	<!-- 임시저장함 -->
+	<select id="getTempSaveList" resultType="approvalVo">
 		SELECT a.APPROVAL_ID , DOCUMENT_TYPE, APPROVAL_TITLE, REQUESTER_ID, e.EMP_NAME AS REQUESTER_NAME, t.TEAM_NAME,
-		TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') AS REQUEST_DATE , TO_CHAR(a.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE,
-		al.RECIPIENT_ID  ,e2.EMP_NAME AS RECIPIENT_NAME ,STEP, STATUS, APPROVAL_DATE
-			FROM APPROVAL a JOIN APPROVAL_LINE al 
-				ON a.APPROVAL_ID = al.APPROVAL_ID 
-			JOIN EMPLOYEE e 
+		TO_CHAR(REQUEST_DATE, 'YYYY-MM-DD') AS REQUEST_DATE , TO_CHAR(a.MODIFIED_DATE, 'YYYY-MM-DD') AS MODIFIED_DATE , TEMP_SAVE_FLAG
+			FROM APPROVAL a 
+				JOIN EMPLOYEE e 
 				ON a.REQUESTER_ID = e.EMP_ID 
 			JOIN TEAM t 
 				ON t.TEAM_CODE = e.TEAM_CODE
-			JOIN EMPLOYEE e2 
-				ON e2.EMP_ID = al.RECIPIENT_ID 
-			WHERE TEMP_SAVE_FLAG = 'N'
+			WHERE REQUESTER_ID = #{requester_id}
+			AND TEMP_SAVE_FLAG = 'Y'
 			AND a.DELETE_FLAG = 'N'
-			AND a.APPROVAL_ID IN (SELECT APPROVAL_ID 
-									FROM APPROVAL_LINE al 	
-									WHERE RECIPIENT_ID = #{recipient_id})
-			ORDER BY a.APPROVAL_ID DESC, al.STEP ASC
+			ORDER BY a.APPROVAL_ID DESC  
+	</select>
+	
+	<!-- 임시저장 상세조회 -->
+	<select id="getTempApprovalDetail" resultType="approvalVo">
+		SELECT APPROVAL_ID , DOCUMENT_TYPE , APPROVAL_CONTENT , TEMP_SAVE_FLAG ,
+				a.DELETE_FLAG , a.REQUESTER_ID , e.EMP_NAME AS REQUESTER_NAME, REQUEST_DATE , 
+				a.MODIFIED_DATE , a.APPROVAL_TITLE , t.TEAM_NAME 
+			FROM APPROVAL a  
+					JOIN EMPLOYEE e 
+						ON a.REQUESTER_ID = e.EMP_ID 
+					JOIN TEAM t 
+						ON e.TEAM_CODE = t.TEAM_CODE 
+				WHERE TEMP_SAVE_FLAG = 'Y'
+					AND a.DELETE_FLAG = 'N'
+					AND REQUESTER_ID = #{requester_id}
+					AND APPROVAL_ID = #{approval_id}
+					AND DOCUMENT_TYPE = #{document_type}
 	</select>
 	
 	
@@ -220,5 +247,73 @@
 					MODIFIED_DATE = CURRENT_DATE 
 			WHERE APPROVAL_ID = #{approval_id}
 	</update>
+
+
+
+	<!--결재라인 상태변경 -->
+	<update id="updateLineStatus">
+		UPDATE APPROVAL_LINE 
+			<set>
+				<if test="status != null">
+					STATUS = #{status},
+				</if>
+				<if test="rejection != null">
+					REJECTION = #{rejection},
+				</if>
+					APPROVAL_DATE = CURRENT_DATE
+			</set> 
+				WHERE APPROVAL_ID = #{approval_id}
+				AND RECIPIENT_ID = #{recipient_id}
+	</update>
+	
+	<!-- 결재라인의 STEP을 찾기 UPDATE를 위해서 -->
+	<select id="getLineStep" resultType="String">
+		SELECT STEP 
+			FROM APPROVAL_LINE al
+			WHERE RECIPIENT_ID = #{recipient_id}
+			AND APPROVAL_ID = #{approval_id}
+	</select>
+	
+	<!-- 결재라인 상태 변경과 동시에 결재차례도 변경
+		step이 1인 사람이 결재완료 1의 상태로 변경했다면 
+		order는 2로 변경. -->
+	<update id="updateApprovalOrder">
+		UPDATE APPROVAL
+			<set>
+				<choose>
+					<when test="step eq 1">
+						"ORDER" = 2
+					</when>
+					<when test="step eq 2">
+						"ORDER" = 3
+					</when>
+					<otherwise>
+						"ORDER" = 99
+					</otherwise>
+				</choose>
+			</set>
+				WHERE APPROVAL_ID = #{approval_id}
+	</update>
+	
+	<!-- 임시저장 상신
+		1. 해당 결재ID DB에서 삭제 후 같은 ID로 다시 INSERT
+	 -->
+	<delete id="tempApprovalDelete">
+		DELETE FROM APPROVAL
+			WHERE APPROVAL_ID=#{approval_id}
+	</delete>
+	
+	<!-- 2. 임시저장 결재요청 -->
+	<insert id="requestTempApproval">
+		INSERT INTO APPROVAL
+					(APPROVAL_ID, DOCUMENT_TYPE, APPROVAL_CONTENT, APPROVAL_TITLE,
+					TEMP_SAVE_FLAG, DELETE_FLAG, REQUESTER_ID, 
+					REQUEST_DATE)
+			VALUES( #{approval_id}, #{document_type}, #{approval_content}, #{approval_title},
+						'N'	, 'N'	, #{requester_id}, 
+						CURRENT_DATE)
+	</insert>
+	
+	
 
 </mapper>

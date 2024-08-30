@@ -151,6 +151,12 @@
 	      padding: 0.25em 0.4em; /* Adjust padding */
     }
 	
+	.approval-select{
+		background-image: url("http://localhost:8080/Sync/resources/img/approval_img/arrowDown.png");
+		background-repeat: no-repeat;
+		background-position: right;
+	}
+	
 	
 /* 	/* 결재 서명 table*/ 
 /* 	.approval-line-signature-table { */

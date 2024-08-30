@@ -12,7 +12,7 @@ public interface EmployeeDao {
 	public int insertEmployee(EmployeeVo employeeVo);
 	
 	public EmployeeVo employeeSelectDetail(String emp_id);
-	
+  
 	public int updateEmployee(Map<String, String> map);
 	
 	public int deleteEmployee(String emp_id);

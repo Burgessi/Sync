@@ -31,7 +31,7 @@ public class ApprovalVo {
 	private String requester_name;
 	private String request_date;
 	private String modified_date;
-	
+	private String order;
 	private String team_name;
 	
 	private List<ApprovalLineVo> lineList;

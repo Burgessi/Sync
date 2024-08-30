@@ -20,23 +20,30 @@
 			<div class="container">
 				<div class="card">
 					<div class="card-body">
+						<!--  -->
 						<div style="text-align: right;">
 							<c:choose>
-								<c:when test="${loginDto.emp_id eq approvalDetail.requester_id}">
+								<c:when test="${loginDto.emp_id eq approvalDetail.requester_id && approvalDetail.temp_save_flag eq 'N'}">
 									<button type="button" id="modifyApproval" class="btn btn-sm btn-primary">수정</button>
 									<button type="button" id="deleteApproval" class="btn btn-sm btn-danger">회수</button>
 								</c:when>
-								<c:otherwise>
+								<c:when test="${loginDto.emp_id != approvalDetail.requester_id && approvalDetail.temp_save_flag eq 'N'}">
 									<c:forEach var="line" items="${approvalDetail.lineList}">
-										<c:if test="${loginDto.emp_id eq line.recipient_id && line.step > 0}">
-											<button type="button" id="decisionApproval" class="btn btn-sm btn-primary">승인</button>
+										<c:if test="${loginDto.emp_id eq line.recipient_id && line.step > 0 && line.status eq 0}">
+											<button type="button" id="decisionApproval" onclick="decisionApprov('${line.signature}')" class="btn btn-sm btn-primary">승인</button>
 											<button type="button" id="rejectionApproval" class="btn btn-sm btn-danger">반려</button>
 										</c:if>
 									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<button type="button" id="continueTempApproval" class="btn btn-sm btn-outline-secondary">계속작성</button>
+									<button type="button" id="deleteTempApproval" class="btn btn-sm btn-outline-danger">회수</button>
 								</c:otherwise>
 							</c:choose>
+							
+							<input type="hidden" id="temp_save_flag" value="${approvalDetail.temp_save_flag}">
 							<input type="hidden" id="approvalId" value="${approvalDetail.approval_id}">
-						</div>		
+						</div>	
 						
 						<h4 style="text-align: center;">출장보고서</h4>
 							
@@ -70,13 +77,12 @@
 															</div>
 																<c:if test="${line.status eq 0}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
-																		결재대기
 																		<input type="hidden" id="lineFlag" value="false">
 																	</div>
 																</c:if>
 																<c:if test="${line.status eq 1}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
-																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/signature001.png">
+																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/${line.signature}">
 																		<input type="hidden" id="lineFlag" value="true">
 																	</div>
 																</c:if>
@@ -87,7 +93,7 @@
 																	</div>
 																</c:if>
 															<div style="width: 133px; height: 20px; border: 1px solid #e0e0e0; border-top:none; font-size: 0.7em;">
-																${approvalDetail.request_date}
+																${line.approval_date}
 															</div>
 															<div style="width: 133px; height: 25px; border: 1px solid #e0e0e0;">
 																${line.recipient_name}
@@ -103,12 +109,11 @@
 															</div>
 																<c:if test="${line.status eq 0}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
-																		결재대기
 																	</div>
 																</c:if>
 																<c:if test="${line.status eq 1}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
-																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/signature002.png">
+																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/${line.signature}">
 																	</div>
 																</c:if>
 																<c:if test="${line.status eq 2}">
@@ -117,7 +122,7 @@
 																	</div>
 																</c:if>
 															<div style="width: 133px; height: 20px; border: 1px solid #e0e0e0; border-top:none; font-size: 0.7em;">
-																${approvalDetail.request_date}
+																${line.approval_date}
 															</div>
 															<div style="width: 133px; height: 25px; border: 1px solid #e0e0e0;">
 																${line.recipient_name}
@@ -131,12 +136,11 @@
 															</div>
 																<c:if test="${line.status eq 0}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
-																		결재대기
 																	</div>
 																</c:if>
 																<c:if test="${line.status eq 1}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
-																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/signature003.png">
+																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/${line.signature}">
 																	</div>
 																</c:if>
 																<c:if test="${line.status eq 2}">
@@ -145,7 +149,7 @@
 																	</div>
 																</c:if>
 															<div style="width: 133px; height: 20px; border: 1px solid #e0e0e0; border-top:none; font-size: 0.7em;">
-																${approvalDetail.request_date}
+																${line.approval_date}
 															</div>
 															<div style="width: 133px; height: 25px; border: 1px solid #e0e0e0;">
 																${line.recipient_name}
@@ -218,6 +222,28 @@
 											</tr>
 										</table>
 									</div>
+									
+									<div style="margin-top: 30px;">
+										<c:forEach var="list" items="${approvalDetail.lineList}">
+											<c:if test="${list.status eq 2}">
+												<h4>결재 의견</h4>
+												<table class="table table-bordered approval-table">
+													<tr>
+														<th>결재자</th>
+														<td>${list.recipient_name}</td>
+													</tr>
+													<tr>
+														<th>반려 사유</th>
+														<td>
+															<textarea style="border:none; background: none; width:100%; height: 150px; resize: none; padding: 15px;" disabled>${list.rejection}</textarea>
+														</td>
+													</tr>
+												</table>
+											</c:if>
+										</c:forEach>
+									</div>
+									
+									
 								</div>
 			
 			
@@ -230,56 +256,68 @@
 		</div>
 	</div>
     <%@ include file="/WEB-INF/views/common/footer.jsp" %>
+    <!-- 승인 모달 -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="signatureModal" data-bs-backdrop="static">
+			 <div class="modal-dialog modal-dialog-centered" role="document">
+				 <div class="modal-content rounded-4 shadow">
+					<div class="modal-header p-5 pb-4 border-bottom-0">
+						<h4>서명 입력</h4>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body p-5 pt-0" style="text-align: center;">
+						<!--  -->
+						<canvas id="signature" style="border: 1px solid #ddd;"></canvas>
+						<br>
+							<button id="clear-signature" class="btn btn-outline-danger">초기화</button>
+							<button id="save-signature" class="btn btn-outline-secondary" value="${loginDto.emp_id}">승인</button>
+						<!--  -->
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 반려모달 -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="rejectionModal" data-bs-backdrop="static">
+			 <div class="modal-dialog modal-dialog-centered" role="document">
+				 <div class="modal-content rounded-4 shadow">
+				 	<form id="rejectionForm">
+					<div class="modal-header p-5 pb-4 border-bottom-0">
+						<h4>결재 의견 입력</h4>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
+					</div>
+					<div class="modal-body p-5 pt-0" style="text-align: center;">
+					
+						<table class="table table-bordered">
+							<tr>
+								<th>결재자</th>
+								<td>
+									${infoDto.emp_name}
+									<input type="hidden" name="recipient_id" value="${infoDto.emp_id}">
+									<input type="hidden" name="approval_id" value="${approvalDetail.approval_id}">
+								</td>
+							</tr>
+							<tr>
+								<th style="vertical-align: middle;">결재 의견</th>
+								<td>
+									<textarea class="form-control" name="rejection" style="font-size: 0.8em; resize: none;" rows="7" cols="20"></textarea>
+								</td>
+							</tr>
+						</table>
+						<div style="text-align: right;">
+							<button type="submit"  class="btn btn-outline-secondary">확인</button>
+							<button type="button" id="rejectReset" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">취소</button>
+						</div>
+						<!--  -->
+					</div>
+					</form>	
+			</div>
+		</div>
+	</div>
 </body>
+
+
+<script src="${root}/resources/js/approvalSign.js"></script>
 <script type="text/javascript">
-
-//수정버튼
-$("#modifyApproval").on("click",function(){
-	
-	let flag = $("#lineFlag").val();
-	let approvalId = $("#approvalId").val();
-	let documentType = $("#documentType").val();
-	
-	if(flag == 'true'){
-		toastr.error("결재가 진행된 문서는 수정할 수 없습니다.");
-		return;
-	}
-	
-	location.href="./modifyApproval.do?approval_id="+approvalId+"&document_type="+documentType;
-	
-})
-
-//삭제버튼
-$("#deleteApproval").on("click",function(){
-	
-	var flag = $("#lineFlag").val();
-	var approvalId = $("#approvalId").val();
-	console.log(flag);
-	
-	if(flag == 'false'){
-		
-		Swal.fire({
-			  title: "작성한 문서를 회수하시겠습니까?",
-			  icon: "warning",
-			  showCancelButton: true,
-			  confirmButtonColor: "#3085d6",
-			  cancelButtonColor: "#d33",
-			  confirmButtonText: "저장",
-			  cancelButtonText: "취소"
-			}).then((result) => {
-				if (result.isConfirmed) {
-					location.href="./deleteApproval.do?approval_id="+approvalId;
-			  }
-			});
-			
-		
-	} else{
-		toastr.error("결재가 진행된 문서는 회수할 수 없습니다.");
-		return;
-	}
-	
-	
-});
 
 
 

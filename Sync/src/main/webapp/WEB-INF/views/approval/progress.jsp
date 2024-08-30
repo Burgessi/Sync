@@ -24,118 +24,6 @@
 				
 				<div class="container">
 				<h4 style="padding: 5px;">기안문서함</h4>
-						<!-- 연습 -->
-<!-- 					<div class="card"> -->
-<!-- 						<div class="card-header"><h4>결재진행함</h4></div> -->
-<!-- 						<div class="card-body"> -->
-							
-<!-- 							<div class="row"> -->
-<!-- 								<div class="col-md-3"> -->
-<!-- 									<div class="card" style="border: 1px solid #e2e2e2;"> -->
-<!-- 										<div class="card-header"> -->
-<!-- 											<span class="badge badge-sm bg-warning">결재진행중</span> -->
-<!-- 											<div> -->
-<!-- 												<span> -->
-<%-- 													<img src="${root}/resources/img/approval_img/check.png"> --%>
-<!-- 												</span> -->
-<!-- 												<span> -->
-<%-- 													<img src="${root}/resources/img/approval_img/check.png"> --%>
-<!-- 												</span> -->
-<!-- 												<span> -->
-<%-- 													<img src="${root}/resources/img/approval_img/pending.png"> --%>
-<!-- 												</span> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
-<!-- 										<div class="card-body"> -->
-<!-- 											<h5>이곳은 타이틀</h5> -->
-<!-- 											<div style="padding: 5px; font: 0.8em sans-serif;"> -->
-<!-- 												<span>기안자: 박강륜</span><br> -->
-<!-- 												<span>기안일: 2024-08-08</span><br> -->
-<!-- 												<span>결재</span> -->
-<!-- 											</div> -->
-											
-<!-- 										</div> -->
-<!-- 										<button class="btn btn-block btn-outline-secondary" style="border: 1px solid #e2e2e2;">조회</button> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="col-md-3"> -->
-<!-- 									<div class="card" style="border: 1px solid #e2e2e2;"> -->
-<!-- 										<div class="card-header"> -->
-<!-- 											<span class="badge badge-sm bg-warning">결재진행중</span> -->
-<!-- 											<div> -->
-<!-- 												<span> -->
-<%-- 													<img src="${root}/resources/img/approval_img/check.png"> --%>
-<!-- 												</span> -->
-<!-- 												<span> -->
-<%-- 													<img src="${root}/resources/img/approval_img/pending.png"> --%>
-<!-- 												</span> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
-<!-- 										<div class="card-body"> -->
-<!-- 											<h5>출장보고서</h5> -->
-<!-- 											<div style="padding: 5px; font: 0.8em sans-serif;"> -->
-<!-- 												<span>기안자: 박강륜</span><br> -->
-<!-- 												<span>기안일: 2024-08-08</span><br> -->
-<!-- 												<span>결재</span> -->
-<!-- 											</div> -->
-											
-<!-- 										</div> -->
-<!-- 										<button class="btn btn-block btn-outline-secondary" style="border: 1px solid #e2e2e2;">조회</button> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="col-md-3"> -->
-<!-- 									<div class="card" style="border: 1px solid #e2e2e2;"> -->
-<!-- 										<div class="card-header"> -->
-<!-- 											<span class="badge badge-sm bg-danger">결재반려</span> -->
-<!-- 											<div> -->
-<!-- 												<span> -->
-<%-- 													<img src="${root}/resources/img/approval_img/check.png"> --%>
-<!-- 												</span> -->
-<!-- 												<span> -->
-<%-- 													<img src="${root}/resources/img/approval_img/check.png"> --%>
-<!-- 												</span> -->
-<!-- 												<span> -->
-<%-- 													<img src="${root}/resources/img/approval_img/minus.png"> --%>
-<!-- 												</span> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
-<!-- 										<div class="card-body"> -->
-<!-- 											<h5>지출결의서</h5> -->
-<!-- 											<div style="padding: 5px; font: 0.8em sans-serif;"> -->
-<!-- 												<span>기안자: 박강륜</span><br> -->
-<!-- 												<span>기안일: 2024-08-08</span><br> -->
-<!-- 												<span>결재</span> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
-<!-- 										<button class="btn btn-block btn-outline-secondary" style="border: 1px solid #e2e2e2;">조회</button> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="col-md-3"> -->
-<!-- 									<div class="card" style="border: 1px solid #e2e2e2;"> -->
-<!-- 										<div class="card-header"> -->
-<!-- 											<span class="badge badge-sm bg-success">결재완료</span> -->
-<!-- 											<div> -->
-<!-- 												<span> -->
-<%-- 													<img src="${root}/resources/img/approval_img/check.png"> --%>
-<!-- 												</span> -->
-<!-- 												<span> -->
-<%-- 													<img src="${root}/resources/img/approval_img/check.png"> --%>
-<!-- 												</span> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
-<!-- 										<div class="card-body"> -->
-<!-- 											<h5>휴가신청서</h5> -->
-<!-- 											<div style="padding: 5px; font: 0.8em sans-serif;"> -->
-<!-- 												<span>기안자: 박강륜</span><br> -->
-<!-- 												<span>기안일: 2024-08-08</span><br> -->
-<!-- 												<span>결재</span> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
-<!-- 										<button class="btn btn-block btn-outline-secondary" style="border: 1px solid #e2e2e2;">조회</button> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-							
 								<!--  div row 시작 -->
 								<div class="row">
 									<c:forEach var="card" items="${myApprovalList}" begin="0" end="3">
@@ -231,7 +119,7 @@
 													</div>
 													
 												</div>
-												<button class="btn btn-block btn-outline-secondary" style="border: 1px solid #e2e2e2;" onclick="getApproval('${card.approval_id}', '${loginDto.emp_id}','${card.document_type}')">조회</button>
+												<button class="btn btn-block btn-outline-secondary" style="border: 1px solid #e2e2e2;" onclick="getApproval('${card.approval_id}', '${loginDto.emp_id}','${card.document_type}','${card.temp_save_flag }')">조회</button>
 											</div>
 											<!-- card content 끝 -->
 										</div>
@@ -245,14 +133,14 @@
 									<div style="float: right; text-align: right;">
 										<div style="float: right;">
 											<div class="typeSelect" style="display: inline-block;">
-												<select class="form-select" style="font: 0.8em sans-serif;">	
-													<option>기안일자</option>
-													<option>제목</option>
-													<option>상태</option>
+												<select id="searchSelect" class="form-select" style="font: 0.8em sans-serif;">	
+													<option value="title">제목</option>
+													<option value="requester">기안자</option>
+													<option value="requesterDate">기안일자</option>
 												</select>
 											</div>
-											<input type="text" class="form-control" style="display: inline-block; width: 40%; font-size: 0.8em; padding-bottom: 3px;" placeholder="검색">
-											<button class="btn btn-sm btn-primary" style="display: inline-block; margin-top: -2px; margin-left: 4px;">검색</button>	
+											<input type="text" id="searchInputBox" class="form-control" style="display: inline-block; width: 40%; font-size: 0.8em; padding-bottom: 3px;" placeholder="검색">
+											<button id="searchBtn" class="btn btn-sm btn-primary" style="display: inline-block; margin-top: -2px; margin-left: 4px;">검색</button>	
 										</div>
 									</div>
 								</div>
@@ -262,12 +150,13 @@
 									<table class="table table-bordered table-hover" style="text-align: center; font: 0.8em sans-serif;">
 										<thead class="table-secondary">
 											<tr>
-												<th>기안일자</th>
 												<th>결재번호</th>
-												<th>문서양식</th>
-												<th>제목</th>
+												<th>구분</th>
+												<th style="width: 40%">제목</th>
 												<th>기안자</th>
+												<th>기안일자</th>
 												<th>결재상태</th>
+												
 											</tr>
 										</thead>
 										<tbody>
@@ -279,50 +168,50 @@
 												</c:when>
 												<c:otherwise>
 												<c:forEach var="approvalList" items="${myApprovalList}">
-													<tr onclick="getApproval('${approvalList.approval_id}', '${loginDto.emp_id}', '${approvalList.document_type}')">
-														<td>${approvalList.request_date}</td>
-														<td>${approvalList.approval_id}</td>
-														<td>${approvalList.document_type}</td>
-														<td>${approvalList.approval_title}</td>
-														<td>${loginDto.emp_name}</td>
-														<td>
-									                    	  <!-- 상태를 초기화 -->
-											                    <c:set var="overallStatus" value="completed" />
-											                    <c:set var="hasInProgress" value="false" />
-											                    <c:set var="hasRejected" value="false" />
-											                    <c:set var="loop_flag" value="false" />
-											                    <!-- 상태 점검 -->
-											                    <c:forEach var="line" items="${approvalList.lineList}">
-											                    	<c:if test="${line.step > 0}">
-											                    		<c:choose>
-											                            <c:when test="${line.status == 0}">
-											                                <!-- 진행중 상태가 발견된 경우 -->
-											                                <c:set var="hasInProgress" value="true" />
-											                            </c:when>
-											                            <c:when test="${line.status == 2}">
-											                                <!-- 반려 상태가 발견된 경우 -->
-											                                <c:set var="hasRejected" value="true" />
-											                                <!-- 반려 상태 발견 시 이후 체크는 필요 없음 -->
-											                               <c:set var="loop_flag" value="true"/>
-											                            </c:when>
-											                        </c:choose>
-											                        </c:if>
-											                    </c:forEach>
-											                    
-											                    <!-- 최종 상태 결정 -->
-											                    <c:choose>
-											                        <c:when test="${hasRejected}">
-											                            <span class="badge bg-danger">결재반려</span>
-											                        </c:when>
-											                        <c:when test="${hasInProgress}">
-											                            <span class="badge bg-warning">결재진행중</span>
-											                        </c:when>
-											                        <c:otherwise>
-											                            <span class="badge bg-success">결재완료</span>
-											                        </c:otherwise>
-											                    </c:choose>
-														</td>	
-													</tr>
+															<tr onclick="getApproval('${approvalList.approval_id}', '${loginDto.emp_id}', '${approvalList.document_type}', '${approvalList.temp_save_flag }')">
+																<td>${approvalList.approval_id}</td>
+																<td>${approvalList.document_type}</td>
+																<td>${approvalList.approval_title}</td>
+																<td>${approvalList.requester_name}</td>
+																<td>${approvalList.request_date}</td>
+																<td>
+											                    	  <!-- 상태를 초기화 -->
+													                    <c:set var="overallStatus" value="completed" />
+													                    <c:set var="hasInProgress" value="false" />
+													                    <c:set var="hasRejected" value="false" />
+													                    <c:set var="loop_flag" value="false" />
+													                    <!-- 상태 점검 -->
+													                    <c:forEach var="line" items="${approvalList.lineList}">
+													                    	<c:if test="${line.step > 0}">
+													                    		<c:choose>
+													                            <c:when test="${line.status == 0}">
+													                                <!-- 진행중 상태가 발견된 경우 -->
+													                                <c:set var="hasInProgress" value="true" />
+													                            </c:when>
+													                            <c:when test="${line.status == 2}">
+													                                <!-- 반려 상태가 발견된 경우 -->
+													                                <c:set var="hasRejected" value="true" />
+													                                <!-- 반려 상태 발견 시 이후 체크는 필요 없음 -->
+													                               <c:set var="loop_flag" value="true"/>
+													                            </c:when>
+													                        </c:choose>
+													                        </c:if>
+													                    </c:forEach>
+													                    
+													                    <!-- 최종 상태 결정 -->
+													                    <c:choose>
+													                        <c:when test="${hasRejected}">
+													                            <span class="badge bg-danger">결재반려</span>
+													                        </c:when>
+													                        <c:when test="${hasInProgress}">
+													                            <span class="badge bg-warning">결재진행중</span>
+													                        </c:when>
+													                        <c:otherwise>
+													                            <span class="badge bg-success">결재완료</span>
+													                        </c:otherwise>
+													                    </c:choose>
+																</td>	
+															</tr>
 												</c:forEach>
 												</c:otherwise>
 											</c:choose>
@@ -344,9 +233,54 @@
 	if(message){
 		toastr.success(details, message);
 	}
-
 	
-	function getApproval(approvalId, empId, documentType) {
+	//검색버튼 클릭시
+	$("#searchBtn").on("click", function() {
+		//선택된 셀렉트 값
+		var selected = $("#searchSelect").val();
+		//검색어 값
+		var searchInputBox = $("#searchInputBox").val();
+		console.log("dd");
+		
+			//table의 행 반복
+			$('.table tbody tr').each(function() {
+				
+				//한행의 모든 행
+				var row = $(this);
+				
+				var cellText = '';
+				
+				//선택된 값의 경우에 따라 td3,4,5번째 text cellText에 담기
+				//없다면 그냥 없다면 그냥 빈값..
+				switch (selected) {
+	            case 'title':
+	                cellText = row.find('td:nth-child(3)').text();
+	                break;
+	            case 'requester':
+	                cellText = row.find('td:nth-child(4)').text();
+	                break;
+	            case 'requesterDate':
+	                cellText = row.find('td:nth-child(5)').text();
+	                break;
+	            default:
+	                cellText = '';
+	        }
+			
+			//담은 text에 검색어의 단어가 포함되어 있거나, 아무것도 입력하지 않았다면
+			// 해당 row 보여줌
+			if (cellText.includes(searchInputBox) || searchInputBox === '') {
+	            row.show(); // 일치하면 행을 표시
+	        } else {
+	            row.hide(); // 일치하지 않으면 행을 숨김
+	        }
+		
+		});
+	});
+	
+	
+	
+
+	function getApproval(approvalId, empId, documentType, flag) {
 	//		const url = location.href;
 	//		console.log(url);
 	
@@ -355,7 +289,7 @@
 		console.log(approvalId);
 		console.log(documentType);
 		console.log(empId);
-		location.href='./getApprovalDetail.do?approval_id='+approvalId+'&document_type='+encodedDocumentType+'&requester_id='+empId;
+		location.href='./getApprovalDetail.do?approval_id='+approvalId+'&document_type='+encodedDocumentType+'&requester_id='+empId+'&temp_save_flag='+flag;
 	}
 
 </script>

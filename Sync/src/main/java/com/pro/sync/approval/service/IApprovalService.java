@@ -21,5 +21,15 @@ public interface IApprovalService {
 	public int modifyApproval(Map<String, String> info);
 
 	public List<ApprovalVo> getAllReceivedApproval(String employeeId);
+
+	public int confirmApprovalLine(Map<String, String> sign, Map<String, String> line);
+	
+	public int updateLineStatus(Map<String, String> lineInfo);
+	
+	public List<ApprovalVo> getTempSaveList(String employeeId);
+	
+	public ApprovalVo getTempApprovalDetail(Map<String, String> info);
+	
+	public int requestTempApproval(Map<String, String> inMap, List<String> referrer);
 	
 }

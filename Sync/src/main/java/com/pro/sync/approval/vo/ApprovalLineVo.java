@@ -23,7 +23,7 @@ public class ApprovalLineVo {
 	private int status;
 	private String approval_date;
 	private String signature;
-	
+	private String rejection;
 	private String recipient_name;
 	private String rank_name;
 

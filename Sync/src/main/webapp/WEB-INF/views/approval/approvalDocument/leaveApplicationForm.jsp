@@ -21,13 +21,13 @@
 							<tr>
 								<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">기안자</th>
 								<td>
-									<div id="requesterId">${loginVo.emp_name}</div>
+									<div id="requesterId">${infoDto.emp_name}</div>
 								</td>
 							</tr>
 							<tr>
 								<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">기안부서</th>
 								<td>
-									<div id="requesterTeam">${loginVo.team_name}</div>
+									<div id="requesterTeam">${infoDto.team_name}</div>
 								</td>
 							</tr>
 							<tr>
@@ -77,7 +77,7 @@
 									<span style="font-size: 0.8em; margin-left: 10px;">잔여연차:&nbsp;</span>
 								</div>
 								<div class="input-group" style="width: 200px; display: inline;">
-								     <input style="display: inline; width: 100px; text-align: center;" type="text" id="remainingLeave" name='remainingLeave' class="form-control approval-input" readonly="readonly" value="${loginVo.total_off}">
+								     <input style="display: inline; width: 100px; text-align: center;" type="text" id="remainingLeave" name='remainingLeave' class="form-control approval-input" readonly="readonly" value="${infoDto.total_off}">
 								</div>
 								
 								<div style="display: inline;">

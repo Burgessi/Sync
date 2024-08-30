@@ -8,6 +8,7 @@
 <title>휴가신청서 수정</title>
 </head>
 <body>
+	<form id="modifyForm" method="post">
 	<div id="app">
 		<!-- 사이드바 include -> 메뉴 이동 -->
       <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
@@ -19,12 +20,27 @@
 				<div class="container">
 		
 					
-					<form id="modifyForm" action="./modifyApproval.do" method="post">
+					
 					<div class="card">
 						<div class="card-body">
-						<div style="text-align: right;">
-							<button id="modifyApproval" class="btn btn-sm btn-primary" onclick="modify(event)">완료</button>
-						</div>	
+						<c:choose>
+							<c:when test="${approval.temp_save_flag eq 'N'}">
+								<div style="text-align: right;">
+									<input type="hidden" name="requester_id" value="${approval.requester_id}">
+									<input type="hidden" name="temp_save_flag" value="${approval.temp_save_flag}">
+									<button id="modifyApproval" class="btn btn-sm btn-primary" onclick="modify(event)">완료</button>
+								</div>	
+							</c:when>
+							<c:otherwise>
+								<div style="text-align: right;">
+									<input type="hidden" name="requester_id" value="${approval.requester_id}">
+									<input type="hidden" name="temp_save_flag" value="${approval.temp_save_flag}">
+									<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#approvalLineModal">결재선</button>
+									<button type="button" class="btn btn-sm btn-secondary" onclick="approvalRequestee(event)">결재 상신</button>
+								</div>
+							</c:otherwise>
+						</c:choose>
+						
 						<h4 style="text-align: center;">휴가신청서</h4>
 							<div class="row">
 								<div class="col-md-4">
@@ -121,13 +137,37 @@
 					</div>
 					
 				</div>
-				</form>
+				
 			
 			</div>
 		</div>
 	</div>
     <%@ include file="/WEB-INF/views/common/footer.jsp" %>
+    
+    <div class="modal fade" tabindex="-1" role="dialog" id="approvalLineModal">
+			 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				 <div class="modal-content rounded-4 shadow">
+						<div class="modal-header p-5 pb-4 border-bottom-0">
+							<h4 class="fw-bold mb-0 fs-4">결재선 지정</h4>
+<!-- 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+						</div>
+						<div class="modal-body p-5 pt-0">
+							<jsp:include page="../approvalTree.jsp"></jsp:include>
+							<div style="text-align: right; margin-top: 5px; margin-right: 5px;">
+								<button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+								<button type="button" id="lineRemoveBtn" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+							</div>
+						</div>
+						
+				</div>
+			</div>
+		</div>
+    
+    </form>
+    
+    
 </body>
+<script src="${root}/resources/js/approvalTree.js"></script>
 <script type="text/javascript">
 	
 	//json데이터
@@ -191,16 +231,20 @@
 	//수정완료 버튼
 	function modify(event){
 		event.preventDefault();
-		var frm = $("#modifyForm");
+		let frm = $("#modifyForm");
 		
 		if(valueChangeCheck(jsonData)=="N"){
 			toastr.error("변경된 내용이 없습니다.");
 			return;
 		} else{
+			frm.attr("action","./modifyApproval.do")
 			frm.submit();
 		}
 		
 	}
+	
+	
+	
 	
 	
 	
@@ -333,6 +377,12 @@
 		
 	})
 
+	
+	
+	
+	//jstree 및 form 요청 
+	
+	
 	
 	
 </script>

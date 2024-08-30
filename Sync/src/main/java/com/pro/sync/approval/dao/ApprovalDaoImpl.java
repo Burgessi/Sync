@@ -60,7 +60,39 @@ public class ApprovalDaoImpl implements IApprovalDao{
 		return sessionTemplate.selectList(NS+"getAllReceivedApproval", employeeId);
 	}
 
+	@Override
+	public int updateLineStatus(Map<String, String> lineInfo) {
+		return sessionTemplate.update(NS+"updateLineStatus", lineInfo);
+	}
 
+	@Override
+	public int updateApprovalOrder(Map<String, String> lineInfo) {
+		return sessionTemplate.update(NS+"updateApprovalOrder", lineInfo);
+	}
 
+	@Override
+	public String getLineStep(Map<String, String> lineInfo) {
+		return sessionTemplate.selectOne(NS+"getLineStep", lineInfo);
+	}
+
+	@Override
+	public List<ApprovalVo> getTempSaveList(String employeeId) {
+		return sessionTemplate.selectList(NS+"getTempSaveList", employeeId);
+	}
+
+	@Override
+	public ApprovalVo getTempApprovalDetail(Map<String, String> info) {
+		return sessionTemplate.selectOne(NS+"getTempApprovalDetail", info);
+	}
+
+	@Override
+	public int tempApprovalDelete(String approvalId) {
+		return sessionTemplate.delete(NS+"tempApprovalDelete", approvalId);
+	}
+
+	@Override
+	public int requestTempApproval(ApprovalVo vo) {
+		return sessionTemplate.insert(NS+"requestTempApproval", vo);
+	}
 	
 }

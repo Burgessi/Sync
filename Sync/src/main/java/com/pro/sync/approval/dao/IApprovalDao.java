@@ -24,4 +24,18 @@ public interface IApprovalDao {
 	
 	public List<ApprovalVo> getAllReceivedApproval(String employeeId);
 	
+	public int updateLineStatus(Map<String, String> lineInfo);
+	
+	public int updateApprovalOrder(Map<String, String> lineInfo);
+	
+	public String getLineStep(Map<String, String> lineInfo);
+	
+	public List<ApprovalVo> getTempSaveList(String employeeId);
+	
+	public ApprovalVo getTempApprovalDetail(Map<String, String> info);
+	
+	public int tempApprovalDelete(String approvalId);
+	
+	public int requestTempApproval(ApprovalVo vo);
+	
 }

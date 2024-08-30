@@ -77,6 +77,7 @@ public class EmployeeController {
 	    map.remove("division");
 	    
 //	    // empId가 employeeVo에 포함되어 있는지 확인 (혹은 employeeVo에 setEmpId 메서드를 호출하여 설정)
+
 	    //employeeVo.setEmp_id(empId);
 
 	    int n = employeeService.updateEmployee(map);
@@ -90,9 +91,6 @@ public class EmployeeController {
 	    	attributes.addFlashAttribute("message", "사원 정보 수정 실패. 다시 시도해주세요");
 	        return "redirect:/employeeSelectAll.do"; 
 	    }
-	   
-	 
-	
 	}
 	
 	//새로 만든 컨트롤러
