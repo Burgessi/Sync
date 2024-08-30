@@ -11,6 +11,8 @@
 
 <context:component-scan base-package="com.pro.sync"/>
 <mvc:annotation-driven/>
+<mvc:resources mapping="/resources/upload/profile/**"
+               location="file:///C:/Eclipse_IDES/Program_Eclipse_SpringMVC/workspace_spring/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/Sync/resources/upload/profile/" />
 
 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="prefix" value="/WEB-INF/views/"/>

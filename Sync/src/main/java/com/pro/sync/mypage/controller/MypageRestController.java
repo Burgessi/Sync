@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,6 +41,9 @@ public class MypageRestController {
 	@Autowired
 	IMypageService service;
 
+	@Autowired
+    private ServletContext servletContext; // ServletContext 주입
+	
 	// 개인정보 수정 - 이메일/주소
 	@PostMapping("/updateMyInfo.do")
 	public ResponseEntity<String> UpdateEmailAddr(@RequestParam Map<String, Object> map,
@@ -83,9 +88,6 @@ public class MypageRestController {
 	public ResponseEntity<String> UpdateAccount(@RequestParam Map<String, Object> map,
 			@SessionAttribute("loginDto") EmployeeVo loginDto, HttpServletRequest request) {
 		log.info("{}", map);
-		// {bank_name=국민은행, customBankName=, account_num=12341234123, account_holder=다정,
-		// relation_to_emp=친구}
-//		{bank_name=custom, customBankName=직접임, account_num=12341234123, account_holder=다정, relation_to_emp=친구}
 		// emp_id 는 ㄱ로그인세션에서 가져오기
 		// customBankName의 값을 bank_name으로 대체
 		if ("custom".equals(map.get("bank_name"))) {
@@ -157,48 +159,56 @@ public class MypageRestController {
 		}
 	}
 
+	
+	
 	@PostMapping("/updateProfilePic.do")
-	public ResponseEntity<String> updateProfilePic(HttpServletRequest request,
+	public ResponseEntity<Map<String, String>> updateProfilePic(
 	        @RequestParam("profilePic") MultipartFile file,
 	        @SessionAttribute("loginDto") EmployeeVo loginDto) throws IOException {
 
 	    if (loginDto == null) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in.");
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("msg", "User not logged in."));
 	    }
 
 	    if (file.isEmpty()) {
-	        return ResponseEntity.badRequest().body("No file uploaded.");
+	        return ResponseEntity.badRequest().body(Map.of("msg", "파일이 업로드되지 않았습니다"));
 	    }
 
-//	    // 서버의 실제 파일 저장 경로를 얻습니다.
-//	    String uploadDir = request.getServletContext().getRealPath("/resources/upload/profile");
-//	    File uploadDirFile = new File(uploadDir);
-//	    if (!uploadDirFile.exists()) {
-//	        uploadDirFile.mkdirs(); // 디렉토리가 없으면 생성합니다.
-//	    }
-//
-//	    String originFileName = file.getOriginalFilename();
-//	    String saveFileName = UUID.randomUUID().toString()
-//	            .concat(originFileName.substring(originFileName.lastIndexOf(".")));
-//
-//	    File saveFile = new File(uploadDirFile, saveFileName);
-//	    try (InputStream inputStream = file.getInputStream();
-//	         OutputStream outputStream = new FileOutputStream(saveFile)) {
-//	        byte[] buffer = new byte[1024];
-//	        int bytesRead;
-//	        while ((bytesRead = inputStream.read(buffer)) != -1) {
-//	            outputStream.write(buffer, 0, bytesRead);
-//	        }
-//	    }
+	    // 서버의 파일 저장 경로를 가져옵니다.
+	    String uploadDir = servletContext.getRealPath("/resources/upload/profile");
+	    File uploadDirFile = new File(uploadDir);
+	    if (!uploadDirFile.exists()) {
+	        uploadDirFile.mkdirs(); // 디렉토리가 없으면 생성합니다.
+	    }
+
+	    String originFileName = file.getOriginalFilename();
+	    String saveFileName = UUID.randomUUID().toString()
+	            .concat(originFileName.substring(originFileName.lastIndexOf(".")));
+	    File saveFile = new File(uploadDirFile, saveFileName);
+
+	    try (InputStream inputStream = file.getInputStream();
+	         OutputStream outputStream = new FileOutputStream(saveFile)) {
+	        byte[] buffer = new byte[1024];
+	        int bytesRead;
+	        while ((bytesRead = inputStream.read(buffer)) != -1) {
+	            outputStream.write(buffer, 0, bytesRead);
+	        }
+	    }
 
 	    // 데이터베이스 업데이트
-//	    String fileUrl = "/resources/upload/profile/" + saveFileName;
+	    String contextPath = servletContext.getContextPath();
+	    String fileUrl = contextPath + "/resources/upload/profile/" + saveFileName;
 	    Map<String, Object> paramMap = new HashMap<>();
 	    paramMap.put("emp_id", loginDto.getEmp_id());
-//	    paramMap.put("emp_profile_pic", fileUrl);
+	    paramMap.put("emp_profile_pic", fileUrl);
 	    service.updateProfilepic(paramMap);
 
-	    return ResponseEntity.ok("Profile picture updated successfully.");
+	    Map<String, String> response = new HashMap<>();
+	    response.put("msg", "프로필 사진이 변경되었습니다");
+	    response.put("fileUrl", fileUrl);
+	    log.info(fileUrl);
+
+	    return ResponseEntity.ok(response);
 	}
 
 }

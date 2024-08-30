@@ -92,11 +92,11 @@
               <div class="user-img d-flex align-items-center">
                 <div class="avatar">
                   <c:choose>
-                   <c:when test="${not empty loginMember.empProfile}">
-                       <img style="border-radius: 30%; width: 45px; height: 45px; object-fit: cover" src="${root}/resources/upload/profile/${loginMember.empProfile}" alt="이미지" />
+                   <c:when test="${not empty infoDto.emp_profile_pic}">
+                       <img id="headerPreview" style="border-radius: 50%; width: 45px; height: 45px; object-fit: cover" src="${infoDto.emp_profile_pic}" alt="이미지" />
                    </c:when>
                    <c:otherwise>
-		               <img src="${root}/resources/img/member-imgs/user.png" alt="profile" />
+		               <img id="headerPreview" style="border-radius: 50%; width: 45px; height: 45px; object-fit: cover" src="${root}/resources/img/member-imgs/user.png" alt="profile" />
                    </c:otherwise>
                   </c:choose>
                 </div>

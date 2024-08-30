@@ -141,19 +141,19 @@
 					<div class="card-body">
 						<div id="list" style="overflow: auto;" class="container mt-3">
 							<form action="./deleteNotice.do"  method="post" onsubmit="return checkSubmit(event)">
-								<c:if test="${loginDto.team_code == 'HR' and loginDto.authority == 'A'}">
+								<c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
 									<div class="btn-container">		
-										<input type="button" class="btn btn-success" value="상단등록" onclick="pin(event)">
-	                       				<input type="button" class="btn btn-warning" value="상단해제" onclick="cancel(event)">					
-	                        			<input type="button" class="btn btn-primary" value="글작성" onclick="location.href='./insertNotice.do'">
-	                        			<input type="submit" class="btn btn-danger" value="삭제">
+										<input type="button" style="color: black;" class="btn btn-success" value="상단등록" onclick="pin(event)">
+	                       				<input type="button" style="color: black;" class="btn btn-warning" value="상단해제" onclick="cancel(event)">					
+	                        			<input type="button" style="color: black;" class="btn btn-primary" value="글작성" onclick="location.href='./insertNotice.do'">
+	                        			<input type="submit" style="color: black;" class="btn btn-danger" value="삭제">
 	                        		</div>
                         		</c:if>
                         		<div id="searchView">
 									<table class="table table-hover">
 										<thead>
 											<tr>
-												<c:if test="${loginDto.team_code == 'HR' and loginDto.authority == 'A'}">
+												<c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
 												<th style="width: 1%"><input type="checkbox" id="chkAll" onclick="allCheck(this.checked)"></th>
 												</c:if>
 												<th style="width: 10%">게시물번호</th>
@@ -166,7 +166,7 @@
 										<tbody>
 										<c:set var="bgColor" value="${no.notice_pinbtn eq 'Y' ? '#F2F2F2': '#FFFFFF'}" />
 												<tr style="background-color: ${bgColor}">
-													<c:if test="${loginDto.team_code == 'HR' and loginDto.authority == 'A'}">
+													<c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
 													<td><input type="checkbox" name="chk" value="${no.notice_seq}"></td>
 													</c:if>
 													<td>${no.notice_seq}</td>
@@ -249,7 +249,7 @@ function checkSubmit(event){
             }
         });
     } else {
-        Swal.fire("선택된 글이 없습니다");
+        Swal.fire("선택된 공지글이 없습니다");
     }
 }
 

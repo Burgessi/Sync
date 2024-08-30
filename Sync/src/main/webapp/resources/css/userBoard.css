@@ -1,0 +1,118 @@
+@charset "UTF-8";
+.table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table th, .table td {
+	padding: 12px;
+	border: 1px solid #ddd;
+	text-align: left;
+}
+
+.tb {
+	width: 200px;
+	text-align: center !important;
+	background-color: #CCF6E4 !important;
+}
+
+.table th {
+	color: #fff;
+	font-weight: bold;
+}
+
+.table tr:hover {
+	background-color: #eaeaea;
+}
+
+#bt {
+	width: 100px;
+	text-align: center;
+}
+
+.btn-container {
+	text-align: right;
+}
+
+.btn-container input {
+	margin: 0 10px;
+	width: 100px;
+}
+
+.card-header {
+	text-align: right;
+}
+
+.content-cell {
+	height: 200px;
+	max-height: 600px;
+	vertical-align: top !important;
+}
+
+.comment-container {
+	margin-top: 20px;
+}
+
+.comment-form {
+	margin-bottom: 20px;
+}
+
+.comment-form textarea {
+	width: 100%;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 8px;
+	font-size: 14px;
+	resize: vertical;
+}
+
+.comment-form .btn {
+	margin-top: 10px;
+}
+
+.comment-item {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: #f9f9f9;
+}
+
+.comment-author {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.comment-date {
+	color: #888;
+	font-size: 12px;
+}
+
+.comment-content {
+	margin-top: 5px;
+}
+
+.rank-image {
+	width: 17px; /* 원하는 이미지 크기로 조절 */
+	height: 17px; /* 원하는 이미지 크기로 조절 */
+	vertical-align: middle;
+	margin-bottom: 5px;
+}
+#combtn{
+	background-color: transparent;
+	border: none;
+	font-size: 10px;
+	text-decoration: none;
+}
+#combtn:hover {
+    text-decoration: underline; /* 마우스를 올렸을 때 밑줄 추가 */
+    text-decoration-color: blue; /* 밑줄 색상 설정 (파란색) */
+}
+.loadMore{
+	text-decoration: underline; /* 마우스를 올렸을 때 밑줄 추가 */
+    text-decoration-color: blue; /* 밑줄 색상 설정 (파란색) */
+    font-size: 13px;
+    border: none;
+    background-color: transparent;
+}

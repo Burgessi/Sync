@@ -35,8 +35,8 @@ public class EmployeeDaoImpl implements EmployeeDao{
   	}
 	
 	@Override
-	public int updateEmployee(Map<String, String> inMap) {
-		return sessionTemplate.update(NS+"updateEmployee",inMap);
+	public int updateEmployee(Map<String, String> map) {
+		return sessionTemplate.update(NS+"updateEmployee",map);
 	}
 	
 	@Override

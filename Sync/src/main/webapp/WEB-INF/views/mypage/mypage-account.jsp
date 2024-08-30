@@ -18,12 +18,12 @@
 	<div class="card-body" style="max-width: 900px">
 		<section class="section d-flex">
 			<div class="emp-account" style="width: 100%;">
-				<form id="updateAccountForm">
-					<table class="table">
+				<form class="form-horizontal" id="updateAccountForm">
+					<table  class="form-horizontal">
 						<tr>
-							<td style="width: 50%;">은행명</td>
+							<td style="width: 210px;">은행명</td>
 							<td>
-							    <select name="bank_name" id="bankSelect">
+							    <select class="form-select" name="bank_name" id="bankSelect" style="width: 200px; display: inline; margin: 5px 5px 5px 0px;">
 							        <option value="국민은행" ${accDto.bank_name == '국민은행' ? 'selected' : ''}>국민은행</option>
 							        <option value="우리은행" ${accDto.bank_name == '우리은행' ? 'selected' : ''}>우리은행</option>
 							        <option value="하나은행" ${accDto.bank_name == '하나은행' ? 'selected' : ''}>하나은행</option>
@@ -31,27 +31,27 @@
 							        <option value="custom" ${accDto.bank_name != '국민은행' && accDto.bank_name != '우리은행' && accDto.bank_name != '하나은행' && accDto.bank_name != '농협은행' ? 'selected' : ''}>--직접입력--</option>
 							    </select>
 							    <!-- 사용자 지정 도메인을 위한 input field --> 
-							    <input type="text" name="customBankName" id="customBankNameInput" placeholder="ex)국민은행" style="display:none;" value="${accDto.bank_name }"/>
+							    <input class="form-control" type="text" name="customBankName" id="customBankNameInput" placeholder="ex)국민은행" style="display:none; width: 200px;" value="${accDto.bank_name }"/>
 							
 							</td>
 						</tr>
 						<tr>
 							<td>계좌번호</td>
-							<td><input name="account_num" type="tel" value="${accDto.account_num }">
+							<td><input class="form-control" style="width: 200px; display: inline; margin: 5px 5px 5px 0px;" name="account_num" type="tel" value="${accDto.account_num }">
 							</td>
 						</tr>
 						<tr>
 							<td>예금주</td>
-							<td><input name="account_holder" type="text" value="${accDto.account_holder }">
+							<td><input class="form-control" style="width: 200px; display: inline; margin: 5px 5px 5px 0px;" name="account_holder" type="text" value="${accDto.account_holder }">
 							</td>
 						</tr>
 						<tr>
 							<td>예금주와의 관계</td>
-							<td><input name="relation_to_emp" type="text" value="${accDto.relation_to_emp }">
+							<td><input class="form-control" style="width: 200px; display: inline; margin: 5px 5px 5px 0px;" name="relation_to_emp" type="text" value="${accDto.relation_to_emp }">
 							</td>
 						</tr>
 					</table>
-					<button type="button" id="accsubmitBtn">수정</button>
+					<button class="btn btn-primary" type="button" id="accsubmitBtn">수정</button>
 				</form>
 			</div>
 		</section>
@@ -90,10 +90,10 @@ $(document).ready(function(){
             url: './updateMyAccount.do',  // 경로를 명확하게 설정
             data: formData_acc,
             success: function(response) {
-                alert('정보가 성공적으로 업데이트되었습니다!');
+            	toastr.success('정보가 성공적으로 업데이트되었습니다!');
             },
             error: function(xhr, status, error) {
-                alert('업데이트 중 오류가 발생했습니다: ' + error);
+            	toastr.error('업데이트 중 오류가 발생했습니다: ' + error);
                 console.log(xhr.responseText); // 에러 상세 로그
             }
         });

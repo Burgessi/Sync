@@ -21,6 +21,7 @@ import com.google.gson.GsonBuilder;
 import com.pro.sync.common.service.PagingService;
 import com.pro.sync.common.vo.PagingVo;
 import com.pro.sync.employee.vo.EmployeeVo;
+import com.pro.sync.mypage.service.IMypageService;
 import com.pro.sync.notice.service.INoticeService;
 import com.pro.sync.notice.vo.NoticeVo;
 
@@ -42,7 +43,8 @@ public class NoticeController {
 	public String noticeBoard(@RequestParam(value = "page", defaultValue  = "1") int page,
 	                          @RequestParam(value = "countRow", defaultValue = "10") int countRow, // 수정
 	                          @RequestParam(value = "countPage", defaultValue = "5") int countPage, // 수정
-	                          Model model) {
+	                          Model model,
+	                          HttpSession session) {
 	    log.info("공지사항으로 이동");
 	    
 	    int totalCount = service.totalCount();
@@ -78,6 +80,7 @@ public class NoticeController {
 	@GetMapping(value = "/modifyNotice.do")
 	public String modifyNotice(@RequestParam("notice_seq") String notice_seq, Model model, HttpSession session) {
 		EmployeeVo loginDto = (EmployeeVo)session.getAttribute("loginDto");
+		
 		NoticeVo no = service.detailNotice(notice_seq);
 		log.info("{}",no.getEmp_id());
 		if(no.getEmp_id().equals(loginDto.getEmp_id())) {

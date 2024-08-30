@@ -32,8 +32,8 @@ public class EmployeeServiceImpl implements EmployeeService {
   	}
   	
  	@Override
-  	public int updateEmployee(Map<String, String> inMap) {
-  		return dao.updateEmployee(inMap);
+  	public int updateEmployee(Map<String, String> map) {
+  		return dao.updateEmployee(map);
   	}
   	
   	@Override
