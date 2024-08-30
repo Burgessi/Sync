@@ -86,7 +86,7 @@
                         <form>
                         	<input type="hidden" name="notice_seq" value="${noti.notice_seq}">
                        		 <div class="btn-container">
-                       		 	<c:if test="${loginDto.team_code == 'HR' and loginDto.authority == 'A'}">
+                       		 	<c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
                         		<input type="button" class="btn btn-info"  value="수정" onclick="modify(event)">
                         		</c:if>
                         		<input type="button" class="btn btn-secondary"  value="뒤로가기" onclick="location.href='${root}/notice/noticeBoard.do'"> 

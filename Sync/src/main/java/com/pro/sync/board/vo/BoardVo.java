@@ -26,5 +26,6 @@ public class BoardVo {
 	private String bd_del;
 	
 	private String employee_name;
+	private String employee_rank;
 
 }

@@ -32,10 +32,10 @@ WHERE BD_DEL = 'N'AND BD_COMMENT = '0'
 
 <!-- 댓글 리스트 -->
 <select id="selectComment" resultType="BoardVo">
-SELECT BD_SEQ, EMP_NAME, BD_TITLE, BD_CONTENT, BD_POST, BD_COMMENT, BD_DATE, BD_DEL 
+SELECT BD_SEQ, EMP_NAME AS EMPLOYEE_NAME, RANK_ID AS EMPLOYEE_RANK, BD_TITLE, BD_CONTENT, BD_POST, BD_COMMENT, BD_DATE, BD_DEL 
 FROM BOARD b 
 JOIN EMPLOYEE e ON b.EMP_ID = e.EMP_ID 
-WHERE BD_POST = #{bd_post} AND BD_COMMENT > 0 AND BD_DEL ='N'
+WHERE BD_POST = (SELECT BD_POST FROM BOARD b2 WHERE BD_SEQ = #{bd_seq}) AND BD_COMMENT > 0 AND BD_DEL ='N'
 ORDER BY BD_COMMENT DESC 
 </select>
 
@@ -65,24 +65,19 @@ CURRENT_DATE,
 </insert>
 
 <!-- 댓글 insert -->
-<insert id="insertComment">
-	<selectKey order="BEFORE" keyProperty="bd_seq" resultType="Integer">
-		SELECT NVL(MAX(BD_SEQ),0)+1 FROM BOARD n
-	</selectKey>
+<insert id="insertComment">	
 INSERT INTO BOARD
 (BD_SEQ, 
 EMP_ID, 
-BD_TITLE, 
 BD_CONTENT, 
 BD_POST, 
 BD_COMMENT, 
 BD_DATE, 
 BD_DEL)VALUES(
-#{bd_seq}, 
+(SELECT NVL(MAX(BD_SEQ),0)+1 FROM BOARD b), 
 #{emp_id},
-#{bd_title},
 #{bd_content}, 
-(SELECT BD_POST FROM BOARD b WHERE BD_SEQ = #{seq}), 
+(SELECT BD_POST FROM BOARD b WHERE BD_SEQ = #{bd_seq}), 
 (SELECT NVL(MAX(BD_COMMENT),0)+1 FROM BOARD b), 
 CURRENT_DATE, 
 'N')
@@ -92,14 +87,18 @@ CURRENT_DATE,
 <delete id="deleteBoard">
 UPDATE BOARD SET BD_DEL = 'Y'
 WHERE BD_DEL = 'N'
-AND BD_SEQ = #{bd_seq}
+AND BD_SEQ IN
+	<foreach collection="list" item="bd_seq" open="(" separator="," close=")">
+		#{bd_seq}
+	</foreach>
 </delete>
 
 <!-- 댓글 삭제 -->
-<delete id="deleteComment">
+<delete id="deleteComment" parameterType="map">
 UPDATE BOARD  SET BD_DEL = 'Y'
 WHERE BD_DEL = 'N'
-AND BD_POST = #{bd_post} AND BD_COMMENT = #{bd_comment}
+AND BD_POST = #{bd_post} 
+AND BD_COMMENT = #{bd_comment}
 </delete>
 
 <!-- 본문 수정 -->
@@ -116,11 +115,30 @@ WHERE BD_POST = #{bd_post} AND BD_COMMENT = #{bd_comment}
 
 <!-- 본문 상세보기 -->
 <select id="detailBoard" resultType="BoardVo">
-SELECT BD_SEQ, EMP_NAME, BD_TITLE, BD_CONTENT, BD_POST, BD_COMMENT, BD_DATE, BD_DEL 
+SELECT b.BD_SEQ, e.EMP_NAME AS EMPLOYEE_NAME, b.BD_TITLE, b.BD_CONTENT, b.BD_POST, b.BD_COMMENT, b.BD_DATE, b.BD_DEL 
 FROM BOARD b 
 JOIN EMPLOYEE e ON b.EMP_ID = e.EMP_ID 
 WHERE BD_SEQ = #{bd_seq}
 </select>
+
+<!-- 게시물 검색 -->
+<select id="searchBoard" resultType="BoardVo">
+SELECT b.BD_SEQ, b.BD_TITLE, e.EMP_NAME AS EMPLOYEE_NAME
+FROM BOARD b  
+JOIN EMPLOYEE e ON b.EMP_ID = e.EMP_ID
+WHERE  BD_DEL = 'N'
+	<choose>
+        <when test="opt == 'author'">
+            AND e.EMP_NAME LIKE '%' || #{keyword} || '%'
+        </when>
+        <otherwise>
+            AND b.BD_TITLE LIKE '%' || #{keyword} || '%'
+        </otherwise>
+    </choose>
+</select>
+
+
+
 
  
 </mapper>

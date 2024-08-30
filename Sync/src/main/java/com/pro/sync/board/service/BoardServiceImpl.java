@@ -1,6 +1,7 @@
 package com.pro.sync.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,44 @@ public class BoardServiceImpl implements IBoardService {
 		log.info("게시글 상세보기");
 		return dao.detailBoard(bd_seq);
 	}
+
+	@Override
+	public int deleteBoard(List<String> bd_seqs) {
+		log.info("게시글 삭제");
+		return dao.deleteBoard(bd_seqs);
+	}
+
+	@Override
+	public int insertComment(BoardVo vo) {
+		log.info("댓글 생성");
+		return dao.insertComment(vo);
+	}
+
+	@Override
+	public List<BoardVo> selectComment(String bd_seq) {
+		log.info("댓글 리스트");
+		return dao.selectComment(bd_seq);
+	}
+
+	@Override
+	public int deleteComment(Map<String, Object> map) {
+		log.info("댓글 삭제");
+		return dao.deleteComment(map);
+	}
+
+	@Override
+	public int modifyComment(Map<String, Object> map) {
+		log.info("댓글 수정");
+		return dao.modifyComment(map);
+	}
+
+	@Override
+	public List<BoardVo> searchBoard(Map<String, Object> map) {
+		log.info("제목 or 작성자 검색");
+		return dao.searchBoard(map);
+	}
+	
+	
 	
 	
 
