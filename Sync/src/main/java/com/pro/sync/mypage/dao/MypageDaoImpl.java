@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.pro.sync.employee.vo.EmployeeVo;
 import com.pro.sync.mypage.vo.AccountVo;
 import com.pro.sync.mypage.vo.OffVo;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -76,4 +77,14 @@ public class MypageDaoImpl implements IMypageDao {
 		// TODO Auto-generated method stub
 		return session.update(NS+"updateProfilepic", map);
 	}
+	
+	@Override
+	public int checkUser(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return session.selectOne(NS+"checkUser", map);
+	}
+	
+	
+	
+ 
 }

@@ -23,7 +23,7 @@
 	<!-- 회원정보 가져오기 -->
 	<select id="getInfo" parameterType="java.lang.String" resultType="EmployeeVo" >
 		SELECT e.EMP_ID, EMP_NAME,
-				EMP_GENDER, EMP_SSN, EMP_EMAIL, 
+				EMP_GENDER, SUBSTR(EMP_SSN,1,6) || '-' || SUBSTR(EMP_SSN,7,1) || '******' AS EMP_SSN , EMP_EMAIL, 
 				EMP_PHONE, ADDR1, ADDR2, 
 				TO_CHAR(e.EMP_HIRE_DATE, 'YYYY-MM-DD') AS EMP_HIRE_DATE, EMP_STATUS, EMP_PROFILE_PIC, 
 				e.TEAM_CODE, e.RANK_ID, AUTHORITY, 
@@ -89,4 +89,17 @@
 			SET EMP_PROFILE_PIC = #{emp_profile_pic}
 			WHERE EMP_ID =#{emp_id}
 	</update>
+	
+	<!-- 회원 존재 여부 체크 -->
+	<select id="checkUser" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+			FROM EMPLOYEE e 
+			WHERE EMP_ID =#{emp_id} AND EMP_EMAIL = #{emp_email}
+	</select>
+	
+	
+	
+	
+	
+	
 </mapper>

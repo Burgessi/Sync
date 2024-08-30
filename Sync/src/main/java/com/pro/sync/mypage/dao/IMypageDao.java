@@ -76,4 +76,15 @@ public interface IMypageDao {
 	 */
 	public int updateProfilepic(Map<String, Object> map);
 	
+	/**
+	 * 회원 존재 여부 체크
+	 * @param map emp_id, emp_email
+	 * @return 1=존재 0=없음
+	 */
+	public int checkUser(Map<String, Object> map);
+	
+	
+	
+	
+	
 }

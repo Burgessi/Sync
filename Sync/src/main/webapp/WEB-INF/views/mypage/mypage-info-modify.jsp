@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <div>
 	<!-- 개인정보 수정 영역 -->
 	<div class="card-header mt-1 py-3">
@@ -14,18 +15,18 @@
 		<section class="section d-flex">
 			<div class="emp-info change" style="width: 100%;">
 <!-- 				<form id="updateForm" action="./updateMyInfo.do" method="post"> -->
-				<form id="updateForm">
-					<table class="table">
+				<form id="updateForm" class="form-horizontal" >
+					<table class="form-horizontal" >
 						<tr>
-							<td style="width: 15%;">이메일</td>
+							<td style="width: 210px;">이메일</td>
 							<td>
 								<!-- 이메일을 '@'를 기준으로 분리 --> 
 								<c:set var="emailId" value="${fn:substringBefore(infoDto.emp_email, '@')}" /> 
 								<c:set var="emailDomain" value="${fn:substringAfter(infoDto.emp_email, '@')}" /> 
 								<!-- 아이디 부분을 input 필드에 초기화 -->
-								<input type="text" name="emailId" value="${emailId}" style="width: 100px;" /> @ 
+								<input class="form-control" type="text" name="emailId" value="${emailId}" style="width: 150px; display: inline; margin: 5px 5px 5px 0px;" /> @ 
 								<!-- 도메인 부분을 select 필드에 초기화 --> 
-								<select name="emailDomain">
+								<select class="form-select" name="emailDomain" style="width:150px; display: inline; margin: 5px 5px 5px 0px;">
 									<option value="gmail.com"
 										${emailDomain == 'gmail.com' ? 'selected' : ''}>gmail.com</option>
 									<option value="naver.com"
@@ -37,8 +38,8 @@
 									<option value="custom"
 										${emailDomain != 'gmail.com' && emailDomain != 'naver.com' && emailDomain != 'daum.net' && emailDomain != 'yahoo.com' ? 'selected' : ''}>--직접입력--</option>
 								</select> <!-- 사용자 지정 도메인을 위한 input field --> 
-								<input type="text" name="customDomain" value="${emailDomain}"
-									style="display: ${emailDomain != 'gmail.com' && emailDomain != 'naver.com' && emailDomain != 'daum.net' && emailDomain != 'yahoo.com' ? 'inline-block' : 'none'};"
+								<input class="form-control" type="text" name="customDomain" value="${emailDomain}"
+									style=" margin: 5px 5px 5px 0px; display: ${emailDomain != 'gmail.com' && emailDomain != 'naver.com' && emailDomain != 'daum.net' && emailDomain != 'yahoo.com' ? 'inline' : 'none'};"
 									id="customDomainInput" />
 							</td>
 						</tr>
@@ -48,23 +49,24 @@
 								<c:set var="phone1" value="${fn:substring(infoDto.emp_phone,0,3) }" /> 
 								<c:set var="phone2" value="${fn:substring(infoDto.emp_phone,3,7) }" />
 								<c:set var="phone3" value="${fn:substring(infoDto.emp_phone,7,11) }" /> 
-								<input type="tel" name="phone1" value="${phone1}" maxlength="3" style="width: 55px;"> - 
-								<input type="tel" name="phone2" value="${phone2}" maxlength="4" style="width: 55px;"> -
-								<input type="tel" name="phone3" value="${phone3}" maxlength="4" style="width: 55px;">
+								<input class="form-control" type="tel" name="phone1" value="${phone1}" maxlength="3" style="width: 55px; display: inline; margin: 5px 5px 5px 0px;"> - 
+								<input class="form-control" type="tel" name="phone2" value="${phone2}" maxlength="4" style="width: 55px; display: inline; margin: 5px 5px 5px 0px;"> -
+								<input class="form-control" type="tel" name="phone3" value="${phone3}" maxlength="4" style="width: 55px; display: inline; margin: 5px 5px 5px 0px;">
 							</td>
 						</tr>
 						<tr>
 							<td>주소</td>
 							<td>
-								<input type="button" onclick="sample6_execDaumPostcode()" value="주소 검색" class="d_btn"><br>
-								<input type="text" name="addr1" id="sample6_address" class="d_form large" placeholder="주소" value="${infoDto.addr1}"><br>
-								<input type="text" name="addr2" id="sample6_detailAddress" class="d_form" placeholder="상세주소" value="${infoDto.addr2}">
-								<input type="text" id="sample6_extraAddress" class="d_form" placeholder="참고항목">
+								
+								<input class="form-control" type="text" name="addr1" id="sample6_address" class="d_form large" placeholder="주소" value="${infoDto.addr1}" style="width: 250px; display: inline; margin: 5px 5px 5px 0px;">
+								<input  type="button" onclick="sample6_execDaumPostcode()" value="주소 검색" class="form-control btn-secondary" style="width: 100px; display: inline; margin: 5px 5px 5px 0px;"><br>
+								<input class="form-control" type="text" name="addr2" id="sample6_detailAddress" class="d_form" placeholder="상세주소" value="${infoDto.addr2}" style="width: 250px; display: inline; margin: 5px 5px 5px 0px;">
+								<input class="form-control" type="text" id="sample6_extraAddress" class="d_form" placeholder="참고항목" style="width: 150px; display: inline;  margin: 5px 5px 5px 0px;">
 							</td>
 						</tr>
 					</table>
 <!-- 					<input type="submit" value="수정"> -->
-					<button type="button" id="submitBtn">수정</button>
+					<button class="btn btn-primary" type="button" id="submitBtn">수정</button>
 				</form>
 			</div>
 		</section>
@@ -77,7 +79,7 @@
 
 	selectElement.addEventListener('change', function() {
 		if (this.value === 'custom') {
-			customDomainInput.style.display = 'inline-block';
+			customDomainInput.style.display = 'inline';
 			customDomainInput.value = '';
 		} else {
 			customDomainInput.style.display = 'none';
@@ -160,15 +162,37 @@ $(document).ready(function(){
             url: './updateMyInfo.do',  // 경로를 명확하게 설정
             data: formData,
             success: function(response) {
-                alert('정보가 성공적으로 업데이트되었습니다!');
+                toastr.success('정보가 성공적으로 업데이트되었습니다!');
             },
             error: function(xhr, status, error) {
-                alert('업데이트 중 오류가 발생했습니다: ' + error);
+                toastr.error('업데이트 중 오류가 발생했습니다: ' + error);
                 console.log(xhr.responseText); // 에러 상세 로그
             }
         });
     });
 });
+</script>
+
+
+<script>
+// $(document).ready(function(){
+//     $('#submitBtn').on('click', function() {
+//         var formData = $('#updateForm').serialize();  // 폼 데이터를 시리얼라이즈하여 문자열로 변환
+
+//         $.ajax({
+//             type: 'POST',
+//             url: './updateMyInfo.do',  // 경로를 명확하게 설정
+//             data: formData,
+//             success: function(response) {
+//                 alert('정보가 성공적으로 업데이트되었습니다!');
+//             },
+//             error: function(xhr, status, error) {
+//                 alert('업데이트 중 오류가 발생했습니다: ' + error);
+//                 console.log(xhr.responseText); // 에러 상세 로그
+//             }
+//         });
+//     });
+// });
 
 
 </script>

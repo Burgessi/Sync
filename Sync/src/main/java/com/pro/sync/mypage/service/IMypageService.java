@@ -22,4 +22,9 @@ public interface IMypageService {
 	public int insertAccount(AccountVo vo);
 	public int updatePassword(Map<String, Object> map);
 	public int updateProfilepic(Map<String, Object> map);
+	public int checkUser(Map<String, Object> map);
+
+	
+	
+	 
 }

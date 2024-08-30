@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="resources/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="${root}/resources/css/common/app.css" />
-
 	
     <link rel="stylesheet" href="${root}/resources/css/member/login-style.css" />
     
@@ -43,28 +42,50 @@
         background-color: #fff;
       }
     </style>
-    
     <script src="${root}/resources/js/login/login.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   </head>
   
-<!-- 로그인 실패 시, 경고창 -->
-<!-- 로그인은 성공인데 재직상태가 A라면 비밀번호 변경 모달-->
+  <!-- 모달 HTML 코드 -->
+<div class="modal fade" id="customAlertModal" tabindex="-1" aria-labelledby="customAlertTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="customAlertTitle">알림</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="customAlertMessage">
+        여기에 메시지가 표시됩니다.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <!-- customAlert 함수 정의 -->
+<script type="text/javascript">
+function customAlert(message) {
+    // 메시지 설정
+    document.getElementById('customAlertMessage').innerText = message;
+    
+    // 모달 표시
+    var customAlertModal = new bootstrap.Modal(document.getElementById('customAlertModal'));
+    customAlertModal.show();
+}
+</script>
+  
 <% 
 	Boolean loginFailed = (Boolean) request.getAttribute("loginFailed");
-
-	// 로그인 실패 시
 	if (loginFailed != null && loginFailed) { 
 %>
     <script type="text/javascript">
-        alert("아이디와 비밀번호를 확인해주세요.");
+    customAlert("아이디와 비밀번호를 확인해주세요.");
     </script>
-
 <% 
 	}
-
-
 %>
 
   <body>
@@ -89,9 +110,9 @@
                 <input name="saveId" id="saveCheck" class="form-check-input" type="checkbox" role="switch" />
                 <label for="saveCheck" class="form-check-label">아이디 저장</label>
               </div>
-              <div class="find-idpwd">
+              <div class="resetPw">
 <!--               	비밀번호 재설정 페이지로 이동-연결 예정 -->
-                <button type="button" class="btn btn-sm">비밀번호 재설정</button>
+                <button type="button" class="btn btn-sm" onclick="location.href='${root}/resetPw.do'">비밀번호 재설정</button>
               </div>
             </div>
             <input type="submit" value="로그인" class="login-btn solid" style="width: 320px;"/>
@@ -106,9 +127,6 @@
       </div>
     </div>
     
-    
-  </body>
-   
   </body>
   
   

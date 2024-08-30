@@ -10,7 +10,7 @@
 	</div>
 	<div class="card-body" style="max-width: 900px">
 		<div class="emp-password" style="width: 100%;">
-			<form id="emp-passwordChangeForm" action="" method="post">
+			<form class="form-control" style="border: none;" id="emp-passwordChangeForm" action="" method="post">
 			    <div class="mb-3">
 			        <label for="newPassword" class="form-label">새 비밀번호</label>
 			        <input type="password" class="form-control" id="newPassword" name="newPassword" required style="width: 50%">
@@ -21,7 +21,7 @@
 			        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required style="width: 50%">
 			        <div id="confirmPasswordError" style="color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
 			    </div>
-			    <button type="button" id="pwsubmitBtn">수정</button>
+			    <button class="btn btn-primary" type="button" id="pwsubmitBtn" style="margin-left: 0px;">수정</button>
 			</form>
 		</div>
 	</div>
@@ -62,10 +62,10 @@ $(document).ready(function() {
             url: './updateMyPassword.do',  // 경로를 명확하게 설정
             data: formData_pw,
             success: function(response) {
-                alert('비밀번호가 성공적으로 변경되었습니다!');
+                toastr.success('비밀번호가 성공적으로 변경되었습니다!');
             },
             error: function(xhr, status, error) {
-                alert('비밀번호 변경 중 오류가 발생했습니다: ' + error);
+            	toastr.error('비밀번호 변경 중 오류가 발생했습니다: ' + error);
                 console.log(xhr.responseText); // 에러 상세 로그
             }
         });

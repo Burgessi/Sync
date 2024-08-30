@@ -3,13 +3,17 @@
 <mapper namespace="com.pro.sync.login.dao.LoginDaoImpl">
 
 	
-	
+	<!-- 로그인  -->
 	<select id="getLogin" parameterType="java.util.Map" resultType="EmployeeVo" >
 		SELECT e.EMP_ID, EMP_NAME
 		FROM EMPLOYEE e
 		WHERE e.EMP_ID = #{emp_id} AND e.EMP_PASSWORD = #{emp_password}
 	</select>
 	
-		
-
+	<!-- 초기로그인 비밀번호 변경 및 상태 변경 -->
+	<update id="updatePwStatus" parameterType="java.util.Map">
+		UPDATE EMPLOYEE 
+			SET EMP_PASSWORD = #{emp_password}, EMP_STATUS = 'B'
+			WHERE EMP_ID = #{emp_id} AND EMP_STATUS = 'A'
+	</update>
 </mapper>
