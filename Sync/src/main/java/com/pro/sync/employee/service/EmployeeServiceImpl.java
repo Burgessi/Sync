@@ -1,6 +1,7 @@
 package com.pro.sync.employee.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -31,8 +32,8 @@ public class EmployeeServiceImpl implements EmployeeService {
   	}
   	
  	@Override
-  	public int updateEmployee(EmployeeVo employeeVo) {
-  		return dao.updateEmployee(employeeVo);
+  	public int updateEmployee(Map<String, String> map) {
+  		return dao.updateEmployee(map);
   	}
   	
   	@Override

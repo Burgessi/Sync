@@ -12,13 +12,13 @@
 //}
 
 function validateForm(formId) {
-   // var form = document.getElementById('regist-form');
     var form = document.getElementById(formId);
-    var ssnInput = form.querySelector('#emp_ssn'); 
-    var errorMessage = form.querySelector('#error-message');
+    //var form = document.getElementById(formId);
+    var ssnInput = form.querySelector('input[name="emp_ssn"]'); 
+    //var errorMessage = form.querySelector('#error-message');
     
     var nameInput = form.querySelector('input[name="emp_name"]');
-    var genderInputs = form.querySelectorAll('input[name="emp_gender"]');
+    //var genderInputs = form.querySelectorAll('input[name="emp_gender"]');
     var divisionSelect = form.querySelector('select[name="division"]');
     var teamSelect = form.querySelector('select[name="team_code"]');
     var rankSelect = form.querySelector('select[name="rank_id"]');
@@ -28,6 +28,7 @@ function validateForm(formId) {
 
     // 이름 검사
     if (nameInput.value.trim() === '') {
+		//alert('dddd');
         nameInput.style.borderColor = 'red';
         isValid = false;
     } else {
@@ -35,13 +36,13 @@ function validateForm(formId) {
     }
     
     // 성별 검사
-    var genderChecked = Array.from(genderInputs).some(input => input.checked);
-    if (!genderChecked) {
-        genderInputs.forEach(input => input.style.outline = '2px solid red');
-        isValid = false;
-    } else {
-        genderInputs.forEach(input => input.style.outline = '');
-    }
+//    var genderChecked = Array.from(genderInputs).some(input => input.checked);
+//    if (!genderChecked) {
+//        genderInputs.forEach(input => input.style.outline = '2px solid red');
+//        isValid = false;
+//    } else {
+//        genderInputs.forEach(input => input.style.outline = '');
+//    }
     
     // 본부 검사
     if (divisionSelect.value === '') {
@@ -68,20 +69,24 @@ function validateForm(formId) {
     }
 
     // 입사일 검사
-    if (hireDateInput.value === '') {
+    if (hireDateInput && hireDateInput.value === '') {
         hireDateInput.style.borderColor='red';
         isValid = false;
-    } else {
+    } else if (hireDateInput) {
         hireDateInput.style.borderColor='';
     }
     
     // 주민등록번호 검사
-    var ssn = ssnInput.value.replace(/\D/g, ''); // 숫자만 추출
-    if (ssn.length !== 13) {
-        errorMessage.textContent = '주민등록번호는 13자리여야 합니다.';
-        isValid = false;
-    } else {
-        errorMessage.textContent = ''; // 에러 메시지 제거
+      if (ssnInput) {
+        var ssn = ssnInput.value.replace(/\D/g, ''); // 숫자만 추출
+        if (ssn.length !== 13) {
+            errorMessage.textContent = '주민등록번호는 13자리여야 합니다.';
+            ssnInput.style.borderColor = 'red';
+            isValid = false;
+        } else {
+            errorMessage.textContent = ''; // 에러 메시지 제거
+            ssnInput.style.borderColor = '';
+        }
     }
     
     return isValid;
@@ -90,8 +95,8 @@ function validateForm(formId) {
 //유효성 검사 및 주민등록번호 포맷
 document.addEventListener('DOMContentLoaded', function() {
     var form = document.getElementById('regist-form');
-    var ssnInput = document.getElementById('emp_ssn'); // id로 선택
-    var errorMessage = document.getElementById('error-message');
+    //var ssnInput = document.getElementById('emp_ssn'); // id로 선택
+    //var errorMessage = document.getElementById('error-message');
 
     // 폼 제출 시 유효성 검사
     form.addEventListener('submit', function(event) {
@@ -101,7 +106,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 주민등록번호 입력 시 포맷
-    ssnInput.addEventListener('input', function() {
-        formatSSN(this); // 주민등록번호 입력할 때만 호출
-    });
+    var ssnInput = document.querySelector('input[name="emp_ssn"]');
+    if (ssnInput) {
+        ssnInput.addEventListener('input', function() {
+            formatSSN(this); // 주민등록번호 입력할 때만 호출
+        });
+    }
 });
