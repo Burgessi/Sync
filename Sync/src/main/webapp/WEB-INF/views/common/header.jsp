@@ -122,7 +122,7 @@
               <hr class="dropdown-divider" />
             </li>
             <li>
-              <a class="dropdown-item" href="./"><img src="${root}/resources/img/logout.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-box-arrow-left me-2"></i> 로그아웃</a>
+              <a class="dropdown-item" href="${root}/"><img src="${root}/resources/img/logout.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-box-arrow-left me-2"></i> 로그아웃</a>
             </li>
           </ul>
         </div>
