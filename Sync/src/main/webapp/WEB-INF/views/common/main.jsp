@@ -195,7 +195,7 @@
             
             if (loginDto != null && "A".equals(infoDto.getEmp_status())) {
         %>
-            $('#passwordChangeModal').modal('show');
+//             $('#passwordChangeModal').modal('show');
         <% 
             } 
         %>
