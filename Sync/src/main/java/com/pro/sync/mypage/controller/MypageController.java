@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+
+import com.pro.sync.attendance.service.IAttendanceService;
 import com.pro.sync.employee.vo.EmployeeVo;
 import com.pro.sync.mypage.service.IMypageService;
 import com.pro.sync.mypage.vo.AccountVo;
@@ -28,6 +30,8 @@ public class MypageController {
 	
 	@Autowired
 	IMypageService service;
+	@Autowired
+	IAttendanceService aservice;
 
 	//마이페이지 이동 - 연차
 	@GetMapping("/mypage.do")
@@ -36,6 +40,7 @@ public class MypageController {
 //			@SessionAttribute("accDto") AccountVo accDto, 
 			Model model,
 			HttpSession session) {
+		
 		log.info("mypage 이동");
 		
 		String emp_id = loginDto.getEmp_id();

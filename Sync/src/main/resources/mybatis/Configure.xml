@@ -29,6 +29,7 @@
 	<mapper resource="sqls/Login_Statement.xml"/>
 	<mapper resource="sqls/Mypage_Statement.xml"/>
 	<mapper resource="sqls/Board_Statement.xml"/>	  	
+	<mapper resource="sqls/Attendance_Statement.xml"/>	  	
 	<mapper resource="sqls/Facilities_Statement.xml"/>	  	
 </mappers>
 
