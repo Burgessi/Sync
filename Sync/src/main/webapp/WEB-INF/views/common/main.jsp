@@ -78,6 +78,7 @@
                 </div>
                 <div class="card-body">
 <!--                   컨텐츠 내용 -->
+					<%@ include file="/WEB-INF/views/attendance/att-record.jsp"%>
                 </div>
               </div>
               <div class="card" style="width: 90%; min-width: 500px; padding: 5px; margin-left:10px; overflow: auto">
@@ -187,58 +188,60 @@
 </div>
 
 <!-- JavaScript code -->
-<script>
-    $(document).ready(function() {
-        <% 
-            EmployeeVo loginDto = (EmployeeVo) request.getAttribute("loginDto");
-            EmployeeVo infoDto = (EmployeeVo) request.getAttribute("infoDto");
+<!-- <script> -->
+//     $(document).ready(function() {
+<%--         <%  --%>
+//             EmployeeVo loginDto = (EmployeeVo) request.getAttribute("loginDto");
+//             EmployeeVo infoDto = (EmployeeVo) request.getAttribute("infoDto");
             
-            if (loginDto != null && "A".equals(infoDto.getEmp_status())) {
-        %>
-           // $('#passwordChangeModal').modal('show');
-        <% 
-            } 
-        %>
 
-        // 비밀번호 유효성 검사 함수
-        function isValidPassword(password) {
-            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
-            return passwordRegex.test(password);
-        }
 
-        // 비밀번호 변경 폼 유효성 검사 후 제출
-        $('#passwordChangeForm').on('submit', function(event) {
-            event.preventDefault(); // 기본 폼 제출 막기
+//             if (loginDto != null && "A".equals(infoDto.getEmp_status())) {
+<%--         %> --%>
+//             $('#passwordChangeModal').modal('show');
+<%--         <%  --%>
+//             } 
+<%--         %> --%>
 
-            var newPassword = $('#newPassword').val();
-            var confirmPassword = $('#confirmPassword').val();
+//         // 비밀번호 유효성 검사 함수
+//         function isValidPassword(password) {
+//             const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+//             return passwordRegex.test(password);
+//         }
 
-            // 비밀번호 유효성 검사
-            if (!isValidPassword(newPassword)) {
-            	toastr.error('비밀번호는 영문 대소문자와 숫자를 포함하여 8자 이상이어야 합니다.');
-                return; // 유효성 검사를 통과하지 못하면 제출 중단
-            }
+//         // 비밀번호 변경 폼 유효성 검사 후 제출
+//         $('#passwordChangeForm').on('submit', function(event) {
+//             event.preventDefault(); // 기본 폼 제출 막기
 
-            // 비밀번호와 비밀번호 확인이 일치하는지 확인
-            if (newPassword !== confirmPassword) {
-            	toastr.error('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
-                return; // 유효성 검사를 통과하지 못하면 제출 중단
-            }
+//             var newPassword = $('#newPassword').val();
+//             var confirmPassword = $('#confirmPassword').val();
 
-            // 유효성 검사를 통과했을 경우 폼을 실제로 제출
-            $.post($(this).attr('action'), $(this).serialize(), function(response) {
-                $('#passwordChangeModal').modal('hide'); // 비밀번호 변경 모달 숨기기
-                $('#passwordChangeSuccessModal').modal('show'); // 성공 모달 보여주기
-            });
-        });
+//             // 비밀번호 유효성 검사
+//             if (!isValidPassword(newPassword)) {
+//             	toastr.error('비밀번호는 영문 대소문자와 숫자를 포함하여 8자 이상이어야 합니다.');
+//                 return; // 유효성 검사를 통과하지 못하면 제출 중단
+//             }
 
-        // 성공 모달에서 확인 버튼 클릭 시 로그인 페이지로 리다이렉트
+//             // 비밀번호와 비밀번호 확인이 일치하는지 확인
+//             if (newPassword !== confirmPassword) {
+//             	toastr.error('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+//                 return; // 유효성 검사를 통과하지 못하면 제출 중단
+//             }
+
+//             // 유효성 검사를 통과했을 경우 폼을 실제로 제출
+//             $.post($(this).attr('action'), $(this).serialize(), function(response) {
+//                 $('#passwordChangeModal').modal('hide'); // 비밀번호 변경 모달 숨기기
+//                 $('#passwordChangeSuccessModal').modal('show'); // 성공 모달 보여주기
+//             });
+//         });
+
+//         // 성공 모달에서 확인 버튼 클릭 시 로그인 페이지로 리다이렉트
         
-        $('#confirmButton').on('click', function() {
-            window.location.href = './'; // 로그인 페이지 URL로 변경
-        });
-    });
-</script>
+//         $('#confirmButton').on('click', function() {
+//             window.location.href = './'; // 로그인 페이지 URL로 변경
+//         });
+//     });
+<!-- </script> -->
 
   </body>
 </html>

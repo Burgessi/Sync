@@ -79,18 +79,25 @@
                         
                     </div>
                     <div class="card-body">
-                        <form action="${root}/board/insertBoard.do" method="post">
+                        <form action="${root}/board/insertBoard.do" method="post" enctype="multipart/form-data">
                              <table class="table">
                                 <tr>
                                     <td class="tb"><strong>이&nbsp;&nbsp;&nbsp;&nbsp;름</strong></td>
                                     <td>
                                     	<input type="text" name="employee_name" value="${infoDto.emp_name}" class="input-hide">
+                                    	<input type="hidden" name ="emp_id" value="${loginDto.emp_id}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="tb"><strong>제&nbsp;&nbsp;&nbsp;&nbsp;목</strong></td>
                                     <td>
                                         <input type="text" class="input-hide" name="bd_title" >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tb"><strong>첨&nbsp;부&nbsp;파&nbsp;일</strong></td>
+                                    <td>
+                                        <input type="file" class="input-hide" name="filename"  multiple="multiple">
                                     </td>
                                 </tr>
                                 <tr>

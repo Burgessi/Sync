@@ -44,7 +44,7 @@
          <div class="sidebar-header">
             <div class="d-flex justify-content-between">
                 <div class="logo">
-                    <h3>SYNC</h3>
+                    <a href="common/main.jsp"><h3>SYNC</h3>
                 </div>         
             </div>
             
@@ -136,11 +136,21 @@
                     </ul>
                 </li>               
                 <!-- 시설예약  -->
-                <li class="sidebar-item">
-                    <a href="${root}/noBoard/noticeBoard.do" class='sidebar-link'>
+                <li class="sidebar-item has-sub">
+                    <a href="#" class='sidebar-link'>
                         <i class="bi bi-card-checklist"></i>
-                        <span>시설예약</span>
+                        <span>시설</span>
                     </a>
+                    <ul class="submenu" id="doc-part">
+                    	<c:if test="${infoDto.authority == 'A'}">
+                        <li class="submenu-item" id="doc-list">
+                            <a href="${root}/fcl/boardFcl.do">회의실 관리</a>
+                        </li>
+                        </c:if>
+                        <li class="submenu-item" id="doc-list">
+                            <a href="${root}/board/userBoard.do">회의실 예약</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>

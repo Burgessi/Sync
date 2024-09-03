@@ -1,5 +1,7 @@
 package com.pro.sync.board.vo;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -27,5 +29,7 @@ public class BoardVo {
 	
 	private String employee_name;
 	private String employee_rank;
+	
+	private List<FileBoardVo> fileVo;
 
 }

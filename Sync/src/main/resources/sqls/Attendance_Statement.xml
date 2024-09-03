@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pro.sync.attendance.dao.AttendanceDaoImpl">
+
+
+	
+	
+	<!-- 사번조회 -->
+	<select id="getEmpId" resultType="java.lang.String">
+		SELECT EMP_ID FROM EMPLOYEE e 
+	</select>
+	
+	<!-- 출근기록 잇는지 확인 : 중복insert방지 -->
+	<select id="isAlreadyCheckedIn" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+			FROM SYNC.ATTENDANCE
+			WHERE EMP_ID = #{emp_id}
+			AND TRUNC(ATTENDANCE_DATE) = TRUNC(CURRENT_DATE)
+	</select>
+	<!-- 출근시간 기록 사번만 넣어서 -->
+<!-- 	<insert id="insertCheckIn" parameterType="java.lang.String"> -->
+<!-- 		INSERT INTO SYNC.ATTENDANCE (ATTENDANCE_ID, EMP_ID, CHECK_IN_TIME, CHECK_OUT_TIME, STATUS, ATTENDANCE_DATE) -->
+<!-- 		SELECT -->
+<!-- 		    'ATTD' || LPAD(NVL(MAX(TO_NUMBER(SUBSTR(ATTENDANCE_ID, 5))), 0) + 1, 3, '0'), -->
+<!-- 		    #{emp_id}, -->
+<!-- 		    CURRENT_DATE, -->
+<!-- 		    NULL, -->
+<!-- 		    0, -->
+<!-- 		    TRUNC(CURRENT_DATE) -->
+<!-- 		FROM -->
+<!-- 		    SYNC.ATTENDANCE -->
+<!-- 		WHERE -->
+<!-- 		    EMP_ID = #{emp_id} -->
+<!-- 		    AND TRUNC(ATTENDANCE_DATE) = TRUNC(CURRENT_DATE) -->
+<!-- 		HAVING -->
+<!-- 		    COUNT(*) = 0 -->
+<!-- 	</insert> -->
+	
+	<insert id="insertCheckIn" parameterType="java.lang.String">
+		INSERT INTO SYNC.ATTENDANCE (
+		    ATTENDANCE_ID, EMP_ID, CHECK_IN_TIME, CHECK_OUT_TIME, STATUS, ATTENDANCE_DATE
+		)
+		SELECT
+		    'ATTD' || LPAD(ATTENDANCE_SEQ.NEXTVAL, 3, '0'), 
+		    #{emp_id}, 
+		    CURRENT_DATE, 
+		    NULL, 
+		    0, 
+		    TRUNC(CURRENT_DATE)
+		FROM 
+		    DUAL
+		WHERE 
+		    NOT EXISTS (
+		        SELECT 1 
+		        FROM SYNC.ATTENDANCE 
+		        WHERE EMP_ID = #{emp_id} 
+		          AND TRUNC(ATTENDANCE_DATE) = TRUNC(CURRENT_DATE)
+		    )
+
+	</insert>
+	
+	<!-- 퇴근시간 기록 -->
+	<update id="updateCheckOut" parameterType="java.util.Map">
+		UPDATE SYNC.ATTENDANCE
+	    SET CHECK_OUT_TIME = CURRENT_DATE, STATUS = 3,
+	        WORK_DURATION = #{work_duration, jdbcType=VARCHAR}
+	    WHERE EMP_ID = #{emp_id}
+	      AND ATTENDANCE_DATE = TRUNC(CURRENT_DATE)
+	</update>
+<!-- 		UPDATE SYNC.ATTENDANCE -->
+<!-- 		SET CHECK_OUT_TIME = CURRENT_DATE, STATUS = 3 -->
+<!-- 		WHERE EMP_ID = #{emp_id}  -->
+<!-- 		  AND ATTENDANCE_DATE = TRUNC(CURRENT_DATE) -->
+<!-- 	</update> -->
+	
+	<!-- 출근 시간 조회 쿼리 -->
+    <select id="getCheckInTime" parameterType="String" resultType="String">
+        SELECT TO_CHAR(CHECK_IN_TIME,'HH24:MI:SS')
+			FROM ATTENDANCE
+			WHERE EMP_ID = #{emp_id} AND TRUNC(ATTENDANCE_DATE) = TRUNC(CURRENT_DATE)
+    </select>
+	<!-- 퇴근 시간 조회 쿼리 -->
+    <select id="getCheckOutTime" parameterType="String" resultType="String">
+        SELECT TO_CHAR(CHECK_OUT_TIME,'HH24:MI:SS')
+			FROM ATTENDANCE
+			WHERE EMP_ID = #{emp_id} AND TRUNC(ATTENDANCE_DATE) = TRUNC(CURRENT_DATE)
+    </select>
+</mapper>

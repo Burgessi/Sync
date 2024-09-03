@@ -241,6 +241,7 @@ function modify(event){
 		frm.submit();
 	}
 
+}
 
 
 //datepicker 설정
@@ -290,6 +291,7 @@ $(function() {
 		
 		
 		
+		
 		// 금액에 , 추가
 		$(".expenseAmount").on("input", function(){
 			let rawValue = $(this).val().replace(/,/g, '').replace(/\D/g, '');
@@ -306,7 +308,6 @@ $(function() {
 				console.log(category);
 			}
 		}
-		
 		
 		 
 		
