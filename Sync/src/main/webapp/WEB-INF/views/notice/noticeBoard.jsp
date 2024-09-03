@@ -121,7 +121,10 @@
 .search-container button:hover {
     background-color: #0056b3;
 }
-
+#noticeImg{
+	width: 4%;
+	height: 4%;
+}
 </style>
 <title>공지게시판</title>
 </head>
@@ -171,7 +174,12 @@
 													</c:if>
 													<td>${no.notice_seq}</td>
 													<td>${no.employee_name}</td>
-													<td><a href="${root}/notice/detailNotice.do?notice_seq=${no.notice_seq}">${no.notice_title}</a></td>
+													<td>
+														<c:if test="${no.notice_pinbtn eq 'Y'}">
+															<img alt="notice" src="${root}/resources/img/notice.png" id="noticeImg">
+														</c:if>
+															<a href="${root}/notice/detailNotice.do?notice_seq=${no.notice_seq}">${no.notice_title}</a>
+													</td>
 													<td>
 														<fmt:parseDate var="cDate" value="${no.notice_regdate}" pattern="yyyy-MM-dd"></fmt:parseDate>
 														<fmt:formatDate value="${cDate}"/>

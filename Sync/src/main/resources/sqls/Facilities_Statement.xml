@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pro.sync.facilities.mapper.FacilitiesDaoImpl">
+
+<insert id="insertFcl" >
+	<selectKey order="BEFORE" resultType="Integer" keyProperty="fcl_id">
+		SELECT NVL(MAX(FCL_ID),0)+1 FROM FACILITIES f
+	</selectKey>
+INSERT INTO FACILITIES(
+FCL_ID, 
+FCL_NAME, 
+FCL_ABLE, 
+FCL_PIC,
+FCL_CONTENT
+)VALUES(
+#{fcl_id}, 
+#{fcl_name}, 
+'Y',	
+#{fcl_pic},
+#{fcl_content})
+</insert>
+
+<select id="selectFcl" resultType="FacilitiesVo">
+SELECT FCL_ID, FCL_NAME, FCL_ABLE, FCL_PIC, FCL_CONTENT 
+FROM FACILITIES f 
+ORDER BY FCL_ID ASC
+</select>
+
+<select id="detailFcl" resultType="FacilitiesVo">
+SELECT FCL_ID, FCL_NAME, FCL_ABLE, FCL_PIC, FCL_CONTENT 
+FROM FACILITIES f 
+WHERE FCL_ID = #{fcl_id}
+</select>
+
+<delete id="deleteFcl">
+DELETE FROM FACILITIES
+WHERE FCL_ID = #{fcl_id}
+</delete>
+
+<update id="updateFcl">
+UPDATE FACILITIES
+SET FCL_ABLE = 'N'
+WHERE FCL_ID = #{fcl_id}
+</update>
+
+<update id="disposableFcl">
+UPDATE FACILITIES
+SET FCL_ABLE = 'Y'
+WHERE FCL_ID = #{fcl_id}
+</update>
+
+</mapper>
