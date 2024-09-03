@@ -80,7 +80,7 @@ var purposeMapping={
 		 "A": "관공서 제출용",
 	     "B": "공공기관 제출용",
 	     "C": "회사 제출용",
-	     "D": "기타"	
+// 	     "D": "기타"	
 };
 
 function applyRequest() {
@@ -132,8 +132,8 @@ function submitForm(button) {
     // 행의 데이터를 폼 데이터로 전송합니다.
     var issueDate = row.cells[0].innerText;
     var certiName = row.cells[1].innerText;
-    var certiCount = row.cells[2].innerText;
-    var purpose = row.cells[3].innerText;
+    var certiCount = row.cells[2].innerText; //발급 부수
+    var purpose = row.cells[3].innerText; //발급 용도
 
     
     var purposeCode = Object.keys(purposeMapping).find(key => purposeMapping[key] === purposeText) || "";
