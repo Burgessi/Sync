@@ -2,6 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pro.sync.board.mapper.BoardDaoImpl">
 
+<resultMap id="BoardDetailMap" type="BoardVo">
+    <id property="bd_seq" column="BD_SEQ"/>
+    <result property="employee_name" column="EMPLOYEE_NAME"/>
+    <result property="bd_title" column="BD_TITLE"/>
+    <result property="bd_content" column="BD_CONTENT"/>
+    <result property="bd_post" column="BD_POST"/>
+    <result property="bd_comment" column="BD_COMMENT"/>
+    <result property="bd_date" column="BD_DATE"/>
+    <result property="bd_del" column="BD_DEL"/>
+    <result property="emp_id" column="EMP_ID"/>
+    
+    <!-- 파일 정보를 List로 매핑 -->
+    <collection property="fileVo" ofType="FileBoardVo">
+     	<id property="file_seq" column="FILE_SEQ"/>
+        <result property="file_oname" column="FILE_ONAME"/>
+        <result property="file_sname" column="FILE_SNAME"/>
+        <result property="file_size" column="FILE_SIZE"/>
+        <result property="file_date" column="FILE_DATE"/>
+        <result property="file_del" column="FILE_DEL"/>
+        <result property="file_category" column="FILE_CATEGORY"/>
+        <result property="file_data" column="FILE_DATA"/>
+    </collection>
+</resultMap>
+
 
 <!-- 게시글 리스트 -->
 <select id="selectBoard" resultType="BoardVo">
@@ -83,6 +107,37 @@ CURRENT_DATE,
 'N')
 </insert>
 
+<!-- 파일 insert -->
+<insert id="fileInsert">
+    <selectKey keyProperty="file_seq" resultType="Integer" order="BEFORE">
+        SELECT NVL(MAX(FILE_SEQ), 0) + 1 FROM FILESTORE
+    </selectKey>
+    <foreach collection="list" item="fdto" index="idx" separator=" ">
+        INSERT INTO FILESTORE
+        (FILE_SEQ,
+        FILE_ONAME,
+        FILE_SNAME,
+        FILE_SIZE,
+        FILE_DATE,
+        FILE_DEL,
+        BD_SEQ,
+        EMP_ID,
+        FILE_DATA)
+        VALUES
+        (
+            #{file_seq} + #{idx},
+            #{fdto.file_oname},
+            #{fdto.file_sname},
+            #{fdto.file_size},
+            CURRENT_DATE,
+            'N',
+            #{bd_seq},
+            #{emp_id},
+            #{fdto.file_data, jdbcType=BLOB}
+        )
+    </foreach>
+</insert>
+
 <!-- 본문 삭제 -->
 <delete id="deleteBoard">
 UPDATE BOARD SET BD_DEL = 'Y'
@@ -114,11 +169,13 @@ WHERE BD_POST = #{bd_post} AND BD_COMMENT = #{bd_comment}
 </update>
 
 <!-- 본문 상세보기 -->
-<select id="detailBoard" resultType="BoardVo">
-SELECT b.BD_SEQ, e.EMP_NAME AS EMPLOYEE_NAME, b.BD_TITLE, b.BD_CONTENT, b.BD_POST, b.BD_COMMENT, b.BD_DATE, b.BD_DEL 
-FROM BOARD b 
-JOIN EMPLOYEE e ON b.EMP_ID = e.EMP_ID 
-WHERE BD_SEQ = #{bd_seq}
+<select id="detailBoard" resultMap="BoardDetailMap">
+    SELECT b.BD_SEQ, e.EMP_NAME AS EMPLOYEE_NAME, b.BD_TITLE, b.BD_CONTENT, b.BD_POST, b.BD_COMMENT, b.BD_DATE, b.BD_DEL, b.EMP_ID,
+           f.FILE_SEQ, f.FILE_ONAME, f.FILE_SNAME, f.FILE_SIZE, f.FILE_DATE, f.FILE_DEL
+    FROM BOARD b
+    JOIN EMPLOYEE e ON b.EMP_ID = e.EMP_ID
+    LEFT JOIN FILESTORE f ON b.BD_SEQ = f.BD_SEQ
+    WHERE b.BD_SEQ = #{bd_seq}
 </select>
 
 <!-- 게시물 검색 -->
@@ -137,7 +194,18 @@ WHERE  BD_DEL = 'N'
     </choose>
 </select>
 
+<!-- 파일 삭제 -->
+<delete id="deleteFile">
+DELETE FROM FILESTORE
+WHERE FILE_SEQ= #{file_seq}
+</delete>
 
+<!-- 파일 조회 -->
+<select id="selectFile" resultType="FileBoardVo">
+SELECT FILE_SEQ, FILE_ONAME, FILE_SNAME, FILE_SIZE, FILE_DATE, FILE_DEL, BD_SEQ, EMP_ID, FILE_DATA 
+FROM FILESTORE f 
+WHERE FILE_SEQ = #{file_seq}
+</select>
 
 
  

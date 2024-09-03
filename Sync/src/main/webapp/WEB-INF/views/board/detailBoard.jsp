@@ -153,8 +153,8 @@
 							<input type="hidden" name="bd_seq" value="${detail.bd_seq}">
 							<div class="btn-container">
 								<c:if test="${loginDto.getEmp_name() eq detail.employee_name}">
-									<input type="button" class="btn btn-info" value="수정"
-										onclick="modify(event)">
+									<input type="button" class="btn btn-info" value="수정" onclick="modify(event)">
+									<input type="button" class="btn btn-danger" value="삭제" onclick="deleteOne()">
 								</c:if>
 								<input type="button" class="btn btn-secondary" value="뒤로가기"
 									onclick="location.href='${root}/board/userBoard.do'">
@@ -170,6 +170,23 @@
 							<tr>
 								<td class="tb"><strong>제&nbsp;&nbsp;&nbsp;&nbsp;목</strong></td>
 								<td>${detail.bd_title}</td>
+							</tr>
+							<tr>
+								<td class="tb"><strong>첨&nbsp;부&nbsp;파&nbsp;일</strong></td>
+								<td>
+									<c:choose>
+							            <c:when test="${not empty detail.fileVo}">
+							                <c:forEach var="file" items="${detail.fileVo}">
+							                    <a href="${root}/board/downloadFile.do?file_seq=${file.file_seq}" target="_blank">
+							                        ${file.file_oname} (${file.file_size} bytes)
+							                    </a><br>
+							                </c:forEach>
+							            </c:when>
+							            <c:otherwise>
+							                첨부파일이 없습니다.
+							            </c:otherwise>
+							        </c:choose>
+								</td>
 							</tr>
 							<tr>
 								<td class="tb"><strong>내&nbsp;&nbsp;&nbsp;&nbsp;용</strong></td>
@@ -335,8 +352,26 @@ function showhideForm(event){
 	}
 }
 
-//더보기
+//수정
+function modify(event){
+	event.preventDefault();
+	
+	var frm = document.forms[0];
+	var seq = document.querySelector("input[name=bd_seq]").value;
+	
+	
+	frm.action="${root}/board/modifyBoard.do?bd_seq="+seq;
+	frm.method="get";
+	frm.submit();
+}
 
+//삭제
+function deleteOne(){
+	console.log(${detail.bd_seq})
+	
+	var seq = ${detail.bd_seq};
+	location.href="${root}/board/deleteBoard.do?chk="+seq;
+}
 
 
 

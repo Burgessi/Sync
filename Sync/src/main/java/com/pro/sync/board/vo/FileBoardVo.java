@@ -1,7 +1,5 @@
 package com.pro.sync.board.vo;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -15,21 +13,20 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class BoardVo {
-
+public class FileBoardVo {
+	
+	private String file_seq;
+	private String file_oname;
+	private String file_sname;
+	private int file_size;
+	private String file_date;
+	private String file_del;
+	private String file_category;
 	private int bd_seq;
 	private String emp_id;
-	private String bd_title;
-	private String bd_content;
-	private int bd_post;
-	private int bd_comment;
-	private String bd_date;
-	private String bd_del;
+	private int approval_id;
+	private byte[] file_data;
 	
-	private String employee_name;
-	private String employee_rank;
 	
-	private List<FileBoardVo> fileVo;
 
 }
