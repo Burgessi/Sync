@@ -1,26 +1,24 @@
 package com.pro.sync.mypage.controller;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
-
 
 import com.pro.sync.employee.vo.EmployeeVo;
 import com.pro.sync.mypage.service.IMypageService;
 import com.pro.sync.mypage.vo.AccountVo;
 import com.pro.sync.mypage.vo.OffVo;
-
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -84,6 +82,39 @@ public class MypageController {
 //	        return ssn;
 //	    }
 //	}
+	
+	
+	//재직증명서 PDF 다운로드
+//	@GetMapping("/certificate.do")
+//    public String showCertificatePage(@SessionAttribute("infoDto") EmployeeVo infoDto, Model model) {
+//        model.addAttribute("infoDto", infoDto);
+//        return "employee/employeeCerti";
+//    }
+	
+	@PostMapping("/certificate.do")
+    public String requestCertificate(
+           // @RequestParam("issueDate") String issueDate,
+            //@RequestParam("certiName") String certiName,
+            @RequestParam("certiCount") int certiCount,
+            @RequestParam("purpose") String purpose,
+            @SessionAttribute("infoDto") EmployeeVo infoDto,
+            Model model) {
+        
+		
+		
+		
+        // VO에 신청 정보 저장
+      //  infoDto.setCerti_issue_date(issueDate);
+      //  infoDto.setCerti_name(certiName);
+        infoDto.setUsed_certi(certiCount);
+        infoDto.setCerti_type(purpose);
+        
+        // 모델에 VO 추가
+        model.addAttribute("infoDto", infoDto);
+        
+        // 신청 정보를 처리한 후, PDF 다운로드 JSP로 이동
+        return "employee/employeeCerti";
+    }
 	
 
 }

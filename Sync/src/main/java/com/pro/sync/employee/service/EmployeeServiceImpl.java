@@ -1,5 +1,6 @@
 package com.pro.sync.employee.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,11 @@ public class EmployeeServiceImpl implements EmployeeService {
   	
   	@Override
   	public int deleteEmployee(String emp_id) {
+  		
+  		//현재 날짜를 퇴사일로
+  		//String empLeavingDate=LocalDate.now().toString();
+  		// 현재 날짜를 "YYYY-MM-DD" 형식으로 변환
+  		
   		return dao.deleteEmployee(emp_id);
   	}
 }

@@ -1,6 +1,8 @@
 package com.pro.sync.employee.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pro.sync.employee.service.EmployeeService;
@@ -32,6 +35,7 @@ public class EmployeeController {
 
 	private final EmployeeService employeeService;
 	private final IMypageService mypageService;
+	
 
 //	@GetMapping(value = "/registForm.do")
 //	public String regist() {
@@ -117,11 +121,15 @@ public class EmployeeController {
 	
 
 	@GetMapping(value = "/employeeSelectAll.do")
-	public String employeeSelectAll(Model model) {
+	public String employeeSelectAll(Model model, @SessionAttribute("loginDto") EmployeeVo loginDto, @SessionAttribute("infoDto") EmployeeVo infoDto, HttpSession session) {
 		log.info("employeeSelectAll.do 사원 전체 조회");
 
 		List<EmployeeVo> employeeList = employeeService.getAllEmployee();
 		model.addAttribute("employeeList", employeeList);
+		
+		String emp_id = loginDto.getEmp_id();
+		infoDto = mypageService.getInfo(emp_id);
+		session.setAttribute("infoDto", infoDto);
 
 		return "employee/employeeList";
 	}
@@ -149,6 +157,9 @@ public class EmployeeController {
 	public String deleteEmployee(@RequestParam("emp_id") String emp_id, HttpSession session,RedirectAttributes attributes) {
 	    log.info("EmployeeController deleteEmployee.do 사원 삭제 처리");
 	    log.info("삭제할 사원 ID : {}", emp_id);
+	    
+	    // 현재 날짜를 "yyyyMMdd" 형식으로 가져옴
+	    //String empLeavingDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 	    int n = employeeService.deleteEmployee(emp_id);
 

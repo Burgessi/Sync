@@ -122,6 +122,11 @@
 					        <section id="simple-list-item-5">
 					            <%@ include file="/WEB-INF/views/mypage/mypage-off.jsp"%>
 					        </section>
+					        
+					        <!-- 재직 증명서 출력 영역 -->
+					        <section id="simple-list-item-6">
+					            <%@ include file="/WEB-INF/views/mypage/mypage-certi.jsp"%>
+					        </section>
 							
 						</div>
 					</section>
