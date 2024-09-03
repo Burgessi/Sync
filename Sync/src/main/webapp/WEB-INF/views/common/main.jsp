@@ -78,6 +78,7 @@
                 </div>
                 <div class="card-body">
 <!--                   컨텐츠 내용 -->
+					<%@ include file="/WEB-INF/views/attendance/att-record.jsp"%>
                 </div>
               </div>
               <div class="card" style="width: 90%; min-width: 500px; padding: 5px; margin-left:10px; overflow: auto">
@@ -195,7 +196,7 @@
             
             if (loginDto != null && "A".equals(infoDto.getEmp_status())) {
         %>
-            $('#passwordChangeModal').modal('show');
+//             $('#passwordChangeModal').modal('show');
         <% 
             } 
         %>
