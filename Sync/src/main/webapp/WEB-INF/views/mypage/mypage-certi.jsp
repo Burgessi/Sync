@@ -80,7 +80,7 @@ var purposeMapping={
 		 "A": "관공서 제출용",
 	     "B": "공공기관 제출용",
 	     "C": "회사 제출용",
-	     "D": "기타"	
+// 	     "D": "기타"	
 };
 
 function applyRequest() {
