@@ -35,7 +35,8 @@
 		'YYYY-MM-DD') AS emp_hire_date,
 		e.EMP_STATUS AS emp_status,
 		d.DIVISION_NAME AS division_name,
-		e.TEAM_CODE
+		e.TEAM_CODE,
+		e.EMP_LEAVING_DATE
 		FROM EMPLOYEE e
 		JOIN TEAM t ON
 		t.TEAM_CODE =
@@ -71,6 +72,7 @@
 		a.ACCOUNT_NUM,
 		e.ADDR1,
 		e.ADDR2,
+		e.EMP_PROFILE_PIC,
 		TO_CHAR(e.EMP_HIRE_DATE, 'YYYY-MM-DD') AS EMP_HIRE_DATE
 		FROM
 		EMPLOYEE e
@@ -112,7 +114,8 @@
 	<!-- 사원 삭제 -->
 	<update id="deleteEmployee">
 		UPDATE EMPLOYEE
-		SET EMP_STATUS ='D'
+		SET EMP_STATUS ='D',
+		EMP_LEAVING_DATE=CURRENT_DATE <!--  퇴사일 함께 업데이트-->
 		WHERE EMP_ID =#{emp_id}
 	</update>
 

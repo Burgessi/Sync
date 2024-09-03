@@ -31,6 +31,7 @@ public class EmployeeVo {
 	private String addr1;
 	private String addr2;
 	private String emp_hire_date;
+	private String emp_leaving_date;
 
 	private String emp_status;
 	private String emp_profile_pic;
@@ -55,6 +56,10 @@ public class EmployeeVo {
 	private TeamVo teamVo;
 	
 	private DivisionVo divisionVo;
+	
+	private String certi_type;  //재직증명서 발급 용도
+	private int total_certi; //재직증명서 총 개수
+	private int used_certi; //재직증명서 출력 부수
 	
 	
 	
