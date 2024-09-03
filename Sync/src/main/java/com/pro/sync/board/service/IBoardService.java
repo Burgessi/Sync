@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pro.sync.board.vo.BoardVo;
+import com.pro.sync.board.vo.FileBoardVo;
 
 public interface IBoardService {
 	
@@ -33,4 +34,19 @@ public interface IBoardService {
 	
 	//게시글 검색
 	public List<BoardVo> searchBoard(Map<String, Object> map);
+	
+	//게시글 작성 
+	public boolean insertBoard(BoardVo bvo);
+		
+	//파일 등록
+	public boolean fileInsert(List<FileBoardVo> fileList, int bd_seq, String emp_id);
+	
+	//게시글 수정
+	public boolean modifyBoard(Map<String, Object>map);
+	
+	//파일 삭제 
+	public int deleteFile(int file_seq);
+	
+	//파일 조회
+	public FileBoardVo selectFile(int file_seq);
 }

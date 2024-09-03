@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pro.sync.board.mapper.IBoardDao;
 import com.pro.sync.board.vo.BoardVo;
+import com.pro.sync.board.vo.FileBoardVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -71,6 +72,38 @@ public class BoardServiceImpl implements IBoardService {
 		log.info("제목 or 작성자 검색");
 		return dao.searchBoard(map);
 	}
+
+	@Override
+	public boolean insertBoard(BoardVo bvo) {
+		log.info("게시글 등록");
+		return dao.insertBoard(bvo);
+	}
+
+	@Override
+	public boolean fileInsert(List<FileBoardVo> fileList, int bd_seq, String emp_id) {
+		log.info("파일등록");
+		return dao.fileInsert(fileList, bd_seq, emp_id);
+	}
+
+	@Override
+	public boolean modifyBoard(Map<String, Object> map) {
+		log.info("게시글 수정");
+		return dao.modifyBoard(map);
+	}
+
+	@Override
+	public int deleteFile(int file_seq) {
+		log.info("파일 삭제");
+		return dao.deleteFile(file_seq);
+	}
+
+	@Override
+	public FileBoardVo selectFile(int file_seq) {
+		log.info("선택 파일 조회");
+		return dao.selectFile(file_seq);
+	}
+	
+	
 	
 	
 	
