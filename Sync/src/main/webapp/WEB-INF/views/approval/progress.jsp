@@ -115,7 +115,13 @@
 														<h5 style="font-size: 0.9em;">${card.approval_title}</h5>
 														<span>기안자: ${card.requester_name}</span><br>
 														<span>기안일: ${card.request_date}</span><br>
-														<span>수정일: ${card.modified_date==null?'-':card.modified_date}</span>
+														<c:forEach var="line" items="${card.lineList}">
+															<c:if test="${(card.order - 1) eq line.step}">
+																<c:if test="${line.status eq 1}">
+																	<span>수정일: ${line.approval_date}</span>
+																</c:if>
+															</c:if>
+														</c:forEach>
 													</div>
 													
 												</div>

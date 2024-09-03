@@ -18,10 +18,15 @@
 				<div class="container">
 					<div class="card">
 						<div class="card-body">
-							<div style="text-align: right;">
-								<button id="modifyApproval" class="btn btn-sm btn-primary" onclick="modify(event)">완료</button>
-							</div>	
-							
+							<c:choose>
+							<c:when test="${approval.temp_save_flag eq 'N'}">
+								<div style="text-align: right;">
+									<input type="hidden" name="requester_id" value="${approval.requester_id}">
+									<input type="hidden" name="temp_save_flag" value="${approval.temp_save_flag}">
+									<button id="modifyApproval" class="btn btn-sm btn-primary" onclick="modify(event)">완료</button>
+								</div>	
+							</c:when>
+						</c:choose>
 							
 							<h4 style="text-align: center;">출장보고서</h4>
 								<div>

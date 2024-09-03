@@ -111,7 +111,6 @@ public class ApprovalRestController {
 		String fileName = "";
 		String image = request.remove("image");
 		
-		
 		 try {
 			 
 			 	if(!image.equals("") && image != null) {
@@ -133,7 +132,7 @@ public class ApprovalRestController {
 		            }
 	
 		            // 파일명을 UUID로 생성하여 중복 방지
-		             fileName = recipient_id + ".png";
+		            fileName = recipient_id + ".png";
 		            System.out.println("파일명: " + fileName);
 	
 		            // 파일을 지정된 경로에 저장

@@ -193,6 +193,7 @@
 //             EmployeeVo loginDto = (EmployeeVo) request.getAttribute("loginDto");
 //             EmployeeVo infoDto = (EmployeeVo) request.getAttribute("infoDto");
             
+
 //             if (loginDto != null && "A".equals(infoDto.getEmp_status())) {
 <%--         %> --%>
 //             $('#passwordChangeModal').modal('show');
