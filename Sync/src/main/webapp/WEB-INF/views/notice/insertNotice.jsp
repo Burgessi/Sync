@@ -82,7 +82,7 @@
                         <form action="${root}/notice/insertNotice.do" method="post">
                              <table class="table">
                                 <tr>
-                                    <td class="tb"><strong>이&nbsp;&nbsp;&nbsp;&nbsp;름ㄴ</strong></td>
+                                    <td class="tb"><strong>이&nbsp;&nbsp;&nbsp;&nbsp;름</strong></td>
                                     <td>
                                     	<input type="text" name="employee_name" value="${infoDto.emp_name}" class="input-hide">
                                     </td>
