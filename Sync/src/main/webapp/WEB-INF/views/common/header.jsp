@@ -31,8 +31,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-lg-0">
-          <li class="nav-item dropdown me-3">
-          	<a class="nav-link" style="margin-right: -12px;" href="">
+          <li class="nav-item dropdown me-3">	
+          	<a class="nav-link" style="margin-right: -12px;" href="javascript:window.open('${root}/chat/main.do','그룹채팅','width=1300px, height=685px, toolbar=no, menubar=no, left=300px, top=50px')">
 	          	<i>
 	          		<img alt="채팅" src="${root}/resources/img/chat.png" class="ch">
 	          	</i>
