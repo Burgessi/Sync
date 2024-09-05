@@ -58,10 +58,8 @@
   <body>
     <div id="app">
       <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
-
       <div id="main">
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
         <div class="page-heading">
           <div class="page-title">
             <div class="row">
@@ -71,79 +69,68 @@
             </div>
           </div>
           <div class="page-content">
-            <section class="section d-flex">
-              <div class="card" style="width: 30%; min-width: 260px; height:500px; padding: 5px; overflow: auto">
+          
+          <!-- 섹션1 -->
+            <section class="section d-flex" style="height: 500px;">
+              <div class="card" style="width: 30%; min-width: 300px; padding: 5px;">
                 <div class="card-header mt-1">
-                  <h4>메인 컨텐츠 영역1 - 출퇴근</h4>
+                  <h4>출퇴근 기록</h4>
                 </div>
                 <div class="card-body">
-<!--                   컨텐츠 내용 -->
-					<%@ include file="/WEB-INF/views/attendance/att-record.jsp"%>
+				<!--                   컨텐츠 내용 -->
+					<%@ include file="/WEB-INF/views/main-content/att-record.jsp"%>
                 </div>
               </div>
-              <div class="card" style="width: 90%; min-width: 500px; padding: 5px; margin-left:10px; overflow: auto">
-                <div class="card-header mt-1">
-                  <h4>메인 컨텐츠 영역2 - 캘린더</h4>
+              <div class="card" style="width: 100%; min-width: 630px; padding: 5px; margin-left:10px;">
+                <div class="card-header mt-1" style="padding-bottom: 0px;">
+                  <h4>주간 일정</h4>
                 </div>
                 <div class="card-body">
-<!--                   컨텐츠 내용 -->
-                </div>
-              </div>
-            </section>
-            <section class="section d-flex">
-              <div class="card" style="width: 50%; min-width: 500px; height:500px; padding: 5px; overflow: auto">
-                <div class="card-header mt-1">
-                  <h4>메인 컨텐츠 영역3 - 전자결재 현황</h4>
-                </div>
-                <div class="card-body">
-<!--                   컨텐츠 내용 -->
-                </div>
-              </div>
-              <div class="card" style="width: 55%; min-width: 500px; padding: 5px; margin-left:10px; overflow: auto">
-                <div class="card-header mt-1">
-                  <h4>메인 컨텐츠 영역4 - 시설예약 현황</h4>
-                </div>
-                <div class="card-body">
-<!--                   컨텐츠 내용 -->
+                <!--                   컨텐츠 내용 -->
+                	<%@ include file="/WEB-INF/views/main-content/main-calendar.jsp"%>
                 </div>
               </div>
             </section>
-            <section class="section d-flex">
-              <div class="card" style="width: 50%; min-width: 500px; height:500px;padding: 5px; overflow: auto">
+            
+            <!-- 섹션2 -->
+            <section class="section d-flex" style="height:550px;" >
+              <div class="card" style="width: 100%; min-width: 500px; padding: 5px;">
                 <div class="card-header mt-1">
-                  <h4>메인 컨텐츠 영역5 - 공지사항</h4>
+                  <h4>근태 현황</h4>
                 </div>
                 <div class="card-body">
-<!--                   컨텐츠 내용 -->
-                </div>
-              </div>
-              <div class="card" style="width: 55%; min-width: 500px; padding: 5px; margin-left:10px; overflow: auto">
-                <div class="card-header mt-1">
-                  <h4>메인 컨텐츠 영역6 - 사원 현황</h4>
-                </div>
-                <div class="card-body">
-<!--                   컨텐츠 내용 -->
-                </div>
-              </div>
-            </section>
-            <section class="section d-flex">
-              <div class="card" style="width: 100%; min-width: 500px; padding: 5px; overflow: auto">
-                <div class="card-header mt-1">
-                  <h4>메인 컨텐츠 영역7 - 주가</h4>
-                </div>
-                <div class="card-body">
-<!--                   컨텐츠 내용 -->
+				<!--                   컨텐츠 내용 -->
+				<%@ include file="/WEB-INF/views/main-content/main-att-chart.jsp"%>
                 </div>
               </div>
 
             </section>
+            
+            <!-- 섹션3 -->
+            <section class="section d-flex" style="height:500px;" >
+              <div class="card" style="width: 50%; min-width: 500px; padding: 5px; ">
+                <div class="card-header mt-1">
+                  <h4>공지사항</h4>
+                </div>
+                <div class="card-body">
+				<!--                   컨텐츠 내용 -->
+				<%@ include file="/WEB-INF/views/main-content/main-notice.jsp"%>
+                </div>
+              </div>
+              <div class="card" style="width: 55%; min-width: 500px; padding: 5px; margin-left:10px; ">
+                <div class="card-header mt-1">
+                  <h4>뉴스</h4>
+                </div>
+                <div class="card-body">
+				<!--                   컨텐츠 내용 -->
+                </div>
+              </div>
+            </section>
+            
           </div>
         </div>
       </div>
     </div>
-    
-
-    
     <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
   <!-- 비밀번호 변경 모달 -->
@@ -188,7 +175,7 @@
 </div>
 
 <!-- JavaScript code -->
-<!-- <script> -->
+<script>
 //     $(document).ready(function() {
 <%--         <%  --%>
 //             EmployeeVo loginDto = (EmployeeVo) request.getAttribute("loginDto");
@@ -241,7 +228,7 @@
 //             window.location.href = './'; // 로그인 페이지 URL로 변경
 //         });
 //     });
-<!-- </script> -->
+</script>
 
   </body>
 </html>

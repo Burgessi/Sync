@@ -259,7 +259,7 @@
 																		<div class="col-md-6 field-container">
 																		
 																		<!-- 이미지 아직 안됨 -->
-																		<img id="empPic" style="border-radius: 50%; width: 70px; height: 70px; object-fit: cover" src="${infoDto.emp_profile_pic}" alt="Profile Picture" class="img-fluid"/>
+																		<img id="empPic" style="border-radius: 50%; width: 70px; height: 70px; object-fit: cover" src="${employeeVo.emp_profile_pic}" alt="Profile Picture" class="img-fluid"/>
 																	</div>
 																	</div>
 																	<div class="form-group row">
@@ -483,7 +483,8 @@
 					
 					//console.log(response);
 // 					// 받은 사원 상세 정보를 모달에 표시
-					$('#empPic').val(employee.emp_profile_pic);
+// 					$('#empPic').val(employee.emp_profile_pic);
+					$('#empPic').attr('src', employee.emp_profile_pic);
 					$('#empId').val(employee.emp_id);
 					//$('#empId2').val(employee.emp_id);
 					$('#empName').val(employee.emp_name);

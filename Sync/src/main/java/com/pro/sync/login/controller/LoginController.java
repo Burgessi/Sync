@@ -1,19 +1,8 @@
 package com.pro.sync.login.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.UUID;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.pro.sync.common.aop.UpdateSession;
 import com.pro.sync.employee.vo.EmployeeVo;
 import com.pro.sync.login.service.ILoginService;
 import com.pro.sync.mypage.service.IMypageService;
@@ -107,6 +97,11 @@ public class LoginController {
 		return "/mypage/resetPw";
 	}
 
-	
+	//메인페이지 요청
+	@UpdateSession
+	@GetMapping("/main.do")
+	public String getMain() {
+		return "/common/main";
+	}
 
 }
