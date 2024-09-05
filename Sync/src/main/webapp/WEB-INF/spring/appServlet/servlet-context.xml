@@ -31,3 +31,4 @@
 <bean id="sessionUpdateAspect" class="com.pro.sync.common.aop.SessionUpdateAspect"/>
 
 </beans>
+

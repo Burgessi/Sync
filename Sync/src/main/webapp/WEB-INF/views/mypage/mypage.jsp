@@ -69,13 +69,6 @@
 }
 
 
-.image-container:hover .hover-text {
-    opacity: 1;
-}
-
-
-	
-
 </style>
 </head>
 <body>
@@ -96,7 +89,7 @@
 				<div class="page-content" >
 					<section class="section">
 						<%@ include file="/WEB-INF/views/mypage/mypage-sidebar.jsp"%>
-						<div class="card " data-bs-spy="scroll" data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="0" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+						<div class="card " data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="0" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
 							
 							<!-- 개인정보 조회 영역 -->
 					        <section id="simple-list-item-1">
@@ -139,7 +132,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var scrollSpy = new bootstrap.ScrollSpy(document.body, {
-                target: '#mypage-sidebar',
+                target: '#simple-list-example',
                 offset: 0
             });
         });

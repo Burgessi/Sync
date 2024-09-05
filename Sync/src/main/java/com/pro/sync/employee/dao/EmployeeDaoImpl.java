@@ -23,6 +23,18 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	public List<EmployeeVo> getAllEmployee() {
 		return sessionTemplate.selectList(NS+"getAllEmployee");
 	}
+	
+	@Override
+	public List<EmployeeVo> allEmployee(int startIndex, int pageSize) {
+		int endIndex = startIndex + pageSize - 1;
+		
+		return sessionTemplate.selectList(NS+"allEmployee", Map.of("startIndex", startIndex, "endIndex", endIndex));
+	}
+	
+	@Override
+	public int totalCount() {
+		return sessionTemplate.selectOne(NS + "totalCount");
+	}
   
   	@Override
 	public int insertEmployee(EmployeeVo employeeVo) {
@@ -44,6 +56,11 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return sessionTemplate.delete(NS+"deleteEmployee",emp_id);
 	}
 	
+	
+	@Override
+	public List<EmployeeVo> searchEmployee(Map<String, Object> map){
+		return sessionTemplate.selectList(NS+"searchEmployee", map);
+	}
 
 	
 }

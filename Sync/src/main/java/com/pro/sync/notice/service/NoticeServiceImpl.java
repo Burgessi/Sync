@@ -80,6 +80,12 @@ public class NoticeServiceImpl implements INoticeService {
 		return dao.searchNotice(map);
 	}
 
+	@Override
+	public List<NoticeVo> mainNotice() {
+		log.info("메인 공지");
+		return dao.mainNotice();
+	}
+
 	
 	
 	

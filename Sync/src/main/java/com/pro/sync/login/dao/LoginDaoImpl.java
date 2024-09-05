@@ -31,7 +31,6 @@ public class LoginDaoImpl implements ILoginDao {
 	// 초기로그인 - 비밀번호,재직상태 변경
 	@Override
 	public int updatePwStatus(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return session.update(NS+"updatePwStatus", map);
 	}
 }

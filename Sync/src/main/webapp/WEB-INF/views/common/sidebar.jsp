@@ -14,6 +14,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/i18n/jquery.ui.datepicker-ko.min.js"></script>
 
+<!-- datatables -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
 <!-- Sweet -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet">
@@ -44,7 +48,7 @@
          <div class="sidebar-header">
             <div class="d-flex justify-content-between">
                 <div class="logo">
-                    <a href="common/main.jsp"><h3>SYNC</h3>
+                    <a href="${root}/main.do"><h3>SYNC</h3></a>
                 </div>         
             </div>
             
@@ -116,7 +120,6 @@
                     <ul class="submenu" id="calendar">
                         <li class="submenu-item" id="calendar">
                             <a href="${root}/plan/calendar.do">사내 일정</a>
-							              <a href="${root}/plan/calendar">일정</a>
                       </li>                   
                     </ul>
                 </li>                   
@@ -148,7 +151,7 @@
                         </li>
                         </c:if>
                         <li class="submenu-item" id="doc-list">
-                            <a href="${root}/board/userBoard.do">회의실 예약</a>
+                            <a href="${root}/rev/boardRev.do">회의실 예약</a>
                         </li>
                     </ul>
                 </li>

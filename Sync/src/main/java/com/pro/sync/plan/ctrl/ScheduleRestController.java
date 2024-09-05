@@ -35,12 +35,11 @@ public class ScheduleRestController {
             LocalDateTime end = LocalDateTime.parse((String) map.get("scd_end"), formatter);
 
             String scdNo = (String) map.get("scd_no");
-            String title = (String) map.get("scd_title");
             String teamCode = (String) map.get("team_code");
-            String artistId = (String) map.get("artist_id");
+            String title = (String) map.get("scd_title");
             String content = (String) map.get("scd_content");
 
-            if (scdNo == null || title == null || teamCode == null || artistId == null || content == null) {
+            if (scdNo == null || title == null || teamCode == null || content == null) {
                 log.error("필드 누락");
                 return false;
             }
