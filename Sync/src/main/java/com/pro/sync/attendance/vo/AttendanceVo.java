@@ -21,4 +21,6 @@ public class AttendanceVo {
 	private String check_out_time;
 	private int status;
 	private String attendance_date;
+	
+	private String work_date;
 }

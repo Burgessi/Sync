@@ -17,6 +17,7 @@
 	<typeAlias type="com.pro.sync.board.vo.BoardVo" alias="BoardVo"/>
 	<typeAlias type="com.pro.sync.board.vo.FileBoardVo" alias="FileBoardVo"/>
 	<typeAlias type="com.pro.sync.facilities.vo.FacilitiesVo" alias="FacilitiesVo"/>	
+	<typeAlias type="com.pro.sync.attendance.vo.AttendanceVo" alias="AttendanceVo"/>	
 </typeAliases>
 	
 <mappers>

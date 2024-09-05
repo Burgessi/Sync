@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.pro.sync.common.aop.UpdateSession;
 import com.pro.sync.employee.dao.EmployeeDao;
 import com.pro.sync.employee.vo.EmployeeVo;
 
@@ -18,6 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private final EmployeeDao dao;
 	
 	@Override
+	@UpdateSession
 	public List<EmployeeVo> getAllEmployee() {
 		return dao.getAllEmployee();
 	}

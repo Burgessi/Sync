@@ -121,15 +121,18 @@ public class EmployeeController {
 	
 
 	@GetMapping(value = "/employeeSelectAll.do")
-	public String employeeSelectAll(Model model, @SessionAttribute("loginDto") EmployeeVo loginDto, @SessionAttribute("infoDto") EmployeeVo infoDto, HttpSession session) {
+	public String employeeSelectAll(Model model, @SessionAttribute("loginDto") EmployeeVo loginDto
+//			, @SessionAttribute("infoDto") EmployeeVo infoDto, 
+//			HttpSession session
+			) {
 		log.info("employeeSelectAll.do 사원 전체 조회");
 
 		List<EmployeeVo> employeeList = employeeService.getAllEmployee();
 		model.addAttribute("employeeList", employeeList);
 		
-		String emp_id = loginDto.getEmp_id();
-		infoDto = mypageService.getInfo(emp_id);
-		session.setAttribute("infoDto", infoDto);
+//		String emp_id = loginDto.getEmp_id();
+//		infoDto = mypageService.getInfo(emp_id);
+//		session.setAttribute("infoDto", infoDto);
 
 		return "employee/employeeList";
 	}
