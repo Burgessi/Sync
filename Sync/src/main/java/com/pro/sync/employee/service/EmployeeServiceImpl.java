@@ -1,6 +1,5 @@
 package com.pro.sync.employee.service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	@UpdateSession
+
 	public List<EmployeeVo> getAllEmployee() {
 		return dao.getAllEmployee();
 	}

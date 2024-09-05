@@ -122,9 +122,7 @@ public class EmployeeController {
 
 	@GetMapping(value = "/employeeSelectAll.do")
 	public String employeeSelectAll(Model model, @SessionAttribute("loginDto") EmployeeVo loginDto
-//			, @SessionAttribute("infoDto") EmployeeVo infoDto, 
-//			HttpSession session
-			) {
+
 		log.info("employeeSelectAll.do 사원 전체 조회");
 
 		List<EmployeeVo> employeeList = employeeService.getAllEmployee();
