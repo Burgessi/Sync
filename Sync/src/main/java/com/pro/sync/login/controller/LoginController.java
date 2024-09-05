@@ -1,6 +1,7 @@
 package com.pro.sync.login.controller;
 
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,8 @@ import com.pro.sync.employee.vo.EmployeeVo;
 import com.pro.sync.login.service.ILoginService;
 import com.pro.sync.mypage.service.IMypageService;
 import com.pro.sync.mypage.vo.AccountVo;
+import com.pro.sync.notice.service.INoticeService;
+import com.pro.sync.notice.vo.NoticeVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +33,9 @@ public class LoginController {
 
 	@Autowired
 	private IMypageService mservice;
+	
+	@Autowired
+	private INoticeService nservice;
 	
 
 	// 로그인
@@ -59,6 +65,7 @@ public class LoginController {
 			return "common/login"; // 로그인 페이지로 다시 이동
 		}
 	}
+
 
 	// 로그아웃
 	@GetMapping(value = "/")
@@ -100,8 +107,12 @@ public class LoginController {
 	//메인페이지 요청
 	@UpdateSession
 	@GetMapping("/main.do")
-	public String getMain() {
+	public String getMain(Model model) {
+		List<NoticeVo> noList = nservice.mainNotice();
+		model.addAttribute("noList", noList);
+		log.info("noList : {}",noList);
 		return "/common/main";
 	}
+	
 
 }

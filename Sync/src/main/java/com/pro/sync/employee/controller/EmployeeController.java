@@ -121,7 +121,7 @@ public class EmployeeController {
 	
 
 	@GetMapping(value = "/employeeSelectAll.do")
-	public String employeeSelectAll(Model model, @SessionAttribute("loginDto") EmployeeVo loginDto
+	public String employeeSelectAll(Model model, @SessionAttribute("loginDto") EmployeeVo loginDto) {
 
 		log.info("employeeSelectAll.do 사원 전체 조회");
 

@@ -44,7 +44,7 @@
          <div class="sidebar-header">
             <div class="d-flex justify-content-between">
                 <div class="logo">
-                    <a href="${root}/main.do"><h3>SYNC</h3>
+                    <a href="${root}/main.do"><h3>SYNC</h3></a>
                 </div>         
             </div>
             
