@@ -14,7 +14,7 @@ import lombok.Setter;
 
 public class PagingVo {
 	
-	private int page; // 현재페이지
+	private int page; // 현재 페이지
 	private int total; // 전체 게시글 갯수
 	private int countRow; // 한 페이지당 보여질 갯수 ex) countRow = 15 => 15개의 글이 보임
 	private int countPage; // 하단에 보여질 페이지 갯수 ex) countPage = 5 => < 1 2 3 4 5 >

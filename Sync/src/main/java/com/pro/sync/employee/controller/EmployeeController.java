@@ -1,8 +1,6 @@
 package com.pro.sync.employee.controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.pro.sync.common.service.PagingService;
+import com.pro.sync.common.vo.PagingVo;
 import com.pro.sync.employee.service.EmployeeService;
 import com.pro.sync.employee.vo.EmployeeVo;
 import com.pro.sync.mypage.service.IMypageService;
@@ -35,6 +38,7 @@ public class EmployeeController {
 
 	private final EmployeeService employeeService;
 	private final IMypageService mypageService;
+	private final PagingService pservice;
 	
 
 //	@GetMapping(value = "/registForm.do")
@@ -121,35 +125,50 @@ public class EmployeeController {
 	
 
 	@GetMapping(value = "/employeeSelectAll.do")
-	public String employeeSelectAll(Model model, @SessionAttribute("loginDto") EmployeeVo loginDto) {
+
+	public String employeeSelectAll(//@RequestParam(value = "page", defaultValue  = "1") int page,
+									//@RequestParam(value = "countRow", defaultValue = "10") int countRow,
+									//@RequestParam(value = "countPage", defaultValue = "5") int countPage,
+									Model model, 
+									@SessionAttribute("loginDto") EmployeeVo loginDto
+						//			@SessionAttribute("infoDto") EmployeeVo infoDto, HttpSession session) 
+		){
 
 		log.info("employeeSelectAll.do 사원 전체 조회");
 
-		List<EmployeeVo> employeeList = employeeService.getAllEmployee();
-		model.addAttribute("employeeList", employeeList);
+		List<EmployeeVo> empList = employeeService.getAllEmployee();
+		model.addAttribute("empList", empList);
+		
+		//int employeeCount=employeeService.totalCount();
+		
+		//List<EmployeeVo> empList=employeeService.allEmployee(page,countRow);		
+		//PagingVo paging=pservice.page(countPage, employeeCount, countRow, page);
+		
+		//model.addAttribute("empList",empList);
+		//model.addAttribute("paging",paging);
 		
 //		String emp_id = loginDto.getEmp_id();
 //		infoDto = mypageService.getInfo(emp_id);
 //		session.setAttribute("infoDto", infoDto);
 
-		return "employee/employeeList";
+		return "employee/test";
 	}
 	
-	@GetMapping(value="/employeeSelectOne.do")
-	public String employeeSelectOne(@RequestParam String emp_id, Model model) {
-		log.info("employeeSelectOne.do 사원 상세 조회");
-		
-		EmployeeVo employeeVo = employeeService.employeeSelectDetail(emp_id);
-		model.addAttribute("employeeVo",employeeVo);
-		
-		AccountVo accountVo= mypageService.getAccountInfo(emp_id);
-		model.addAttribute("accountVo",accountVo);
-				
-				
-//		log.info("가가가가가가{}",employeeVo);
-		return "employee/employeeList";
-
-	}
+//	@GetMapping(value="/employeeSelectOne.do")
+//	public String employeeSelectOne(@RequestParam String emp_id, Model model) {
+//		log.info("employeeSelectOne.do 사원 상세 조회");
+//		
+//		EmployeeVo employeeVo = employeeService.employeeSelectDetail(emp_id);
+//		model.addAttribute("employeeVo",employeeVo);
+//		
+//		AccountVo accountVo= mypageService.getAccountInfo(emp_id);
+//		model.addAttribute("accountVo",accountVo);
+//				
+//				
+////		log.info("가가가가가가{}",employeeVo);
+//		return "employee/employeeList";
+//
+//	}
 	
 	
 	
@@ -173,6 +192,18 @@ public class EmployeeController {
 	        attributes.addFlashAttribute("message", "사원 퇴사 처리 실패. 다시 시도해주세요");
 	        return "employee/employeeSelectOne";
 	    }
+	}
+	
+	
+	//사원 검색
+	@PostMapping(value="/searchEmployee.do")
+	@ResponseBody
+	public String searchEmployee(@RequestParam Map<String, Object> map) {
+		List<EmployeeVo> search=employeeService.searchEmployee(map);
+		
+		Gson gson=new GsonBuilder().create();
+		
+		return gson.toJson(search);
 	}
 
 }

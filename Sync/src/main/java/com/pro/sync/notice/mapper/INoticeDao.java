@@ -35,7 +35,7 @@ public interface INoticeDao {
 	public int noticePinCancel(List<String> seq);
 	
 	//공지 게시글 검색
-	public List<NoticeVo> searchNotice(Map<String, Object>map);
+	public List<NoticeVo> searchNotice(Map<String, Object> map);
 	
 	//메인 공지
 	public List<NoticeVo> mainNotice();

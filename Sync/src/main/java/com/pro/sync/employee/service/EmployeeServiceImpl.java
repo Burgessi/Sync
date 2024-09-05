@@ -19,9 +19,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	@UpdateSession
-
 	public List<EmployeeVo> getAllEmployee() {
 		return dao.getAllEmployee();
+	}
+	
+	@Override
+	@UpdateSession
+	public List<EmployeeVo> allEmployee(int page, int countRow) {
+		int startIndex = (page - 1) * countRow + 1;
+		
+		return dao.allEmployee(startIndex, countRow);
+	}
+	
+	@Override
+	public int totalCount() {
+		return dao.totalCount();
 	}
   
   	@Override
@@ -41,12 +53,12 @@ public class EmployeeServiceImpl implements EmployeeService {
   	
   	@Override
   	public int deleteEmployee(String emp_id) {
-  		
-  		//현재 날짜를 퇴사일로
-  		//String empLeavingDate=LocalDate.now().toString();
-  		// 현재 날짜를 "YYYY-MM-DD" 형식으로 변환
-  		
   		return dao.deleteEmployee(emp_id);
   	}
+  	
+  	public List<EmployeeVo> searchEmployee(Map<String, Object> map){
+  		return dao.searchEmployee(map);
+  	}
+  	
 }
 

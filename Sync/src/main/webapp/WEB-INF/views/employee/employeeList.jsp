@@ -22,9 +22,9 @@
 <style>
 /* 테이블 전체 컨테이너 스타일 */
 .table-container {
-	max-height: 500px; /* 테이블의 최대 높이 설정 */
-	overflow-y: auto; /* 세로 스크롤 적용 */
-	display: block; /* 블록 디스플레이로 스크롤 적용 */
+	/*   	max-height: 500px; 
+/*   	overflow-y: auto; /* 세로 스크롤 적용 */
+	/*  	display: block; /* 블록 디스플레이로 스크롤 적용 */
 	position: relative;
 }
 
@@ -33,8 +33,7 @@
 	position: -webkit-sticky; /* Safari */
 	position: sticky;
 	top: 0; /* 페이지 상단에 고정 */
-	background-color: #fff; /* 배경색 */
-	z-index: 10; /* 스크롤 시 헤더가 위에 있도록 설정 */
+	background-color: #fff;
 }
 
 /* 기본적으로 가로 스크롤을 없앰 */
@@ -114,7 +113,7 @@
 
 .field-container label {
 	margin-right: 10px; /* 레이블과 입력 필드 사이의 간격 */
-	min-width: 80px; /* 레이블의 최소 너비 설정, 필요에 따라 조정 가능 */
+	min-width: 80px; /* 레이블의 최소 너비 설정 */
 	text-align: right; /* 레이블 텍스트를 오른쪽 정렬 */
 	font-weight: bold; /* 레이블 텍스트 굵게 */
 }
@@ -122,15 +121,15 @@
 .field-container input {
 	flex-grow: 1; /* 입력 필드가 남은 공간을 차지하도록 */
 	padding: 8px; /* 입력 필드 내부 여백 */
-	border-radius: 4px; /* 둥근 모서리 */
-	border: 1px solid #ddd; /* 테두리 색상 */
-	background-color: #f8f9fa; /* 배경색 설정 */
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	background-color: #f8f9fa;
 }
 
 .modal-content {
 	border-radius: 12px; /* 모달의 둥근 모서리 */
 	padding: 20px; /* 모달 내부 여백 */
-	background-color: #ffffff; /* 모달 배경색 */
+	background-color: #ffffff;
 }
 
 .modal-header {
@@ -139,12 +138,42 @@
 }
 
 .modal-header h4 {
-	color: #333; /* 제목 색상 */
-	font-weight: 600; /* 제목 두께 */
+	color: #333;
+	font-weight: 600;
 }
 
 .modal-body {
 	padding-top: 0; /* 모달 본문 위쪽 패딩 제거 */
+}
+
+/* .pagination .page-item.active .page-link { */
+/*     background-color: #007bff; */
+/*     border-color: #007bff; */
+/*     color: #fff; */
+/* /*     font-weight: bold; */
+/* } */
+.pagination {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.pagination a {
+	text-decoration: none;
+	color: #007bff;
+	padding: 8px 16px;
+	margin: 0 4px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	display: inline-block; /* 링크들을 가로로 나열 */
+}
+
+.pagination a.active {
+	background-color: #007bff;
+	color: white;
+}
+
+.pagination a:hover {
+	background-color: #e9ecef;
 }
 </style>
 </head>
@@ -164,36 +193,66 @@
 							<div class="col-12 col-md-6 order-md-1 order-last">
 								<h3>사원 목록</h3>
 							</div>
-							<div class="col-12 col-md-6 order-md-2 order-first text-right">
+							<!-- 							<div class="col-12 col-md-6 order-md-2 order-first text-right"> -->
 
-								<!-- 본부별 조회 드롭다운 -->
-								<select id="divisionFilter" class="btn btn-secondary ml-2">
-									<option value="">본부</option>
-									<option value="전략기획본부">전략기획본부</option>
-									<option value="음악사업본부">음악사업본부</option>
-									<option value="홍보마케팅본부">홍보마케팅본부</option>
-									<option value="매니지먼트본부">매니지먼트본부</option>
-								</select>
-								<!-- 재직상태별 조회 드롭다운 -->
-								<select id="statusFilter" class="btn btn-secondary ml-2">
-									<option value="">재직상태</option>
-									<option value="승인대기">승인대기</option>
-									<option value="재직">재직</option>
-									<option value="퇴사">퇴사</option>
-								</select>
-							</div>
+							<!-- 								본부별 조회 드롭다운 -->
+							<!-- 								<select id="divisionFilter" class="btn btn-secondary ml-2"> -->
+							<!-- 									<option value="">본부</option> -->
+							<!-- 									<option value="전략기획본부">전략기획본부</option> -->
+							<!-- 									<option value="음악사업본부">음악사업본부</option> -->
+							<!-- 									<option value="홍보마케팅본부">홍보마케팅본부</option> -->
+							<!-- 									<option value="매니지먼트본부">매니지먼트본부</option> -->
+							<!-- 								</select> -->
+							<!-- 								재직상태별 조회 드롭다운 -->
+							<!-- 								<select id="statusFilter" class="btn btn-secondary ml-2"> -->
+							<!-- 									<option value="">재직상태</option> -->
+							<!-- 									<option value="승인대기">승인대기</option> -->
+							<!-- 									<option value="재직">재직</option> -->
+							<!-- 									<option value="퇴사">퇴사</option> -->
+							<!-- 								</select> -->
+							<!-- 							</div> -->
 						</div>
 					</div>
 
 					<div class="card" style="min-height: 700px">
 						<div class="card-header m-0 p-4 pt-3">
+
+
+
 							<div class="mt-4">
-								<!-- 사원 등록 버튼 -->
-								<input type="button" value="사원 등록"
-									class="btn btn-outline-secondary btn-register"
-									style="margin-left: auto; display: block; position: absolute; right: 30px; top: 33px; width: 100px; height: 35px;"
-									onclick="location.href='./registForm.do'">
+								<c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
+									<!-- 사원 등록 버튼 -->
+									<input type="button" value="사원 등록"
+										class="btn btn-outline-secondary btn-register"
+										style="margin-left: auto; display: block; position: absolute; right: 30px; top: 33px; width: 100px; height: 35px;"
+										onclick="location.href='./registForm.do'">
+								</c:if>
 								<h5>사원 조회</h5>
+
+<!-- 								검색 -->
+<!-- 																<div style="float: left; text-align: left;"> -->
+<!-- 																	<input type="text" id="searchInputBox" class="form-control" -->
+<!-- 																		style="display: inline-block; width: 60%; font-size: 0.8em; padding-bottom: 3px;" -->
+<!-- 																		placeholder="이름으로 검색"> -->
+<!-- 																	<button id="searchBtn" class="btn btn-sm btn-primary" -->
+<!-- 																		style="display: inline-block; margin-top: -2px; margin-left: 4px;">검색</button> -->
+<!-- 																</div> -->
+
+								<div class="search-container">
+									<form name="search-form">
+										<select name="type" id="type">
+											<option value="emp_name" selected>사원 이름</option>
+											<option value="division_name">본부 이름</option>
+											
+										</select> <input type="text" name="keyword" placeholder="검색어를 입력해주세요"
+											value="${keyword}">
+										<button type="button" class="btn btn-info"
+											onclick="searchEmployee(event)">
+											<img alt="" src="${root}/resources/img/search.png">
+										</button>
+									</form>
+								</div>
+
 							</div>
 							<div class="d-flex align-items-center justify-content-between">
 								<!-- search bar -->
@@ -207,7 +266,8 @@
 
 						<div class="card-body"
 							style="padding-left: 20px; max-width: 2000px;">
-							<div class="table-container">
+							<div id="searchView">
+							<div class="table-container" id="updateTable">
 								<table class="table" id="member-table"
 									style="text-align: center">
 									<thead class="table-fixed-header">
@@ -227,140 +287,26 @@
 											<th style="width: 120px;"></th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id="employeeTable">
 										<!-- 사원 리스트 반복 출력 -->
-										<c:forEach items="${employeeList}" var="e">
+										<c:forEach items="${empList}" var="e">
 											<tr class="${e.emp_status eq 'D' ? 'resigned' : ''}">
 												<td><c:choose>
 														<c:when test="${e.emp_status eq 'D'}">
 															<span>${e.emp_id}</span>
 															<!-- 링크 대신 텍스트로 표시 -->
 														</c:when>
+
 														<c:otherwise>
 															<a href="#" onclick="showEmployeeDetail('${e.emp_id}')"
 																data-bs-toggle="modal"
 																data-bs-target="#employeeDetailModal">${e.emp_id}</a>
 														</c:otherwise>
-													</c:choose> <!-- 사원 상세 정보 모달 -->
-													<div class="modal fade" tabindex="-1" role="dialog"
-														id="employeeDetailModal">
-														<div class="modal-dialog modal-dialog-centered modal-lg"
-															role="document">
-															<div class="modal-content rounded-4 shadow">
-																<div class="modal-header p-5 pb-4 border-bottom-0">
-																	<h4 class="fw-bold mb-0 fs-4">사원 상세</h4>
-																	<button type="button" class="btn-close"
-																		data-bs-dismiss="modal" aria-label="Close"></button>
-																</div>
+													</c:choose> 
+													
+													
+													</td>
 
-																<div class="modal-body p-5 pt-0">
-																	<!-- 사원 상세 정보 -->
-																	<div class="form-group row">
-																		<div class="col-md-6 field-container">
-																		
-																		<!-- 이미지 아직 안됨 -->
-																		<img id="empPic" style="border-radius: 50%; width: 70px; height: 70px; object-fit: cover" src="${employeeVo.emp_profile_pic}" alt="Profile Picture" class="img-fluid"/>
-																	</div>
-																	</div>
-																	<div class="form-group row">
-																		<div class="col-md-6 field-container">
-																			<label for="empId">사원번호</label> <input type="text"
-																				class="form-control" id="empId"
-																				value="${employeeVo.emp_id}" readonly="readonly">
-																		</div>
-																		<div class="col-md-6 field-container">
-																			<label for="empName">이름</label> <input type="text"
-																				class="form-control" id="empName"
-																				value="${employeeVo.emp_name}" readonly="readonly">
-																		</div>
-																	</div>
-
-																	<!-- 본부, 팀 -->
-																	<div class="form-group row">
-																		<div class="col-md-6 field-container">
-																			<label for="divisionName" id="divisionName2">본부</label>
-																			<input type="text" class="form-control"
-																				id="divisionName"
-																				value="${employeeVo.division_name}"
-																				readonly="readonly">
-																		</div>
-																		<div class="col-md-6 field-container">
-																			<label for="teamName" id="teamName2">팀</label> <input
-																				type="text" class="form-control" id="teamName"
-																				value="${employeeVo.team_name}" readonly="readonly">
-																		</div>
-																	</div>
-
-																	<!-- 직급, 직책 -->
-																	<div class="form-group row">
-																		<div class="col-md-6 field-container">
-																			<label for="rankName">직급</label> <input type="text"
-																				class="form-control" id="rankName"
-																				value="${employeeVo.rank_name}" readonly="readonly">
-																		</div>
-																		<div class="col-md-6 field-container">
-																			<label for="empPosition">직책</label> <input
-																				type="text" class="form-control" id="empPosition"
-																				value="${employeeVo.emp_lead}" readonly="readonly">
-																		</div>
-																	</div>
-
-																	<!-- 이메일, 입사일 -->
-																	<div class="form-group row">
-																		<div class="col-md-6 field-container">
-																			<label for="empEmail">이메일</label> <input type="email"
-																				class="form-control" id="empEmail"
-																				value="${employeeVo.emp_email}" readonly="readonly">
-																		</div>
-																		<div class="col-md-6 field-container">
-																			<label for="empHireDate">입사일</label> <input
-																				type="text" class="form-control" id="empHireDate"
-																				value="${employeeVo.hire_date}" readonly="readonly">
-																		</div>
-																	</div>
-
-																	<!-- 재직 상태, 권한 -->
-																	<div class="form-group row">
-																		<div class="col-md-6 field-container">
-																			<label for="empStatus">재직 상태</label> <input
-																				type="text" class="form-control" id="empStatus"
-																				value="${employeeVo.emp_status}" readonly="readonly">
-																		</div>
-																		<div class="col-md-6 field-container">
-																			<label for="empAuthority">권한</label> <input
-																				type="text" class="form-control" id="empAuthority"
-																				value="${employeeVo.authority}" readonly="readonly">
-																		</div>
-																	</div>
-
-																	<!-- 은행명, 예금주 -->
-																	<div class="form-group row">
-																		<div class="col-md-6 field-container">
-																			<label for="bankName">은행명</label> <input type="text"
-																				class="form-control" id="bankName"
-																				value="${employeeVo.bank_name}" readonly="readonly">
-																		</div>
-																		<div class="col-md-6 field-container">
-																			<label for="accountNum">계좌번호</label> <input
-																				type="text" class="form-control" id="accountNum"
-																				value="${employeeVo.account_num}"
-																				readonly="readonly">
-																		</div>
-																	</div>
-
-																	<!-- 주소 -->
-																	<input type="hidden" id="addr1"> <input
-																		type="hidden" id="addr2">
-																	<div class="form-group field-container">
-																		<label for="fullAddress">주소</label> <input type="text"
-																			class="form-control" id="fullAddress"
-																			value="${employeeVo.full_address}"
-																			readonly="readonly" disabled>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div></td>
 												<td>${e.emp_name}</td>
 												<td>${e.division_name}</td>
 												<td>${e.team_name}</td>
@@ -388,23 +334,16 @@
 														<td></td>
 													</c:when>
 													<c:otherwise>
-														<td>
-															<!-- 														<a --> <%-- 															href="${root}/registForm.do?emp_id=${e.emp_id}" --%>
-															<!-- 															class="btn btn-outline-secondary"> 수정 </a></td> -->
-															<!-- 														<td> --> <%-- 															<a href="${root}/deleteEmployee.do?emp_id=${e.emp_id}" --%>
-															<!-- 															class="btn btn-outline-danger">삭제</a> -->
-															<!-- 															<button class="btn btn-outline-danger" -->
-															<%-- 																onclick="deleteEmployee('${e.emp_id}')">삭제</button> --%>
-
-															<div class="action-buttons">
-																<button type="button"
-																	class="btn btn-outline-secondary btn-sm"
-																	onclick="location.href='./registForm.do?emp_id=${e.emp_id}'">수정</button>
-																<button type="button"
-																	class="btn btn-outline-danger btn-sm"
-																	onclick="deleteEmployee('${e.emp_id}')">삭제</button>
-															</div>
-														</td>
+														<td><c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
+																<div class="action-buttons">
+																	<button type="button"
+																		class="btn btn-outline-secondary btn-sm"
+																		onclick="location.href='./registForm.do?emp_id=${e.emp_id}'">수정</button>
+																	<button type="button"
+																		class="btn btn-outline-danger btn-sm"
+																		onclick="deleteEmployee('${e.emp_id}')">삭제</button>
+																</div>
+															</c:if></td>
 													</c:otherwise>
 												</c:choose>
 											</tr>
@@ -412,13 +351,191 @@
 									</tbody>
 								</table>
 							</div>
+							</div>
+							</div>
+
+
+							<!-- pagination -->
+						<div id="cat">
+							<div id="pagination" class="mt-4">
+								<ul class="pagination justify-content-center">
+									<!-- 이전 페이지 링크 -->
+									<c:if test="${paging.startPage > 1}">
+
+										<a
+											href="${root}/employeeSelectAll.do?page=${paging.startPage - 1}&countRow=${paging.countRow}&countPage=${paging.countPage}">&lt;&lt;</a>
+
+									</c:if>
+
+									<!-- 페이지 번호 링크 -->
+									<c:forEach begin="${paging.startPage}" end="${paging.endPage}"
+										var="i">
+										<c:choose>
+											<c:when test="${i == paging.page}">
+
+												<a href="#" class="active">${i}</a>
+
+											</c:when>
+											<c:otherwise>
+
+												<a
+													href="${root}/employeeSelectAll.do?page=${i}&countRow=${paging.countRow}&countPage=${paging.countPage}">${i}</a>
+
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+									<!-- 다음 페이지 링크 -->
+									<c:if test="${paging.endPage < paging.totalPage}">
+
+										<a
+											href="${root}/employeeSelectAll.do?page=${paging.endPage + 1}&countRow=${paging.countRow}&countPage=${paging.countPage}">&gt;&gt;</a>
+
+									</c:if>
+								</ul>
+							</div>
+						</div>
+						<!-- 페이지네이션 끝 -->
+
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+													<!-- 사원 상세 정보 모달 -->
+													<div class="modal fade" tabindex="-1" role="dialog"
+														id="employeeDetailModal">
+														<div class="modal-dialog modal-dialog-centered modal-lg"
+															role="document">
+															<div class="modal-content rounded-4 shadow">
+																<div class="modal-header p-5 pb-4 border-bottom-0">
+																	<h4 class="fw-bold mb-0 fs-4">사원 상세</h4>
+																	<button type="button" class="btn-close"
+																		data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
 
-	</div>
+																<div class="modal-body p-5 pt-0">
+																	<!-- 사원 상세 정보 -->
+																	<div class="form-group row">
+																		<div class="col-md-6 field-container">
+																			<img id="empPic"
+																				style="border-radius: 50%; width: 70px; height: 70px; object-fit: cover"
+																				src="${employeeVo.emp_profile_pic}"
+																				alt="Profile Picture" class="img-fluid" />
+																		</div>
+
+																	</div>
+																	<div class="form-group row">
+																		<div class="col-md-6 field-container">
+																			<label for="empId" style="text-align: left">사원번호</label>
+																			<input type="text" class="form-control" id="empId"
+																				value="${employeeVo.emp_id}" readonly="readonly">
+																		</div>
+																		<div class="col-md-6 field-container">
+																			<label for="empName" style="text-align: left">이름</label>
+																			<input type="text" class="form-control" id="empName"
+																				value="${employeeVo.emp_name}" readonly="readonly">
+																		</div>
+																	</div>
+
+																	<!-- 본부, 팀 -->
+																	<div class="form-group row">
+																		<div class="col-md-6 field-container">
+																			<label for="divisionName" id="divisionName2"
+																				style="text-align: left">본부</label> <input
+																				type="text" class="form-control" id="divisionName"
+																				value="${employeeVo.division_name}"
+																				readonly="readonly">
+																		</div>
+																		<div class="col-md-6 field-container">
+																			<label for="teamName" id="teamName2"
+																				style="text-align: left">팀</label> <input
+																				type="text" class="form-control" id="teamName"
+																				value="${employeeVo.team_name}" readonly="readonly">
+																		</div>
+																	</div>
+
+																	<!-- 직급, 직책 -->
+																	<div class="form-group row">
+																		<div class="col-md-6 field-container">
+																			<label for="rankName" style="text-align: left">직급</label>
+																			<input type="text" class="form-control" id="rankName"
+																				value="${employeeVo.rank_name}" readonly="readonly">
+																		</div>
+																		<div class="col-md-6 field-container">
+																			<label for="empPosition" style="text-align: left">직책</label>
+																			<input type="text" class="form-control"
+																				id="empPosition" value="${employeeVo.emp_lead}"
+																				readonly="readonly">
+																		</div>
+																	</div>
+
+																	<!-- 이메일, 입사일 -->
+																	<div class="form-group row">
+																		<div class="col-md-6 field-container">
+																			<label for="empEmail" style="text-align: left">이메일</label>
+																			<input type="email" class="form-control"
+																				id="empEmail" value="${employeeVo.emp_email}"
+																				readonly="readonly">
+																		</div>
+																		<div class="col-md-6 field-container">
+																			<label for="empHireDate" style="text-align: left">입사일</label>
+																			<input type="text" class="form-control"
+																				id="empHireDate" value="${employeeVo.hire_date}"
+																				readonly="readonly">
+																		</div>
+																	</div>
+
+																	<!-- 재직 상태, 권한 -->
+																	<div class="form-group row">
+																		<div class="col-md-6 field-container">
+																			<label for="empStatus" style="text-align: left">재직
+																				상태</label> <input type="text" class="form-control"
+																				id="empStatus" value="${employeeVo.emp_status}"
+																				readonly="readonly">
+																		</div>
+																		<div class="col-md-6 field-container">
+																			<label for="empAuthority" style="text-align: left">권한</label>
+																			<input type="text" class="form-control"
+																				id="empAuthority" value="${employeeVo.authority}"
+																				readonly="readonly">
+																		</div>
+																	</div>
+
+																	<c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
+																		<!-- 은행명, 예금주 -->
+																		<div class="form-group row">
+																			<div class="col-md-6 field-container">
+																				<label for="bankName" style="text-align: left">은행명</label>
+																				<input type="text" class="form-control"
+																					id="bankName" value="${employeeVo.bank_name}"
+																					readonly="readonly">
+																			</div>
+																			<div class="col-md-6 field-container">
+																				<label for="accountNum" style="text-align: left">계좌번호</label>
+																				<input type="text" class="form-control"
+																					id="accountNum" value="${employeeVo.account_num}"
+																					readonly="readonly">
+																			</div>
+																		</div>
+
+																		<!-- 주소 -->
+																		<input type="hidden" id="addr1">
+																		<input type="hidden" id="addr2">
+																		<div class="form-group field-container">
+																			<label for="fullAddress" style="text-align: left">주소</label>
+																			<input type="text" class="form-control"
+																				id="fullAddress" value="${employeeVo.full_address}"
+																				readonly="readonly" disabled>
+																		</div>
+																	</c:if>
+																</div>
+															</div>
+														</div>
+													</div>
+
+
+
 
 	<!-- Footer include -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
@@ -468,8 +585,10 @@
 	
 
 		// 사원 상세 정보를 서버에서 비동기로 받아와서 모달에 표시하는 함수
-		window.showEmployeeDetail = function(empId) {
+// 		window.showEmployeeDetail = function(empId) {
 			
+			
+		function showEmployeeDetail(empId) {	
 			console.log("검색요청ID", empId)
 			$.ajax({
 				url : './employeeDetail.do',
@@ -482,9 +601,11 @@
 					//const employee = response.employee;
 					
 					//console.log(response);
-// 					// 받은 사원 상세 정보를 모달에 표시
+ 					// 받은 사원 상세 정보를 모달에 표시
+
 // 					$('#empPic').val(employee.emp_profile_pic);
 					$('#empPic').attr('src', employee.emp_profile_pic);
+
 					$('#empId').val(employee.emp_id);
 					//$('#empId2').val(employee.emp_id);
 					$('#empName').val(employee.emp_name);
@@ -509,6 +630,8 @@
 					
 					$('#fullAddress')
 							.val(employee.addr1 + " " + employee.addr2);
+					
+					
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
 					console.error('사원 상세 정보를 가져오는 중 오류 발생:', textStatus,
@@ -559,8 +682,8 @@
 		        });
 		    }
 		    
-		    document.getElementById('divisionFilter').addEventListener('change', filterTable);
-		    document.getElementById('statusFilter').addEventListener('change', filterTable);
+// 		    document.getElementById('divisionFilter').addEventListener('change', filterTable);
+// 		    document.getElementById('statusFilter').addEventListener('change', filterTable);
 
 		});
 		
@@ -569,33 +692,33 @@
 // 		});
 
 
-		function filterTable() {
-		    const division = document.getElementById('divisionFilter').value;
-		    const status = document.getElementById('statusFilter').value;
+// 		function filterTable() {
+// 		    const division = document.getElementById('divisionFilter').value;
+// 		    const status = document.getElementById('statusFilter').value;
 		 
-		    const table = document.getElementById('member-table');
-		    const tbody = table.querySelector('tbody');
-		    const rows = Array.from(tbody.getElementsByTagName('tr')); 
-		    //tbody에 있는 모든 행 가져옴
+// 		    const table = document.getElementById('member-table');
+// 		    const tbody = table.querySelector('tbody');
+// 		    const rows = Array.from(tbody.getElementsByTagName('tr')); 
+// 		    //tbody에 있는 모든 행 가져옴
 
-		    rows.forEach(row => { //모든 행
-		        const divisionCell = row.querySelector('td:nth-child(3)').innerText; //현재 행의 본부 열의 텍스트 값
-		        const statusCell = row.querySelector('td:nth-child(8)').innerText.trim();//현재 행의 재직상태 열의 텍스트 값
+// 		    rows.forEach(row => { //모든 행
+// 		        const divisionCell = row.querySelector('td:nth-child(3)').innerText; //현재 행의 본부 열의 텍스트 값
+// 		        const statusCell = row.querySelector('td:nth-child(8)').innerText.trim();//현재 행의 재직상태 열의 텍스트 값
 		        
-		        let isVisible = true;
+// 		        let isVisible = true;
 
-		        //각 행의 본부 값과 필터링한 값이 일치하지 않으면 행 숨김
-		        if (division && division !== divisionCell) {
-		            isVisible = false;
-		        }
-		        if (status && status !== statusCell) {
-		            isVisible = false;
-		        }
+// 		        //각 행의 본부 값과 필터링한 값이 일치하지 않으면 행 숨김
+// 		        if (division && division !== divisionCell) {
+// 		            isVisible = false;
+// 		        }
+// 		        if (status && status !== statusCell) {
+// 		            isVisible = false;
+// 		        }
     
-		        //isValid 여부에 따라 표시 여부 결정
-		        row.style.display = isVisible ? '' : 'none';
-		    });
-		}
+// 		        //isValid 여부에 따라 표시 여부 결정
+// 		        row.style.display = isVisible ? '' : 'none';
+// 		    });
+// 		}
 		
 		function sortByHireDate() {
 		    const table = document.getElementById('member-table');
@@ -657,6 +780,122 @@
 				  'U': '사용자',  
 				  'A': '인사관리자'  
 		};
+		
+		
+//     // 검색 버튼 클릭 시
+//     $("#searchBtn").on("click", function() {
+//         performSearch();
+//     });
+
+// //     //엔터 키 눌렀을 때
+//     $("#searchInputBox").on("keydown", function(e) {
+//         if (e.key === "Enter") {
+//             e.preventDefault(); // 폼 제출 방지
+//             performSearch();
+//         }
+//     });
+
+//     function performSearch() {
+//         // 검색어 값
+//         var searchInputBox = $("#searchInputBox").val().toLowerCase();
+        
+//         // 결과를 찾았는지 여부를 확인하는 플래그
+//         var isMatchFound = false;
+        
+//         // 테이블의 모든 행을 반복
+//         $("#employeeTable tr").each(function() {
+//             // 각 행의 이름 열
+//             var name = $(this).find("td").eq(1).text().toLowerCase();
+            
+//             // 검색어가 이름에 포함되어 있으면 해당 행 보이게
+//             if (name.includes(searchInputBox) || searchInputBox === "") {
+//                 $(this).show();
+//                 isMatchFound = true; // 검색 결과를 찾았음
+//             } else {
+//                 $(this).hide();
+//             }
+//         });
+        
+//         // 기존의 메시지가 있는 경우 제거
+//         $(".no-results").remove();
+        
+//         // 검색어가 있고, 결과를 찾지 못한 경우 메시지 추가
+//         if (!isMatchFound && searchInputBox !== "") {
+//             var table = $("#employeeTable");
+//             var row = "<tr class='no-results'><td colspan='" + table.find("tr:first-child td").length + "'>-- 해당 사원이 없습니다 --</td></tr>";
+//             table.append(row);
+//         }
+//     }
+
+
+// 검색
+function searchEmployee(event) {
+    event.preventDefault(); // 폼 제출 방지
+
+    var opt = document.getElementById("type").value; // 검색 유형
+    var keyword = document.getElementsByName("keyword")[0].value; // 검색어
+    
+    console.log("opt:", opt); // 디버깅
+    console.log("keyword:", keyword); // 디버깅
+    
+    
+    $.ajax({
+        url: "${root}/searchEmployee.do",
+        type: "POST",
+        data: { "opt": opt, "keyword": keyword },
+        dataType: "json",
+        success: function (data) {
+            if (data && data.length > 0) {
+                var view = "<table class='table table-hover'><thead><tr><th>사원번호</th><th>이름</th><th>본부</th><th>팀</th><th>직급</th><th>직책</th><th>이메일</th><th>입사일</th><th>재직상태</th></tr></thead><tbody>";
+
+                //
+                $.each(data, function (index, value) {
+                	
+//                 	<a href="#" onclick="showEmployeeDetail('value.emp_id')" data-bs-toggle="modal" data-bs-target="#employeeDetailModal">value.emp_id</a>
+                	
+                    view += "<tr>";
+                    view += '<td><a href="#" onclick="showEmployeeDetail(\'' + value.emp_id + '\')" data-bs-toggle="modal" data-bs-target="#employeeDetailModal">' + value.emp_id + '</a></td>';
+                    view += '<td>' + (value.emp_name || '') + '</td>';
+         
+                    view += "<td>" + (value.division_name || '') + "</td>";
+                    view += "<td>" + (value.team_name || '') + "</td>";
+                    view += "<td>" + (value.rank_name || '') + "</td>";
+                    view += "<td>" + (positionMap[value.emp_lead] || '') + "</td>";
+                    view += "<td>" + (value.emp_email || '') + "</td>";
+                    view += "<td>" + (value.emp_hire_date || '') + "</td>";
+                    view += "<td>" + (statusMap[value.emp_status] || '') + "</td>";
+                    view += "</tr>";
+                    
+                });
+
+                view += "</tbody></table>";
+                $('#searchView').html(view);
+                $('#cat').html("");
+                //$('#updateTable').html("");
+            } else {
+                $('#searchView').html('<p>검색 결과가 없습니다.</p>');
+            }
+        },
+        error: function (e) {
+            console.error('Error:', e);
+            toastr.error('잘못된 요청입니다.');
+        }
+    });
+}
+
+// HTML 특수문자 이스케이프 -XSS 공격 방지
+// function escapeHtml(text) {
+//     return text
+//         .replace(/&/g, "&amp;")
+//         .replace(/</g, "&lt;")
+//         .replace(/>/g, "&gt;")
+//         .replace(/"/g, "&quot;")
+//         .replace(/'/g, "&#039;");
+// }
+
+    
+
+
 	</script>
 </body>
 </html>
