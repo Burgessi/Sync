@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pro.sync.reservations.mapper.ReservationsDaoImpl">
+
+<insert id="insertRev">
+	<selectKey order="BEFORE" resultType="Integer" keyProperty="rev_id">
+		SELECT NVL(MAX(REV_ID),0) +1 FROM RESERVATIONS r
+	</selectKey>
+INSERT INTO RESERVATIONS
+(REV_ID, 
+REV_START, 
+REV_END, 
+EMP_ID, 
+FCL_ID)VALUES(
+#{rev_id},
+#{rev_start},
+#{rev_end}, 
+#{emp_id},
+#{fcl_id})
+</insert>
+
+<select id="selectOverlap" resultType="java.lang.Integer">
+    SELECT CASE
+        WHEN COUNT(*) > 0 THEN 1
+        ELSE 0
+    END AS OVERLAP
+    FROM RESERVATIONS  
+    <trim prefix="WHERE" prefixOverrides="AND">
+        <if test="rev_start != null and rev_end != null">
+            <![CDATA[
+                AND (REV_START < #{rev_end} AND REV_END > #{rev_start})
+            ]]>
+        </if>
+        <if test="rev_start == null or rev_end == null">
+            <if test="rev_start != null">
+                <![CDATA[
+                    AND REV_END >= #{rev_start}
+                ]]>
+            </if>
+            <if test="rev_end != null">
+                <![CDATA[
+                    AND REV_START <= #{rev_end}
+                ]]>
+            </if>
+        </if>
+        AND FCL_ID = #{fcl_id}
+        <if test="rev_id != null">
+            <![CDATA[
+                AND REV_ID != #{rev_id}
+            ]]>
+        </if>
+    </trim>
+</select>
+
+<select id="selectMyRev" resultType="ReservationsVo">
+SELECT r.REV_ID, r.EMP_ID, r.REV_START, r.REV_END, f.FCL_NAME, f.FCL_ID
+FROM RESERVATIONS r 
+JOIN FACILITIES f ON f.FCL_ID = r.FCL_ID 
+WHERE EMP_ID = #{emp_id}
+AND TRUNC(r.REV_START) = TRUNC(SYSDATE)
+</select>
+
+<select id="currentUseRev" resultType="ReservationsVo">
+SELECT r.REV_ID, r.EMP_ID, r.REV_START, r.REV_END, f.FCL_NAME, f.FCL_ID, t.TEAM_NAME 
+FROM RESERVATIONS r 
+JOIN FACILITIES f ON f.FCL_ID = r.FCL_ID 
+JOIN EMPLOYEE e ON e.EMP_ID = r.EMP_ID
+JOIN TEAM t ON t.TEAM_CODE = e.TEAM_CODE 
+</select>
+
+<delete id="deleteRev" >
+DELETE FROM RESERVATIONS
+WHERE REV_ID IN
+	<foreach collection="list" item="rev_id" open="(" separator="," close=")">
+		#{rev_id}
+	</foreach>
+</delete>
+
+
+</mapper>
