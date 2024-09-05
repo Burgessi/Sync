@@ -20,7 +20,7 @@ public class EmployeeRestController {
 
 	  @GetMapping("/employeeDetail.do")
 	    public EmployeeVo getEmployeeDetail(@RequestParam("emp_id") String empId) {
-	        log.info("Received request for employee ID: {}", empId);
+	        log.info("사원 ID: {}", empId);
 	        EmployeeVo employee = employeeService.employeeSelectDetail(empId);
 
 	        return employee;

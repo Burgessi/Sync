@@ -155,7 +155,7 @@
 							</table>
 
 							<!-- 제출 버튼 -->
-							<input type="submit" value="${isUpdate ? '수정' : '등록'}"
+							<input type="submit" onclick="validateForm()" value="${isUpdate ? '수정' : '등록'}"
 								class="btn btn-info" /> <input class="btn btn-secondary"
 								onclick="javascript:history.back(-1)" value="취소" />
 						</form>
@@ -249,12 +249,18 @@
 				});
 			}
 
-			// 페이지 로드 후 선택된 팀을 설정
-			//	 			var selectedTeam = "${employee.team_code}";
-			//	 			if (selectedTeam) {
-			//	 				teamSelect.value = selectedTeam;
-			//	 			}
 		}
+		
+		// 페이지 로드 후 선택된 본부에 따라 팀 목록 자동 로드
+		window.onload = function() {
+			updateTeams(); // 페이지 로드 시 팀 목록 업데이트
+
+			// 페이지 로드 후 선택된 팀 설정
+			var selectedTeam = "${employee.team_code}";
+			if (selectedTeam) {
+				document.getElementById('team_code').value = selectedTeam;
+			}
+		};
 
 		//완료 시 메시지
 		var message = '${message}';

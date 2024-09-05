@@ -9,6 +9,10 @@ public interface EmployeeDao {
 
 	public List<EmployeeVo> getAllEmployee();
 	
+	public List<EmployeeVo> allEmployee(int startIndex, int pageSize);
+	
+	public int totalCount();
+	
 	public int insertEmployee(EmployeeVo employeeVo);
 	
 	public EmployeeVo employeeSelectDetail(String emp_id);
@@ -16,5 +20,8 @@ public interface EmployeeDao {
 	public int updateEmployee(Map<String, String> map);
 	
 	public int deleteEmployee(String emp_id);
+	
+	//검색
+	public List<EmployeeVo> searchEmployee(Map<String, Object> map);
 	
 }

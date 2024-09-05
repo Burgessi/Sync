@@ -42,6 +42,7 @@
                	</a>
              </div>
            </div>
+           <c:if test="${infoDto.emp_status != 'A'}">
            <div class="recent-message d-flex px-4">
              <div class="name ms-2">
              	<a  class="p-1 rounded" href="#simple-list-item-6">
@@ -49,6 +50,7 @@
                	</a>
              </div>
            </div>
+           </c:if>
          </div>
        </div>
        </div>

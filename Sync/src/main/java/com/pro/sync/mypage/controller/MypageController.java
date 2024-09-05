@@ -113,7 +113,7 @@ public class MypageController {
       //  infoDto.setCerti_name(certiName);
         infoDto.setUsed_certi(certiCount);
         infoDto.setCerti_type(purpose);
-        
+        log.info("뭘까요 : {}",infoDto);
         // 모델에 VO 추가
         model.addAttribute("infoDto", infoDto);
         

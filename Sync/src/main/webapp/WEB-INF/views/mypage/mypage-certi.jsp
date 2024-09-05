@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,7 @@
 </head>
 <body>
 
+<c:if test="${infoDto.emp_status != 'A'}">
 <div>
     <br><br>
     <!-- 증명서 신청 영역 -->
@@ -73,6 +75,7 @@
         </div>
     </div>
 </div>
+</c:if>
 
 <script>
 //발급 용도
@@ -80,7 +83,7 @@ var purposeMapping={
 		 "A": "관공서 제출용",
 	     "B": "공공기관 제출용",
 	     "C": "회사 제출용",
-// 	     "D": "기타"	
+	     "D": "기타"	
 };
 
 function applyRequest() {
@@ -88,7 +91,7 @@ function applyRequest() {
     var availableCopiesElement = document.getElementById("availableCopies"); //신청가능부수
     var availableCopies = parseInt(availableCopiesElement.innerText); 
     var purposeCode = document.getElementById("purposeSelect").value; //발급용도
-    var purposeText = purposeMapping[purposeCode];
+    var purposeText = purposeMapping[purposeCode]; // 발급용도 텍스트
 
     if (requestCopies <= availableCopies) {
         var isConfirmed = confirm("재직증명서 " + requestCopies + "부를 발급하시겠습니까?");
@@ -110,7 +113,7 @@ function applyRequest() {
                     "<td>재직증명서</td>"+
                     "<td>1</td>"+
 //                     "<td>"+$("#requestCopies").val()+"</td>"+
-                    "<td>"+document.getElementById("purposeSelect").options[document.getElementById("purposeSelect").selectedIndex].text+"</td>"+
+					"<td>" + purposeText + "</td>" + // 발급용도 텍스트
                     "<td><button class='btn btn-primary' onclick='submitForm(this)'>출력</button></td>";
 					
             }
@@ -135,9 +138,8 @@ function submitForm(button) {
     var certiCount = row.cells[2].innerText; //발급 부수
     var purpose = row.cells[3].innerText; //발급 용도
 
-    
-    var purposeCode = Object.keys(purposeMapping).find(key => purposeMapping[key] === purposeText) || "";
-    
+//     var purposeCode = Object.keys(purposeMapping).find(key => purposeMapping[key] === purposeText) || "";
+    var purposeCode = Object.keys(purposeMapping).find(key => purposeMapping[key] === purpose) || "";    
     // 폼 생성
     var form = document.createElement('form');
     form.method = 'POST';
@@ -148,7 +150,8 @@ function submitForm(button) {
         { name: 'issueDate', value: issueDate },
         { name: 'certiName', value: certiName },
         { name: 'certiCount', value: certiCount },
-        { name: 'purpose', value: purposeCode }
+        { name: 'purpose', value: purposeCode } // 발급용도 코드
+        
     ];
 
     // 폼에 입력 필드 추가
