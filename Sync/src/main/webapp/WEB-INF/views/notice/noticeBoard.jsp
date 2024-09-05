@@ -121,10 +121,7 @@
 .search-container button:hover {
     background-color: #0056b3;
 }
-#noticeImg{
-	width: 4%;
-	height: 4%;
-}
+
 .notice-tag {
     display: inline-block;
     padding: 4px 8px;

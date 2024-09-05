@@ -7,9 +7,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/main.min.css" rel="stylesheet">
-<link rel="stylesheet" href="${root}/fullcalendar/cal.css" />
 <style>
-
   body {
     margin: 40px 10px;
     padding: 0;
