@@ -125,6 +125,19 @@
 	width: 4%;
 	height: 4%;
 }
+.notice-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #ff6d72; /* 중요 공지 배경색 */
+    color: #fff; /* 중요 공지 텍스트 색 */
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 8px;
+    vertical-align: middle; /* 텍스트와 함께 정렬되도록 */
+    text-align: center;
+}
+
 </style>
 <title>공지게시판</title>
 </head>
@@ -176,7 +189,7 @@
 													<td>${no.employee_name}</td>
 													<td>
 														<c:if test="${no.notice_pinbtn eq 'Y'}">
-															<img alt="notice" src="${root}/resources/img/notice.png" id="noticeImg">
+					 											<span class="notice-tag">공지</span>
 														</c:if>
 															<a href="${root}/notice/detailNotice.do?notice_seq=${no.notice_seq}">${no.notice_title}</a>
 													</td>

@@ -48,9 +48,8 @@ public class ScheduleController {
     	log.info("뭘까요 : {}" ,params);
         ScheduleVo scheduleVo = new ScheduleVo();
         scheduleVo.setTeam_code(params.get("team_code"));
-        scheduleVo.setArtist_id(params.get("artist_id"));
+        scheduleVo.setEmp_name(params.get("emp_name"));
 
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         try {
             LocalDateTime startDateTime = LocalDateTime.parse(params.get("scd_start"), formatter);
@@ -97,12 +96,14 @@ public class ScheduleController {
 
         Map<String, String> response = new HashMap<>();
         response.put("scd_no", String.valueOf(schedule.getScd_no()));
+        response.put("emp_name", schedule.getEmp_name());
         response.put("scd_title", schedule.getScd_title());
         response.put("team_code", schedule.getTeam_code());
+        response.put("team_name", schedule.getTeam_name());
         response.put("scd_start", start);
         response.put("scd_end", end);
-        response.put("artist_id", schedule.getArtist_id());
         response.put("scd_content", schedule.getScd_content());
+        log.info("response : {}", response);
         
     	return response;
     }
