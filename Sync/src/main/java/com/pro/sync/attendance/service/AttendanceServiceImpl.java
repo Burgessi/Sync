@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pro.sync.attendance.dao.IAttendanceDao;
+import com.pro.sync.attendance.vo.AttendanceVo;
 
 @Service
 public class AttendanceServiceImpl implements IAttendanceService {
@@ -49,5 +50,33 @@ public class AttendanceServiceImpl implements IAttendanceService {
 	public String getCheckOutTime(String emp_id) {
 		return dao.getCheckOutTime(emp_id);
 	}
-	
+	@Override
+	public String getWorkDuration(String emp_id) {
+		return dao.getWorkDuration(emp_id);
+	}
+
+	@Override
+	public int updateWorkDuration(String emp_id) {
+		return dao.updateWorkDuration(emp_id);
+	}
+
+	@Override
+	public String selectTotalDuration(String emp_id) {
+		return dao.selectTotalDuration(emp_id);
+	}
+
+	@Override
+	public String getWeekDuration(String emp_id) {
+		return dao.getWeekDuration(emp_id);
+	}
+
+	@Override
+	public String getMonthDuration(String emp_id) {
+		return dao.getMonthDuration(emp_id);
+	}
+
+	@Override
+	public List<AttendanceVo> getWeekHistory(String emp_id) {
+		return dao.getWeekHistory(emp_id);
+	}
 }
