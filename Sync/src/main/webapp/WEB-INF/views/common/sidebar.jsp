@@ -116,7 +116,6 @@
                     <ul class="submenu" id="calendar">
                         <li class="submenu-item" id="calendar">
                             <a href="${root}/plan/calendar.do">사내 일정</a>
-							              <a href="${root}/plan/calendar">일정</a>
                       </li>                   
                     </ul>
                 </li>                   
@@ -148,7 +147,7 @@
                         </li>
                         </c:if>
                         <li class="submenu-item" id="doc-list">
-                            <a href="${root}/board/userBoard.do">회의실 예약</a>
+                            <a href="${root}/rev/boardRev.do">회의실 예약</a>
                         </li>
                     </ul>
                 </li>

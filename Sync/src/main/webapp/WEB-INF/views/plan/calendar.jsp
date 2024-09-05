@@ -129,12 +129,13 @@
                            <input type="text" class="form-control" id="scd_title" name="scd_title" required>
                        </div>
                        <div class="mb-3">
-                           <label for="dept" class="form-label">부서</label>
-                           <input type="text" class="form-control" id="team_code" name="team_code" required>
+                           <label for="dept" class="form-label">예약자</label>
+                           <input type="text" class="form-control" id="emp_name"  name="emp_name" value="${infoDto.emp_name}"  readonly="readonly" required>
                        </div>
                        <div class="mb-3">
-                           <label for="dept" class="form-label">아티스트</label>
-                           <input type="text" class="form-control" id="artist_id" name="artist_id" required>
+                           <label for="dept" class="form-label">부서</label>
+                           <input type="text" class="form-control" id="team_name" value="${infoDto.team_name}" readonly="readonly" required>
+                           <input type="hidden" id="team_code" name="team_code" value="${infoDto.team_code}">
                        </div>
                        <div class="mb-3">
                            <label for="start" class="form-label">시작일</label>
@@ -144,28 +145,6 @@
                            <label for="end" class="form-label">종료일</label>
                            <input type="datetime-local" class="form-control" id="scd_end" name="scd_end" required>
                        </div>
-<!--                        <div class="mb-3"> -->
-<!--                            <label for="category" class="form-label">카테고리</label> -->
-<!--                            <select id="category" name="category" class="form-select"> -->
-<!--                                <option value="work" selected>업무</option> -->
-<!--                                <option value="team-meeting">회의</option> -->
-<!--                                <option value="business-meeting">미팅</option> -->
-<!--                                <option value="outing">외근</option> -->
-<!--                                <option value="business-trip">출장</option> -->
-<!--                            </select> -->
-<!--                        </div> -->
-<!--                        <div class="mb-3"> -->
-<!--                            <label for="color" class="form-label">일정색상</label> -->
-<!--                            <select id="color" name="color" class="form-select" style="width: 100%;"> -->
-<!--                              <option value="gray"   style="color:#808080;" selected>회색</option> -->
-<!--                              <option value="red"    style="color:#FF0000;">빨간색</option> -->
-<!--                              <option value="orange" style="color:#FFA500;">주황색</option> -->
-<!--                              <option value="green"  style="color:#008000;">초록색</option> -->
-<!--                              <option value="blue"   style="color:#0000FF;">파란색</option> -->
-<!--                              <option value="indigo" style="color:#000080;">남색</option> -->
-<!--                              <option value="purple" style="color:#800080;">보라색</option> -->
-<!--                            </select> -->
-<!--                        </div> -->
                        <div class="mb-3">
                            <label for="contents" class="form-label">내용</label>
                            <textarea class="form-control" id="scd_content" name="scd_content" style="width: 100%;" rows="3"></textarea> 
@@ -193,9 +172,9 @@
             </div>
             <div class="modal-body">
                 <h5 id="sTitle"></h5>
+                <p>예약자: <span id="eName"></span></p>
                 <p>부서: <span id="sTeam"></span></p>
                 <p>일정기간: <span id="sTime"></span></p>
-                <p>아티스트: <span id="sArtist"></span></p>
                 <p>내용: <span id="sContent"></span></p>
             </div>
             <div class="modal-footer">
@@ -223,12 +202,12 @@
 	                       <input type="text" class="form-control" id="mTitle" name="scd_title" required>
 	                   </div>
 	                   <div class="mb-3">
-	                       <label for="modify_subject" class="form-label">부서</label>
-	                       <input type="text" class="form-control" id="mTeam" name="team_code" required>
+	                       <label for="modify_subject" class="form-label">예약자</label>
+	                       <input type="text" class="form-control" id="empName" readonly="readonly" required>
 	                   </div>
 	                   <div class="mb-3">
-	                       <label for="modify_subject" class="form-label">아티스트</label>
-	                       <input type="text" class="form-control" id="mArtist" name="artist_id" required>
+	                       <label for="modify_subject" class="form-label">부서</label>
+	                       <input type="text" class="form-control" id="mTeam" name="team_code" readonly="readonly" required>
 	                   </div>
 	                   <div class="mb-3">
 	                       <label for="modify-start" class="form-label">시작일</label>
@@ -252,7 +231,7 @@
 	      </div>
 	  </div>
  </form>
-
+ 	
 
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/main.min.js"></script>
@@ -273,6 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
             locales: 'ko',
 			events: [
 				<c:forEach items="${lists}" var="event">
+					<c:if test="${infoDto.team_code == event.team_code}">
 					{
 				      id: "${event.scd_no}",
 		              title: "${event.scd_title}",
@@ -284,21 +264,24 @@ document.addEventListener('DOMContentLoaded', function() {
 		              }
 		            }
 		            <c:if test="${not empty event}" >,</c:if>
+		            </c:if> 
 		          </c:forEach>
 			],
-//             editable: true,
             selectable: true,
             dayMaxEvents: true,
             googleCalendarApiKey: 'AIzaSyBx07rpTSuaNl8y6PWEeQNRRkBly-8Y1Nw',
             dateClick: function(info) {
+            	<c:if test="${infoDto.authority == 'A'}">
                 document.getElementById('scd_title').value = '';
-                document.getElementById('team_code').value = '';
-                document.getElementById('artist_id').value = '';
                 document.getElementById('scd_start').value = info.dateStr + "T09:00";
                 document.getElementById('scd_end').value = info.dateStr + "T18:00";
                 document.getElementById('scd_content').value = '';
                 var modal = new bootstrap.Modal(document.getElementById('insertModal'));
                 modal.show();
+                </c:if>
+                <c:if test="${infoDto.authority != 'A'}">
+                	toastr.error('관리자만 일정을 추가할 수 있습니다.');
+                </c:if>
             },
             eventClick: function(info){
             	detailschedule(info);
@@ -357,7 +340,6 @@ $(document).ready(function() {
 							start : $('#scd_start').val(),
 							end : $('#scd_end').val(),
 							extendedProps : {
-								artist : $('#artist_id').val(),
 								teamcode : $('#team_code').val(),
 								contents : $('#scd_content').val()
 							}
@@ -401,10 +383,10 @@ function detailschedule(info) {
 		success:function(schedule){
 
 			$('#scd_no').val(schedule.scd_no);
+			$('#eName').text(schedule.emp_name);
+			$('#sTeam').text(schedule.team_name);
 			$('#sTitle').text(schedule.scd_title);
-			$('#sTeam').text(schedule.team_code);
 			$('#sTime').text(schedule.scd_start + '~' + schedule.scd_end);
-			$('#sArtist').text(schedule.artist_id);
 			$('#sContent').text(schedule.scd_content);
 			
 			var modal = new bootstrap.Modal(document.getElementById('detailModal'));
@@ -429,7 +411,7 @@ $('#btn-edit').on('click', function(){
 		success:function(schedule){
 			$('#mTitle').val(schedule.scd_title);
 			$('#mTeam').val(schedule.team_code);
-			$('#mArtist').val(schedule.artist_id);
+			$('#empName').val(schedule.emp_name);
 			$('#mStart').val(schedule.scd_start);
 			$('#mEnd').val(schedule.scd_end);
 			$('#mContent').val(schedule.scd_content);
@@ -466,7 +448,6 @@ $('#modifyschedule').on('submit', function(e) {
                     event.setStart($('#mStart').val());
                     event.setEnd($('#mEnd').val());
                     event.setExtendedProp('team', $('#mTeam').val());
-                    event.setExtendedProp('artist', $('#mArtist').val());
                     event.setExtendedProp('content', $('#mContent').val());
                 }
                 
@@ -485,36 +466,56 @@ $('#modifyschedule').on('submit', function(e) {
 
 var detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
 
-//일정 삭제 
 $('#btn-remove').on('click', function() {
-    if (confirm('일정을 삭제할까요?')) {
-        var scd_no = $('#scd_no').val();
+    Swal.fire({
+        title: '일정을 삭제할까요?',
+        text: "이 작업은 되돌릴 수 없습니다.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var scd_no = $('#scd_no').val();
 
-        $.ajax({
-            type: "POST",
-            url: "./delScd.do",
-            data: {scd_no: scd_no},
-            success: function(del) {
-                if (del === 1) { // 서버가 1을 반환 해야함
-                    var event = calendar.getEventById(scd_no);
-                    if (event) {
-                        event.remove();
+            $.ajax({
+                type: "POST",
+                url: "./delScd.do",
+                data: {scd_no: scd_no},
+                success: function(del) {
+                    if (del === 1) { // 서버가 1을 반환 해야함
+                        var event = calendar.getEventById(scd_no);
+                        if (event) {
+                            event.remove();
+                        }
+                        $('#detailModal').modal('hide');
+                        Swal.fire(
+                            '삭제되었습니다!',
+                            '일정이 성공적으로 삭제되었습니다.',
+                            'success'
+                        );
+                    } else {
+                        Swal.fire(
+                            '삭제 실패',
+                            '해당 일정이 없습니다.',
+                            'error'
+                        );
                     }
-                    $('#detailModal').modal('hide');
-                    toastr.success("삭제되었습니다!");
-                } else {
-                    toastr.error('삭제 실패: 해당 일정이 없습니다.');
+                },
+                error: function(e) {
+                    Swal.fire(
+                        '삭제 실패',
+                        '일정을 삭제하지 못했습니다.',
+                        'error'
+                    );
                 }
-            },
-            error: function(e) {
-                toastr.error('일정을 삭제하지 못했습니다.');
-            }
-        });
-    }
+            });
+        }
+    });
 });
 
-	
-	
 	
 </script>
 </body>

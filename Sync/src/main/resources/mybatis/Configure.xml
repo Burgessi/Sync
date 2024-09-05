@@ -17,7 +17,9 @@
 	<typeAlias type="com.pro.sync.board.vo.BoardVo" alias="BoardVo"/>
 	<typeAlias type="com.pro.sync.board.vo.FileBoardVo" alias="FileBoardVo"/>
 	<typeAlias type="com.pro.sync.facilities.vo.FacilitiesVo" alias="FacilitiesVo"/>	
+	<typeAlias type="com.pro.sync.reservations.vo.ReservationsVo" alias="ReservationsVo"/>	
 	<typeAlias type="com.pro.sync.attendance.vo.AttendanceVo" alias="AttendanceVo"/>	
+
 </typeAliases>
 	
 <mappers>
@@ -32,6 +34,7 @@
 	<mapper resource="sqls/Board_Statement.xml"/>	  	
 	<mapper resource="sqls/Attendance_Statement.xml"/>	  	
 	<mapper resource="sqls/Facilities_Statement.xml"/>	  	
+	<mapper resource="sqls/Reservations_Statement.xml"/>	  	
 </mappers>
 
 </configuration>
