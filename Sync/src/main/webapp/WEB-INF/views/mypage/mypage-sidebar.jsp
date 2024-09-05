@@ -33,12 +33,13 @@
     z-index: 0; /* 링크보다 낮은 z-index 설정 */
 }
 .recent-message {
-    overflow: hidden; /* 자식 요소가 부모를 벗어나지 않도록 설정 */
+    overflow: hidden;
 }
 
 .recent-message{
 	margin: 15px 0px 30px;
 	width: 100%;
+	
 }
 </style>
     <div style="width: 260px; margin-right: 30px">
