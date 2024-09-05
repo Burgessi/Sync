@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pro.sync.chat.dao.ChatDaoImpl">
+
+
+	<resultMap type="ChatRoomParticipantsVo" id="participantsResultMap">
+		<result property="chatroom_participants_id" column="CHATROOM_PARTICIPANTS_ID"/>
+		<result property="participant_id" column="PARTICIPANT_ID"/>
+		<result property="participant_name" column="PARTICIPANT_NAME"/>
+		<result property="participant_team_name" column="PARTICIPANT_TEAM_NAME"/>
+		<result property="join_at" column="JOIN_AT"/>
+		<result property="leave_at" column="LEAVE_AT"/>
+	</resultMap>
+	
+	<resultMap type="ChatRoomVo" id="chatRoomResultMap">
+		<result property="chatroom_id" column="CHATROOM_ID"/>
+		<result property="chatroom_name" column="CHATROOM_NAME"/>
+		<result property="create_at" column="CREATE_AT"/>
+		<result property="delete_flag" column="DELETE_FLAG"/>
+		<result property="latest_chat_id" column="LATEST_CHAT_ID"/>
+		<result property="latest_message_content" column="LATEST_MESSAGE_CONTENT"/>
+		<result property="latest_message_sent_at" column="LATEST_MESSAGE_SENT_AT"/>
+		<collection property="participants" resultMap="participantsResultMap"></collection>
+	</resultMap>
+
+	<resultMap type="ChatVo" id="chatResultMap">
+		<result property="chat_id" column="CHAT_ID"/>
+		<result property="content" column="CONTENT"/>
+		<result property="sent_at" column="SENT_AT"/>
+		<result property="is_read" column="IS_READ"/>
+		<result property="chat_sender" column="CHAT_SENDER"/>
+		<result property="chat_sender_name" column="CHAT_SENDER_NAME"/>
+		<result property="chat_receiver" column="CHAT_RECEIVER"/>
+		<result property="chat_receiver_name" column="CHAT_RECEIVER_NAME"/>
+		<result property="chatroom_id" column="CHATROOM_ID"/>
+		<collection property="participants" resultMap="participantsResultMap"></collection>
+		
+	</resultMap>
+
+
+	<!-- 채팅방생성 -->
+	<insert id="createChatRoom">
+		<selectKey keyProperty="chatroom_id" order="BEFORE" resultType="Integer">
+			SELECT COALESCE(MAX(CHATROOM_ID),0)+1 
+					FROM CHATROOM c
+		</selectKey>
+			INSERT INTO CHATROOM
+				(CHATROOM_ID, CHATROOM_NAME, 
+				CREATE_AT, DELETE_FLAG)
+		VALUES
+			( #{chatroom_id} , #{chatroom_name}, 
+					CURRENT_DATE, 'N')
+	</insert>
+
+	<!-- 채팅참여자 입력 -->
+	<insert id="participateInChatRoom">
+		INSERT INTO CHATROOM_PARTICIPANTS
+			(CHATROOM_PARTICIPANTS_ID, CHATROOM_ID, 
+				EMP_ID, JOIN_AT)
+		VALUES((SELECT COALESCE(MAX(CHATROOM_PARTICIPANTS_ID),0)+1 
+				FROM CHATROOM_PARTICIPANTS)
+										, #{chatroom_id}, 
+										#{participant_id}, CURRENT_DATE)
+	</insert>
+	
+	
+	<!-- 채팅입력 -->
+	<insert id="sendMessage">
+		<selectKey keyProperty="chat_id" resultType="Integer" order="BEFORE">
+			SELECT COALESCE(MAX(CHAT_ID),0)+1 FROM CHAT
+		</selectKey>
+		INSERT INTO CHAT
+				(CHAT_ID, CONTENT, 
+					SENT_AT, IS_READ, 
+						CHAT_SENDER,
+						<if test="chat_receiver != null">
+							CHAT_RECEIVER,
+						 </if> 
+							CHATROOM_ID)
+		VALUES( #{chat_id}, #{content}, 
+											CURRENT_DATE, 0, 
+												#{chat_sender},
+												<if test="chat_receiver != null">
+													#{chat_receiver},
+												 </if> 
+													#{chatroom_id})
+	</insert>
+
+	<!-- 채팅입력시 채팅 룸 update 최근 메세지로 -->
+	<update id="updateLatestMessage">
+		UPDATE CHATROOM 
+			SET LATEST_CHAT_ID = #{latest_chat_id},
+					LATEST_MESSAGE_CONTENT = #{latest_message_content},
+						LATEST_MESSAGE_SENT_AT = CURRENT_DATE
+				WHERE CHATROOM_ID =  #{chatroom_id}
+	</update>
+
+
+
+	<!-- 채팅열었을때 채팅리스트 가져오기. -->
+	<select id="getAllChatList" resultMap="chatRoomResultMap">
+		SELECT c.CHATROOM_ID , c.CHATROOM_NAME , c.LATEST_CHAT_ID , c.LATEST_MESSAGE_CONTENT , c.LATEST_MESSAGE_SENT_AT ,
+					cp.EMP_ID AS PARTICIPANT_ID, e.EMP_NAME AS PARTICIPANT_NAME , cp.JOIN_AT , cp.LEAVE_AT 
+				FROM CHATROOM c JOIN CHATROOM_PARTICIPANTS cp 
+					ON c.CHATROOM_ID = cp.CHATROOM_ID 
+						JOIN EMPLOYEE e 
+							ON cp.EMP_ID = e.EMP_ID
+						WHERE c.DELETE_FLAG = 'N'
+						AND c.CHATROOM_ID IN (SELECT CHATROOM_ID
+												FROM CHATROOM_PARTICIPANTS
+												WHERE EMP_ID = #{participant_id}
+												AND LEAVE_AT IS NULL
+												)
+							AND cp.LEAVE_AT IS NULL
+						ORDER BY c.LATEST_MESSAGE_SENT_AT DESC
+	</select>
+
+
+	<!-- 채팅방 클릭 시 채팅 내용 가져오기 -->
+	<select id="getAllChatContent" resultMap="chatResultMap">
+		SELECT CONTENT ,SENT_AT ,IS_READ ,c.CHAT_SENDER, e.EMP_NAME AS CHAT_SENDER_NAME, 
+				CHAT_RECEIVER, c.CHATROOM_ID ,
+				cp.EMP_ID AS PARTICIPANT_ID, e2.EMP_NAME AS PARTICIPANT_NAME, 
+				t.TEAM_NAME AS PARTICIPANT_TEAM_NAME, JOIN_AT ,LEAVE_AT
+	FROM CHATROOM_PARTICIPANTS cp 
+		LEFT JOIN CHAT c 
+			ON cp.CHATROOM_ID = c.CHATROOM_ID
+				LEFT JOIN EMPLOYEE e 
+					ON c.CHAT_SENDER = e.EMP_ID  
+				JOIN EMPLOYEE e2 
+					ON cp.EMP_ID = e2.EMP_ID 
+				JOIN TEAM t 
+					ON e2.TEAM_CODE = t.TEAM_CODE 
+				LEFT JOIN EMPLOYEE e3
+					ON c.CHAT_RECEIVER = e3.EMP_ID 
+				WHERE cp.CHATROOM_ID = #{chatroom_id}
+				AND cp.LEAVE_AT IS NULL
+				ORDER BY c.SENT_AT ASC
+	</select>
+
+
+	<!-- 채팅방 나가기 -->
+	<update id="exitChatRoom">
+		UPDATE CHATROOM_PARTICIPANTS 
+				SET LEAVE_AT = CURRENT_DATE
+						WHERE CHATROOM_ID = #{chatroom_id}
+						AND EMP_ID = #{emp_id}
+	</update>
+
+
+</mapper>

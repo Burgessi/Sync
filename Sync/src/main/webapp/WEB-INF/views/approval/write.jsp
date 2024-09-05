@@ -12,6 +12,9 @@
 	.highlight{
 		color: skyblue;
 	}
+	.no-checkbox > .jstree-anchor > .jstree-checkbox {
+	    display: none !important; /* 체크박스를 완전히 숨김 */
+	}
 </style>
 </head>
 <body>
