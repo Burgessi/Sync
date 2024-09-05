@@ -35,49 +35,49 @@ public class MypageServiceImpl implements IMypageService {
 	
 	@Override
 	public EmployeeVo getInfo(String emp_id) {
-		// TODO Auto-generated method stub
+		
 		return dao.getInfo(emp_id);
 	}
 	
 	@Override
 	public AccountVo getAccountInfo(String emp_id) {
-		// TODO Auto-generated method stub
+		
 		return dao.getAccountInfo(emp_id);
 	}
 	
 	@Override
 	public int updateEmailAddr(Map<String, Object> map) {
-		// TODO Auto-generated method stub
+		
 		return dao.updateEmailAddr(map);
 	}
 
 	@Override
 	public int updateAccount(AccountVo vo) {
-		// TODO Auto-generated method stub
+		
 		return dao.updateAccount(vo);
 	}
 	
 	@Override
 	public int insertAccount(AccountVo vo) {
-		// TODO Auto-generated method stub
+		
 		return dao.insertAccount(vo);
 	}
 	
 	@Override
 	public int updatePassword(Map<String, Object> map) {
-		// TODO Auto-generated method stub
+		
 		return dao.updatePassword(map);
 	}
 	
 	@Override
 	public int updateProfilepic(Map<String, Object> map) {
-		// TODO Auto-generated method stub
+		
 		return dao.updateProfilepic(map);
 	}
 	
 	@Override
 	public int checkUser(Map<String, Object> map) {
-		// TODO Auto-generated method stub
+		
 		return dao.checkUser(map);
 	}
 	 
