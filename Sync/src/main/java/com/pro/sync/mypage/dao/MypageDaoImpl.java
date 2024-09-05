@@ -44,43 +44,36 @@ public class MypageDaoImpl implements IMypageDao {
 	}
 	@Override
 	public AccountVo getAccountInfo(String emp_id) {
-		// TODO Auto-generated method stub
 		return session.selectOne(NS+"getAccountInfo", emp_id);
 	}
 	
 	@Override
 	public int updateEmailAddr(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return session.update(NS+"updateEmailAddr", map);
 	}
 	
 	@Override
 	public int updateAccount(AccountVo vo) {
-		// TODO Auto-generated method stub
 		return session.update(NS+"updateAccount", vo);
 	}
 	
 	@Override
 	public int insertAccount(AccountVo vo) {
-		// TODO Auto-generated method stub
 		return session.insert(NS+"insertAccount", vo);
 	}
 	
 	@Override
 	public int updatePassword(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return session.update(NS+"updatePassword", map);
 	}
 	
 	@Override
 	public int updateProfilepic(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return session.update(NS+"updateProfilepic", map);
 	}
 	
 	@Override
 	public int checkUser(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return session.selectOne(NS+"checkUser", map);
 	}
 	

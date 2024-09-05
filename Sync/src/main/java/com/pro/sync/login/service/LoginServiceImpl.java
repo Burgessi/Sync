@@ -25,7 +25,6 @@ public class LoginServiceImpl implements ILoginService {
 	
 	@Override
 	public int updatePwStatus(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return dao.updatePwStatus(map);
 	}
 
