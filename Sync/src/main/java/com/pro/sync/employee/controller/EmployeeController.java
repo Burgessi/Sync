@@ -125,6 +125,7 @@ public class EmployeeController {
 	
 
 	@GetMapping(value = "/employeeSelectAll.do")
+
 	public String employeeSelectAll(//@RequestParam(value = "page", defaultValue  = "1") int page,
 									//@RequestParam(value = "countRow", defaultValue = "10") int countRow,
 									//@RequestParam(value = "countPage", defaultValue = "5") int countPage,
@@ -132,6 +133,7 @@ public class EmployeeController {
 									@SessionAttribute("loginDto") EmployeeVo loginDto
 						//			@SessionAttribute("infoDto") EmployeeVo infoDto, HttpSession session) 
 		){
+
 		log.info("employeeSelectAll.do 사원 전체 조회");
 
 		List<EmployeeVo> empList = employeeService.getAllEmployee();

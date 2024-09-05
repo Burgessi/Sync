@@ -19,11 +19,16 @@ public class ScheduleVo {
 
 	private int scd_no;
 	private String team_code;
-	private String artist_id;
+	private String emp_name;
 	private LocalDateTime scd_start; // LocalDate -> LocalDateTime 변경
     private LocalDateTime scd_end;   // LocalDate -> LocalDateTime 변경
 	private String scd_title;
 	private String scd_content;
 	private String scd_color;
+	
+	//team
+	private String team_name;
+	
+	
 
 }

@@ -12,15 +12,15 @@
 		INSERT INTO SCHEDULE
 		(
 		SCD_NO, 
-		TEAM_CODE, 
-		ARTIST_ID, 
+		TEAM_CODE,
+		EMP_NAME,
 		SCD_START, 
 		SCD_END, 
 		SCD_TITLE, 
 		SCD_CONTENT)VALUES(
 		#{scd_no},
 		#{team_code},
-		#{artist_id}, 
+		#{emp_name},
 		#{scd_start}, 
 		#{scd_end}, 
 		#{scd_title}, 
@@ -36,8 +36,9 @@
 	
 	<!-- 상세보기 -->
 	<select id="detailScd" resultType="ScheduleVo">
-	SELECT SCD_NO, TEAM_CODE, ARTIST_ID, SCD_START, SCD_END, SCD_TITLE, SCD_CONTENT
+	SELECT *
 	FROM SCHEDULE s 
+	JOIN TEAM t ON s.TEAM_CODE = t.TEAM_CODE 
 	WHERE SCD_NO = #{scd_no}
 	</select>
 	
@@ -51,10 +52,9 @@
 	<update id="updateScd">
 	UPDATE SCHEDULE
 	SET TEAM_CODE = #{team_code},
-	    ARTIST_ID = #{artist_id},
+	    SCD_TITLE = #{scd_title},
 	    SCD_START = #{scd_start},
 	    SCD_END = #{scd_end},
-	    SCD_TITLE = #{scd_title},
 	    SCD_CONTENT = #{scd_content}
 	WHERE SCD_NO = #{scd_no}
 	</update>

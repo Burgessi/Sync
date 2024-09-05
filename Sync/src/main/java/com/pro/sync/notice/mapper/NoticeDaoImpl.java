@@ -69,6 +69,11 @@ public class NoticeDaoImpl implements INoticeDao {
 		return session.selectList(NS + "searchNotice", map);
 	}
 
+	@Override
+	public List<NoticeVo> mainNotice() {
+		return session.selectList(NS + "mainNotice");
+	}
+
 
 	
 }
