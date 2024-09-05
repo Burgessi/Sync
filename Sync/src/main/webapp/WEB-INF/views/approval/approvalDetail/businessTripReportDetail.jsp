@@ -17,7 +17,7 @@
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
 		
 			
-	
+	<button class="btn btn-outline-success" onclick="pdf()">pdf 저장</button> 
 			<div class="container">
 				<div class="card">
 					<div class="card-body">
@@ -38,7 +38,7 @@
 										</c:forEach>
 										모든 `line`의 `status`가 1인 경우에만 버튼을 출력
 										<c:if test="${allStatusOne}">
-										    <button class="btn btn-outline-success" onclick="pdf()">pdf 저장</button> 
+										    
 										</c:if>
 								</c:when>
 								<c:when test="${loginDto.emp_id != approvalDetail.requester_id && approvalDetail.temp_save_flag eq 'N'}">

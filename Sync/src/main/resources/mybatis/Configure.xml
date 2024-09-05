@@ -17,6 +17,9 @@
 	<typeAlias type="com.pro.sync.board.vo.BoardVo" alias="BoardVo"/>
 	<typeAlias type="com.pro.sync.board.vo.FileBoardVo" alias="FileBoardVo"/>
 	<typeAlias type="com.pro.sync.facilities.vo.FacilitiesVo" alias="FacilitiesVo"/>	
+	<typeAlias type="com.pro.sync.chat.vo.ChatRoomParticipantsVo" alias="ChatRoomParticipantsVo"/>	
+	<typeAlias type="com.pro.sync.chat.vo.ChatRoomVo" alias="ChatRoomVo"/>	
+	<typeAlias type="com.pro.sync.chat.vo.ChatVo" alias="ChatVo"/>	
 </typeAliases>
 	
 <mappers>
@@ -31,6 +34,7 @@
 	<mapper resource="sqls/Board_Statement.xml"/>	  	
 	<mapper resource="sqls/Attendance_Statement.xml"/>	  	
 	<mapper resource="sqls/Facilities_Statement.xml"/>	  	
+	<mapper resource="sqls/Chat_Statement.xml"/>	  	
 </mappers>
 
 </configuration>

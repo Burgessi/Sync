@@ -74,6 +74,18 @@ public class ApprovalRestController {
 			divisonJson.put("text", divisionList.get(i).getDivision_name());
 			divisonJson.put("parent", "#" );
 			divisonJson.put("icon", "../resources/img/approval_img/division.png");
+			
+			JSONObject stateJson = new JSONObject();
+		    stateJson.put("disabled", true);  // 노드 완전히 비활성화
+		    stateJson.put("selected", false); // 선택 상태 초기화
+		    divisonJson.put("state", stateJson);
+			    
+			 // 체크박스를 숨기기 위한 클래스 추가
+		    JSONObject liAttrJson = new JSONObject();
+		    liAttrJson.put("class", "no-checkbox");
+		    divisonJson.put("li_attr", liAttrJson);   
+			    
+			
 			treeList.add(divisonJson);
 		}
 		
@@ -83,6 +95,18 @@ public class ApprovalRestController {
 			teamJson.put("text", teamList.get(i).getTeam_name());
 			teamJson.put("parent", teamList.get(i).getUpstairs_division_code());
 			teamJson.put("icon", "../resources/img/approval_img/team.png");
+			
+			// 노드 비활성화 및 커스텀 클래스 추가
+		    JSONObject stateJson = new JSONObject();
+		    stateJson.put("disabled", true);
+		    stateJson.put("selected", false);
+		    teamJson.put("state", stateJson);
+
+		    // 체크박스를 숨기기 위한 클래스 추가
+		    JSONObject liAttrJson = new JSONObject();
+		    liAttrJson.put("class", "no-checkbox");
+		    teamJson.put("li_attr", liAttrJson);
+			
 			treeList.add(teamJson);
 		}
 		
@@ -95,6 +119,7 @@ public class ApprovalRestController {
 				employeeJson.put("icon", "../resources/img/approval_img/employee.png");
 				employeeJson.put("team", teamService.getOneTeam(employeeList.get(i).getTeam_code()).getTeam_name());
 				employeeJson.put("rank", employeeList.get(i).getRank_name());
+				employeeJson.put("profile", employeeList.get(i).getEmp_profile_pic());
 				treeList.add(employeeJson);
 			}
 		}
