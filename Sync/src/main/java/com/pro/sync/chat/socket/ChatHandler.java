@@ -113,12 +113,12 @@ public class ChatHandler extends TextWebSocketHandler{
 				if(chatroomId.equals(otherChatroom)) {
 					ws.sendMessage(new TextMessage(msg +"님이 채팅방을 나갔습니다."));
 					
-					ChatVo chatVo = new ChatVo();
-					chatVo.setChat_sender("enter");
-					chatVo.setChatroom_id(Integer.parseInt(chatroomId));
-					chatVo.setContent(name);
-					
-					chatService.sendMessage(chatVo);
+//					ChatVo chatVo = new ChatVo();
+//					chatVo.setChat_sender("exit");
+//					chatVo.setChatroom_id(Integer.parseInt(chatroomId));
+//					chatVo.setContent(name+"님이 채팅방을 나갔습니다.");
+//					
+//					chatService.sendMessage(chatVo);
 				}
 				
 			}

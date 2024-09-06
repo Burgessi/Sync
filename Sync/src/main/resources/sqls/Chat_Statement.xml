@@ -147,5 +147,15 @@
 						AND EMP_ID = #{emp_id}
 	</update>
 
+	<!-- 채팅 초대 -->
+	<insert id="inviteToChatRoom">
+		INSERT INTO CHATROOM_PARTICIPANTS cp 
+			(CHATROOM_PARTICIPANTS_ID, CHATROOM_ID,
+					EMP_ID, JOIN_AT)
+		VALUES ( (SELECT COALESCE(MAX(CHATROOM_PARTICIPANTS_ID),0)+1 
+				FROM CHATROOM_PARTICIPANTS), #{chatroom_id},
+					#{emp_id}, CURRENT_DATE)
+	</insert>
+
 
 </mapper>

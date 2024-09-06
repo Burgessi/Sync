@@ -99,7 +99,7 @@
 							</div>
 						</div>
 						<div class="card"
-							style="width: 100%; min-width: 630px; padding: 5px; margin-left: 10px;">
+							style="width: 100%; min-width: 600px; padding: 5px; margin-left: 10px;">
 							<div class="card-header mt-1" style="padding-bottom: 0px;">
 								<h4>주간 일정</h4>
 							</div>
@@ -128,6 +128,7 @@
 
 					<!-- 섹션3 -->
 					<section class="section d-flex" style="height: 500px;">
+
 						<div class="card" style="width: 50%; min-width: 500px; padding: 5px;">
 							<div class="card-header mt-1" style="display: flex; justify-content: space-between; align-items: center;">
 								<h4>공지사항</h4>
@@ -168,9 +169,9 @@
 							</div>
 						</div>
 						<div class="card"
-							style="width: 55%; min-width: 500px; padding: 5px; margin-left: 10px;">
+							style="width: 50%; min-width: 400px; padding: 5px; margin-left: 10px;">
 							<div class="card-header mt-1">
-								<h4>뉴스</h4>
+								<h4>결재현황??!</h4>
 							</div>
 							<div class="card-body">
 								<!--                   컨텐츠 내용 -->

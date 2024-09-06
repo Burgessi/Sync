@@ -34,14 +34,13 @@ public class ChatServiceImpl implements IChatService {
 		//insert후 반환된 chatroom_id 이용하기 - selectKey
 		chatRoomParticipantsVo.setChatroom_id(chatRoomVo.getChatroom_id());
 		
-		int n = 0;
 		//사원수 모두 insert
 		for (String id : empIds) {
 			chatRoomParticipantsVo.setParticipant_id(id);
-			n += dao.participateInChatRoom(chatRoomParticipantsVo);
+			dao.participateInChatRoom(chatRoomParticipantsVo);
 		}
 		
-		return n;
+		return chatRoomVo.getChatroom_id();
 	}
 
 	@Override
@@ -73,6 +72,11 @@ public class ChatServiceImpl implements IChatService {
 	@Override
 	public int exitChatRoom(Map<String, String> info) {
 		return dao.exitChatRoom(info);
+	}
+
+	@Override
+	public int inviteToChatRoom(Map<String, String> info) {
+		return dao.inviteToChatRoom(info);
 	}
 
 }
