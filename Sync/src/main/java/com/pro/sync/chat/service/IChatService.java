@@ -19,4 +19,6 @@ public interface IChatService {
 	public List<ChatVo> getAllChatContent(int chatroom_id);
 	
 	public int exitChatRoom(Map<String, String> info);
+	
+	public int inviteToChatRoom(Map<String, String> info);
 }
