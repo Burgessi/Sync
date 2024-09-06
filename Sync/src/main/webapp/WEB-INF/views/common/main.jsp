@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/main.min.css" rel="stylesheet">
 <html>
 <head>
 <title>SYNC</title>
@@ -54,7 +56,7 @@
 #profile-edit:hover {
 	border: 1px solid #d3d3d3;
 }
-
+/* 게시판 */
 .notice-tag {
 	display: inline-block;
 	padding: 4px 8px;
@@ -67,6 +69,23 @@
 	vertical-align: middle;
 	text-align: center;
 }
+/* 캘린더 */
+ #div-calendar {
+   width: 100%; 
+    max-width: 1000px; 
+    height: 40vh; 
+    max-height: 900px; 
+    margin: 0 auto; 
+    box-sizing: content-box; 
+  }
+    .ko_event{
+  	background: #F78181 !important;
+  	text-align: center !important;
+  	border: none;
+  }
+  .fc-event-time {
+ 	 display: none; /* 시간 표시를 숨김 */
+  }
 </style>
 </head>
 
@@ -105,7 +124,9 @@
 							</div>
 							<div class="card-body">
 								<!--                   컨텐츠 내용 -->
-								<%@ include file="/WEB-INF/views/main-content/main-calendar.jsp"%>
+								<div style="padding: 0px 30px;">
+									<div id='div-calendar'></div>
+								</div>
 							</div>
 						</div>
 					</section>
@@ -145,7 +166,7 @@
 										</tr>
 									</thead>
 									<c:forEach items="${noList}" var="no" varStatus="vs">
-									<c:if test="${vs.index < 9}">
+									<c:if test="${vs.index < 8}">
 										<tbody>
 											<c:set var="bgColor" value="${no.notice_pinbtn eq 'Y' ? '#F2F2F2': '#FFFFFF'}" /> 
 											<tr style="background-color: ${bgColor}"> 
@@ -233,7 +254,11 @@
 	</div>
 
 	<!-- JavaScript code -->
-	<script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.10/index.global.min.js"></script>
+<script type="text/javascript" src="./fullcalendar/packages/core/locales/ko.global.min.js"></script>
+<script>
 //     $(document).ready(function() {
 <%--         <%  --%>
 //             EmployeeVo loginDto = (EmployeeVo) request.getAttribute("loginDto");
@@ -286,6 +311,52 @@
 //             window.location.href = './'; // 로그인 페이지 URL로 변경
 //         });
 //     });
+
+
+var calendar;
+
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('div-calendar');
+
+    if (calendarEl) {
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridWeek',
+            locales: 'ko',
+			events: [
+				<c:forEach items="${sList}" var="sc">
+				<c:if test="${infoDto.team_code == sc.team_code}">
+					{
+				      id: "${sc.scd_no}",
+		              title: "${sc.scd_title}",
+		              start: "${sc.scd_start}",
+		              end: "${sc.scd_end}",
+		              extendedProps: {
+		                team: "${sc.team_code}",
+		                content: "${sc.scd_content}"
+		              }
+		            }
+		            <c:if test="${not empty sc}" >,</c:if>
+		          </c:if>  
+		          </c:forEach>
+			],
+            selectable: true,
+            dayMaxEvents: true,
+            googleCalendarApiKey: 'AIzaSyBx07rpTSuaNl8y6PWEeQNRRkBly-8Y1Nw',
+            eventSources: [
+                {
+                    googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
+                    className: 'ko_event'
+                }
+            ]
+            
+        });
+
+        calendar.render();
+
+    } else {
+        console.error('Element with ID "div-calendar" not found.');
+    }
+});
 </script>
 
 </body>

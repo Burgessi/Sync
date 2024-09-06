@@ -21,6 +21,8 @@ import com.pro.sync.mypage.service.IMypageService;
 import com.pro.sync.mypage.vo.AccountVo;
 import com.pro.sync.notice.service.INoticeService;
 import com.pro.sync.notice.vo.NoticeVo;
+import com.pro.sync.plan.service.IScheduleService;
+import com.pro.sync.plan.vo.ScheduleVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,6 +38,9 @@ public class LoginController {
 	
 	@Autowired
 	private INoticeService nservice;
+	
+	@Autowired
+	private IScheduleService sService;
 	
 
 	// 로그인
@@ -109,8 +114,11 @@ public class LoginController {
 	@GetMapping("/main.do")
 	public String getMain(Model model) {
 		List<NoticeVo> noList = nservice.mainNotice();
+		List<ScheduleVo> sList = sService.selectScd();
 		model.addAttribute("noList", noList);
+		model.addAttribute("sList", sList);
 		log.info("noList : {}",noList);
+		log.info("sList : {}",sList);
 		return "/common/main";
 	}
 	
