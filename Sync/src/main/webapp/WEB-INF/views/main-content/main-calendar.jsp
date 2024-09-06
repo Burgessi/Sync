@@ -19,7 +19,7 @@
    width: 100%; 
     max-width: 1000px; 
     height: 45vh; 
-    max-height: 900px; 
+    max-height: 380px; 
     margin: 0 auto; 
     box-sizing: content-box; 
   }
