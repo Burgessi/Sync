@@ -1,40 +1,122 @@
 
 .enterChat {
-    background-color: #f0f8ff; /* 연한 파란색 배경 */
-    border-left: 5px solid #007bff; /* 왼쪽에 파란색 선 */
-    padding: 10px;
-    margin: 5px 0; /* 상하 여백 */
-    border-radius: 5px; /* 둥근 모서리 */
-    font-size: 14px;
-    color: #333; /* 텍스트 색상 */
-    font-weight: bold; /* 텍스트 굵게 */
+   background-color: #eceff1; /* 연한 회색 배경 */
+  border-left: 5px solid #1e88e5; /* 왼쪽에 네이비 블루 선 */
+  padding: 12px;
+  margin: 8px 0; /* 상하 여백 */
+  border-radius: 10px; /* 둥근 모서리 */
+  font-size: 15px;
+  color: #1e88e5; /* 네이비 블루 텍스트 */
+  font-weight: 600; /* 텍스트 굵게 */
+  display: flex; /* 플렉스 박스 설정 */
+  align-items: center; /* 수직 정렬 */
+  position: relative; /* 상대 위치 설정 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 미세한 그림자 효과 */
 }
 
 .exitChat {
-    background-color: #ffebee; /* 연한 핑크색 배경 */
-    border-left: 5px solid #f44336; /* 왼쪽에 붉은색 선 */
-    padding: 10px;
-    margin: 5px 0; /* 상하 여백 */
-    border-radius: 5px; /* 둥근 모서리 */
-    font-size: 14px;
-    color: #333; /* 텍스트 색상 */
-    font-weight: bold; /* 텍스트 굵게 */
-    text-align: center; /* 텍스트 중앙 정렬 */
+	 background-color: #ffebee; /* 연한 붉은색 배경 */
+  border-left: 5px solid #e57373; /* 왼쪽에 밝은 붉은색 선 */
+  padding: 12px;
+  margin: 8px 0; /* 상하 여백 */
+  border-radius: 10px; /* 둥근 모서리 */
+  font-size: 15px;
+  color: #c62828; /* 다크 붉은색 텍스트 */
+  font-weight: 600; /* 텍스트 굵게 */
+  display: flex; /* 플렉스 박스 설정 */
+  align-items: center; /* 수직 정렬 */
+  position: relative; /* 상대 위치 설정 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 미세한 그림자 효과 */
+	
+	
+/*     background-color: #ffebee; 연한 핑크색 배경 */
+/*     border-left: 5px solid #f44336; 왼쪽에 붉은색 선 */
+/*     padding: 10px; */
+/*     margin: 5px 0; 상하 여백 */
+/*     border-radius: 5px; 둥근 모서리 */
+/*     font-size: 14px; */
+/*     color: #333; 텍스트 색상 */
+/*     font-weight: bold; 텍스트 굵게 */
+/*     text-align: center; 텍스트 중앙 정렬 */
 }
 
 .container{max-width:1170px; margin:auto;}
+
 img{ max-width:100%;}
+
+
+.mesgs {
+  float: left;
+  padding: 30px 15px 0 25px;
+  width: 65%;
+  
+  background-color: #ffffff; /* 깔끔한 흰색 배경 */
+  border-radius: 12px; /* 약간의 둥근 테두리 */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+  transition: all 0.3s ease; /* 부드러운 전환 */
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #333; /* 깊은 회색 텍스트 */
+  border: 1px solid #e8e8e8; /* 라이트 그레이 테두리 */
+  
+}
+
+.mesgs:hover{
+	transform: translateY(-5px); /* 살짝 위로 뜨는 효과 */
+	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15); /* 깊은 그림자 */
+	background-color: #f8f8f8; /* 살짝 톤다운된 흰색 */
+}
+
 .inbox_people {
   background: #f8f8f8 none repeat scroll 0 0;
   float: left;
   overflow: hidden;
   width: 35%; border-right:1px solid #c4c4c4;
+  
+display: flex;
+  flex-direction: column;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #ffffff; /* 깔끔한 흰색 배경 */
+  border-radius: 12px; /* 약간의 둥근 테두리 */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+  transition: all 0.3s ease; /* 부드러운 전환 */
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #333; /* 깊은 회색 텍스트 */
+  border: 1px solid #e8e8e8; /* 라이트 그레이 테두리 */
+  position: relative;
+  
 }
+
+
+.inbox_people:hover{
+	transform: translateY(-5px); /* 살짝 위로 뜨는 효과 */
+	  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15); /* 깊은 그림자 */
+	  background-color: #f8f8f8; /* 살짝 톤다운된 흰색 */
+}
+
 .inbox_msg {
-  border: 1px solid #c4c4c4;
-  clear: both;
-  overflow: hidden;
+/*   border: 1px solid #c4c4c4; */
+/*   clear: both; */
+/*   overflow: hidden; */
+  
+  
+/*    display: flex; */
+/*   flex-direction: column; */
+  width: 100%;
+/*   max-width: 800px; */
+  margin: 0 auto; /* 중앙 정렬 */
+  padding: 20px;
+  background-color: #ffffff; /* 깔끔한 흰색 배경 */
+  border-radius: 12px; /* 약간의 둥근 테두리 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+  
 }
+
+
+
 .top_spac{ margin: 20px 0 0;}
 
 
@@ -44,7 +126,10 @@ img{ max-width:100%;}
   text-align: right;
   width: 60%;
 }
-.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+.headind_srch{ 
+	padding:10px 29px 10px 20px; 
+	overflow:hidden; 
+}
 
 .recent_heading h4 {
   color: #05728f;
@@ -76,15 +161,51 @@ img{ max-width:100%;}
 
 .chat_people{ overflow:hidden; clear:both;}
 
+.active_chat{ 
+	 background-color: #19bead; /* 눌렸을 때 조금 더 진한 녹청색 */
+    transform: translateY(0); /* 다시 원래 위치로 */
+    box-shadow: 0 3px 6px rgba(0, 137, 123, 0.3); /* 클릭 시 그림자 약화 */
+}
+
+.active_chat p, .active_chat h5 {
+	color: #ffffff;
+}
+
+
+.chat_list:hover::before{
+	content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2); /* 살짝 비치는 네온 효과 */
+	}
+
 .chat_list:hover{
-	background: #e0e0e0;
+	background-color: #00BFA5; /* 트렌디한 민트색 배경 */
+    color: #ffffff; /* 흰색 텍스트 */
+    transform: translateY(-5px); /* 살짝 위로 뜨는 효과 */
+    box-shadow: 0 6px 12px rgba(0, 191, 165, 0.3); /* 더 깊은 그림자 */
+    border: 1px solid #00BFA5; /* 테두리와 색상 일치 */
+}
+
+.chat_list:hover p , .chat_list:hover h5{
+	color: #ffffff;
 }
 
 .chat_list {
-  border-bottom: 1px solid #c4c4c4;
-  margin: 0;
-  padding: 18px 16px 10px;
-  cursor: pointer;
+  	padding: 15px;
+    margin-bottom: 10px;
+    background-color: #ffffff; /* 깔끔한 흰색 배경 */
+    border-radius: 10px;
+    transition: all 0.3s ease; /* 부드러운 전환 */
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    color: #555; /* 부드러운 회색 텍스트 */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* 미묘한 그림자 */
+    border: 1px solid #e0e0e0; /* 라이트 그레이 테두리 */
 }
 
 .chat_sender_name{
@@ -93,87 +214,239 @@ img{ max-width:100%;}
 }
 
 
-.inbox_chat { height: 550px; overflow-y: scroll;}
-
-.active_chat{ background:#e0e0e0;}
-
-.incoming_msg{
-	margin:10px;
-	margin-bottom: 15px;
+.inbox_chat { 
 	
+height: 521px; 
+overflow-y: scroll;
+display: flex;
+  flex-direction: column;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #ffffff; /* 깔끔한 흰색 배경 */
+  border-radius: 12px; /* 약간의 둥근 테두리 */
+  transition: all 0.3s ease; /* 부드러운 전환 */
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #333; /* 깊은 회색 텍스트 */
+  border: 1px solid #e8e8e8; /* 라이트 그레이 테두리 */
+  position: relative;
+
 }
 
+.inbox_chat::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+}
+
+.inbox_chat::-webkit-scrollbar-thumb {
+  background-color: #00BFA5; /* 스크롤바 색상 */
+  border-radius: 8px; /* 둥근 스크롤바 */
+}
+
+.inbox_chat::-webkit-scrollbar-track {
+  background-color: #e8e8e8; /* 스크롤바 트랙 색상 */
+  border-radius: 8px; /* 둥근 스크롤바 트랙 */
+}
+
+.inbox_chat p, .inbox_chat h5 {
+  color: #444; /* 기본 텍스트 색상 */
+}
+
+.inbox_chat p, .inbox_chat h5 {
+  color: #000000; /* 호버 시 더 깊은 색상으로 변환 */
+}
+
+
+
+
+.incoming_msg {
+  display: flex;
+  align-items: flex-start; /* 이미지와 메시지의 정렬 */
+  margin: 8px 0;
+}
+
+/* 프로필 이미지 스타일 */
 .incoming_msg_img {
-  display: inline-block;
-  width: 6%;
-}
-.received_msg {
-  display: inline-block;
-  padding: 0 0 0 10px;
-  vertical-align: top;
-  width: 92%;
- }
- .received_withd_msg p {
-  background: #ebebeb none repeat scroll 0 0;
-  border-radius: 3px;
-  color: #646464;
-  font-size: 14px;
-  margin: 0;
-  padding: 5px 10px 5px 12px;
-  width: 100%;
-}
-.time_date {
-  color: #747474;
-  display: block;
-  font-size: 12px;
-  margin: 8px 0 0;
-}
-.received_withd_msg { width: 57%;}
-.mesgs {
-  float: left;
-  padding: 30px 15px 0 25px;
-  width: 65%;
+  margin-right: 10px; /* 이미지와 메시지 사이의 간격 */
 }
 
- .sent_msg p {
-  background: #05728f none repeat scroll 0 0;
-  border-radius: 3px;
-  font-size: 14px;
-  margin: 0; color:#fff;
-  padding: 5px 10px 5px 12px;
-  width:100%;
+.incoming_msg_img img {
+  width: 40px; /* 이미지 크기 */
+  height: 40px; /* 이미지 크기 */
+  border-radius: 50%; /* 원형 이미지 */
+  object-fit: cover; /* 이미지 비율 유지 */
 }
-.outgoing_msg{ overflow:hidden; margin:8px 0 8px;}
+
+/* 받은 메시지 박스 스타일 */
+.received_msg {
+  max-width: 65%; /* 최대 너비 설정 */
+  
+}
+
+/* 메시지 내용 스타일 */
+.received_withd_msg {
+  position: relative;
+}
+
+.received_withd_msg .chat_sender_name {
+  display: block;
+  font-weight: bold; /* 이름 굵게 */
+  color: #464646; /* 진한 회색 텍스트 */
+  margin-bottom: 5px; /* 메시지와의 간격 */
+}
+
+.received_withd_msg p {
+  margin: 0; /* 기본 마진 제거 */
+  font-size: 14px; /* 메시지 폰트 크기 */
+  color: #333; /* 깊은 회색 텍스트 */
+  padding: 10px;
+  background-color: #ebebeb; /* 연한 회색 배경 */
+  border-radius: 12px; /* 둥근 모서리 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 미세한 그림자 */
+}
+
+/* 메시지 시간 스타일 */
+.received_withd_msg .time_date {
+  color: #747474; /* 중간 회색 텍스트 */
+  font-size: 12px;
+  margin-top: 5px;
+  text-align: right; /* 오른쪽 정렬 */
+  display: block;
+}
+
+
+
+
 .sent_msg {
   float: right;
-  width: 46%;
-  padding: 5px 10px 5px 12px;
+  width: auto;
+  margin: 8px 0;
+  max-width: 65%; /* 메시지의 최대 너비 설정 */
+  position: relative;
+  margin-right: 10px;
 }
+
+.sent_msg span:first-child {
+  display: block;
+  font-weight: bold; /* 이름 굵게 */
+  color: #ffffff; /* 흰색 텍스트 */
+  margin-bottom: 5px; /* 메시지와의 간격 */
+}
+
+
+.sent_msg p {
+   margin: 0; /* 기본 마진 제거 */
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 미세한 그림자 */
+   padding: 10px;
+  background-color: #00BFA5; /* 트렌디한 민트색 배경 */
+  border-radius: 12px; /* 둥근 모서리 */
+  color: #ffffff; /* 흰색 텍스트 */
+  font-size: 14px;
+  word-break: break-word; /* 긴 단어 줄바꿈 */
+}
+
+.sent_msg .time_date {
+  color: #919191; 
+  font-size: 12px;
+  margin-top: 5px;
+  text-align: right; /* 오른쪽 정렬 */
+  display: block;
+}
+
+
+.outgoing_msg{ overflow:hidden; margin:8px 0 8px;}
+
+
+
+.input_msg_write{
+  position: relative;
+  padding: 10px;
+  background-color: #ffffff; /* 흰색 배경 */
+  border-radius: 8px; /* 둥근 모서리 */
+}
+
+
 .input_msg_write input {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: medium none;
-  color: #4c4c4c;
-  font-size: 15px;
-  min-height: 48px;
-  width: 100%;
+   width: calc(100% - 50px); /* 버튼을 제외한 전체 너비 */
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 12px;
+  color: #333; /* 깊은 회색 텍스트 */
+  background-color: #f9f9f9; /* 채팅 메시지 영역과 같은 배경색 */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 미세한 그림자 */
+  transition: background-color 0.3s ease; /* 부드러운 배경 색상 전환 */
 }
+
+.input_msg_write input:focus {
+  outline: none; /* 포커스 시 외곽선 제거 */
+  background-color: #ffffff; /* 포커스 시 흰색 배경 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 포커스 시 그림자 강조 */
+}
+
 
 .type_msg {border-top: 1px solid #c4c4c4;position: relative;}
 .msg_send_btn {
-  background: #05728f none repeat scroll 0 0;
-  border: medium none;
+  background: #00BFA5; /* 버튼 배경색 */
+  border: none;
   border-radius: 50%;
   color: #fff;
   cursor: pointer;
   font-size: 17px;
   height: 33px;
+  width: 33px;
   position: absolute;
   right: 10px;
-  top: 8px;
-  width: 33px;
+  top: 50%;
+  transform: translateY(-50%); /* 버튼 수직 중앙 정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease; /* 부드러운 배경 색상 전환 */
 }
+.msg_send_btn:hover {
+  background: #019a8e; /* 버튼 호버 시 색상 변경 */
+}
+
+.msg_send_btn:focus {
+  outline: none; /* 포커스 시 외곽선 제거 */
+}
+
+
 .messaging { padding: 0 0 50px 0;}
 .msg_history {
   height: 485px;
   overflow-y: auto;
 }
+
+
+#dropdownMenu1::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+}
+
+#dropdownMenu1::-webkit-scrollbar-thumb {
+  background-color: #00BFA5; /* 스크롤바 색상 */
+  border-radius: 8px; /* 둥근 스크롤바 */
+}
+
+#dropdownMenu1::-webkit-scrollbar-track {
+  background-color: #e8e8e8; /* 스크롤바 트랙 색상 */
+  border-radius: 8px; /* 둥근 스크롤바 트랙 */
+}
+
+
+/* 스크롤바 스타일 */
+.msg_history::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+}
+
+.msg_history::-webkit-scrollbar-thumb {
+  background-color: #00BFA5; /* 스크롤바 색상 */
+  border-radius: 8px; /* 둥근 스크롤바 */
+}
+
+.msg_history::-webkit-scrollbar-track {
+  background-color: #e8e8e8; /* 스크롤바 트랙 색상 */
+  border-radius: 8px; /* 둥근 스크롤바 트랙 */
+}
+
+

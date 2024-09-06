@@ -55,4 +55,9 @@ public class ChatDaoImpl implements IChatDao {
 		return sessionTemplate.update(NS+"exitChatRoom", info);
 	}
 
+	@Override
+	public int inviteToChatRoom(Map<String, String> info) {
+		return sessionTemplate.update(NS+"inviteToChatRoom", info);
+	}
+
 }

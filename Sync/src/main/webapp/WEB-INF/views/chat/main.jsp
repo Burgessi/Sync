@@ -9,12 +9,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>채팅</title>
+<!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- jstree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<!-- font -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"/>
+<!-- sweetalert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet">
+<!-- bootstrap -->
 <link rel="stylesheet" href="${root}/resources/vendors/bootstrap-icons/bootstrap-icons.css" />
 <link rel="stylesheet" href="${root}/resources/css/common/app.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
@@ -35,10 +40,13 @@
 }
 
 .chat-input{
-	font: 0.8em sans-serif;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
+	width: 100%;
+  padding: 10px;
+  border-radius: 8px; /* 둥근 모서리 */
+  border: 1px solid #b0bec5; /* 더 진한 회색 테두리 */
+  font-size: 14px;
+  background-color: #ffffff; /* 흰색 배경 */
+ }
 
 
 #RecipientProfile{
@@ -49,15 +57,27 @@
 
 /* 사이드바 스타일 */
 .sidebar {
-    height: 100%;
     width: 400px; /* 사이드바 너비 */
-    position: fixed;
-    top: 0;
-    background-color: #B0B7C0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: 0.3s; /* 부드러운 애니메이션 효과 */
-    z-index: 1050; /* 다른 요소보다 위에 위치 */
+  	position: fixed; 
+    top: 30px;
+    border-radius: 20px; 
+/* 	background-color: #B0B7C0; */
+/*  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);    */
+    transition: 0.3s;*     
+    z-index: 1050; 
+    
+    background-color: #d0e3f0; /* 조금 더 진한 블루 회색 배경 */
+ 	border-right: 1px solid #b0bec5; /* 오른쪽에 진한 블루 회색 선 */
+/*   padding: 20px; /* 패딩 */ */
+/*   height: 100vh; /* 전체 높이 */ */
+  	display: flex;
+  	flex-direction: column; /* 세로로 정렬 */
+  	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    
 }
+
+
+
 
 /* 첫 번째 사이드바 위치 */
 .sidebar1 {
@@ -68,9 +88,19 @@
 .sidebar2 {
     left: 400px; /* 첫 번째 사이드바 너비만큼 오른쪽으로 이동 */
     width: 300px; /* 두 번째 사이드바 너비 */
-    background-color: #D0D7E0; /* 두 번째 사이드바 배경색 */
     display: none; /* 기본적으로 숨김 */
+    background-color: #f5f5f5; /* 밝은 회색 배경 */
+  	border-left: 1px solid #e0e0e0; /* 왼쪽에 연한 회색 선 */
+  	box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2); /* 진한 그림자 */
 }
+
+.sidebar2-invite{
+	left: 50%;
+	cursor: move;
+}
+
+
+
 
 /* 사이드바를 열 때의 위치 */
 .sidebar1.open {
@@ -101,9 +131,15 @@
 
 /* 사이드바 제목 스타일 */
 .sidebar-title {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-weight: bold;
+/*     margin-top: 20px; */
+/*     margin-bottom: 20px; */
+/*     font-weight: bold; */
+    
+     font-size: 18px;
+  color: #2c3e50; /* 더 진한 네이비 블루 텍스트 */
+  margin-bottom: 20px; /* 제목 아래 여백 */
+  font-weight: 700; /* 굵은 글씨 */
+    
 }
 
 /* 사이드바 내용 스타일 */
@@ -168,59 +204,66 @@
 
 
 .chat-btn {
-    background: linear-gradient(135deg, #6c5b7b, #c06c84); /* 부드러운 그라데이션 배경 */
-    border: none;
-    color: white;
-    padding: 15px 30px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 50px; /* 라운드 처리된 모서리 */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* 부드러운 그림자 */
-    transition: all 0.3s ease; /* 애니메이션 */
-    cursor: pointer;
-    outline: none;
+    background-color: #0288d1; /* 기본 진한 블루 배경 */
+  color: #ffffff; /* 흰색 텍스트 */
+  border: none;
+  border-radius: 8px; /* 둥근 모서리 */
+  padding: 12px 20px; /* 여백 추가 */
+  font-size: 16px;
+  font-weight: 500; /* 보통 굵기 */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* 부드러운 전환 효과 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 진한 그림자 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  display: inline-flex; /* 아이콘과 텍스트 정렬을 위한 플렉스 박스 */
+  align-items: center; /* 수직 정렬 */
 }
 
 /* 호버 효과 */
 .chat-btn:hover {
-    background: linear-gradient(135deg, #c06c84, #6c5b7b); /* 그라데이션 반전 */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
-    transform: translateY(-3px); /* 살짝 위로 이동 */
+    background-color: #0277bd; /* 더 진한 블루 배경 */
+  transform: translateY(-2px); /* 살짝 위로 이동 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 더 깊은 그림자 */
 }
 
-/* 버튼 클릭 시 효과 */
-.chat-btn:active {
-    transform: translateY(0); /* 클릭 시 원래 위치로 */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* 그림자 원상 복귀 */
+/* 버튼 비활성화 상태 */
+.sidebar .button:disabled {
+  background-color: #b0bec5; /* 비활성화된 버튼 배경 */
+  color: #ffffff; /* 흰색 텍스트 */
+  cursor: not-allowed; /* 커서 모양 변경 */
+  box-shadow: none; /* 그림자 제거 */
 }
 
-.add-recipient-btn {
-    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* 부드러운 그라데이션 배경 */
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 30px; /* 라운드 처리된 모서리 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
-    transition: all 0.3s ease; /* 애니메이션 */
-    cursor: pointer;
-    outline: none;
-    text-transform: uppercase; /* 대문자 변환 */
-    letter-spacing: 1px; /* 문자 간격 */
+
+
+.add-recipient-btn, .invite-btn {
+    background-color: #424242; /* 진한 회색 배경 */
+  color: #ffffff; /* 흰색 텍스트 */
+  border: none;
+  border-radius: 8px; /* 둥근 모서리 */
+  padding: 12px 20px; /* 여백 추가 */
+  font-size: 16px;
+  font-weight: 500; /* 보통 굵기 */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* 부드러운 전환 효과 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  display: inline-flex; /* 아이콘과 텍스트 정렬을 위한 플렉스 박스 */
+  align-items: center; /* 수직 정렬 */
 }
 
-/* 호버 효과 */
 .add-recipient-btn:hover {
-    background: linear-gradient(135deg, #feb47b, #ff7e5f); /* 그라데이션 반전 */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
-    transform: translateY(-3px); /* 살짝 위로 이동 */
+  background-color: #333333; /* 더 진한 회색 배경 */
+  transform: translateY(-2px); /* 살짝 위로 이동 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 더 깊은 그림자 */
 }
 
-/* 버튼 클릭 시 효과 */
-.add-recipient-btn:active {
-    transform: translateY(0); /* 클릭 시 원래 위치로 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 원상 복귀 */
+/* 두 번째 사이드바 버튼 비활성화 상태 */
+.add-recipient-btn:disabled {
+  background-color: #e0e0e0; /* 비활성화된 버튼 배경 */
+  color: #ffffff; /* 흰색 텍스트 */
+  cursor: not-allowed; /* 커서 모양 변경 */
+  box-shadow: none; /* 그림자 제거 */
 }
 
 #dropdownButton2,#dropdownButton1 {
@@ -258,6 +301,102 @@
 }
 
 
+.employeeTree{
+	background-color: #ffffff; /* 흰색 배경 */
+  border-radius: 8px; /* 둥근 모서리 */
+  padding: 15px; /* 패딩 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  border: 1px solid #e0e0e0; /* 연한 회색 테두리 */
+  overflow-y: auto; /* 세로 스크롤 */
+}
+
+
+/* jstree 기본 스타일 */
+.jstree {
+  font-family: 'Arial', sans-serif; /* 폰트 설정 */
+  font-size: 11px; /* 폰트 크기 */
+  color: #333; /* 텍스트 색상 */
+}
+
+/* jstree 노드 스타일 */
+.jstree-node {
+  border-radius: 6px; /* 둥근 모서리 */
+  margin-bottom: 6px; /* 항목 간 여백 */
+  transition: background-color 0.3s ease, color 0.3s ease; /* 부드러운 전환 */
+  align-items: center; /* 수직 정렬 */
+}
+
+
+/* jstree 활성화 노드 스타일 */
+.jstree-node .jstree-clicked {
+  color: #424242; /* 진한 회색 텍스트 */
+  border-left: 5px solid #757575; /* 왼쪽에 더 진한 회색 선 */
+  font-weight: 600; /* 굵은 글씨 */
+  background-color: #b0bec5;
+}
+
+
+/* jstree 선택된 노드 강조 스타일 */
+.jstree-clicked {
+  background-color: #b0bec5; /* 아주 연한 파란색 배경 */
+  color: #01579b; /* 더 진한 파란색 텍스트 */
+}
+
+
+
+/* 체크박스 컨테이너 */
+.jstree-checkbox {
+  position: relative; /* 위치 조정을 위한 상대 위치 설정 */
+  margin-right: 20px; /* 체크박스와 노드 간격 조정 */
+}
+
+/* 체크박스 스타일 */
+.jstree-checkbox input[type="checkbox"] {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  appearance: none; /* 기본 체크박스 스타일 제거 */
+  background-color: #ffffff; /* 체크박스 기본 배경색 */
+  border: 2px solid #b0bec5; /* 체크박스 테두리 색상 */
+  border-radius: 4px; /* 둥근 모서리 */
+  cursor: pointer; /* 클릭 가능한 커서 */
+}
+
+/* 체크박스가 체크된 상태 스타일 */
+.jstree-checkbox input[type="checkbox"]:checked {
+  background-color: #1e88e5; /* 체크된 배경 색상 */
+  border-color: #1e88e5; /* 체크된 테두리 색상 */
+}
+
+/* 체크박스 체크 아이콘 */
+.jstree-checkbox input[type="checkbox"]:checked::before {
+  content: ''; /* 아이콘 내용 초기화 */
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBkPSJNMTAsMEwgMTAsMTYiIHN0cm9rZT0iI0ZGRiIgLz4KPC9zdmc+'); /* 체크 아이콘 */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px 10px;
+}
+
+/* 체크박스에 마우스를 올렸을 때 스타일 */
+.jstree-checkbox input[type="checkbox"]:hover {
+  border-color: #1e88e5; /* 마우스 오버 시 테두리 색상 */
+}
+
+/* 체크박스 비활성화 상태 스타일 */
+.jstree-checkbox input[type="checkbox"]:disabled {
+  background-color: #e0e0e0; /* 비활성화 배경 색상 */
+  border-color: #b0bec5; /* 비활성화 테두리 색상 */
+  cursor: not-allowed; /* 클릭 불가능 커서 */
+}
+
+
+
 </style>
 </head>
 <body>
@@ -292,7 +431,17 @@
 				                </div>
 				                <div class="chat_ib">
 				                  <h5>${list.chatroom_name}<span class="chat_date">${list.latest_message_sent_at}</span></h5>
-				                  <p>${list.latest_message_content}</p>
+				                  <c:set var="content" value="${list.latest_message_content}"/>
+				                  <c:choose>
+				                  	<c:when test="${fn:length(content) > 15}"> <!-- 15글자 이상 -->
+				                  		<p class="latest_message_content">${fn:substring(content,0,15)} ......</p>
+				                  	</c:when>
+				                  	<c:otherwise>
+				                  		<p class="latest_message_content">${content}</p>
+				                  	</c:otherwise>
+				                  </c:choose>
+				                  
+				                  <input type="hidden" class="list_chatroom_id" value="${list.chatroom_id}">
 				                </div>
 				              </div>
 				            </div>
@@ -329,10 +478,9 @@
         		</button>
         		
         		 <div id="dropdownMenu2" class="dropdown-content" style="display: none; position: absolute; right: 0; top: 35px; background-color: white; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1;">
-		            <div style="border-bottom: 1px solid #e0e0e0; display: flex; align-items: center;"><img src="${root}/resources/img/userplus.png" style="width: 22px; height: 22px; margin-left: 10px;"><a href="#" style="font: 0.9em sans-serif; font-weight: bold;">초대</a></div>
+		            <div style="border-bottom: 1px solid #e0e0e0; display: flex; align-items: center;"><img src="${root}/resources/img/userplus.png" style="width: 22px; height: 22px; margin-left: 10px;"><a href="#" style="font: 0.9em sans-serif; font-weight: bold;" onclick="inviteToChatRoom()">초대</a></div>
 		            <div style="border-bottom: 1px solid #e0e0e0; display: flex; align-items: center;"><img src="${root}/resources/img/exit.png" style="width: 19px; height: 19px; margin-left: 10px;"><a href="#" onclick="exitChatRoom()" style="font: 0.9em sans-serif; font-weight: bold;">나가기</a></div>
 		        </div>
-        		
         	</div>
           <div class="msg_history">
           	<!-- 채팅내용 -->
@@ -375,7 +523,7 @@
     
    </div>
 </div>
- <!-- 첫 번째 사이드바 -->
+ <!-- 첫 번째 사이드바  채팅방 생성/추가된 사원목록 -->
  <form id="createChatRoomForm">
     <div id="mySidebar1" class="sidebar sidebar1">
         <div class="sidebar-content rounded-4 shadow">
@@ -431,255 +579,17 @@
             <button type="button" class="btn-close text-white" id="closeSidebar2">
                 <img alt="" src="${root}/resources/img/approval_img/xIcon.png">
             </button>
-            <h5 class="sidebar-title">대화상대 추가	</h5>
-            <div id="employeeList" style="width: 90%; height: 400px; overflow: auto; margin: 5px auto;"></div>
+            <h5 class="sidebar-title"></h5>
+            <div class="employeeTree">
+            	<div id="employeeList" style="width: 90%; height: 400px; overflow: auto; margin: 5px auto;"></div>
+            </div>
             <div style="width: 200px; margin: 5px auto; text-align: center;">
-            	<button class="add-recipient-btn">대화상대 추가</button>
+            	<button class="add-recipient-btn">추가</button>
+            	<button class="invite-btn">초대</button>
             </div>
         </div>
     </div>
 
-<!-- 채팅방 생성 -->
-<!-- <div class="modal fade" tabindex="-1" role="dialog" id="chatRoomModal"> -->
-<!-- 			 <div class="modal-dialog modal-dialog-centered" role="document"> -->
-<!-- 				 <div class="modal-content rounded-4 shadow"> -->
-<!-- 						<div class="modal-header p-5 pb-4 border-bottom-0"> -->
-<!-- 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-<!-- 						</div> -->
-<!-- 						<div class="modal-body p-5 pt-0"> -->
-<!-- 							<input type="text" class="form-control chat-input" placeholder="채팅방 이름을 입력해주세요.">		 -->
-<!-- 						</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- </div> -->
-
-
-
-
-<!-- <!-- 채팅방 생성시 사원목록 --> 
-<!-- <div class="modal fade" tabindex="-1" role="dialog" id="chatEmployeeModal"> -->
-<!--     <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> -->
-<!--         <div class="modal-content rounded-4 shadow"> -->
-<!--             <div class="modal-header p-5 pb-4 border-bottom-0"> -->
-<!--                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-<!--             </div> -->
-<!--             <div class="modal-body p-5 pt-0"> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
-<!-- </div> -->
-
-
-
-
-<!-- <!-- 채팅방 생성시 사원목록 -->
-<!-- <div class="modal fade" tabindex="-1" role="dialog" id="chatEmployeeModal"> -->
-<!-- 			 <div class="modal-dialog modal-dialog-centered" role="document"> -->
-<!-- 				 <div class="modal-content rounded-4 shadow"> -->
-<!-- 						<div class="modal-header p-5 pb-4 border-bottom-0"> -->
-<!-- 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-<!-- 						</div> -->
-<!-- 						<div class="modal-body p-5 pt-0"> -->
-							
-<!-- 							<div class="row"> -->
-<!-- 								<div class="col-md-6" style="font-weight: bold; font: 0.7em sans-serif; height: 500px; overflow:auto;"> -->
-<!-- 									<h4 class="fw-bold mb-0 fs-4">사원목록</h4> -->
-<!-- 									목록출력 부분 -->
-<!-- 									<div id="employeeList"> -->
-									
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="col-md-6" style="text-align: center; font-weight: bold;"> -->
-<!-- 								<h4 class="fw-bold mb-0 fs-4">받는사람 목록</h4> -->
-<!-- 									</div> -->
-<!-- 							</div> -->
-							
-													
-<!-- 						</div> -->
-						
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- </div> -->
-
-
-
 
 </body>
-<script type="text/javascript">
-
-	
-
-
-	$(document).ready(function(){
-		//조직도 jsTree
-		
-		// 서버에 데이터 요청
-		$.ajax({
-		   	type : "POST",
-		   	url : 'http://localhost:8080/Sync/approval/approvalJstree.do',
-		   	success: function(data){
-		   		var url = location.href;
-			        menu_json = data;
-			        CreateJSTrees(data);
-		    }
-		});
-		
-		// 서버에서 가져온 데이터로 JSTree 만듦
-		function CreateJSTrees(data){
-//				console.log('22');
-//				console.log(menu_json);
-			console.log(data);
-			
-			$('#employeeList').jstree({
-				  'core' : {
-				    'data' : menu_json,
-				    
-				    "check_callback" : true
-				
-				  },
-				  'checkbox' : {
-				        'three_state': false
-				    },
-				  "search": {
-				        "show_only_matches": true,
-				        "show_only_matches_children": true
-				   },
-				   "themes" : {
-			            "responsive": true
-			        },
-				  "plugins" : ["search", "checkbox"],
-				 
-			});
-			
-			
-			
-		}
-		
-		
-		// 검색 상자
-		var to = false;
-		$('#treeSearchInput').keyup(function () {
-		    if(to) { clearTimeout(to); }
-		    to = setTimeout(function () {
-		        var v = $('#treeSearchInput').val();
-		        $('#employeeList').jstree(true).search(v);
-		    }, 250);
-		});
-		
-		
-		
-		// 서버에 값 보낼때 필요하기 때문에 전역변수로
-		var selectedNodes = "";
-		var nodeIds = [];
-		
-		// 체크박스 선택 값 담기 -> 체크 변할때마다
-		// 결재선이 선택될때마다 변경 이벤트
-		 $('#employeeList').on("changed.jstree", function (e, data) {
-//	 		 console.log($('#tree').jstree("get_selected", true));
-//	 		 console.log($('#tree').jstree("get_checked", true));
-			 
-			 //현재 선택된 모든 노드
-	         selectedNodes = $('#employeeList').jstree("get_selected", true);
-			 console.log(selectedNodes);
-			 
-		 });
-		
-		 
-		 $('.add-recipient-btn').on('click', function() {
-			    
-			 // 선택된 jstree 노드
-// 			    console.log(selectedNodes);
-// 			    console.log(selectedNodes[0].original.text);
-			    
-			    
-		        var duplicateChk = "N";
-			    
-			    //목록에 추가 되어있는 empid 배열로 담기
-			    var empIds = $("input[name=emp_id]").map(function() {
-			        return $(this).val();
-			    }).get();
-			    console.log(empIds);
-		        
-			    selectedNodes.forEach(function(node) {
-			    	if(empIds.includes(node.id)){
-			    		duplicateChk = "Y";
-			    	}
-			    });
-			    
-			    
-			    if(duplicateChk == "Y"){
-		    		alert("목록에 존재합니다.");
-		    		 $('#employeeList').jstree(true).deselect_all();
-		    		return;
-		    	}
-			    
-			    
-			    
-// 			    // 선택된 노드 반복해서 append하기
-			    selectedNodes.forEach(function(node) {
-			    	
-			    	
-			    	var newChatRecipient = 
-			    	    '<div id="chatRecipient">' +
-			    	        '<div id="chatRecipientProfile">' +
-			    	            '<img id="RecipientProfile" src="${root}/resources/img/구름이.png">' +
-			    	        '</div>' +
-			    	        '<div id="chatRecipientName">' +
-			    	            '<h5>' + node.original.text + '</h5>' +
-			    	            '<input type="hidden" name="emp_id" value="'+ node.id +'">' + 
-			    	        '</div>' +
-			    	        '<div id="chatRecipientRank">' +
-			    	            '<h5>' + node.original.rank + '</h5>' +
-			    	        '</div>' +
-			    	        '<span style="margin: 0; margin-left: 8px;">-</span>' +
-			    	        '<div id="chatRecipientTeam">' +
-			    	            '<h5>' + node.original.team + '</h5>' +
-			    	        '</div>' +
-			    	        
-			    	        '<div>' +
-    						'<button type="button" class="removeParticipant" style="border: none; background: none;">'+
-    							'<img src="${root}/resources/img/approval_img/minus.png">'+
-    						'</button>'+
-    						'</div>'+
-			    	        
-			    	    '</div>';
-			        
-			        // 생성된 HTML을 chatRecipientList에 추가
-			        $("#chatRecipientList").append(newChatRecipient);
-			        $('#employeeList').jstree(true).deselect_all();
-			        
-			        
-			    });
-			
-			
-			
-			
-		});
-		
-		
-		
-	})
-	
-// 첫 번째 사이드바 열기
-document.getElementById('openSidebar1').addEventListener('click', function() {
-    document.getElementById('mySidebar1').classList.add('open');
-});
-
-// 첫 번째 사이드바 닫기
-document.getElementById('closeSidebar1').addEventListener('click', function() {
-    document.getElementById('mySidebar1').classList.remove('open');
-    document.getElementById('mySidebar2').classList.remove('open');
-});
-
-// 두 번째 사이드바 열기
-document.getElementById('openSidebar2').addEventListener('click', function() {
-    document.getElementById('mySidebar2').classList.add('open');
-});
-
-// 두 번째 사이드바 닫기
-document.getElementById('closeSidebar2').addEventListener('click', function() {
-    document.getElementById('mySidebar2').classList.remove('open');
-});
-	
-</script>
 </html>
