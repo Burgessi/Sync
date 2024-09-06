@@ -128,37 +128,41 @@
 
 					<!-- 섹션3 -->
 					<section class="section d-flex" style="height: 500px;">
-						<div class="card"
-							style="width: 50%; min-width: 500px; padding: 5px;">
-							<div class="card-header mt-1">
+						<div class="card" style="width: 50%; min-width: 500px; padding: 5px;">
+							<div class="card-header mt-1" style="display: flex; justify-content: space-between; align-items: center;">
 								<h4>공지사항</h4>
+								<a href="${root}/notice/noticeBoard.do" style="margin-left: auto; text-decoration: none; color: #007bff;">+더보기</a>
 							</div>
 							<div class="card-body">
 								<table class="table table-hover">
 									<thead>
-										<tr style="text-align: center;">
-											<th>게시물 번호</th>
+										<tr style="text-align: center; background-color: #e0ffff">
+											<th>게시물</th>
 											<th>작성자</th>
-											<th>제목</th>
+											<th style="width: 40%">제목</th>
 											<th>작성일자</th>
 										</tr>
 									</thead>
 									<c:forEach items="${noList}" var="no" varStatus="vs">
+									<c:if test="${vs.index < 9}">
 										<tbody>
 											<c:set var="bgColor" value="${no.notice_pinbtn eq 'Y' ? '#F2F2F2': '#FFFFFF'}" /> 
 											<tr style="background-color: ${bgColor}"> 
 												<td>${vs.index+1}</td>
 												<td>${no.employee_name}</td>
-												<td><c:if test="${no.notice_pinbtn eq 'Y'}">
+												<td>
+													<c:if test="${no.notice_pinbtn eq 'Y'}">
 														<span class="notice-tag">공지</span>
-											</c:if> <a 
-												href="${root}/notice/detailNotice.do?notice_seq=${no.notice_seq}">${no.notice_title}</a> 
+												</c:if> 
+												<a href="${root}/notice/detailNotice.do?notice_seq=${no.notice_seq}">${no.notice_title}</a> 
 												</td>
-												<td><fmt:parseDate var="cDate"
-														value="${no.notice_regdate}" pattern="yyyy-MM-dd"></fmt:parseDate>
-													<fmt:formatDate value="${cDate}" /></td>
+												<td>
+													<fmt:parseDate var="cDate" value="${no.notice_regdate}" pattern="yyyy-MM-dd"></fmt:parseDate>
+													<fmt:formatDate value="${cDate}" />
+												</td>
 											</tr>
 										</tbody>
+									</c:if>
 									</c:forEach>
 								</table>
 							</div>

@@ -59,7 +59,7 @@ public class LoginController {
 			
 			model.addAttribute("infoDto", infoDto);
 
-			return "common/main"; // 메인 페이지로 이동
+			return "redirect:/main.do"; // 메인 페이지로 이동
 		} else { // 로그인 실패
 			model.addAttribute("loginFailed", true);
 			return "common/login"; // 로그인 페이지로 다시 이동
