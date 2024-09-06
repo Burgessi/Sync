@@ -76,7 +76,7 @@
                                 <tr>
                                     <td class="tb"><strong>제&nbsp;&nbsp;&nbsp;&nbsp;목</strong></td>
                                     <td>
-                                        <input type="text" name="notice_title" style="border-radius: 0px; border: none;" value="${no.notice_title}">
+                                        <input type="text" name="notice_title" style="border-radius: 0px; border: none; width: 100%;" value="${no.notice_title}">
                                     </td>
                                 </tr>
                                 <tr>

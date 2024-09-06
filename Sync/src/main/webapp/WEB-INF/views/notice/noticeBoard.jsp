@@ -123,6 +123,8 @@
 }
 
 .notice-tag {
+	position: absolute; /* 절대 위치를 설정 */
+	 left: 42%; /* 좌측 고정 */
     display: inline-block;
     padding: 4px 8px;
     background-color: #ff6d72; /* 중요 공지 배경색 */
@@ -185,10 +187,10 @@
 													<td>${no.notice_seq}</td>
 													<td>${no.employee_name}</td>
 													<td>
-														<c:if test="${no.notice_pinbtn eq 'Y'}">
-					 											<span class="notice-tag">공지</span>
-														</c:if>
-															<a href="${root}/notice/detailNotice.do?notice_seq=${no.notice_seq}">${no.notice_title}</a>
+													  <c:if test="${no.notice_pinbtn eq 'Y'}">
+														<span class="notice-tag">공지</span>
+													  </c:if>
+													  <a href="${root}/notice/detailNotice.do?notice_seq=${no.notice_seq}">${no.notice_title}</a>
 													</td>
 													<td>
 														<fmt:parseDate var="cDate" value="${no.notice_regdate}" pattern="yyyy-MM-dd"></fmt:parseDate>
