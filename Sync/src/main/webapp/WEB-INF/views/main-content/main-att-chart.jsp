@@ -13,6 +13,7 @@
 }
 table{
 	width: 100%;
+	table-layout: fixed;
 }
 
   td {
@@ -28,9 +29,23 @@ table{
     width: 450px !important;
 /*     height: 300px !important; */
   }
+  canvas{
+  	max-height: 320px;
+  }
+tbody {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.chart-canvas {
+    display: block;
+    margin: 0 auto; /* 차트를 수평으로 가운데 정렬 */
+    max-height: 320px;
+}
+
 </style>
 
-<!-- <div class="chart-area"> -->
+<div>
 	<table>
 		<thead>
 			<tr>
@@ -47,7 +62,7 @@ table{
 	</table>
 	
 	
-<!-- </div> -->
+</div>
 
 
 <script>
