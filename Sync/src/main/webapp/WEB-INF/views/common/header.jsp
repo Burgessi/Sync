@@ -32,7 +32,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-lg-0">
           <li class="nav-item dropdown me-3">	
-          	<a class="nav-link" style="margin-right: -12px;" href="javascript:window.open('${root}/chat/main.do','채팅','width=1300px, height=685px, toolbar=no, menubar=no, left=50px, top=30px')">
+          	<a class="nav-link" style="margin-right: -12px;" href="javascript:window.open('${root}/chat/main.do','채팅','width=1205px, height=720px, toolbar=no, menubar=no, left=100px, top=160px')">
 	          	<i>
 	          		<img alt="채팅" src="${root}/resources/img/chat.png" class="ch">
 	          	</i>

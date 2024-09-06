@@ -26,13 +26,13 @@ public class ChatRestController {
 	
 	//채팅방 생성
 	@PostMapping("/createChatRoom.do")
-	public String createChatRoom(@RequestParam("emp_id") List<String> empIds, String chatroom_name) {
+	public int createChatRoom(@RequestParam("emp_id") List<String> empIds, String chatroom_name) {
 		
 		log.info("채팅방 생성 createChatRoom : 받은 값 {}, {}", chatroom_name, empIds);
 		
-		chatService.createChatRoom(chatroom_name, empIds);
+		int chatroomid = chatService.createChatRoom(chatroom_name, empIds);
 		
-		return "true";
+		return chatroomid;
 	}
 	
 	
