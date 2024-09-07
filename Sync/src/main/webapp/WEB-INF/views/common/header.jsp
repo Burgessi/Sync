@@ -55,30 +55,30 @@
               <li class="dropdown-item notification-item">
                 <a class="d-flex align-items-center" href="#">
                   <div class="notification-icon bg-primary">
-                    <i class="bi bi-cart-check"></i>
+<!--                     <i class="bi bi-cart-check"></i> -->
                   </div>
                   <div class="notification-text ms-4">
-                    <p class="notification-title font-bold">Successfully check out</p>
-                    <p class="notification-subtitle font-thin text-sm">Order ID #256</p>
+                    <p class="notification-title font-bold">댓글이 달렸습니다</p>
+                    <p class="notification-subtitle font-thin text-sm">1분 전</p>
                   </div>
                 </a>
               </li>
               <li class="dropdown-item notification-item">
                 <a class="d-flex align-items-center" href="#">
                   <div class="notification-icon bg-success">
-                    <i class="bi bi-file-earmark-check"></i>
+<!--                     <i class="bi bi-file-earmark-check"></i> -->
                   </div>
                   <div class="notification-text ms-4">
-                    <p class="notification-title font-bold">Work submitted</p>
-                    <p class="notification-subtitle font-thin text-sm">Algebra work</p>
+                    <p class="notification-title font-bold">결재가 승인되었습니다</p>
+                    <p class="notification-subtitle font-thin text-sm">2시간 전</p>
                   </div>
                 </a>
               </li>
-              <li>
-                <p class="text-center py-2 mb-0">
-                  <a href="#">See all notification</a>
-                </p>
-              </li>
+<!--               <li> -->
+<!--                 <p class="text-center py-2 mb-0"> -->
+<!--                   <a href="#">See all notification</a> -->
+<!--                 </p> -->
+<!--               </li> -->
             </ul>
           </li>
         </ul>
