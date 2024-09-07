@@ -255,6 +255,11 @@ public class ApprovalSerivceImpl implements IApprovalService {
 		return dao.insertApprovalLines(approvalLine);
 		
 	}
+
+	@Override
+	public int updateApprovalStatus(Map<String, Object> status) {
+		return dao.updateApprovalStatus(status);
+	}
 	
 
 }

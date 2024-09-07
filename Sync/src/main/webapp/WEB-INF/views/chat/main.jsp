@@ -28,6 +28,17 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="${root}/resources/js/common/main.js"></script>
+
+<!-- Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+
+
+
 <style>
 
 .container{
@@ -579,7 +590,7 @@
             <button type="button" class="btn-close text-white" id="closeSidebar2">
                 <img alt="" src="${root}/resources/img/approval_img/xIcon.png">
             </button>
-            <h5 class="sidebar-title"></h5>
+            <h5 class="sidebar-title sidebar2-title"></h5>
             <div class="employeeTree">
             	<div id="employeeList" style="width: 90%; height: 400px; overflow: auto; margin: 5px auto;"></div>
             </div>
@@ -592,4 +603,23 @@
 
 
 </body>
+<script type="text/javascript">
+toastr.options = {
+	    "closeButton": true, // 닫기 버튼 표시
+	    "debug": false,
+	    "newestOnTop": true,
+	    "progressBar": true, // 진행 바 표시
+	    "positionClass": "toast-top-center", // 위치 설정
+	    "preventDuplicates": false,
+	    "onclick": null,
+	    "showDuration": "300",
+	    "hideDuration": "1000",
+	    "timeOut": "5000",
+	    "extendedTimeOut": "1000",
+	    "showEasing": "swing",
+	    "hideEasing": "linear",
+	    "showMethod": "fadeIn",
+	    "hideMethod": "fadeOut"
+	};
+</script>
 </html>

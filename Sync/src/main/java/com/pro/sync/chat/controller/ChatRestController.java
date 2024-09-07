@@ -1,5 +1,8 @@
 package com.pro.sync.chat.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pro.sync.chat.service.IChatService;
@@ -56,6 +60,25 @@ public class ChatRestController {
 		log.info("exitChatRoom 화면에서 받은 값: {}", info);
 		chatService.exitChatRoom(info);
 		return "true";
+	}
+	
+	//채팅방 초대
+	@PostMapping("/inviteToChatRoom.do")
+	@ResponseBody
+	public List<ChatVo> inviteToChatRoom(@RequestParam String chatroomId, @RequestParam List<String> empIds) {
+		log.info("chatroomId: {}", chatroomId);
+		log.info("empIds: {}", empIds);
+		
+		Map<String, Object> info = new HashMap<String, Object>();
+		info.put("chatroom_id", chatroomId);
+		info.put("empIds", empIds);
+		//초대하기
+		chatService.inviteToChatRoom(info);
+		
+		//채팅방 정보 update위한 list
+		List<ChatVo> chat = chatService.getAllChatContent(Integer.parseInt(chatroomId));
+		log.info("채팅 초대 후 chat 정보 : {}" , chat);
+		return chat;
 	}
 	
 	

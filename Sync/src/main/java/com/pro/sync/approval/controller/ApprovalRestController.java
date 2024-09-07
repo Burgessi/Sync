@@ -133,8 +133,18 @@ public class ApprovalRestController {
 		System.out.println("[받은 requeset:] " + request);
 		String approval_id = request.get("approvalId");
 		String recipient_id = request.get("recipientId");
+		String status = request.get("approvalStatus");
+		
 		String fileName = "";
 		String image = request.remove("image");
+		
+		if(!status.equals("0")) {
+			Map<String, Object> statusMap = new HashMap<String, Object>();
+			statusMap.put("approval_id", approval_id);
+			statusMap.put("approval_status", status);
+			approvalService.updateApprovalStatus(statusMap);
+		}
+		
 		
 		 try {
 			 
@@ -200,6 +210,14 @@ public class ApprovalRestController {
 		rejection.put("status", status);
 		rejection.put("status", status);
 		System.out.println("반려확인 : " + rejection);
+		
+		String approval_id =  rejection.get("approval_id");
+		int approval_status = 2;
+		Map<String, Object> approvalStatus = new HashMap<String, Object>();
+		approvalStatus.put("approval_id", approval_id);
+		approvalStatus.put("approval_status", approval_status);
+		approvalService.updateApprovalStatus(approvalStatus);
+		
 		
 		//반려시 --> 결재라인 status를 변경, 반려사유 입력.
 		approvalService.updateLineStatus(rejection);

@@ -94,5 +94,10 @@ public class ApprovalDaoImpl implements IApprovalDao{
 	public int requestTempApproval(ApprovalVo vo) {
 		return sessionTemplate.insert(NS+"requestTempApproval", vo);
 	}
+
+	@Override
+	public int updateApprovalStatus(Map<String, Object> status) {
+		return sessionTemplate.update(NS+"updateApprovalStatus", status);
+	}
 	
 }

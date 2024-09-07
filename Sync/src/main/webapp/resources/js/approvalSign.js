@@ -1,11 +1,14 @@
 		
 		
-		var approvalId = $("#approvalId").val();
+		
 		var recipientId = $("#save-signature").val();
 		var dataURL = "";
-		
+		//문서 결재 상태
+		var approvalStatus = $("#approvalStatus").val();
+				
 		$(document).ready(function(){
-			
+			var approvalId = $("#approvalId").val();
+			console.log("approvalStatus :",approvalStatus);
 			//사인
 			 var canvas = document.getElementById("signature");
 			 var signaturePad = new SignaturePad(canvas);
@@ -17,6 +20,8 @@
 	
 			//확인버튼
 			$("#save-signature").on('click',function(){
+				
+				
 				
 				if(signaturePad.isEmpty()){
 					toastr.warning("서명을 입력해주세요.");
@@ -34,7 +39,8 @@
 		            data: JSON.stringify({ 
 						image: dataURL,
 						approvalId: approvalId,
-						recipientId: recipientId
+						recipientId: recipientId,
+						approvalStatus: approvalStatus
 					}),
 		            success: function(response) {
 			

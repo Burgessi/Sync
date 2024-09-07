@@ -149,12 +149,27 @@
 
 	<!-- 채팅 초대 -->
 	<insert id="inviteToChatRoom">
+	
 		INSERT INTO CHATROOM_PARTICIPANTS cp 
 			(CHATROOM_PARTICIPANTS_ID, CHATROOM_ID,
 					EMP_ID, JOIN_AT)
-		VALUES ( (SELECT COALESCE(MAX(CHATROOM_PARTICIPANTS_ID),0)+1 
+		<foreach collection="empIds" item="emp_id" index="index" separator=" UNION ALL ">
+		 SELECT		  (SELECT COALESCE(MAX(CHATROOM_PARTICIPANTS_ID),0) + #{index} + 1 
 				FROM CHATROOM_PARTICIPANTS), #{chatroom_id},
-					#{emp_id}, CURRENT_DATE)
+					#{emp_id}, CURRENT_DATE
+					FROM DUAL
+		</foreach>	
+		
+				
+<!-- 		INSERT INTO CHATROOM_PARTICIPANTS cp  -->
+<!-- 			(CHATROOM_PARTICIPANTS_ID, CHATROOM_ID, -->
+<!-- 					EMP_ID, JOIN_AT) -->
+<!-- 					<foreach collection=""> -->
+<!-- 		VALUES ( (SELECT COALESCE(MAX(CHATROOM_PARTICIPANTS_ID),0)+1  -->
+<!-- 				FROM CHATROOM_PARTICIPANTS), #{chatroom_id}, -->
+<!-- 					#{emp_id}, CURRENT_DATE) -->
+<!-- 		</foreach>			 -->
+					
 	</insert>
 
 
