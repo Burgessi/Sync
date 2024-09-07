@@ -65,8 +65,9 @@
 							</td>
 						</tr>
 					</table>
-<!-- 					<input type="submit" value="수정"> -->
+					<div style="text-align: right; margin-top: 10px;">
 					<button class="btn btn-primary" type="button" id="submitBtn">수정</button>
+					</div>
 				</form>
 			</div>
 		</section>

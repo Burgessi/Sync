@@ -42,7 +42,7 @@
 		    
 			<div class="attendance-record">
 			<h3 id="currentDate"></h3>
-			    <div class="info-item" style="width: 90px; height: 25px;">
+			    <div class="info-item" style="width: 100%; height: 25px;">
 		        	<strong id="currentTime"></strong>
 		        </div>
 			    <div class="info" style="margin-top: 40px;">

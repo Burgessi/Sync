@@ -264,6 +264,12 @@
 	    <artifactId>aspectjweaver</artifactId>
 	    <version>1.9.7</version>
 	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-core</artifactId>
+	    <version>5.8.5</version> <!-- 최신 버전을 확인하세요 -->
+	</dependency>
 
 
       <!-- Test -->

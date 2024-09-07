@@ -21,7 +21,9 @@
 			        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required style="width: 50%">
 			        <div id="confirmPasswordError" style="color: red; display: none;">비밀번호가 일치하지 않습니다.</div>
 			    </div>
-			    <button class="btn btn-primary" type="button" id="pwsubmitBtn" style="margin-left: 0px;">수정</button>
+			    <div style="text-align: right; margin-top: 10px;">
+			    	<button class="btn btn-primary" type="button" id="pwsubmitBtn" style="margin-left: 0px;">수정</button>
+			    </div>
 			</form>
 		</div>
 	</div>

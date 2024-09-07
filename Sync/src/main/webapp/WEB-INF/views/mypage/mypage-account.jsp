@@ -51,7 +51,9 @@
 							</td>
 						</tr>
 					</table>
-					<button class="btn btn-primary" type="button" id="accsubmitBtn">수정</button>
+					 <div style="text-align: right; margin-top: 10px;">
+		                <button class="btn btn-primary" type="button" id="accsubmitBtn">수정</button>
+		            </div>
 				</form>
 			</div>
 		</section>

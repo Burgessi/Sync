@@ -192,10 +192,12 @@
 						<div class="card"
 							style="width: 50%; min-width: 400px; padding: 5px; margin-left: 10px;">
 							<div class="card-header mt-1">
-								<h4>결재현황??!</h4>
+								<h4>결재현황</h4>
 							</div>
 							<div class="card-body">
 								<!--                   컨텐츠 내용 -->
+				        		<%@ include file="/WEB-INF/views/main-content/main-approval.jsp"%>			
+								<!--  -->
 							</div>
 						</div>
 					</section>

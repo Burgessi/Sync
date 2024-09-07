@@ -19,4 +19,7 @@ public interface ILoginDao {
 	 * @return
 	 */
 	public int updatePwStatus(Map<String, Object> map);
+	
+	public EmployeeVo findByEmpId(String emp_id);
+	
 }

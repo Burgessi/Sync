@@ -62,7 +62,7 @@
 		</div>
 	</section>
 	<form class="form-horizontal" id="profileForm" style="visibility: hidden;">
-		<input type="file" name="profilePic" accept="image/*" onchange="chooseImage(this)"/>
+		<input type="file" name="profilePic" accept="image/*" onchange="chooseImage(this)" style="width: 300px;"/>
 		<button class="btn btn-primary" type="button" onclick="updateImage()">저장</button>
 	</form>
 </div>
