@@ -5,7 +5,7 @@
 	
 	<!-- 로그인  -->
 	<select id="getLogin" parameterType="java.util.Map" resultType="EmployeeVo" >
-		SELECT e.EMP_ID, EMP_NAME
+		SELECT e.EMP_ID, EMP_NAME, EMP_PASSWORD
 		FROM EMPLOYEE e
 		WHERE e.EMP_ID = #{emp_id} AND e.EMP_PASSWORD = #{emp_password}
 	</select>
@@ -16,4 +16,11 @@
 			SET EMP_PASSWORD = #{emp_password}, EMP_STATUS = 'B'
 			WHERE EMP_ID = #{emp_id} AND EMP_STATUS = 'A'
 	</update>
+	
+	<!--  -->
+	<select id="findByEmpId" parameterType="String" resultType="EmployeeVo">
+		SELECT EMP_ID, EMP_NAME, EMP_PASSWORD
+			FROM EMPLOYEE
+			WHERE EMP_ID=#{emp_id}
+	</select>
 </mapper>

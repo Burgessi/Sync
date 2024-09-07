@@ -33,4 +33,9 @@ public class LoginDaoImpl implements ILoginDao {
 	public int updatePwStatus(Map<String, Object> map) {
 		return session.update(NS+"updatePwStatus", map);
 	}
+	
+	@Override
+	public EmployeeVo findByEmpId(String emp_id) {
+		return session.selectOne(NS+"findByEmpId", emp_id);
+	}
 }

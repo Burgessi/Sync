@@ -18,6 +18,7 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -43,6 +44,9 @@ public class MypageRestController {
 
 	@Autowired
     private ServletContext servletContext; // ServletContext 주입
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	// 개인정보 수정 - 이메일/주소
 	@PostMapping("/updateMyInfo.do")
@@ -139,7 +143,8 @@ public class MypageRestController {
 		// {newPassword=Rnrnfma22, confirmPassword=Rnrnfma22}
 
 		String newPw = (String) map.get("confirmPassword");
-		map.put("emp_password", newPw);
+		String encodedPassword = passwordEncoder.encode(newPw);
+		map.put("emp_password", encodedPassword);
 
 		// 세션에서 로그인 정보 가져오기
 		if (loginDto == null) {
