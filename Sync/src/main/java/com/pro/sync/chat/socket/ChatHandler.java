@@ -78,7 +78,7 @@ public class ChatHandler extends TextWebSocketHandler{
 		String empName = (String)chatSession.get("empName");
 		
 		
-		//채팅방 생성시 알림
+		//채팅방 생성 알림
 		//같은 그룹이라면 알림 메시지 전송
 		if(msg.indexOf("#&chatroom_") != -1) {
 			
@@ -96,7 +96,26 @@ public class ChatHandler extends TextWebSocketHandler{
 				
 			}
 			
-			//퇴장 알림
+			//초대 알림
+		} else if(msg.indexOf("#invite_") != -1) {
+			log.info("초대알림 msg"+ msg);
+			
+			for (WebSocketSession ws : list) {
+				Map<String, Object> sessionMap = ws.getAttributes();
+				
+				//모든 세션을 돌면서 그룹Id를 탐색
+				String otherChatroom = (String)sessionMap.get("chatroomId");
+				
+				//메세지 보낸 세션의 채팅방이 같은 채팅방일때만
+				if(chatroomId.equals(otherChatroom)) {
+					ws.sendMessage(new TextMessage(msg));
+				}
+				
+			}
+			
+			
+		
+			//퇴장 알림		
 		} else if(msg.indexOf("#exit_") != -1) {
 			
 			String name = msg.substring(msg.indexOf("_") + 1);
@@ -113,12 +132,6 @@ public class ChatHandler extends TextWebSocketHandler{
 				if(chatroomId.equals(otherChatroom)) {
 					ws.sendMessage(new TextMessage(msg +"님이 채팅방을 나갔습니다."));
 					
-//					ChatVo chatVo = new ChatVo();
-//					chatVo.setChat_sender("exit");
-//					chatVo.setChatroom_id(Integer.parseInt(chatroomId));
-//					chatVo.setContent(name+"님이 채팅방을 나갔습니다.");
-//					
-//					chatService.sendMessage(chatVo);
 				}
 				
 			}

@@ -38,4 +38,6 @@ public interface IApprovalDao {
 	
 	public int requestTempApproval(ApprovalVo vo);
 	
+	public int updateApprovalStatus(Map<String, Object> status);
+	
 }

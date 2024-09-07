@@ -1,5 +1,31 @@
 
 
+
+let isFocused = true;
+
+// 자식 창에 포커스가 있을 때
+window.onfocus = function() {
+    isFocused = true;
+    console.log('채팅창에 포커스가 있습니다.');
+};
+
+// 자식 창에 포커스가 없을 때
+window.onblur = function() {
+    isFocused = false;
+    console.log('채팅창에 포커스가 없습니다.');
+};
+
+// 메시지가 도착했을 때 부모 창으로 알림 전송
+function sendMessageToParent(message) {
+    // 자식 창에 포커스가 없을 때만 부모 창으로 알림 전송
+    if (window.opener && !isFocused) {
+        window.opener.postMessage(message, window.location.origin);
+        console.log(`부모 창으로 알림 전송: ${message}`);
+    }
+}
+
+
+
 function createChat(event){
 	
 	
@@ -9,11 +35,24 @@ function createChat(event){
 	let input = $("#chat-input").val();
 	
 	if(input == ""){
-		alert("채팅방 제목을 입력해주세요.");
+		toastr.info("채팅방 이름을 입력해주세요.");
 		return ;
 	}	
 
-	var formData = new FormData(document.getElementById('createChatRoomForm'));
+	let cnt = 0;
+	$("input[name=emp_id]").each(function(){
+		cnt ++;
+	});
+	
+	if(cnt<=1){
+		toastr.error("채팅 상대를 선택해 주세요.");
+		return;	
+	}
+
+
+	
+
+	let formData = new FormData(document.getElementById('createChatRoomForm'));
 
 	//채팅방 생성 db입력 요청
 	$.ajax({
@@ -131,7 +170,7 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 							$("<img id='dropImg'>").attr('src', 'https://ptetutorials.com/images/user-profile.png'),
 							$("<span id='drop-Part-Name'>").text(participants[i].participant_name),
 							$("<span id='drop-Part-Team'>").text(participants[i].participant_team_name),
-							$("<input type='hidden' class='drop-Part-Id'>").val(response[i].participants[0].participant_id)
+							$("<input type='hidden' class='drop-Part-Id'>").val(participants[i].participant_id)
 						)
 						
 					);
@@ -169,6 +208,11 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 					
 					$(".msgDiv").append($("<div class='enterChat'>").html(response[i].content));
 					
+					//초대 메세지 append
+				} else if(response[i].chat_sender == "invite" && response[i].chat_sender != "" && response[i].chat_sender != null){
+				
+					$(".msgDiv").append($("<div class='inviteChat'>").html(response[i].content));
+				
 					//다른 사람이 보낸 메세지
 				} else if(response[i].chat_sender != empId && response[i].chat_sender != "" && response[i].chat_sender != null){
 					
@@ -289,7 +333,33 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 						
 						
 						
-						//퇴장 메세지
+					// 초대 메세지	
+					} else if (msg.startsWith("#invite_")){
+						console.log("초대메세지 : " + msg);
+						let text = msg.substring(msg.indexOf('_') + 1);
+						
+						
+						//초대메세지는 사람 있을때 실행됨 -> 메세지 받고 insert가능
+						sendMessage("invite", chatroomId, text);
+						
+						$(".msgDiv").append($("<div class='inviteChat'>").html(text));
+						
+						$('.list_chatroom_id').each(function() {
+							    if ($(this).val() == chatroomId) {
+									if(text.length>15){
+										text = text.substring(0,16) + " ...... ";
+										$(this).prev('.latest_message_content').text(text);
+									} else {
+										$(this).prev('.latest_message_content').text(text);
+									}
+							        
+							    }
+						});
+						// 메시지가 도착했을 때 호출
+						sendMessageToParent("새로운 채팅 메시지가 도착했습니다.");
+						
+						
+					//퇴장 메세지
 					} else if(msg.startsWith("#exit_")) {
 						console.log("퇴장 메세지 : " + msg);
 						let text = msg.substring(msg.indexOf('_') + 1);
@@ -308,7 +378,8 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 							        
 							    }
 						});
-						
+						// 메시지가 도착했을 때 호출
+						sendMessageToParent("새로운 채팅 메시지가 도착했습니다.");
 						
 					//다른 사람 메세지
 					} else {
@@ -335,8 +406,9 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 						
 						//최근 메시지 append
 						$('.list_chatroom_id').each(function() {
+							
 							    if ($(this).val() == chatroomId) {
-									if(text.length>15){
+									if(otherMsg.length>15){
 										otherMsg = otherMsg.substring(0,16) + " ...... ";
 										$(this).prev('.latest_message_content').text(otherMsg);
 									} else {
@@ -344,7 +416,12 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 									}
 							        
 							    }
+									
+							    
 						});	
+							
+						// 메시지가 도착했을 때 호출
+						sendMessageToParent("새로운 채팅 메시지가 도착했습니다.");	
 									
 					}
 					
@@ -368,7 +445,7 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 	function sendMessage(sender, chatroom, content){
 		
 		
-		var formData = new FormData();
+		let formData = new FormData();
 		//form에 데이터 추가
 		formData.append("chat_sender", sender);
 		formData.append("chatroom_id", chatroom);
@@ -475,8 +552,8 @@ function inviteToChatRoom(){
 	$("#mySidebar2").addClass('open');
 	
 	//title 변경
-	$(".sidebar-title").text("");
-	$(".sidebar-title").text("대화상대 초대");
+	$(".sidebar2-title").text("");
+	$(".sidebar2-title").text("대화상대 초대");
 	
 	
 	//초대버튼 활성화
@@ -573,7 +650,7 @@ $(document).ready(function(){
 // 			    console.log(selectedNodes[0].original.text);
 			    
 			    
-		        var duplicateChk = "N";
+		        let duplicateChk = "N";
 			    
 			    //목록에 추가 되어있는 empid 배열로 담기
 			    var empIds = $("input[name=emp_id]").map(function() {
@@ -581,6 +658,8 @@ $(document).ready(function(){
 			    }).get();
 			    console.log(empIds);
 		        
+		        
+		        //목록 중복확인
 			    selectedNodes.forEach(function(node) {
 			    	if(empIds.includes(node.id)){
 			    		duplicateChk = "Y";
@@ -589,7 +668,7 @@ $(document).ready(function(){
 			    
 			    
 			    if(duplicateChk == "Y"){
-		    		alert("목록에 존재합니다.");
+		    		toastr.warning("이미 목록에 존재하는 사원입니다.");
 		    		 $('#employeeList').jstree(true).deselect_all();
 		    		return;
 		    	}
@@ -641,12 +720,134 @@ $(document).ready(function(){
 		//초대버튼 이벤트
 		$(".invite-btn").on("click", function(){
 			
+			let ids = [];
+			
 			console.log('초대 클릭');
 			
+			// 현재 참여자 ID 가져오기. 
 			$(".drop-Part-Id").each(function(){
 				console.log($(this).val());
+				ids.push($(this).val());
 			});
 			
+			
+			let str = "";
+			//선택한 node name 저장하기
+			selectedNodes.forEach(function(node) {
+				 str += node.text + ", ";
+			});
+			inviteName = str.slice(0,-2);
+			
+			console.log("inviteName : "+ inviteName + "님을 초대했습니다.");
+			
+			console.log(ids);
+			
+			//참여자 중복 확인
+			let duplicateChk = "N";
+			let selectIds = [];
+			
+			selectedNodes.forEach(function(node) {
+				selectIds.push(node.id);
+		    	if(ids.includes(node.id)){
+		    		duplicateChk = "Y";
+		    	}
+			});
+			
+//			console.log(selectIds);
+//			console.log(selectedNodes);
+			
+			//중복시 리턴
+			if(duplicateChk == "Y"){
+				toastr.warning('채팅방에 이미 존재하는 사원입니다.');
+				$('#employeeList').jstree(true).deselect_all();
+				return;
+			}
+			
+			
+			//선택node가 하나도 없을때 리턴
+			if(selectedNodes.length <= 0){
+				toastr.warning("선택한 사원이 없습니다.");
+				return;
+			}
+			
+			let formData = new FormData();
+			formData.append("chatroomId", chatroomId);
+			
+			for(let i=0; i<selectIds.length; i++){
+				formData.append("empIds", selectIds[i]);
+			}
+			
+			console.log("전달 form data: " + formData);
+			
+			
+			
+			Swal.fire({
+				  text: "선택한 사원을 초대하시겠습니까?",
+				  icon: "info",
+				  showCancelButton: true,
+				  confirmButtonColor: "#3085d6",
+				  cancelButtonColor: "#d33",
+				}).then((result) => {
+				  if (result.isConfirmed) {
+				   
+				   			$.ajax({
+					
+								url:"./inviteToChatRoom.do",
+								type:"post",
+								data:formData,
+								processData: false, // 데이터 처리 비활성화
+						       	contentType: false,
+								success:function(response){
+									
+									console.log(response);
+									
+									//핸들러로 메세지 전송
+									ws.send("#invite_" + inviteName + "님을 초대했습니다.");
+									
+									
+									
+									
+									let participants = response[0].participants;
+									
+									
+									//숫자 명단 clear 후 재입력
+									$("#numberOfParticipants").text("");
+									$("#dropdownMenu1").html("");
+									
+									$("#numberOfParticipants").text(participants.length);
+							
+									//참여자 명단
+									console.log("명단:" + participants);
+									
+									for(let i=0; i<participants.length; i++){
+										$("#dropdownMenu1").append(
+											$("<div id='drop-Part'>").append(
+												$("<img id='dropImg'>").attr('src', 'https://ptetutorials.com/images/user-profile.png'),
+												$("<span id='drop-Part-Name'>").text(participants[i].participant_name),
+												$("<span id='drop-Part-Team'>").text(participants[i].participant_team_name),
+												$("<input type='hidden' class='drop-Part-Id'>").val(participants[i].participant_id)
+											)
+											
+										);
+										
+									}
+									
+									
+									//tree 선택 초기화
+									$('#employeeList').jstree(true).deselect_all();
+									
+									//사이드바 닫기
+									 $('#mySidebar2').removeClass('open');
+									
+								}
+								
+								
+								
+							})
+				   
+				   
+				  }
+				});
 			
 			
 			
@@ -661,7 +862,7 @@ $(document).ready(function(){
 		
 		
 		if($("#chatInput").val() == ""){
-			alert("내용을 입력해주세요.");
+			toastr.info("내용을 입력해주세요.");
 		} else{
 			//handler에 보낼 내용  '닉네임: 내용' 의 형태 
 			
@@ -704,8 +905,8 @@ $(document).ready(function(){
 		$("#mySidebar2").removeClass('sidebar2-invite');
 		
 		//title 변경
-		$(".sidebar-title").text("");
-		$(".sidebar-title").text("대화상대 추가");
+		$(".sidebar2-title").text("");
+		$(".sidebar2-title").text("대화상대 추가");
 		
 		
 		//초대버튼 활성화
@@ -755,6 +956,32 @@ $(document).ready(function(){
         $('#dropdownMenu2').hide(); // 드롭다운 메뉴를 숨김
        
     });
+    
+    
+    
+   		   $('.chat_date').each(function() {
+                var $chatDateElement = $(this);
+                var chatDateText = $chatDateElement.text().trim(); // 텍스트에서 공백 제거
+
+                // 메시지 날짜와 시간 분리
+                var parts = chatDateText.split(' ');
+                var messageDate = parts[0];
+                var messageTime = parts[1];
+
+                // 날짜 객체 생성
+                var messageDateObj = new Date(messageDate + 'T00:00:00'); // 메시지 날짜를 기준으로 Date 객체 생성
+                var todayDateObj = new Date(); // 현재 날짜
+                todayDateObj.setHours(0, 0, 0, 0); // 오늘 날짜의 00:00:00으로 설정
+
+                // 날짜 비교 및 표시
+                if (messageDateObj.getTime() === todayDateObj.getTime()) {
+                    // 오늘 날짜와 같다면 시간만 표시
+                    $chatDateElement.text(messageTime);
+                } else {
+                    // 오늘 날짜가 아니라면 전체 날짜 표시
+                    $chatDateElement.text(messageDate);
+                }
+            });
 
 	
 	

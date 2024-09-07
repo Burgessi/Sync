@@ -17,7 +17,7 @@
         <%@ include file="/WEB-INF/views/common/header.jsp" %>
 		
 			
-	<button class="btn btn-outline-success" onclick="pdf()">pdf 저장</button> 
+	
 			<div class="container">
 				<div class="card">
 					<div class="card-body">

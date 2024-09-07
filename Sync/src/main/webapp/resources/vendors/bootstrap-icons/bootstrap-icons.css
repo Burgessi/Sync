@@ -16,7 +16,7 @@ url("./fonts/bootstrap-icons.woff2?4601c71fb26c9277391ec80789bfde9c") format("wo
   vertical-align: text-top;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #fff;
+/*   color: #fff; */
 }
 
 .fs-4{

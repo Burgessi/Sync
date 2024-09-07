@@ -75,7 +75,7 @@ public class ChatServiceImpl implements IChatService {
 	}
 
 	@Override
-	public int inviteToChatRoom(Map<String, String> info) {
+	public int inviteToChatRoom(Map<String, Object> info) {
 		return dao.inviteToChatRoom(info);
 	}
 

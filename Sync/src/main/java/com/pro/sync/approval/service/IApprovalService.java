@@ -32,4 +32,5 @@ public interface IApprovalService {
 	
 	public int requestTempApproval(Map<String, String> inMap, List<String> referrer);
 	
+	public int updateApprovalStatus(Map<String, Object> status);
 }

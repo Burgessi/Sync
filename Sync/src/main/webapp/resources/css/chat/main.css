@@ -40,6 +40,23 @@
 /*     text-align: center; 텍스트 중앙 정렬 */
 }
 
+.inviteChat {
+    background-color: #e8f5e9; /* 연한 초록색 배경 */
+    border-left: 5px solid #66bb6a; /* 왼쪽에 진한 초록색 선 */
+    padding: 12px;
+    margin: 8px 0; /* 상하 여백 */
+    border-radius: 10px; /* 둥근 모서리 */
+    font-size: 15px;
+    color: #388e3c; /* 다크 초록색 텍스트 */
+    font-weight: 600; /* 텍스트 굵게 */
+    display: flex; /* 플렉스 박스 설정 */
+    align-items: center; /* 수직 정렬 */
+    position: relative; /* 상대 위치 설정 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 미세한 그림자 효과 */
+}
+
+
+
 .container{max-width:1170px; margin:auto;}
 
 img{ max-width:100%;}
@@ -146,9 +163,17 @@ display: flex;
 }
 .srch_bar .input-group-addon { margin: 0 0 0 -27px;}
 
-.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
-.chat_ib h5 span{ font-size:13px; float:right;}
-.chat_ib p{ font-size:14px; color:#989898; margin:auto}
+.chat_ib h5{ 
+	font-size:12px; color:#464646; margin:0 0 8px 0;
+	
+}
+.chat_ib h5 span{ 
+	font-size:11px; float:right;
+}
+
+.chat_ib p{ 
+	font-size:14px; color:#989898; margin:auto
+}
 .chat_img {
   float: left;
   width: 11%;
