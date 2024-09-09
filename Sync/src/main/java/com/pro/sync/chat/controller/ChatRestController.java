@@ -6,12 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Multipart;
+import javax.servlet.ServletContext;
+import javax.swing.plaf.multi.MultiPanelUI;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pro.sync.chat.service.IChatService;
 import com.pro.sync.chat.vo.ChatVo;
@@ -27,6 +33,7 @@ public class ChatRestController {
 
 	private final IChatService chatService;
 	
+	private final ServletContext servletContext; 
 	
 	//채팅방 생성
 	@PostMapping("/createChatRoom.do")
@@ -81,6 +88,17 @@ public class ChatRestController {
 		return chat;
 	}
 	
+	
+//	@PostMapping("/uploadChatImage.do")
+//	public ResponseEntity<?> uploadChatImage(@RequestParam MultipartFile file){
+//		
+//		//저장경로
+//		String path = servletContext.getRealPath("/resources/img/signature/");
+//		String fileName = file.getOriginalFilename();
+//		
+		
+//		return ResponseEntity.ok(fileUrl);
+//	}
 	
 	
 }

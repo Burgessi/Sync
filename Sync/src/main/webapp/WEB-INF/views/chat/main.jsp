@@ -497,7 +497,7 @@
           	<!-- 채팅내용 -->
           		<div class="msgDiv">
           		
-          		
+          			
 <!--           			<div class="outgoing_msg"> -->
 <!--           				<div class="sent_msg"> -->
 <!--           					<span>이름</span> -->
@@ -513,7 +513,9 @@
 <!--           				</div> -->
 <!--           			</div> -->
           			
-          			
+          			<!-- 숨겨진 파일 입력 필드 -->
+				    <!-- 숨겨진 파일 입력 필드 -->
+				    <input type="file" id="fileInput" accept="image/*">
           		</div>
           		
           		
@@ -521,6 +523,10 @@
         </div>
         <div class="type_msg">
             <div class="input_msg_write">
+            	<button class="photo_attach_btn" id="attachButton">
+		      📷
+		    </button>
+		    <!-- 숨겨진 파일 입력 필드 -->
               <input type="text" id="chatInput" class="write_msg" placeholder="내용을 입력해주세요." onkeypress="if(event.keyCode == 13){ $('.msg_send_btn').click()}"/>
               <button class="msg_send_btn" type="button">
               	<i class="fa fa-paper-plane-o" aria-hidden="false"></i>

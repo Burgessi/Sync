@@ -3,11 +3,111 @@
 		
 		var recipientId = $("#save-signature").val();
 		var dataURL = "";
-		//문서 결재 상태
-		var approvalStatus = $("#approvalStatus").val();
+		var approvalId = $("#approvalId").val();
+		var documentType = $("#documentType").val();		
+		
+		function pdf(name){
+			
+				let documentType = document.getElementById('documentType').value;
+				var element = document.getElementById('pdfDownload');
+				var opt = {
+				  margin:       1,
+				  filename:     documentType + '_' + name + '.pdf',
+				  image:        { type: 'jpeg', quality: 0.98 },
+				  html2canvas:  { scale: 2 },
+				  jsPDF:        { unit: 'in', format: [10, 15], orientation: 'portrait' }
+				};
+			
+				// New Promise-based usage:
+				html2pdf().set(opt).from(element).save();
+			
+				// Old monolithic-style usage:
+				html2pdf(element, opt);
+				
+			}
+				
 				
 		$(document).ready(function(){
-			var approvalId = $("#approvalId").val();
+			
+			console.log(documentType);
+			
+			
+			
+			//문서 결재 상태
+			let approvalStatus = $("#approvalStatus").val();
+			
+			//문서 결재 상태가 1인경우 바로 최종 결재 상태 업데이트
+			if(approvalStatus == 1 && approvalStatus != undefined && approvalStatus != null && approvalStatus != ""){
+				
+				let approvalStatusForm = new FormData();
+				
+				approvalStatusForm.append("approval_id", approvalId);
+				approvalStatusForm.append("approval_status", approvalStatus);
+				
+				
+				
+				if(documentType == "휴가신청서" ){
+					let emp_id = $("#requesterId").val();
+					let off_reason = $("#content").text();
+					let remainingLeave = $("#remainingLeave").text();
+					let totalDay = $("#totalDay").text();
+					let startDate = new Date($("#startDate").text());
+					let endDate = new Date($("#endDate").text());
+					let dates = [];
+					
+					approvalStatusForm.append("emp_id", emp_id);
+					
+					
+					while (startDate <= endDate) {
+				        // 날짜를 'YYYY-MM-DD' 형식으로 변환
+				        let year = startDate.getFullYear();
+				        let month = String(startDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+				        let day = String(startDate.getDate()).padStart(2, '0');
+				        
+				        dates.push(`${year}-${month}-${day}`);
+				        
+				        // 다음 날짜로 넘어가기
+				        startDate.setDate(startDate.getDate() + 1);
+				    }
+					
+					
+					//신청후 사원 남은 휴가 날짜 update - >employee vo에
+					let total_off = (parseInt(remainingLeave) - parseInt(totalDay));
+					console.log(total_off);
+					approvalStatusForm.append("total_off", total_off);
+					
+					//off_date : 신청한 날짜 array
+					approvalStatusForm.append("off_date", dates);
+					
+					//off_reason : 휴가사유
+					approvalStatusForm.append("off_reason", off_reason);
+					
+					
+				}
+				
+				
+				
+				console.log('모든 결재자 승인 완료');
+				
+				
+				$.ajax({
+					url:"updateApprovalStatus.do?approval_id="+approvalId+"&approval_status="+approvalStatus,
+					type:"post",
+					data: approvalStatusForm,
+					processData: false, // 데이터 처리 비활성화
+        			contentType: false,
+					success:function(response){
+						console.log("최종 결재 상태 변경 성공", response);
+					}
+					
+					
+				})		
+				
+						
+			}			
+			
+			
+			
 			console.log("approvalStatus :",approvalStatus);
 			//사인
 			 var canvas = document.getElementById("signature");
@@ -39,8 +139,7 @@
 		            data: JSON.stringify({ 
 						image: dataURL,
 						approvalId: approvalId,
-						recipientId: recipientId,
-						approvalStatus: approvalStatus
+						recipientId: recipientId
 					}),
 		            success: function(response) {
 			
@@ -102,6 +201,8 @@
 							}),
 				            success: function(response) {
 					
+					
+									
 								console.log(response);
 				                toastr.success("결재 승인 완료");
 								setTimeout(function() {
@@ -157,7 +258,7 @@
 	//임시저장 계속작성버튼
 	$("#continueTempApproval").on("click",function(){
 		let approvalId = $("#approvalId").val();
-		let documentType = $("#documentType").val();
+		
 		let temp_save_flag = $("#temp_save_flag").val();
 		
 		location.href="./modifyApproval.do?approval_id="+approvalId+"&document_type="+documentType+"&temp_save_flag="+temp_save_flag;
