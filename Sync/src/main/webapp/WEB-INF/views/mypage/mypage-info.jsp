@@ -70,34 +70,16 @@
 
 <script>
     function showForm() {
-        document.getElementById('profileForm').style.visibility = 'visible';
+		 var profileForm = document.getElementById('profileForm');
+		    if (profileForm.style.visibility === 'visible') {
+		        profileForm.style.visibility = 'hidden';
+		    } else {
+		        profileForm.style.visibility = 'visible';
+		    }
     }
 </script>
 
 <script>
-// function checkImageAndSetSrc(imgElement, imgUrl, defaultImgUrl) {
-//     var img = new Image();
-//     img.onload = function() {
-//         // 이미지가 존재하는 경우
-//         $(imgElement).attr('src', imgUrl);
-//     };
-//     img.onerror = function() {
-//         // 이미지가 존재하지 않는 경우
-//         $(imgElement).attr('src', defaultImgUrl);
-//     };
-//     img.src = imgUrl;
-// }
-
-// $(document).ready(function() {
-//     var imgElement = '#imagePreview';
-//     var defaultImgUrl = '${root}/resources/img/member-imgs/cloud.jpeg';
-
-//     // 전역 변수로 저장된 profilePicUrl을 사용
-//     var profilePicUrl = window.profilePicUrl || '${infoDto.emp_profile_pic}';
-
-//     console.log("Initial profilePicUrl: ", profilePicUrl); // 초기 값 확인
-//     checkImageAndSetSrc(imgElement, profilePicUrl, defaultImgUrl);
-// });
 
 function chooseImage(obj) {
     var file = obj.files[0];
@@ -107,7 +89,7 @@ function chooseImage(obj) {
     }
     let reader = new FileReader();
     reader.readAsDataURL(file);
-    //사이드바,헤더이미지도 바꿀수잇나
+    //사이드바,헤더이미지
     reader.onload = function (e) {
         $('#imagePreview').attr("src", e.target.result);
         $('#headerPreview').attr("src", e.target.result);
@@ -138,7 +120,6 @@ function updateImage() {
         // 에러가 발생한 경우
         console.log("Error Response: ", err);
         toastr.error('프로필 이미지 업데이트 중 오류가 발생했습니다.');
-//         alert("프로필 이미지 업데이트 중 오류가 발생했습니다.");
     });
 }
 
