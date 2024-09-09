@@ -1,4 +1,4 @@
-package com.pro.sync.security.config;
+package com.pro.sync.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

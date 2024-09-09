@@ -48,73 +48,72 @@ public class LoginController {
 	private IApprovalService approvalService;
 	
 
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 //암호화 이후 로그인 	
-//	@PostMapping("login.do")
-//	public String login(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
-//		//전달받은 map에 emp_id emp_password
-//		String emp_id = (String) map.get("emp_id");
-//		String rawpassword = (String) map.get("emp_password");
-//		
-////		EmployeeVo user = service.findByEmpId(emp_id);
-//		EmployeeVo loginDto = service.autenticate(emp_id, rawpassword);
-//		
-//		if (loginDto != null) { // 로그인 성공
-//            session.setAttribute("loginDto", loginDto);
-////            String emp_id = loginDto.getEmp_id();
-//
-//            // 정보 dto, 계좌 dto 가져오는 부분
-//            EmployeeVo infoDto = mservice.getInfo(emp_id);
-//            AccountVo accDto = mservice.getAccountInfo(emp_id);
-//
-//            model.addAttribute("loginDto", loginDto);
-//            session.setAttribute("infoDto", infoDto);
-//            session.setAttribute("accDto", accDto);
-//
-//            model.addAttribute("infoDto", infoDto);
-//
-//            return "redirect:/main.do"; // 메인 페이지로 이동
-//        } else { // 로그인 실패
-//            model.addAttribute("loginFailed", true);
-//            return "common/login"; // 로그인 페이지로 다시 이동
-//        }
-//	}
+	@PostMapping("login.do")
+	public String login(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
+		//전달받은 map에 emp_id emp_password
+		String emp_id = (String) map.get("emp_id");
+		String rawpassword = (String) map.get("emp_password");
+		
+//		EmployeeVo user = service.findByEmpId(emp_id);
+		EmployeeVo loginDto = service.autenticate(emp_id, rawpassword);
+		
+		if (loginDto != null) { // 로그인 성공
+            session.setAttribute("loginDto", loginDto);
+
+            // 정보 dto, 계좌 dto 가져오는 부분
+            EmployeeVo infoDto = mservice.getInfo(emp_id);
+            AccountVo accDto = mservice.getAccountInfo(emp_id);
+
+            model.addAttribute("loginDto", loginDto);
+            session.setAttribute("infoDto", infoDto);
+            session.setAttribute("accDto", accDto);
+
+            model.addAttribute("infoDto", infoDto);
+
+            return "redirect:/main.do"; // 메인 페이지로 이동
+        } else { // 로그인 실패
+            model.addAttribute("loginFailed", true);
+            return "common/login"; // 로그인 페이지로 다시 이동
+        }
+	}
 	
 	// 로그인
-		@PostMapping(value = "/login.do")
-		public String login(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
-			log.info("로그인 : {}", map);
-			EmployeeVo loginDto = service.getLogin(map);
-
-			System.out.println(loginDto);
-			if (loginDto != null) { // 로그인 성공
-				//흠냐,,
-				System.out.println(loginDto.getEmp_password());
-				
-				session.setAttribute("loginDto", loginDto);
-				String emp_id = loginDto.getEmp_id();
-				// 정보 dto, 계좌 dto 가져오는부분
-				EmployeeVo infoDto = mservice.getInfo(emp_id);
-				AccountVo accDto = mservice.getAccountInfo(emp_id);
-
-				model.addAttribute("loginDto", loginDto);
-				// 세션에 info,acc정보 담아줌
-				session.setAttribute("infoDto", infoDto);
-				session.setAttribute("accDto", accDto);
-				
-				model.addAttribute("infoDto", infoDto);
-
-				return "redirect:/main.do"; // 메인 페이지로 이동
-			} else { // 로그인 실패
-				String emp_id = (String)map.get("emp_id");
-				EmployeeVo user = service.findByEmpId(emp_id);
-				System.out.println("qlqjs" + user.getEmp_password());
-				model.addAttribute("loginFailed", true);
-				return "common/login"; // 로그인 페이지로 다시 이동
-			}
-		}
+//		@PostMapping(value = "/login.do")
+//		public String login(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
+//			log.info("로그인 : {}", map);
+//			EmployeeVo loginDto = service.getLogin(map);
+//
+//			System.out.println(loginDto);
+//			if (loginDto != null) { // 로그인 성공
+//				//흠냐,,
+//				System.out.println(loginDto.getEmp_password());
+//				
+//				session.setAttribute("loginDto", loginDto);
+//				String emp_id = loginDto.getEmp_id();
+//				// 정보 dto, 계좌 dto 가져오는부분
+//				EmployeeVo infoDto = mservice.getInfo(emp_id);
+//				AccountVo accDto = mservice.getAccountInfo(emp_id);
+//
+//				model.addAttribute("loginDto", loginDto);
+//				// 세션에 info,acc정보 담아줌
+//				session.setAttribute("infoDto", infoDto);
+//				session.setAttribute("accDto", accDto);
+//				
+//				model.addAttribute("infoDto", infoDto);
+//
+//				return "redirect:/main.do"; // 메인 페이지로 이동
+//			} else { // 로그인 실패
+//				String emp_id = (String)map.get("emp_id");
+//				EmployeeVo user = service.findByEmpId(emp_id);
+//				System.out.println("qlqjs" + user.getEmp_password());
+//				model.addAttribute("loginFailed", true);
+//				return "common/login"; // 로그인 페이지로 다시 이동
+//			}
+//		}
 
 	// 로그아웃
 	@GetMapping(value = "/")
@@ -131,7 +130,9 @@ public class LoginController {
 
 		if (loginDto != null) {
 			String newPw = (String) map.get("confirmPassword");
-			map.put("emp_password", newPw);
+			String encodedPassword = passwordEncoder.encode(newPw);
+			map.put("emp_password", encodedPassword);
+			
 			String emp_id = loginDto.getEmp_id();
 			map.put("emp_id", emp_id);
 			service.updatePwStatus(map);
