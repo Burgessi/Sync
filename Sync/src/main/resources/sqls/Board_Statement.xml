@@ -207,6 +207,12 @@ FROM FILESTORE f
 WHERE FILE_SEQ = #{file_seq}
 </select>
 
+<!-- 작성자 아이디 검색 -->
+<select id="getBoardAuthorId" resultType="String" parameterType="Integer">
+    SELECT EMP_ID 
+    FROM BOARD 
+    WHERE BD_SEQ = #{bd_seq}
+</select>
 
  
 </mapper>

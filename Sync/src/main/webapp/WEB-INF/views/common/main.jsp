@@ -88,8 +88,6 @@
   }
 </style>
 </head>
-
-
 <body>
 	<div id="app">
 		<%@ include file="/WEB-INF/views/common/sidebar.jsp"%>

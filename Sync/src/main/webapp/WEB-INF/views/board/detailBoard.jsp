@@ -206,7 +206,7 @@
 									<textarea name="bd_content" rows="5" placeholder="${infoDto.emp_name}님 댓글을 입력하세요..."></textarea>
 									<br>
 									<div style="text-align: right;">
-										<input type="submit" value="댓글 추가" class="btn btn-primary" style="font-size: 12px;">
+										<input type="submit" value="댓글 추가" class="btn btn-primary" style="font-size: 12px;" id="submitComment">
 										<input type="hidden" name="bd_post" value="${detail.bd_post}">
 										<input type="hidden" name="emp_id" value="${loginDto.emp_id}">
 										<input type="hidden" name="bd_seq" value="${detail.bd_seq}">

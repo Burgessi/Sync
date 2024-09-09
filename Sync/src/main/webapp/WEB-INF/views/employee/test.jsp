@@ -247,25 +247,18 @@
 												</c:otherwise>
 											</c:choose>
 
-											<c:choose>
-												<c:when test="${e.emp_status eq 'D'}">
-													<td></td>
-
-												</c:when>
-												<c:otherwise>
-													<td><c:if
-															test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
-															<div class="action-buttons">
-																<button type="button"
-																	class="btn btn-outline-secondary btn-sm"
-																	onclick="location.href='./registForm.do?emp_id=${e.emp_id}'">수정</button>
-																<button type="button"
-																	class="btn btn-outline-danger btn-sm"
-																	onclick="deleteEmployee('${e.emp_id}')">삭제</button>
-															</div>
-														</c:if></td>
-												</c:otherwise>
-											</c:choose>
+											<c:if test="${e.emp_status eq 'D'}">
+                                       <td>
+                                          <div class="action-buttons">
+                                             <button type="button"
+                                                class="btn btn-outline-secondary btn-sm"
+                                                onclick="location.href='./registForm.do?emp_id=${e.emp_id}'">수정</button>
+                                             <button type="button"
+                                                class="btn btn-outline-danger btn-sm"
+                                                onclick="deleteEmployee('${e.emp_id}')">삭제</button>
+                                          </div>
+                                       </td>
+                                    </c:if>
 										</tr>
 									</c:forEach>
 								</tbody>

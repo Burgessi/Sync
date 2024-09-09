@@ -2,19 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pro.sync.alarm.dao.AlarmDaoImpl">
 
-<select id="getUnreadAlarms" resultType="AlarmVo">
+	<select id="getUnreadAlarms" resultType="AlarmVo" parameterType="map">
         SELECT a.ALARM_ID, a.RECEIVER_ID, a.ALARM_TYPE, a.TITLE, a.CONTENT, a.STATUS, a.CREATE_AT
-        FROM alarms a
-        JOIN employees e ON a.RECEIVER_ID = e.EMP_ID
+        FROM ALARM a
+        JOIN EMPLOYEE e ON a.RECEIVER_ID = e.EMP_ID
         WHERE a.RECEIVER_ID = #{emp_id}
-        AND a.STATUS = 0
+        AND a.STATUS = 'N'
+<!--         AND a.ALARM_TYPE=#{alarm_type} -->
     </select>
 
-    <select id="getUnreadAlarmsCnt" resultType="Integer">
+    <select id="getUnreadAlarmCnt" resultType="Integer">
         SELECT COUNT(*) 
-        FROM ALARM
-        WHERE EMP_ID = #{emp_id}
+        FROM ALARM a
+        JOIN EMPLOYEE e ON a.RECEIVER_ID = e.EMP_ID
+        WHERE a.RECEIVER_ID = #{emp_id}
         AND STATUS = 'N'
+        AND a.ALARM_TYPE=#{alarm_type}
     </select>
 
     <update id="updateStatus">
@@ -22,5 +25,12 @@
         SET STATUS = 'Y'
         WHERE ALARM_ID = #{alarm_id}
     </update>
+    
+    <!-- 알림 삽입 -->
+    <insert id="insertAlarm">
+        INSERT INTO ALARM (ALARM_ID, RECEIVER_ID, ALARM_TYPE, TITLE, STATUS, CREATE_AT)
+        VALUES ((SELECT 'A' || LPAD(NVL(MAX(TO_NUMBER(SUBSTR(ALARM_ID, 2))), 0) + 1, 3, '0')
+     	FROM ALARM), #{receiver_id}, #{alarm_type}, #{title}, 'N', CURRENT_DATE)
+    </insert>
  
 </mapper>
