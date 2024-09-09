@@ -32,10 +32,9 @@ public class AlarmServiceImpl implements IAlarmService {
 	}
 	
 	@Override
-	public int getUnreadAlarmCnt(String emp_id, String alarm_type) {
+	public int getUnreadAlarmCnt(String emp_id) {
 		
-		Map<String, String> params = Map.of("emp_id", emp_id, "alarm_type", alarm_type);
-		return dao.getUnreadAlarmCnt(params);
+		return dao.getUnreadAlarmCnt(emp_id);
 	}
 	
 	//@Transactional
@@ -53,7 +52,7 @@ public class AlarmServiceImpl implements IAlarmService {
 	    
 	    alarm.setReceiver_id(receiver_id);
 	    alarm.setAlarm_type("C");
-	    alarm.setTitle("댓글이 달렸습니다"); //이거 게시물 제목,,,으로
+	    alarm.setTitle(title); //이거 게시물 제목,,,으로
 	    alarm.setContent(title + "에 새로운 댓글이 달렸습니다.");
 	    alarm.setStatus("N");  //읽지 않은 상태
 	    

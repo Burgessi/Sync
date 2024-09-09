@@ -11,6 +11,40 @@
      height: 25px;    
      margin-top: 25%
   }
+.notification-container {
+    max-height: 250px; /* 원하는 높이로 설정 */
+    max-width: 500px;
+    overflow-y: auto;  /* 수직 스크롤을 허용 */
+    border: 1px solid #ddd; /* 테두리 추가 (선택사항) */
+    padding: 10px; /* 내부 여백 (선택사항) */
+    background: #fff; /* 배경색 (선택사항) */
+}
+
+.notification-item {
+    margin-bottom: 10px; /* 항목 간 간격 */
+    padding-left: 0; /* 왼쪽 여백 제거 */
+    font-size: 0.9rem; /* 폰트 크기 줄이기 */
+}
+
+.notification-icon {
+    display: none; /* 아이콘 숨기기 */
+}
+
+.notification-text {
+    flex: 1;
+    padding-left: 0; /* 왼쪽 여백 제거 */
+}
+
+.notification-title {
+    font-size: 0.9rem;
+}
+
+.notification-subtitle {
+    font-size: 0.8rem; 
+}
+
+
+  
 </style>
 <%@ include file="/WEB-INF/views/common/toastify.jsp" %>
 <header style="width: 100%">
@@ -32,15 +66,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-lg-0">
         
-        
-          <li class="nav-item dropdown me-3">   
-             <a class="nav-link" style="margin-right: -8px; margin-top: 3px;" href="javascript:window.open('${root}/chat/main.do','채팅','width=1205px, height=745px, toolbar=no, menubar=no, left=100px, top=160px')">
-                <i class="bi bi-chat-left-dots bi-sub fs-4" style="color: #223055;"></i>
-             </a>
-          </li>
-          
-          
-          
+
           
           <!-- 알림 -->
           <li class="nav-item dropdown me-3">	
@@ -60,6 +86,7 @@
               aria-expanded="false"
             >
               <i class="bi bi-bell bi-sub fs-4"></i>
+              <span id="alarmCount" class="badge bg-danger" style="position: absolute; top: 10px; right: 0px; font-size: 12px;"></span>             
             </a>
             
                      
@@ -69,6 +96,7 @@
   </li>
   
   <!-- notification-list -->
+  <div class="notification-container">
   <ul id="notification-list">
     <!-- 알림이 동적으로 추가되는 부분 -->
 <!--     <li class="dropdown-item notification-item"> -->
@@ -95,6 +123,7 @@
 <!--     </li> -->
   </ul>  
 </ul>
+</div>
 
                  
            </li> 
@@ -155,19 +184,22 @@
 <script type="text/javascript">
 $(document).ready(function() {
     //페이지가 로드되면 알림 데이터를 가져오는 함수 호출
-    fetchNotifications();
+     fetchNotifications();
+     fetchUnreadAlarmCount();
     
     //주기적으로 알림 목록을 새로 고침 
     setInterval(fetchNotifications, 30000); //30초
 
+
     function fetchNotifications() {
-        $.ajax({
+    	$.ajax({
             url: './alarmList.do',
             type: 'GET',
             dataType: 'json',
             success: function(alarms) {
            	
             	 console.log("제발떠라: ",alarms);
+            	 console.log(alarms);
             	           	 
                 //알림 목록을 업데이트하는 함수 호출
                 updateNotificationList(alarms);
@@ -178,6 +210,8 @@ $(document).ready(function() {
         });
     }
     
+    
+    
     function updateNotificationList(alarms) {
         var notificationList = $('#notification-list');
         notificationList.empty(); // 기존 알림 목록 비우기
@@ -186,22 +220,23 @@ $(document).ready(function() {
             notificationList.append('<li class="dropdown-item"><p>읽지 않은 알림이 없습니다.</p></li>');
         } else {
             $.each(alarms, function(index, alarm) {
-                var notificationItem = `
-                    <li class="dropdown-item notification-item">
-                        <a class="d-flex align-items-center" href="#">
-                            <div class="notification-text ms-4">
-                                <p class="notification-title font-bold">${alarm.title}</p>
-                                <p class="notification-subtitle font-thin text-sm">${alarm.timeAgo}</p>
-                            </div>
-                        </a>
-                    </li>
-                `;
+            	
+            	var notificationItem = 
+            	    '<li class="dropdown-item notification-item">' +
+            	        '<a class="d-flex align-items-center" href="#">' +
+            	            '<div class="notification-text ms-4">' +
+            	                '<p class="notification-title font-bold">' + alarm.content + '</p>' +
+            	                '<p class="notification-subtitle font-thin text-sm">' + alarm.timeAgo + '</p>' +
+            	            '</div>' +
+            	        '</a>' +
+            	    '</li>';
+
                 notificationList.append(notificationItem);
             });
             
          // 알림 클릭 이벤트 처리
             $('.notification-item').on('click', function() {
-                var alarmId = $(this).data('alarm-id');
+                var alarmId = $(this).data('alarm_id');
                 isRead(alarmId);
             });
         }
@@ -209,7 +244,7 @@ $(document).ready(function() {
 
     function isRead(alarmId) {
         $.ajax({
-            url: './alarmRead/${alarmId}',
+            url: './alarmRead/'+ alarmId,
             type: 'POST',
             success: function() {
                 console.log("알림이 읽음으로 처리되었습니다.");
@@ -273,7 +308,22 @@ $(document).ready(function() {
         }, 5000);
     }
     
-// });
+    // 읽지 않은 알림 수를 가져오는 함수
+    function fetchUnreadAlarmCount() {
+        $.ajax({
+            url: './alarmCnt.do',
+            type: 'GET',
+            success: function(count) {
+                console.log("읽지 않은 알림 수: ", count);
+                $('#alarmCount').text(count > 0 ? count : 0); // 알림 수 업데이트
+            },
+            error: function() {
+                console.log("읽지 않은 알림 수를 가져오는 중 오류가 발생했습니다.");
+            }
+        });
+    }
+
+ });
     
     
     

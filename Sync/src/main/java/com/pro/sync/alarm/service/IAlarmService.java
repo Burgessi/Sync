@@ -10,7 +10,7 @@ public interface IAlarmService {
 	List<AlarmVo> getUnreadAlarms(Map<String, String> params);
 	
 	//읽지 않은 알림 개수
-	int getUnreadAlarmCnt(String emp_id, String alarm_type);
+	int getUnreadAlarmCnt(String emp_id);
 	
 	//알림 읽음 처리
 	void isRead(String alarm_id);
