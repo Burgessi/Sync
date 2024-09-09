@@ -355,8 +355,10 @@
 								<th>결재자</th>
 								<td>
 									${infoDto.emp_name}
+									<input type="hidden" name="emp_id" value="${approvalDetail.requester_id}">
 									<input type="hidden" name="recipient_id" value="${infoDto.emp_id}">
 									<input type="hidden" name="approval_id" value="${approvalDetail.approval_id}">
+									<input type="hidden" name="document_type" value="${approvalDetail.document_type}">
 								</td>
 							</tr>
 							<tr>

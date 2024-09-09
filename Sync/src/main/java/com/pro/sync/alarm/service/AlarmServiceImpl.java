@@ -65,5 +65,39 @@ public class AlarmServiceImpl implements IAlarmService {
 	
 	  dao.insertAlarm(alarm);
 
-}
+	}
+	
+	
+	//결재 알림
+	@Override
+	public void addApprovalAlarm(Map<String, String> approval) {
+		
+		
+		AlarmVo alarm = new AlarmVo();
+		String receiver_id = (String)approval.get("emp_id");
+		String document_type = (String)approval.get("document_type");
+		String approval_status = (String)approval.get("approval_status");
+		
+		//결재승인시
+		if(approval_status.equals("1")) {
+			alarm.setReceiver_id(receiver_id);
+		    alarm.setAlarm_type("A");
+		    alarm.setTitle(document_type); 
+		    alarm.setContent(document_type + "가 승인되었습니다.");
+		    alarm.setStatus("N");  //읽지 않은 상태
+		//결재반려시
+		} else {
+			alarm.setReceiver_id(receiver_id);
+		    alarm.setAlarm_type("R");
+		    alarm.setTitle(document_type); 
+		    alarm.setContent(document_type + "가 반려되었습니다.");
+		    alarm.setStatus("N");  //읽지 않은 상태
+		}
+		
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		 alarm.setCreate_at(LocalDateTime.now().format(formatter));  //String 타입으로 저장
+		    
+		 dao.insertAlarm(alarm);
+	}
+	
 }

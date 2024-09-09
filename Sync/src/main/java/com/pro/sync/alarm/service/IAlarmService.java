@@ -18,4 +18,6 @@ public interface IAlarmService {
 	//댓글 알림 추가
 	void addCommentAlarm(String receiver_id, String title);
 
+	void addApprovalAlarm(Map<String, String> approval);
+	
 }

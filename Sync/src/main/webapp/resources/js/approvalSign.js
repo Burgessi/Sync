@@ -8,6 +8,7 @@
 		
 		function pdf(name){
 			
+			
 				let documentType = document.getElementById('documentType').value;
 				var element = document.getElementById('pdfDownload');
 				var opt = {
@@ -40,23 +41,23 @@
 			if(approvalStatus == 1 && approvalStatus != undefined && approvalStatus != null && approvalStatus != ""){
 				
 				let approvalStatusForm = new FormData();
+				let emp_id = $("#requesterId").val();
+				
 				
 				approvalStatusForm.append("approval_id", approvalId);
 				approvalStatusForm.append("approval_status", approvalStatus);
-				
+				approvalStatusForm.append("emp_id", emp_id);
+				approvalStatusForm.append("document_type", documentType);
 				
 				
 				if(documentType == "휴가신청서" ){
-					let emp_id = $("#requesterId").val();
+					
 					let off_reason = $("#content").text();
 					let remainingLeave = $("#remainingLeave").text();
 					let totalDay = $("#totalDay").text();
 					let startDate = new Date($("#startDate").text());
 					let endDate = new Date($("#endDate").text());
 					let dates = [];
-					
-					approvalStatusForm.append("emp_id", emp_id);
-					
 					
 					while (startDate <= endDate) {
 				        // 날짜를 'YYYY-MM-DD' 형식으로 변환
