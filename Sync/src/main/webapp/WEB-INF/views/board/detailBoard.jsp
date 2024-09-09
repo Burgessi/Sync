@@ -169,7 +169,7 @@
 							</tr>
 							<tr>
 								<td class="tb"><strong>제&nbsp;&nbsp;&nbsp;&nbsp;목</strong></td>
-								<td>${detail.bd_title}</td>
+								<td id="boardTitle">${detail.bd_title}</td>
 							</tr>
 							<tr>
 								<td class="tb"><strong>첨&nbsp;부&nbsp;파&nbsp;일</strong></td>
@@ -210,6 +210,7 @@
 										<input type="hidden" name="bd_post" value="${detail.bd_post}">
 										<input type="hidden" name="emp_id" value="${loginDto.emp_id}">
 										<input type="hidden" name="bd_seq" value="${detail.bd_seq}">
+										<input type="hidden" name="bd_title" value="${detail.bd_title}">
 									</div>
 								</form>
 							</div>
