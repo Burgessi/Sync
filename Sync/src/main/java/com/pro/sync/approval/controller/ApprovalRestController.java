@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pro.sync.alarm.service.IAlarmService;
 import com.pro.sync.approval.service.IApprovalService;
 import com.pro.sync.division.service.DivisionService;
 import com.pro.sync.division.vo.DivisionVo;
@@ -52,7 +53,7 @@ public class ApprovalRestController {
 	private final TeamService teamService;
 	private final DivisionService divisionService;
 	private final IApprovalService approvalService;
-	
+	private final IAlarmService alarmService;
 	
 	 @Autowired
 	 private ServletContext servletContext;
@@ -137,8 +138,20 @@ public class ApprovalRestController {
 		log.info("받은 status : {}", status);
 		log.info("받은 off_date 모든 사용일자 list : {}");
 		
+		//결재 최종 상태변경
 		approvalService.updateApprovalStatus(status);
+		
+		Map<String, String> stringMap = new HashMap<>();
 
+        for (Map.Entry<String, Object> entry : status.entrySet()) {
+            // Object를 String으로 변환, null 값 처리
+            stringMap.put(entry.getKey(), entry.getValue() == null ? "" : entry.getValue().toString());
+        }
+		
+		//결재 승인 알림 insert
+		alarmService.addApprovalAlarm(stringMap);
+		
+		
 		if(off_date != null) {
 			
 			Map<String, String> strMap = new HashMap<>();
@@ -230,7 +243,6 @@ public class ApprovalRestController {
 	public ResponseEntity<String> rejectionApproval(@RequestParam Map<String, String> rejection) {
 		String status = "2";
 		rejection.put("status", status);
-		rejection.put("status", status);
 		System.out.println("반려확인 : " + rejection);
 		
 		String approval_id =  rejection.get("approval_id");
@@ -238,8 +250,15 @@ public class ApprovalRestController {
 		Map<String, Object> approvalStatus = new HashMap<String, Object>();
 		approvalStatus.put("approval_id", approval_id);
 		approvalStatus.put("approval_status", approval_status);
+		
+		//최종 결재상태 변경 
 		approvalService.updateApprovalStatus(approvalStatus);
 		
+		rejection.put("approval_status", status);
+		
+		
+		//결재 알림 insert
+		alarmService.addApprovalAlarm(rejection);
 		
 		//반려시 --> 결재라인 status를 변경, 반려사유 입력.
 		approvalService.updateLineStatus(rejection);
