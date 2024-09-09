@@ -1,7 +1,9 @@
 package com.pro.sync.board.ctrl;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,10 +29,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
-import org.springframework.http.HttpHeaders;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.pro.sync.alarm.service.IAlarmService;
+import com.pro.sync.alarm.vo.AlarmVo;
 import com.pro.sync.board.service.IBoardService;
 import com.pro.sync.board.vo.BoardVo;
 import com.pro.sync.board.vo.FileBoardVo;
@@ -48,6 +52,9 @@ public class BoardController {
 	
 	private final IBoardService service;
 	private final PagingService pservice;
+	private final IAlarmService alarmService;
+	
+
 	
 	//게시글 전체 조회
 	@GetMapping(value = "/userBoard.do")
@@ -91,11 +98,27 @@ public class BoardController {
 	
 	//댓글 생성
 	@PostMapping(value = "/insertComment.do")
-	public String insertComment(BoardVo vo, HttpSession session, String bd_seq) {
+	public String insertComment(BoardVo vo, HttpSession session, int bd_seq) {
 		log.info("댓글 생성 {}", vo);
 		int n = service.insertComment(vo);
 		
-		return (n==1)?"redirect:/board/detailBoard.do?bd_seq="+vo.getBd_seq():"redirect:/board/userBoard.do";
+		if(n==1) {
+			//게시글 작성자 아이디 조회
+			String boardAuthorId=service.getBoardAuthorId(vo.getBd_seq());
+			if(boardAuthorId!=null) {
+				
+				//알림 생성
+				String title=vo.getBd_title();
+				//String content=vo.getBd_content();
+				alarmService.addCommentAlarm(boardAuthorId, title);
+			}			
+			return "redirect:/board/detailBoard.do?bd_seq="+vo.getBd_seq();
+		}else {
+			return "redirect:/board/userBoard.do";
+		}
+		
+
+		//return (n==1)?"redirect:/board/detailBoard.do?bd_seq="+vo.getBd_seq():"redirect:/board/userBoard.do";
 	}
 	
 	//댓글 삭제

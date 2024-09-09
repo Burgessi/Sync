@@ -1,12 +1,21 @@
 package com.pro.sync.alarm.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pro.sync.alarm.vo.AlarmVo;
 
 public interface IAlarmService {
-	List<AlarmVo> getUnreadAlarms(String emp_id);
-	int getUnreadAlarmCnt(String emp_id);
+	//읽지 않은 알림 목록
+	List<AlarmVo> getUnreadAlarms(Map<String, String> params);
+	
+	//읽지 않은 알림 개수
+	int getUnreadAlarmCnt(String emp_id, String alarm_type);
+	
+	//알림 읽음 처리
 	void isRead(String alarm_id);
+	
+	//댓글 알림 추가
+	void addCommentAlarm(String receiver_id, String title);
 
 }

@@ -103,6 +103,14 @@ public class BoardServiceImpl implements IBoardService {
 		return dao.selectFile(file_seq);
 	}
 	
+	@Override
+	public String getBoardAuthorId(int bd_seq) {
+		
+		return dao.getBoardAuthorId(bd_seq);
+	}
+	
+	
+	
 	
 	
 	

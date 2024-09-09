@@ -101,6 +101,12 @@ public class BoardDaoImpl implements IBoardDao {
 		return session.selectOne(NS + "selectFile", file_seq);
 	}
 	
+	@Override
+	public String getBoardAuthorId(int bd_seq) {
+		
+		return session.selectOne(NS+"getBoardAuthorId", bd_seq);
+	}
+	
 
 
 	

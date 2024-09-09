@@ -52,6 +52,9 @@ public interface IBoardDao {
 	//파일 조회
 	public FileBoardVo selectFile(int file_seq);
 	
+	//댓글 작성자 id
+	public String getBoardAuthorId(int bd_seq);
+	
 	
 	
 	

@@ -33,6 +33,16 @@
         <ul class="navbar-nav ms-auto mb-lg-0">
         
         
+          <li class="nav-item dropdown me-3">   
+             <a class="nav-link" style="margin-right: -8px; margin-top: 3px;" href="javascript:window.open('${root}/chat/main.do','채팅','width=1205px, height=745px, toolbar=no, menubar=no, left=100px, top=160px')">
+                <i class="bi bi-chat-left-dots bi-sub fs-4" style="color: #223055;"></i>
+             </a>
+          </li>
+          
+          
+          
+          
+          <!-- 알림 -->
           <li class="nav-item dropdown me-3">	
           	<a class="nav-link" style="margin-right: -8px; margin-top: 3px;" href="javascript:window.open('${root}/chat/main.do','채팅','width=1205px, height=745px, toolbar=no, menubar=no, left=100px, top=160px')">
 	          	<i class="bi bi-chat-left-dots bi-sub fs-4" style="color: #223055;"></i>
@@ -40,6 +50,7 @@
           </li>
           
           
+
           <li class="nav-item dropdown me-3">
             <a
               class="nav-link active dropdown-toggle text-gray-600"
@@ -51,47 +62,47 @@
               <i class="bi bi-bell bi-sub fs-4"></i>
             </a>
             
-            <!-- 알림 -->
-            
-            <ul class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="dropdownMenuButton" style="left: 13%;">
-              <li class="dropdown-header">
-                <h6>Notifications</h6>
-              </li>
-              
-              <!-- notification-list -->
-              <div id="notification-list">
-              <li class="dropdown-item notification-item">
-                <a class="d-flex align-items-center" href="#">
-                  <div class="notification-icon bg-primary">
-<!--                     <i class="bi bi-cart-check"></i> -->
-                  </div>
-                  <div class="notification-text ms-4">
-                    <p class="notification-title font-bold">댓글이 달렸습니다</p>
-                    <p class="notification-subtitle font-thin text-sm">1분 전</p>
-                  </div>
-                </a>
-              </li>
-              <li class="dropdown-item notification-item">
-                <a class="d-flex align-items-center" href="#">
-                  <div class="notification-icon bg-success">
-<!--                     <i class="bi bi-file-earmark-check"></i> -->
-                  </div>
-                  <div class="notification-text ms-4">
-                    <p class="notification-title font-bold">결재가 승인되었습니다</p>
-                    <p class="notification-subtitle font-thin text-sm">2시간 전</p>
-                  </div>
-                </a>
-              </li>
-<!--               <li> -->
-<!--                 <p class="text-center py-2 mb-0"> -->
-<!--                   <a href="#">See all notification</a> -->
-<!--                 </p> -->
-<!--               </li> -->
-            </ul>
-            </div>
-            
-          </li>
-        </ul>
+                     
+<ul class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="dropdownMenuButton" style="left: 13%;">
+  <li class="dropdown-header">
+    <h6>Notifications</h6>
+  </li>
+  
+  <!-- notification-list -->
+  <ul id="notification-list">
+    <!-- 알림이 동적으로 추가되는 부분 -->
+<!--     <li class="dropdown-item notification-item"> -->
+<!--       <a class="d-flex align-items-center" href="#"> -->
+<!--         <div class="notification-icon bg-primary"> -->
+<!--           <i class="bi bi-cart-check"></i>  -->
+<!--         </div> -->
+<!--         <div class="notification-text ms-4"> -->
+<!--           <p class="notification-title font-bold">댓글이 달렸습니다</p> -->
+<!--           <p class="notification-subtitle font-thin text-sm">1분 전</p> -->
+<!--         </div> -->
+<!--       </a> -->
+<!--     </li> -->
+<!--     <li class="dropdown-item notification-item"> -->
+<!--       <a class="d-flex align-items-center" href="#"> -->
+<!--         <div class="notification-icon bg-success"> -->
+<!--           <i class="bi bi-file-earmark-check"></i>  -->
+<!--         </div> -->
+<!--         <div class="notification-text ms-4"> -->
+<!--           <p class="notification-title font-bold">결재가 승인되었습니다</p> -->
+<!--           <p class="notification-subtitle font-thin text-sm">2시간 전</p> -->
+<!--         </div> -->
+<!--       </a> -->
+<!--     </li> -->
+  </ul>  
+</ul>
+
+                 
+           </li> 
+         </ul> 
+        </div>
+        
+        
+
         <div class="dropdown">
           <a href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <div class="user-menu d-flex">
@@ -143,62 +154,77 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    //알림 목록
-//     loadNotifications();
-   
-   
-    function loadNotifications() {
+    //페이지가 로드되면 알림 데이터를 가져오는 함수 호출
+    fetchNotifications();
+    
+    //주기적으로 알림 목록을 새로 고침 
+    setInterval(fetchNotifications, 30000); //30초
+
+    function fetchNotifications() {
         $.ajax({
             url: './alarmList.do',
-            method: 'GET',
+            type: 'GET',
             dataType: 'json',
-            success: function(data) {
-                //알림 영역을 비워줌
-                $('#notification-list').empty();
-                
-                //알림 목록을 추가
-                if(data.length > 0) {
-                    $.each(data, function(index, alarm) {
-                        var iconClass = (alarm.alarm_type === 'C') ? 'bg-primary' : 'bg-success';
-                        var alarmHtml = `
-                            <li class="dropdown-item notification-item">
-                                <a class="d-flex align-items-center" href="#" onclick="readNotification('${alarm.alarm_id}')">
-                                  <div class="notification-icon ${iconClass}">
-                                  </div>
-                                  <div class="notification-text ms-4">
-                                    <p class="notification-title font-bold">${alarm.title}</p>
-                                    <p class="notification-subtitle font-thin text-sm">${alarm.timeAgo}</p>
-                                  </div>
-                                </a>
-                            </li>`;
-                        
-                        $('#notification-list').append(alarmHtml);
-                    });
-                } else {
-                    $('#notification-list').append('<li class="dropdown-item">알림이 없습니다.</li>');
-                }
+            success: function(alarms) {
+           	
+            	 console.log("제발떠라: ",alarms);
+            	           	 
+                //알림 목록을 업데이트하는 함수 호출
+                updateNotificationList(alarms);
             },
             error: function() {
-                alert('알림을 불러오는데 실패했습니다.');
+                console.log("알림 데이터를 가져오는 중 오류가 발생했습니다.");
             }
         });
+    }
+    
+    function updateNotificationList(alarms) {
+        var notificationList = $('#notification-list');
+        notificationList.empty(); // 기존 알림 목록 비우기
+        
+        if (alarms.length === 0) {
+            notificationList.append('<li class="dropdown-item"><p>읽지 않은 알림이 없습니다.</p></li>');
+        } else {
+            $.each(alarms, function(index, alarm) {
+                var notificationItem = `
+                    <li class="dropdown-item notification-item">
+                        <a class="d-flex align-items-center" href="#">
+                            <div class="notification-text ms-4">
+                                <p class="notification-title font-bold">${alarm.title}</p>
+                                <p class="notification-subtitle font-thin text-sm">${alarm.timeAgo}</p>
+                            </div>
+                        </a>
+                    </li>
+                `;
+                notificationList.append(notificationItem);
+            });
+            
+         // 알림 클릭 이벤트 처리
+            $('.notification-item').on('click', function() {
+                var alarmId = $(this).data('alarm-id');
+                isRead(alarmId);
+            });
+        }
     }
 
-    //알림 읽음 처리
-    function readNotification(alarm_id) {
+    function isRead(alarmId) {
         $.ajax({
-            url: './alarmRead/' + alarm_id,
-            method: 'POST',
+            url: './alarmRead/${alarmId}',
+            type: 'POST',
             success: function() {
-                loadNotifications();  //알림 리스트 다시 로드
+                console.log("알림이 읽음으로 처리되었습니다.");
+               
+                fetchNotifications(); //새로 고침
+            },
+            error: function(xhr, status, error) {
+                console.log("알림을 읽음으로 처리하는 중 오류가 발생했습니다.", error);
             }
         });
     }
     
     
-    
-    
-    
+});
+
     
     
     ///////        채팅알림입니다      !!!@!?//////
@@ -247,10 +273,10 @@ $(document).ready(function() {
         }, 5000);
     }
     
+// });
     
     
     
     
     
-});
 </script>

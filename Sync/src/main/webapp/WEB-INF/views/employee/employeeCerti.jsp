@@ -165,8 +165,8 @@ p {
                 <img src="./resources/img/stamp.png" alt="도장 이미지">
                 <!-- 도장 이미지 파일 경로 -->
 
-                <span class="span1" style="z-index: 2;">구디 아카데미</span> 
-                <span class="span1" style="z-index: 2;">대표 이승엽</span>
+                <span class="span1" style="z-index: 2; top: 40px; left: 30px;">구디 아카데미</span> 
+                <span class="span1" style="z-index: 2; top: 60px; left: 30px;">대표 이승엽</span>
             </div>
         </div>
     </div>
