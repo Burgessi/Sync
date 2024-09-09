@@ -220,10 +220,11 @@ public class BoardController {
 				log.info("저장경로 path : {} ", path);
 				log.info("파일 값 : {}", fileList);
 				
-				
+				if (!fileList.isEmpty()) {
 				boolean filesInsert = service.fileInsert(fileList,bvo.getBd_seq(), bvo.getEmp_id());
 				if(!filesInsert) {
 					 throw new RuntimeException("파일 삽입 실패");
+				}
 				}
 			} else {
 				throw new RuntimeException("게시글 삽입 실패");
@@ -314,10 +315,11 @@ public class BoardController {
 					log.info("저장경로 path : {} ", path);
 					log.info("파일 값 : {}", fileList);
 					
-					
+					if (!fileList.isEmpty()) {
 					boolean filesInsert = service.fileInsert(fileList,board.getBd_seq(), board.getEmp_id());
 					if(!filesInsert) {
 						 throw new RuntimeException("파일 삽입 실패");
+					}
 					}
 				} else {
 					throw new RuntimeException("게시글 삽입 실패");
