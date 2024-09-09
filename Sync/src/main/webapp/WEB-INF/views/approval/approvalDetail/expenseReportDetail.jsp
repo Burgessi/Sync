@@ -22,6 +22,7 @@
 						
 					<div class="card-body">
 						<div style="text-align: right;">
+							<c:if test="${approvalDetail.approval_status eq 0}">
 							<c:choose>
 								<c:when test="${loginDto.emp_id eq approvalDetail.requester_id && approvalDetail.temp_save_flag eq 'N'}">
 									<button type="button" id="modifyApproval" class="btn btn-sm btn-primary">수정</button>
@@ -40,10 +41,15 @@
 									<button type="button" id="deleteTempApproval" class="btn btn-sm btn-outline-danger">회수</button>
 								</c:otherwise>
 							</c:choose>
-							
+						</c:if>
+						<!-- 결재완료상태 -->
+						<c:if test="${approvalDetail.approval_status eq 1 && loginDto.emp_id eq approvalDetail.requester_id}">
+							<button type="button" class="btn btn-outline-success" onclick="pdf('${approvalDetail.requester_name}')" style="margin-right: 10px;">pdf 저장</button> 
+						</c:if>
 							<input type="hidden" id="temp_save_flag" value="${approvalDetail.temp_save_flag}">
 							<input type="hidden" id="approvalId" value="${approvalDetail.approval_id}">
 						</div>		
+			<div id="pdfDownload">						
 						<h4 style="text-align: center;">지출결의서</h4>
 							
 							<div>
@@ -66,31 +72,49 @@
 											</table>
 										</div>
 										<div class="col-md-3"></div>
+										
+										
+										<%-- 마지막 결재 라인의 상태에 따라 flag를 변경할 변수 선언 --%>
+										<c:set var="isApproved" value="false" />
+										<c:set var="isRejected" value="false" />
+										
+										<%-- 결재 라인의 마지막 항목 가져오기 --%>
+										<c:set var="lastLine" value="${fn:length(approvalDetail.lineList) - 1}" />
+										
+										
 										<div class="col-md-5" style="text-align: right; display: flex; justify-content: flex-end;">
-												<c:forEach var="line" items="${approvalDetail.lineList}">
+												<c:forEach var="line" items="${approvalDetail.lineList}" varStatus="status">
 													<!-- 결재라인 step1 서명 시작-->
 													<c:if test="${line.step eq 1}">
 														<div class="approval-line-signature">
 															<div style="width: 133px; height: 25px; border: 1px solid #e0e0e0;">
 																${line.rank_name}
 															</div>
-																<c:if test="${line.status eq 0}">
+															<c:choose>
+																<c:when test="${line.status eq 0}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
 																		<input type="hidden" id="lineFlag" value="false">
 																	</div>
-																</c:if>
-																<c:if test="${line.status eq 1}">
+																</c:when>	
+																<c:when test="${line.status eq 1}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
 																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/${line.signature}">
 																		<input type="hidden" id="lineFlag" value="true">
 																	</div>
-																</c:if>
-																<c:if test="${line.status eq 2}">
+												                    <c:if test="${status.index eq lastLine}">
+												                        <c:set var="isApproved" value="true" />
+												                    </c:if>
+																</c:when>	
+																<c:when test="${line.status eq 2}">	
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
 																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/reject.jpg">
 																		<input type="hidden" id="lineFlag" value="true">
 																	</div>
-																</c:if>
+												                    <c:if test="${status.index eq lastLine}">
+												                        <c:set var="isRejected" value="true" />
+												                    </c:if>
+																</c:when>
+															</c:choose>	
 															<div style="width: 133px; height: 20px; border: 1px solid #e0e0e0; border-top:none; font-size: 0.7em;">
 																${line.approval_date}
 															</div>
@@ -98,7 +122,7 @@
 																${line.recipient_name}
 															</div>
 														</div>
-													</c:if>
+													</c:if>	
 													<!-- 결재라인 step1 서명 끝 -->
 													<!-- 결재라인 step2 서명 시작-->
 													<c:if test="${line.step eq 2}">
@@ -106,20 +130,31 @@
 															<div style="width: 133px; height: 25px; border: 1px solid #e0e0e0;">
 																${line.rank_name}
 															</div>
-																<c:if test="${line.status eq 0}">
+															<c:choose>
+																<c:when test="${line.status eq 0}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
+																		<input type="hidden" id="lineFlag" value="false">
 																	</div>
-																</c:if>
-																<c:if test="${line.status eq 1}">
+																</c:when>	
+																<c:when test="${line.status eq 1}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
 																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/${line.signature}">
+																		<input type="hidden" id="lineFlag" value="true">
 																	</div>
-																</c:if>
-																<c:if test="${line.status eq 2}">
+												                    <c:if test="${status.index eq lastLine}">
+												                        <c:set var="isApproved" value="true" />
+												                    </c:if>
+																</c:when>	
+																<c:when test="${line.status eq 2}">	
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
 																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/reject.jpg">
+																		<input type="hidden" id="lineFlag" value="true">
 																	</div>
-																</c:if>
+												                    <c:if test="${status.index eq lastLine}">
+												                        <c:set var="isRejected" value="true" />
+												                    </c:if>
+																</c:when>
+															</c:choose>	
 															<div style="width: 133px; height: 20px; border: 1px solid #e0e0e0; border-top:none; font-size: 0.7em;">
 																${line.approval_date}
 															</div>
@@ -127,26 +162,38 @@
 																${line.recipient_name}
 															</div>
 														</div>
-													</c:if>
+													</c:if>	
+													<!-- 결재라인 3번 -->
 													<c:if test="${line.step eq 3}">
 														<div class="approval-line-signature">
 															<div style="width: 133px; height: 25px; border: 1px solid #e0e0e0;">
 																${line.rank_name}
 															</div>
-																<c:if test="${line.status eq 0}">
+															<c:choose>
+																<c:when test="${line.status eq 0}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
+																		<input type="hidden" id="lineFlag" value="false">
 																	</div>
-																</c:if>
-																<c:if test="${line.status eq 1}">
+																</c:when>	
+																<c:when test="${line.status eq 1}">
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
 																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/${line.signature}">
+																		<input type="hidden" id="lineFlag" value="true">
 																	</div>
-																</c:if>
-																<c:if test="${line.status eq 2}">
+												                    <c:if test="${status.index eq lastLine}">
+												                        <c:set var="isApproved" value="true" />
+												                    </c:if>
+																</c:when>	
+																<c:when test="${line.status eq 2}">	
 																	<div style="width: 133px; height: 90px; border: 1px solid #e0e0e0; border-bottom:none; display: flex; justify-content: center; align-items: center;">
 																		<img style="width:100%; height:100%;" alt="" src="${root}/resources/img/signature/reject.jpg">
+																		<input type="hidden" id="lineFlag" value="true">
 																	</div>
-																</c:if>
+												                    <c:if test="${status.index eq lastLine}">
+												                        <c:set var="isRejected" value="true" />
+												                    </c:if>
+																</c:when>
+															</c:choose>	
 															<div style="width: 133px; height: 20px; border: 1px solid #e0e0e0; border-top:none; font-size: 0.7em;">
 																${line.approval_date}
 															</div>
@@ -154,9 +201,26 @@
 																${line.recipient_name}
 															</div>
 														</div>
-													</c:if>
+													</c:if>	
 												</c:forEach>
-											</div>					
+											
+												<c:if test="${approvalDetail.approval_status eq 0}">
+												
+												<!-- 결재상태 -->
+												<c:choose>
+												    <c:when test="${isApproved eq 'true'}">
+												        <input type="hidden" id="approvalStatus" name="approvalStatus" value="1">
+												    </c:when>
+												    <c:when test="${isRejected eq 'true'}">
+												        <input type="hidden" id="approvalStatus" name="approvalStatus" value="2">
+												    </c:when>
+												    <c:otherwise>
+												        <input type="hidden" id="approvalStatus" name="approvalStatus" value="0">
+												    </c:otherwise>
+												</c:choose>
+												</c:if>
+											</div>
+										</div>					
 									</div>
 									
 									<div style="margin-top: 40px;">

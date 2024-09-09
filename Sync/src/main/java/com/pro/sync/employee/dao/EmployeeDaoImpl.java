@@ -62,6 +62,11 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return sessionTemplate.selectList(NS+"searchEmployee", map);
 	}
 
+	@Override
+	public int insertOffHistory(Map<String, Object> map) {
+		return sessionTemplate.insert(NS+"insertOffHistory", map);
+	}
+
 	
 }
 

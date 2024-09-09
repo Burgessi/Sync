@@ -24,4 +24,6 @@ public interface EmployeeService {
 	//검색
 	public List<EmployeeVo> searchEmployee(Map<String, Object>map);
 	
+	public int insertOffHistory(Map<String, Object> map);
+	
 }

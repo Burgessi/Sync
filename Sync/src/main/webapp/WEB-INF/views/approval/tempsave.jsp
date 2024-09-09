@@ -44,7 +44,7 @@
 												</div>
 											</div>
 										</div>
-										
+										${list.requester_name }
 										<div class="card-body">
 										
 											<table class="table table-bordered table-hover" style="text-align: center; font: 0.8em sans-serif;">
@@ -62,7 +62,7 @@
 													<c:choose>
 														<c:when test="${fn:length(tempApproval) == 0}">
 															<tr>
-																<td colspan="5">결재문서가 존재하지 않습니다.</td>
+																<td colspan="6">결재문서가 존재하지 않습니다.</td>
 															</tr>
 														</c:when>
 														<c:otherwise>

@@ -56,6 +56,9 @@
 								</div>
 							
 							
+							
+							
+							
 							<div class="row">
 							
 							
@@ -66,7 +69,7 @@
 											<div style="text-align: center;">
 												<img alt="" src="${root}/resources/img/approval_img/htmlicon.png">
 											</div>
-											<h6 style="text-align: center; margin-top: 10px;" class="card-subtitle mb-2 text-muted"><a href="#" class="card-link">휴가신청서</a></h6>
+											<h6 style="text-align: center; margin-top: 10px;" class="card-subtitle mb-2 text-muted"><a href="${root}/approval/write.do?formNo=form001" class="card-link">휴가신청서</a></h6>
 										</div>
 										
 									</div>
@@ -80,7 +83,7 @@
 											<div style="text-align: center;">
 												<img src="${root}/resources/img/approval_img/htmlicon.png">
 											</div>
-											<h6 style="text-align: center; margin-top: 10px;" class="card-subtitle mb-2 text-muted"><a href="#" class="card-link">품의서</a></h6>
+											<h6 style="text-align: center; margin-top: 10px;" class="card-subtitle mb-2 text-muted"><a href="${root}/approval/write.do?formNo=form002" class="card-link">출장보고서</a></h6>
 										</div>
 										
 									</div>
@@ -93,7 +96,7 @@
 											<div style="text-align: center;">
 												<img  src="${root}/resources/img/approval_img/htmlicon.png">
 											</div>
-											<h6 style="text-align: center; margin-top: 10px;" class="card-subtitle mb-2 text-muted"><a href="#" class="card-link">출장보고서</a></h6>
+											<h6 style="text-align: center; margin-top: 10px;" class="card-subtitle mb-2 text-muted"><a href="${root}/approval/write.do?formNo=form003" class="card-link">지출결의서</a></h6>
 										</div>
 										
 									</div>
@@ -106,7 +109,7 @@
 											<div style="text-align: center;">
 												<img alt="" src="${root}/resources/img/approval_img/htmlicon.png">
 											</div>
-											<h6 style="text-align: center; margin-top: 10px;" class="card-subtitle mb-2 text-muted"><a href="#" class="card-link">협조문</a></h6>
+											<h6 style="text-align: center; margin-top: 10px;" class="card-subtitle mb-2 text-muted"><a href="${root}/approval/write.do?formNo=form004" class="card-link">협조문</a></h6>
 										</div>
 									
 									</div>
@@ -115,339 +118,15 @@
 							
 							</div>
 		
-			        	
-			        	
-				        	
-				        	<div class="row">
-							
-								<div class="col-md-6">
-									<div class="card mb-6">
-			        					<div class="card-header">
-			        						<h4>결재 상신</h4>
-			        						<img class="enter" alt="" src="${root}/resources/img/approval_img/enter.png">
-			        					</div>
-			        					
-			        					<div class="card-body">
-				        					<div style="width: 500px; margin: auto;">
-					        					<table class="table table-hover table-font100">
-						                    		<thead>
-						                    			<tr>
-						                    				<td>번호</td>
-						                    				<td>제목</td>
-						                    				<td>작성자</td>
-						                    				<td>등록일</td>
-						                    				<td>결재상태</td>
-						                    			</tr>
-						                    		</thead>
-						                    		<tbody>	
-						                    			<tr>
-						                    				<td>7</td>
-						                    				<td>공지사항333</td>
-						                    				<td>인사팀장</td>
-						                    				<td>2024-08-08</td>
-						                    				<td><span class="badge bg-warning">결재진행</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>6</td>
-						                    				<td>보세요 제발</td>
-						                    				<td>마케팅팀장</td>
-						                    				<td>2024-08-02</td>
-						                    				<td><span class="badge bg-warning">결재진행</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>5</td>
-						                    				<td>주목하세요 주목</td>
-						                    				<td>하건호</td>
-						                    				<td>2024-08-01</td>
-						                    				<td><span class="badge bg-warning">결재진행</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>4</td>
-						                    				<td>보세요 제발</td>
-						                    				<td>마케팅팀장</td>
-						                    				<td>2024-08-02</td>
-						                    				<td><span class="badge bg-danger">결재반려</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>3</td>
-						                    				<td>주목하세요 주목</td>
-						                    				<td>하건호</td>
-						                    				<td>2024-08-01</td>
-						                    				<td><span class="badge bg-danger">결재반려</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>2</td>
-						                    				<td>보세요 제발</td>
-						                    				<td>마케팅팀장</td>
-						                    				<td>2024-08-02</td>
-						                    				<td><span class="badge bg-primary">결재완료</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>1</td>
-						                    				<td>주목하세요 주목</td>
-						                    				<td>하건호</td>
-						                    				<td>2024-08-01</td>
-						                    				<td><span class="badge bg-primary">결재완료</span><td>
-						                    			</tr>
-						                    		</tbody>
-						                    	</table>
-				        					</div>
-			        					</div>
-			        					
-			        				</div>
-			        			</div>
-			        			
-			        			<div class="col-md-6">
-									<div class="card mb-6">
-										
-										<div class="card-header">
-			        						<h4>결재 완료</h4>
-			        						<img class="enter" alt="" src="${root}/resources/img/approval_img/enter.png">
-			        					</div>
-										
-									
-										<div class="card-body">
-				        					<div style="width: 500px; margin: auto;">
-						        					<table class="table table-hover table-font100">
-							                    		<thead>
-							                    			<tr>
-							                    				<td>번호</td>
-							                    				<td>제목</td>
-							                    				<td>작성자</td>
-							                    				<td>등록일</td>
-							                    				<td>결재상태</td>
-							                    			</tr>
-							                    		</thead>
-							                    		<tbody>
-							                    			<tr>
-							                    				<td>7</td>
-							                    				<td>공지사항333</td>
-							                    				<td>인사팀장</td>
-							                    				<td>2024-08-08</td>
-							                    				<td><span class="badge bg-primary">결재완료</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>6</td>
-							                    				<td>보세요 제발</td>
-							                    				<td>마케팅팀장</td>
-							                    				<td>2024-08-02</td>
-							                    				<td><span class="badge bg-primary">결재완료</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>5</td>
-							                    				<td>주목하세요 주목</td>
-							                    				<td>하건호</td>
-							                    				<td>2024-08-01</td>
-							                    				<td><span class="badge bg-primary">결재완료</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>4</td>
-							                    				<td>보세요 제발</td>
-							                    				<td>마케팅팀장</td>
-							                    				<td>2024-08-02</td>
-							                    				<td><span class="badge bg-primary">결재완료</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>3</td>
-							                    				<td>주목하세요 주목</td>
-							                    				<td>하건호</td>
-							                    				<td>2024-08-01</td>
-							                    				<td><span class="badge bg-primary">결재완료</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>2</td>
-							                    				<td>보세요 제발</td>
-							                    				<td>마케팅팀장</td>
-							                    				<td>2024-08-02</td>
-							                    				<td><span class="badge bg-primary">결재완료</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>1</td>
-							                    				<td>주목하세요 주목</td>
-							                    				<td>하건호</td>
-							                    				<td>2024-08-01</td>
-							                    				<td><span class="badge bg-primary">결재완료</span><td>
-							                    			</tr>
-							                    		</tbody>
-							                    	</table>
-				        						
-				        						
-				        						</div>
-			        					</div>
-			        				</div>
-			        			</div>
-			        			
-			        			
-			        		</div>
-			        		
-			        		<div class="row">
-							
-								<div class="col-md-6">
-									<div class="card mb-6">
-			        					<div class="card-header">
-			        						<h4>결재 상신</h4>
-			        						<img class="enter" alt="" src="${root}/resources/img/approval_img/enter.png">
-			        					</div>
-			        					
-			        					<div class="card-body">
-				        					<div style="width: 500px; margin: auto;">
-					        					<table class="table table-hover table-font100">
-						                    		<thead>
-						                    			<tr>
-						                    				<td>번호</td>
-						                    				<td>제목</td>
-						                    				<td>작성자</td>
-						                    				<td>등록일</td>
-						                    				<td>결재상태</td>
-						                    			</tr>
-						                    		</thead>
-						                    		<tbody>	
-						                    			<tr>
-						                    				<td>7</td>
-						                    				<td>공지사항333</td>
-						                    				<td>인사팀장</td>
-						                    				<td>2024-08-08</td>
-						                    				<td><span class="badge bg-secondary">임시저장</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>6</td>
-						                    				<td>보세요 제발</td>
-						                    				<td>마케팅팀장</td>
-						                    				<td>2024-08-02</td>
-						                    				<td><span class="badge bg-warning">결재진행</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>5</td>
-						                    				<td>주목하세요 주목</td>
-						                    				<td>하건호</td>
-						                    				<td>2024-08-01</td>
-						                    				<td><span class="badge bg-secondary">임시저장</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>4</td>
-						                    				<td>보세요 제발</td>
-						                    				<td>마케팅팀장</td>
-						                    				<td>2024-08-02</td>
-						                    				<td><span class="badge bg-danger">결재반려</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>3</td>
-						                    				<td>주목하세요 주목</td>
-						                    				<td>하건호</td>
-						                    				<td>2024-08-01</td>
-						                    				<td><span class="badge bg-primary">결재완료</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>2</td>
-						                    				<td>보세요 제발</td>
-						                    				<td>마케팅팀장</td>
-						                    				<td>2024-08-02</td>
-						                    				<td><span class="badge bg-danger">결재반려</span><td>
-						                    			</tr>
-						                    			<tr>
-						                    				<td>1</td>
-						                    				<td>주목하세요 주목</td>
-						                    				<td>하건호</td>
-						                    				<td>2024-08-01</td>
-						                    				<td><span class="badge bg-warning">진행중</span><td>
-						                    			</tr>
-						                    		</tbody>
-						                    	</table>
-				        					</div>
-			        					</div>
-			        					
-			        				</div>
-			        			</div>
-			        			
-			        			<div class="col-md-6">
-									<div class="card mb-6">
-										
-										<div class="card-header">
-			        						<h4>결재 완료</h4>
-			        						<img class="enter" alt="" src="${root}/resources/img/approval_img/enter.png">
-			        					</div>
-										
-									
-										<div class="card-body">
-				        					<div style="width: 500px; margin: auto;">
-						        					<table class="table table-hover table-font100">
-							                    		<thead>
-							                    			<tr>
-							                    				<td>번호</td>
-							                    				<td>제목</td>
-							                    				<td>작성자</td>
-							                    				<td>등록일</td>
-							                    				<td>결재상태</td>
-							                    			</tr>
-							                    		</thead>
-							                    		<tbody>
-							                    			<tr>
-							                    				<td>7</td>
-							                    				<td>공지사항333</td>
-							                    				<td>인사팀장</td>
-							                    				<td>2024-08-08</td>
-							                    				<td><span class="badge bg-warning">결재진행</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>6</td>
-							                    				<td>보세요 제발</td>
-							                    				<td>마케팅팀장</td>
-							                    				<td>2024-08-02</td>
-							                    				<td><span class="badge bg-danger">결재반려</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>5</td>
-							                    				<td>주목하세요 주목</td>
-							                    				<td>하건호</td>
-							                    				<td>2024-08-01</td>
-							                    				<td><span class="badge bg-secondary">임시저장</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>4</td>
-							                    				<td>보세요 제발</td>
-							                    				<td>마케팅팀장</td>
-							                    				<td>2024-08-02</td>
-							                    				<td><span class="badge bg-primary">결재완료</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>3</td>
-							                    				<td>주목하세요 주목</td>
-							                    				<td>하건호</td>
-							                    				<td>2024-08-01</td>
-							                    				<td><span class="badge bg-primary">결재완료</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>2</td>
-							                    				<td>보세요 제발</td>
-							                    				<td>마케팅팀장</td>
-							                    				<td>2024-08-02</td>
-							                    				<td><span class="badge bg-primary">결재완료</span><td>
-							                    			</tr>
-							                    			<tr>
-							                    				<td>1</td>
-							                    				<td>주목하세요 주목</td>
-							                    				<td>하건호</td>
-							                    				<td>2024-08-01</td>
-							                    				<td><span class="badge bg-warning">결재진행</span><td>
-							                    			</tr>
-							                    		</tbody>
-							                    	</table>
-				        						
-				        						
-				        						</div>
-			        					</div>
-			        				</div>
-			        			</div>
-			        			
-			        			
-			        		</div>
-			        		
-			        	
-			        	
-			        
+		
+		
+		
+							<!-- 결재 문서 내역 content -->
+			        		<div>
+								<jsp:include page="./main-content.jsp"></jsp:include>
+							</div>
 			        
 			    </div>
-			
 			</main>
         
         

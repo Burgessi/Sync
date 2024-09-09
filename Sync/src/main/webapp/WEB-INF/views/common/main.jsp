@@ -190,7 +190,7 @@
 							</div>
 						</div>
 						<div class="card"
-							style="width: 50%; min-width: 400px; padding: 5px; margin-left: 10px;">
+							style="width: 50%; min-width: 400px; padding: 5px; margin-left: 10px; overflow: hidden; /* 내용이 영역을 넘지 않도록 */">
 							<div class="card-header mt-1">
 								<h4>결재현황</h4>
 							</div>

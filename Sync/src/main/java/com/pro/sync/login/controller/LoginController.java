@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.pro.sync.approval.service.IApprovalService;
+import com.pro.sync.approval.vo.ApprovalVo;
 import com.pro.sync.common.aop.UpdateSession;
 import com.pro.sync.employee.vo.EmployeeVo;
 import com.pro.sync.login.service.ILoginService;
@@ -41,6 +43,10 @@ public class LoginController {
 
 	@Autowired
 	private IScheduleService sService;
+	
+	@Autowired
+	private IApprovalService approvalService;
+	
 
 //	@Autowired
 //	private PasswordEncoder passwordEncoder;
@@ -147,11 +153,21 @@ public class LoginController {
 	// 메인페이지 요청
 	@UpdateSession
 	@GetMapping("/main.do")
-	public String getMain(Model model) {
+	public String getMain(Model model, HttpSession session) {
+		
+		EmployeeVo loginVo = (EmployeeVo)session.getAttribute("loginDto");
+		String empId = loginVo.getEmp_id();
+		
 		List<NoticeVo> noList = nservice.mainNotice();
 		List<ScheduleVo> sList = sService.selectScd();
 		model.addAttribute("noList", noList);
 		model.addAttribute("sList", sList);
+		
+		// 메인 화면 approval 정보
+		List<ApprovalVo> approval = approvalService.getApprovalsList(empId);
+		model.addAttribute("approval", approval);
+		log.info("main page loginVo approval list : {}", approval);
+		
 		log.info("noList : {}", noList);
 		log.info("sList : {}", sList);
 		return "/common/main";
