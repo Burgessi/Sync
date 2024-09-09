@@ -8,7 +8,7 @@ import com.pro.sync.alarm.vo.AlarmVo;
 public interface IAlarmDao {
 	
 	List<AlarmVo> getUnreadAlarms(Map<String, String> params);
-	int getUnreadAlarmCnt(Map<String, String> params);
+	int getUnreadAlarmCnt(String emp_id);
 	void updateStatus(String alarm_id);
 	// 알림 삽입
     void insertAlarm(AlarmVo alarm);

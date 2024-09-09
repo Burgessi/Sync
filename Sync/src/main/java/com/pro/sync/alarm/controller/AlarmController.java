@@ -67,18 +67,20 @@ public class AlarmController {
 	                long daysAgo = minutesAgo / 1440;
 	                alarm.setTimeAgo(daysAgo + "일 전");
 	            }
-	            
+	            log.info("전달 :{}", alarm);
 	            return alarm;
 	        }).collect(Collectors.toList());		 
 		 }
 	
 	//읽지 않은 알림 개수
     @GetMapping(value="/alarmCnt.do")
-    public int getUnreadNotificationCount(@SessionAttribute("loginDto") EmployeeVo loginDto,
-    									  @RequestParam(required = false) String alarm_type) {
+    public int getUnreadNotificationCount(@SessionAttribute("loginDto") EmployeeVo loginDto
+    		) {
         String emp_id = loginDto.getEmp_id();
+        int n = alarmService.getUnreadAlarmCnt(emp_id);
+        log.info(" 알람 개수 : {}", n);
         
-        return alarmService.getUnreadAlarmCnt(emp_id, alarm_type);
+        return n;
     }
 
     //알림 읽음 처리

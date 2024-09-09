@@ -24,9 +24,9 @@ public class AlarmDaoImpl implements IAlarmDao {
 	}
 	
 	@Override
-	public int getUnreadAlarmCnt(Map<String, String> params) {
+	public int getUnreadAlarmCnt(String emp_id) {
 		
-		return session.selectOne(NS+"getUnreadAlarmsCnt", params);
+		return session.selectOne(NS+"getUnreadAlarmCnt", emp_id);
 	}
 	
 	@Override
