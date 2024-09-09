@@ -19,7 +19,6 @@
 				
 			<div class="container">
 				<div class="card">
-						
 					<div class="card-body">
 						<div style="text-align: right;">
 						<c:if test="${approvalDetail.approval_status eq 0}">
@@ -44,11 +43,12 @@
 						</c:if>
 						<!-- 결재완료상태 -->
 						<c:if test="${approvalDetail.approval_status eq 1 && loginDto.emp_id eq approvalDetail.requester_id}">
-							<button class="btn btn-outline-success" onclick="pdf()">pdf 저장</button> 
+							<button type="button" class="btn btn-outline-success" onclick="pdf('${approvalDetail.requester_name}')" style="margin-right: 10px;">pdf 저장</button> 
 						</c:if>
 							<input type="hidden" id="temp_save_flag" value="${approvalDetail.temp_save_flag}">
 							<input type="hidden" id="approvalId" value="${approvalDetail.approval_id}">
 						</div>		
+			<div id="pdfDownload">						
 						<h4 style="text-align: center;">휴가신청서</h4>
 							
 							<div>
@@ -58,7 +58,9 @@
 											<table class="table table-bordered approval-table approval-drafter-info">
 												<tr>
 													<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">기안자</th>
-													<td id="requesterId">${approvalDetail.requester_name}</td>
+													<td id="requesterName">${approvalDetail.requester_name}
+														<input type="hidden" id="requesterId" value="${approvalDetail.requester_id}">
+													</td>
 												</tr>
 												<tr>
 													<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">기안부서</th>
@@ -203,7 +205,8 @@
 													</c:if>	
 												</c:forEach>
 											
-											
+												<c:if test="${approvalDetail.approval_status eq 0}">
+												
 												<!-- 결재상태 -->
 												<c:choose>
 												    <c:when test="${isApproved eq 'true'}">
@@ -216,7 +219,7 @@
 												        <input type="hidden" id="approvalStatus" name="approvalStatus" value="0">
 												    </c:otherwise>
 												</c:choose>
-										
+												</c:if>
 										</div>					
 									</div>
 									
@@ -280,6 +283,7 @@
 									</div>
 									
 								</div>
+		</div>
 							</div>
 					</div>				
 				</div>
@@ -346,10 +350,8 @@
 		</div>
 	</div>
 </body>
-<script src="${root}/resources/js/approvalSign.js"></script>
-<script type="text/javascript">
 
-	
+<script type="text/javascript">
 	$(document).ready(function(){
 		var approvalContent = ${approvalDetail.approval_content};
 		
@@ -360,14 +362,8 @@
 		$("#applicationLeave").text(approvalContent.applicationLeave);
 		$("#content").text(approvalContent.content);
 		
-		
-		
 	})
 
-	
-	
-	
-	
-	
 </script>
+<script src="${root}/resources/js/approvalSign.js"></script>
 </html>

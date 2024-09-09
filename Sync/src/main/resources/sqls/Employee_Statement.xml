@@ -34,6 +34,7 @@
 		t.TEAM_NAME AS
 		team_name,
 		r.RANK_NAME AS rank_name,
+		r.RANK_ID AS rank_id,
 		TO_CHAR(e.EMP_HIRE_DATE,'YYYY-MM-DD') AS emp_hire_date,
 		e.EMP_STATUS AS
 		emp_status,
@@ -151,7 +152,9 @@
 			<if test="emp_signature != null and emp_signature != ''">
 				EMP_SIGNATURE = #{emp_signature},
 			</if>
-
+			<if test="total_off != null and total_off != ''">
+				TOTAL_OFF = #{total_off}
+			</if>
 		</set>
 		WHERE e.EMP_ID = #{emp_id}
 	</update>
@@ -183,5 +186,20 @@
 		</choose>
 	</select>
 
+
+	<insert id="insertOffHistory">
+	
+		INSERT INTO OFF_HISTORY
+		(OFF_HISTORY_ID, OFF_DATE, 
+				OFF_REASON, EMP_ID)
+				<foreach collection="off_date" item="date" index="index" separator=" UNION ALL " >
+					SELECT	 (SELECT 'OFF' || LPAD(NVL(MAX(TO_NUMBER(SUBSTR(OFF_HISTORY_ID, 4))), 0) + #{index} + 1, 3, '0') 
+								FROM OFF_HISTORY),
+					    #{date},
+					    #{off_reason},
+					    #{emp_id}
+					    			FROM DUAL
+				</foreach>
+	</insert>
 
 </mapper>

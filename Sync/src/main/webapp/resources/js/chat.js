@@ -92,6 +92,7 @@ function createChat(event){
 var ws = null;
 var chatroomId = null;
 var empName = null;
+var today = new Date();
 //append 이후 scroll 하단으로 위치
 
 
@@ -244,7 +245,7 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 			
 			
 			//메세지전송부분
-			var today = new Date();
+			
 				
 				if (ws) {
                		ws.close(); // 기존 웹소켓 연결을 닫기
@@ -678,6 +679,8 @@ $(document).ready(function(){
 // 			    // 선택된 노드 반복해서 append하기
 			    selectedNodes.forEach(function(node) {
 			    	
+			    	let name = node.original.text;
+			    	
 			    	
 			    	var newChatRecipient = 
 			    	    '<div id="chatRecipient">' +
@@ -685,7 +688,7 @@ $(document).ready(function(){
 			    	            '<img id="RecipientProfile" src="http://localhost:8080/Sync/resources/img/구름이.png">' +
 			    	        '</div>' +
 			    	        '<div id="chatRecipientName">' +
-			    	            '<h5>' + node.original.text + '</h5>' +
+			    	            '<h5>' + name.substring(0, name.indexOf(" (")) + '</h5>' +
 			    	            '<input type="hidden" name="emp_id" value="'+ node.id +'">' + 
 			    	        '</div>' +
 			    	        '<div id="chatRecipientRank">' +
@@ -983,6 +986,42 @@ $(document).ready(function(){
                 }
             });
 
+	
+	
+	//사진첨부
+	$('#attachButton').on('click', function() {
+	    $('#fileInput').click();
+	  });
+	
+	// 파일 입력창에서 파일 선택 시 이미지 미리보기
+	  $('#fileInput').on('change', function(event) {
+	    const file = event.target.files[0]; // 선택한 파일 가져오기
+	
+	    if (file && file.type.startsWith('image/')) { // 이미지 파일인지 확인
+	      const reader = new FileReader();
+	
+	      // 파일 읽기가 완료되면 실행
+	      reader.onload = function(e) {
+	        // 미리보기 이미지 표시
+	        $(".msgDiv").append(
+						    $('<div class="outgoing_msg">').append(
+						        $('<div class="sent_msg">').append(
+									$('<span> style="color=black;"').text("미리보기"),
+						           $('<img src="' + e.target.result + '" alt="Image Preview" style="max-width: 350px; max-height: 350px;">'),
+						            $('<span class="time_date">').text(today.toLocaleTimeString())
+						        )
+						    )
+						);
+	      };
+			
+			
+	      // 파일을 읽음 (데이터 URL 형식으로)
+	      reader.readAsDataURL(file);
+	    } else {
+	      // 이미지 파일이 아닌 경우 처리
+	      toastr.error("이미지 파일을 선택해주세요.");
+	    }
+	  });
 	
 	
 });

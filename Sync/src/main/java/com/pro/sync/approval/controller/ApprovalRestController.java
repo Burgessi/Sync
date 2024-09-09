@@ -17,7 +17,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -114,16 +116,44 @@ public class ApprovalRestController {
 			for(int i=0; i<employeeList.size(); i++) {
 				JSONObject employeeJson = new JSONObject();
 				employeeJson.put("id",employeeList.get(i).getEmp_id());
-				employeeJson.put("text", employeeList.get(i).getEmp_name());
+				employeeJson.put("text", employeeList.get(i).getEmp_name() + " (" +employeeList.get(i).getRank_name()+ ")");
 				employeeJson.put("parent", employeeList.get(i).getTeam_code());
 				employeeJson.put("icon", "../resources/img/approval_img/employee.png");
 				employeeJson.put("team", teamService.getOneTeam(employeeList.get(i).getTeam_code()).getTeam_name());
 				employeeJson.put("rank", employeeList.get(i).getRank_name());
+				employeeJson.put("rankId", employeeList.get(i).getRank_id());
 				employeeJson.put("profile", employeeList.get(i).getEmp_profile_pic());
 				treeList.add(employeeJson);
 			}
 		}
 		return treeList;
+	}
+	
+	
+	//결재 최종 상태 변경
+	@PostMapping("/updateApprovalStatus.do")
+	@Transactional
+	public String updateApprovalStatus(@RequestParam Map<String, Object> status, @RequestParam(required = false) List<String> off_date) {
+		log.info("받은 status : {}", status);
+		log.info("받은 off_date 모든 사용일자 list : {}");
+		
+		approvalService.updateApprovalStatus(status);
+
+		if(off_date != null) {
+			
+			Map<String, String> strMap = new HashMap<>();
+			
+			for (Map.Entry<String, Object> entry : status.entrySet()) {
+				strMap.put(entry.getKey(), entry.getValue().toString());
+	        }
+			
+			employeeService.updateEmployee(strMap);
+			
+			status.put("off_date", off_date);
+			employeeService.insertOffHistory(status);
+		}
+		
+		return "성공!!";
 	}
 	
 	
@@ -133,17 +163,9 @@ public class ApprovalRestController {
 		System.out.println("[받은 requeset:] " + request);
 		String approval_id = request.get("approvalId");
 		String recipient_id = request.get("recipientId");
-		String status = request.get("approvalStatus");
 		
 		String fileName = "";
 		String image = request.remove("image");
-		
-		if(!status.equals("0")) {
-			Map<String, Object> statusMap = new HashMap<String, Object>();
-			statusMap.put("approval_id", approval_id);
-			statusMap.put("approval_status", status);
-			approvalService.updateApprovalStatus(statusMap);
-		}
 		
 		
 		 try {

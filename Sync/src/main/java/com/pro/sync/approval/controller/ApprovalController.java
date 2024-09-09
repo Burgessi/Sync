@@ -34,7 +34,22 @@ public class ApprovalController {
 	
 	// 사이드바 -> 결재 메인
 	@GetMapping("/main.do")
-	public String main() {
+	public String main(HttpSession session, Model model) {
+		EmployeeVo loginVo = (EmployeeVo)session.getAttribute("loginDto");
+		String id = loginVo.getEmp_id();
+		//기안문서
+		List<ApprovalVo> draft = approvalService.getApprovalsList(id);
+		
+		//수신문서
+		List<ApprovalVo> receive = approvalService.getAllReceivedApproval(id);
+		
+		//임시저장
+		List<ApprovalVo> temp =  approvalService.getTempSaveList(id);
+		
+		model.addAttribute("draft", draft);		
+		model.addAttribute("receive", receive);		
+		model.addAttribute("temp", temp);
+		
 		return "approval/main";
 	}
 	
@@ -188,9 +203,15 @@ public class ApprovalController {
 	
 	// Home -> 결재 작성화면 이동
 	@GetMapping(value = "/write.do")
-	public String write(HttpSession session, Model model) {
+	public String write(HttpSession session, Model model, @RequestParam(required = false) String formNo) {
 		log.info("기안서 작성 화면 요청");
 		EmployeeVo loginVo = (EmployeeVo)session.getAttribute("loginDto");
+		if(formNo != null) {
+			model.addAttribute("formNo", formNo);
+		} else {
+			model.addAttribute("formNo", "false");
+		}
+		
 		model.addAttribute("loginVo", loginVo);
 		return "approval/write";
 	}

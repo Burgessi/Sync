@@ -43,6 +43,14 @@
           
           
           <!-- 알림 -->
+          <li class="nav-item dropdown me-3">	
+          	<a class="nav-link" style="margin-right: -8px; margin-top: 3px;" href="javascript:window.open('${root}/chat/main.do','채팅','width=1205px, height=745px, toolbar=no, menubar=no, left=100px, top=160px')">
+	          	<i class="bi bi-chat-left-dots bi-sub fs-4" style="color: #223055;"></i>
+          	</a>
+          </li>
+          
+          
+
           <li class="nav-item dropdown me-3">
             <a
               class="nav-link active dropdown-toggle text-gray-600"
@@ -94,6 +102,7 @@
         </div>
         
         
+
         <div class="dropdown">
           <a href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <div class="user-menu d-flex">
@@ -120,10 +129,10 @@
               <h6 class="dropdown-header" style="margin-left: -15px">${loginDto.emp_name }님 환영합니다!</h6>
             </li>
             <li>
-              <a class="dropdown-item" href="${root}/mypage.do" ><img src="${root}/resources/img/mypage.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-person me-2"></i>마이페이지</a>
+              <a class="dropdown-item" href="${root}/mypage.do" ><img src="${root}/resources/img/mypage.png" style="margin-bottom: 5px; margin-right: 10px;">마이페이지</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#"><img src="${root}/resources/img/document.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-gear me-2"></i>내 결재문서</a>
+              <a class="dropdown-item" href="#"><img src="${root}/resources/img/document.png" style="margin-bottom: 5px; margin-right: 10px;">내 결재문서</a>
             </li>
             <c:if test="${loginMember.opLevel eq 2}">
                <li>
@@ -134,7 +143,7 @@
               <hr class="dropdown-divider" />
             </li>
             <li>
-              <a class="dropdown-item" href="${root}/"><img src="${root}/resources/img/logout.png" style="margin-bottom: 5px;"><i class="icon-mid bi bi-box-arrow-left me-2"></i> 로그아웃</a>
+              <a class="dropdown-item" href="${root}/"><img src="${root}/resources/img/logout.png" style="margin-bottom: 5px; margin-right: 10px;">로그아웃</a>
             </li>
           </ul>
         </div>
@@ -265,4 +274,9 @@ $(document).ready(function() {
     }
     
 // });
+    
+    
+    
+    
+    
 </script>

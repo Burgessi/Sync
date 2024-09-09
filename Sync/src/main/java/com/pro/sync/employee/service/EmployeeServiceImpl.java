@@ -59,6 +59,11 @@ public class EmployeeServiceImpl implements EmployeeService {
   	public List<EmployeeVo> searchEmployee(Map<String, Object> map){
   		return dao.searchEmployee(map);
   	}
+
+	@Override
+	public int insertOffHistory(Map<String, Object> map) {
+		return dao.insertOffHistory(map);
+	}
   	
 }
 

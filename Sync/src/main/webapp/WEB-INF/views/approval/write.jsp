@@ -15,6 +15,72 @@
 	.no-checkbox > .jstree-anchor > .jstree-checkbox {
 	    display: none !important; /* 체크박스를 완전히 숨김 */
 	}
+	
+	.alert-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 65vh;
+        }
+
+        .alert-message {
+            padding: 30px 40px;
+            background: #ffffff;
+            border: 1px solid #dcdcdc;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 80%;
+            width: 400px;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            margin-bottom: 35px;
+        }
+
+        .alert-message::before {
+            content: "⚠️";
+            position: absolute;
+            top: 10px;
+            left: -1%;
+            transform: translateX(-50%);
+            font-size: 70px;
+            color: #ff9800;
+            animation: bounce 1s infinite;
+        }
+
+        .alert-message h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #333333;
+            font-weight: 600;
+        }
+
+        .alert-message p {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #666666;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+	
 </style>
 </head>
 <body>
@@ -83,10 +149,8 @@
 							<!-- 메인 오른쪽 content 영역 -->
 							<div class="col-md-9">
 								
-								
-								
 									<div class="card-header">
-										<div style="text-align: right;">
+										<div style="text-align: right; display: none;" id="approvalBtn">
 											<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#approvalLineModal">결재선 지정</button>
 											<button type="button" class="btn btn-sm btn-info" onclick="temporarySave(event)">임시 저장</button>
 											<button type="button" class="btn btn-sm btn-secondary" onclick="approvalRequest(event)">결재 상신</button>
@@ -95,7 +159,15 @@
 									
 									<div class="card-body">
 										<!-- 검색된 양식의 html 출력 -->
-										<div id="document-content"></div>
+										<div id="document-content">
+										
+												<div class="alert-container">
+											        <div class="alert-message">
+											            <h2>양식 선택</h2>
+											            <p>양식을 선택하여 진행해 주세요.</p>
+											        </div>
+											    </div>
+										</div>
 									</div>
 								
 							</div>
@@ -176,19 +248,26 @@
 
 	$(document).ready(function(){
 		
+		var empId = '${loginVo.emp_id}';
+		
+		let formNo = "${formNo}";
+		console.log(formNo);
 		//상신일자 입력
 		
+		if(formNo != "false"){
+			//페이지 로드시 바로 ajax요청 -> form 띄우기
+	 		$.ajax({
+	 			url:'./form.do',
+	 			type: 'get',
+	 			data: {form:formNo},
+	 			success:function(data){
+	 				$("#document-content").html(data);
+	 				$("#requsterDate").text(today);
+	 			}
+	 		})
+		}
 		
-		//페이지 로드시 바로 ajax요청 -> form 띄우기
-		$.ajax({
-			url:'./form.do',
-			type: 'get',
-			data: {form:'form001'},
-			success:function(data){
-				$("#document-content").html(data);
-				$("#requsterDate").text(today);
-			}
-		})
+		
 			
 		
 		//선택한 form 열기
@@ -208,6 +287,9 @@
 				type: "get",
 				data: {form : selected},
 				success : function(data){
+					
+					$("#approvalBtn").show();
+					
 					$("#document-content").html(data);
 					//상신일자 입력
 					$("#requsterDate").text(today);
@@ -311,9 +393,9 @@
 				 
 				 
 				 //선택된 노드 개수 제한하기 최대 3개만 가능
-				 if(selectedNodes.length > 3){
+				 if(selectedNodes.length > 1){
 					 $('#approvalLine').jstree(true).deselect_node(data.node);
-					 toastr.info("3명만 선택 가능합니다.");
+					 toastr.info("한 명씩 추가할 수 있습니다.");
 					 //error , success 
 				 }
 				 
@@ -335,10 +417,79 @@
 				let rowsToAdd = Math.min(selectedNodes.length, maxRow);
 				
 				if (rowsToAdd <= 0) {
-			        toastr.info("추가할 수 있는 결재자가 없습니다.");
+			        toastr.info("결재자는 최대 3명만 지정할 수 있습니다.");
 			        $('#approvalLine').jstree("deselect_all");
 			        return false;
 			    }
+				
+				let myRankId = '${infoDto.rank_id}';
+				let myRank = parseInt(myRankId.slice(-1));
+				console.log(myRank);
+				//자기자신 추가 막기
+				for(let i=0; i<selectedNodes.length; i++){
+					
+					if(empId.includes(selectedNodes[i].id)){
+						toastr.error("자신을 결재자/참조자로 추가할 수 없습니다.");
+						$('#approvalLine').jstree("deselect_all");
+						return;
+					}
+				}
+				
+				//본인보다 직급이 낮다면 선택 불가능
+				if(selectedNodes.length > 0 && myRank < parseInt(selectedNodes[0].original.rankId.slice(-1)) && selectedNodes != undefined){
+					toastr.error("자신보다 낮은 직급의 사원을 결재자로 선택할 수 없습니다.");
+					return;
+				}
+				
+				
+				
+				
+				
+				
+				let lines = [];
+				let approvalLine1 = $("input[name=approvalLine1]").val();
+				let approvalLine2 = $("input[name=approvalLine2]").val();
+				let approvalLine3 = $("input[name=approvalLine3]").val();
+				let referrer = document.querySelectorAll("input[name=referrer]");
+				
+				let rankId = document.querySelectorAll(".rankId");
+				
+				
+				//이전에 선택된 결재자보다 같거나 높을때만 추가할 수 있음.
+				if(rankId.length > 0 && selectedNodes.length > 0){
+					let id = rankId[0].value.slice(-1);
+					if(id < selectedNodes[0].original.rankId.slice(-1)){
+						toastr.error('두 번째 결재자는 첫 번째 결재자보다 같거나 높은 직급이어야 합니다.');
+						return;
+					}
+				}
+				
+				if(rankId.length > 1 && selectedNodes.length > 0){
+					let id = rankId[1].value.slice(-1);
+					if(id < selectedNodes[0].original.rankId.slice(-1)){
+						toastr.error('세 번째 결재자는 두 번째 결재자보다 같거나 높은 직급이어야 합니다.');
+						return;
+					}
+				}
+				
+				
+				for(let i=0; i<referrer.length; i++){
+					lines.push(referrer[i].value);
+				}
+				
+				lines.push(approvalLine1);
+				lines.push(approvalLine2);
+				lines.push(approvalLine3);
+				console.log("lines", lines);
+				
+				//이미 추가된 사원 추가막기
+				for(let i=0; i<selectedNodes.length; i++){
+					
+					if(lines.includes(selectedNodes[i].id)){
+						toastr.error("같은 사원을 중복으로 추가할 수 없습니다.");
+						return;
+					}
+				}
 				
 				console.log(lineIdx);
 				
@@ -352,15 +503,18 @@
 				 
 				// 선택한 row append	
 				for(let i=0; i<rowsToAdd; i++){
+					
+					let name = selectedNodes[i].text;
 					console.log(lineIdx);
 					 var appendRow = '<tr>' +
 					                    '<td>' + lineIdx + '</td>' +
-					                    '<td>' + selectedNodes[i].text + '</td>' +
+					                    '<td>' + name.substring(0, name.indexOf(" (")) + '</td>' +
 					                    '<td>' + selectedNodes[i].original.rank + '</td>' +
 					                    '<td style="width: 125px;">' + selectedNodes[i].original.team + '</td>' +
 					                    '<td>' +
 			                                '<input type="button" class="removeLineBtn">' +
 			                                '<input type="hidden" name="approvalLine' + lineIdx+1 + '" value="' + selectedNodes[i].id + '">' +
+			                                '<input type="hidden" class="rankId" value="' + selectedNodes[i].original.rankId + '">' +
 		                            	'</td>' +
 					                 '</tr>';
 					 $("#approvalTable>tbody").append(appendRow);
@@ -428,20 +582,58 @@
 			//참조 추가
 			$("#addReferrer").on("click", function(){
 				
+				
+				for(let i=0; i<selectedNodes.length; i++){
+					
+					if(empId.includes(selectedNodes[i].id)){
+						toastr.error("자신을 결재자/참조자로 추가할 수 없습니다.");
+						$('#approvalLine').jstree("deselect_all");
+						return;
+					}
+				}
+				
+				
 				let currentRowCount02 = $("#referrerTable>tbody>tr").length;
 				let maxRowCount = 5;
 				
 				let rowsToAdd = Math.min(selectedNodes.length, maxRowCount - currentRowCount02);
 				
 				if(rowsToAdd <=0){
-					toastr.warning("추가할 수 있는 참조자가 없습니다.");
+					toastr.info("참조자는 최대 5명만 지정할 수 있습니다.");
 					$('#approvalLine').jstree("deselect_all");
 					return false;
 				}
 				
+				let lines = [];
+				let approvalLine1 = $("input[name=approvalLine1]").val();
+				let approvalLine2 = $("input[name=approvalLine2]").val();
+				let approvalLine3 = $("input[name=approvalLine3]").val();
+				let referrer = document.querySelectorAll("input[name=referrer]");
+				for(let i=0; i<referrer.length; i++){
+					lines.push(referrer[i].value);
+				}
+				console.log(referrer);
+				
+				lines.push(approvalLine1);
+				lines.push(approvalLine2);
+				lines.push(approvalLine3);
+				console.log("lines", lines);
+				
+				for(let i=0; i<selectedNodes.length; i++){
+					
+					if(lines.includes(selectedNodes[i].id)){
+						toastr.error("같은 사원을 중복으로 추가할 수 없습니다.");
+						return;
+					}
+				}
+				
+				
+				
+				
 				for(let i=0; i<rowsToAdd; i++){
+					let name = selectedNodes[i].text;
 					 var appendRow = '<tr>' +
-					                    '<td>' + selectedNodes[i].text + '</td>' +
+					                    '<td>' + name.substring(0, name.indexOf(" (")) + '</td>' +
 					                    '<td>' + selectedNodes[i].original.rank + '</td>' +
 					                    '<td style="width: 125px;">' + selectedNodes[i].original.team + '</td>' +
 					                    '<td style="width: 35px;">' +
