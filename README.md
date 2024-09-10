@@ -9,7 +9,17 @@
 
 # 개발환경 & 사용기술
 
-#### *1. Front-End*
+#### *1.Language* : JAVA
+
+#### *2.Development Tool* : Eclipse, DBeaver
+
+#### *3.Test Tool* : Post Man
+
+#### *4.Server* : Apache Tomcat 9.0
+
+#### *5.DB oracle* : Oracle 21c
+
+#### *6. Front-End*
 
    - JSP
    - Ajax
@@ -19,7 +29,7 @@
    - Toastr
    - Jstl
 
-#### *2. Back-end*
+#### *7. Back-end*
 
    - Spring Framework
    - MyBatis
