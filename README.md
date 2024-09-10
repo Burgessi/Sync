@@ -41,6 +41,7 @@
  <details>
   <summary>접기/펼치기</summary> 
   (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/board)
+  <img width="1265" alt="자유게시판" src="https://github.com/user-attachments/assets/ffcaa9e8-1397-4ab0-af00-d3a439d5a0e6">
  </details>
  
   * #### 조회/상세보기/작성/수정/삭제 구현
