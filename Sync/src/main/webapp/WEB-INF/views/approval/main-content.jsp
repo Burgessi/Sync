@@ -101,9 +101,9 @@ body {
         }
         .document-card .details .badge {
             color: #fff;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 1em;
+            padding: 6px 10px;
+            border-radius: 12px;
+            font-size: 0.9em;
             font-weight: bold;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
@@ -149,7 +149,6 @@ body {
      }
 
      .no-docs-message::before {
-         content: "!";
          position: absolute;
          top: -30px;
          left: 50%;
@@ -173,25 +172,6 @@ body {
          color: #666666;
      }
 
-     @keyframes fadeInUp {
-         0% {
-             opacity: 0;
-             transform: translateY(30px);
-         }
-         100% {
-             opacity: 1;
-             transform: translateY(0);
-         }
-     }
-
-     @keyframes bounce {
-         0%, 100% {
-             transform: translateY(0);
-         }
-         50% {
-             transform: translateY(-20px);
-         }
-     }
     </style>
 </head>
 <body>
@@ -224,17 +204,17 @@ body {
 			                            <c:choose>
 			                            	<c:when test="${dr.approval_status eq 0}">
 			                            		<span class="item-field" style="text-align: center;">
-					                            	<span class="badge pending">결재진행</span>
+					                            	<span class="badge bg-warning">결재진행중</span>
 					                            </span>
 			                            	</c:when>
 			                            	<c:when test="${dr.approval_status eq 1}">
 			                            		<span class="item-field" style="text-align: center;">
-					                            	<span class="badge approved">결재완료</span>
+					                            	<span class="badge bg-success">결재완료</span>
 					                            </span>
 			                            	</c:when>
 			                            	<c:otherwise>
 			                            		<span class="item-field" style="text-align: center;">
-					                            	<span class="badge rejected">결재반려</span>
+					                            	<span class="badge bg-danger">결재반려</span>
 					                            </span>
 			                            	</c:otherwise>
 			                            </c:choose>
@@ -275,17 +255,17 @@ body {
 			                            <c:choose>
 			                            	<c:when test="${rc.approval_status eq 0}">
 			                            		<span class="item-field" style="text-align: center;">
-					                            	<span class="badge pending">결재진행</span>
+					                            	<span class="badge bg-warning">결재진행중</span>
 					                            </span>
 			                            	</c:when>
 			                            	<c:when test="${rc.approval_status eq 1}">
 			                            		<span class="item-field" style="text-align: center;">
-					                            	<span class="badge approved">결재완료</span>
+					                            	<span class="badge bg-success">결재완료</span>
 					                            </span>
 			                            	</c:when>
 			                            	<c:otherwise>
 			                            		<span class="item-field" style="text-align: center;">
-					                            	<span class="badge rejected">결재반려</span>
+					                            	<span class="badge bg-danger">결재반려</span>
 					                            </span>
 			                            	</c:otherwise>
 			                            </c:choose>

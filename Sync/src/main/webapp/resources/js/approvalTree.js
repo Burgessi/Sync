@@ -208,10 +208,11 @@
 				 
 				// 선택한 row append	
 				for(let i=0; i<rowsToAdd; i++){
+					let name = selectedNodes[i].text;
 					console.log(lineIdx);
 					 var appendRow = '<tr>' +
 					                    '<td>' + lineIdx + '</td>' +
-					                    '<td>' + selectedNodes[i].text + '</td>' +
+					                    '<td>' + name.substring(0,name.indexOf(" (")) + '</td>' +
 					                    '<td>' + selectedNodes[i].original.rank + '</td>' +
 					                    '<td style="width: 125px;">' + selectedNodes[i].original.team + '</td>' +
 					                    '<td>' +
@@ -284,6 +285,7 @@
 			//참조 추가
 			$("#addReferrer").on("click", function(){
 				
+				
 				let currentRowCount02 = $("#referrerTable>tbody>tr").length;
 				let maxRowCount = 5;
 				
@@ -296,8 +298,9 @@
 				}
 				
 				for(let i=0; i<rowsToAdd; i++){
+					let name = selectedNodes[i].text;
 					 var appendRow = '<tr>' +
-					                    '<td>' + selectedNodes[i].text + '</td>' +
+					                    '<td>' + name.substring(0, name.indexOf(" (")) + '</td>' +
 					                    '<td>' + selectedNodes[i].original.rank + '</td>' +
 					                    '<td style="width: 125px;">' + selectedNodes[i].original.team + '</td>' +
 					                    '<td style="width: 35px;">' +

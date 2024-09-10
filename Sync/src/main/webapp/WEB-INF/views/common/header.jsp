@@ -70,8 +70,8 @@
           
           <!-- 알림 -->
           <li class="nav-item dropdown me-3">	
-          	<a class="nav-link" style="margin-right: -8px; margin-top: 3px;" href="javascript:window.open('${root}/chat/main.do','채팅','width=1205px, height=745px, toolbar=no, menubar=no, left=100px, top=160px')">
-	          	<i class="bi bi-chat-left-dots bi-sub fs-4" style="color: #223055;"></i>
+          	<a class="nav-link" style="margin-right: -8px; margin-top: 0;" href="javascript:window.open('${root}/chat/main.do','채팅','width=1205px, height=745px, toolbar=no, menubar=no, left=100px, top=160px')">
+	          	<i class="bi bi-chat-text bi-sub fs-4" style="color: #223055;"></i>
           	</a>
           </li>
           
@@ -121,7 +121,7 @@
 <!--         </div> -->
 <!--       </a> -->
 <!--     </li> -->
-  </ul>  
+<!--   </ul>   -->
 </ul>
 </div>
 
@@ -177,7 +177,6 @@
           </ul>
         </div>
       </div>
-    
   </nav>
 </header>
 
@@ -323,7 +322,7 @@ $(document).ready(function() {
         });
     }
 
- });
+//  });
     
     
     

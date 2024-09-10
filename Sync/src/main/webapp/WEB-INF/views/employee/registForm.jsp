@@ -54,7 +54,7 @@
 										<tr>
 											<th>사원번호</th>
 											<td><input name="emp_id" type="text" autocomplete="off"
-												placeholder="Id" required value="${employee.emp_id}"
+												placeholder="Id"   value="${employee.emp_id}"
 												readonly="readonly" /></td>
 										</tr>
 									</c:if>
@@ -62,7 +62,7 @@
 									<tr>
 										<th>이름</th>
 										<td><input name="emp_name" id="emp_name" type="text"
-											autocomplete="off" placeholder="Name" required
+											autocomplete="off" placeholder="Name"  
 											value="${employee.emp_name}" ${isUpdate ? 'readonly' : ''} /></td>
 
 									</tr>
@@ -70,14 +70,14 @@
 									<c:if test="${!isUpdate}">
 										<tr>
 											<th>주민등록번호</th>
-											<td><input name="emp_ssn" type="text" maxlength="14"
-												placeholder="SSN" required oninput="formatSSN(this)"
+											<td><input id="emp_ssn" name="emp_ssn" type="text" maxlength="14"
+												placeholder="SSN"   oninput="formatSSN(this)"
 												value="${employee.emp_ssn}" /></td>
 										</tr>
 
 										<tr>
 											<th>성별</th>
-											<td><select name="emp_gender" required>
+											<td><select id="emp_gender" name="emp_gender"  >
 													<option value="">성별 선택</option>
 													<option value="M"
 														${employee.emp_gender == 'M' ? 'selected' : ''}>남</option>
@@ -88,7 +88,7 @@
 									</c:if>
 									<tr>
 										<th>본부</th>
-										<td><select name="division" id="division" required
+										<td><select name="division" id="division"  
 											onchange="updateTeams()">
 												<option value="">본부 선택</option>
 												<option value="SPD"
@@ -103,14 +103,14 @@
 									</tr>
 									<tr>
 										<th>팀</th>
-										<td><select name="team_code" id="team_code" required>
+										<td><select name="team_code" id="team_code"  >
 												<option value="">팀 선택</option>
 
 										</select></td>
 									</tr>
 									<tr>
 										<th>직급</th>
-										<td><select name="rank_id" required>
+										<td><select name="rank_id" id="rank_id" >
 												<option value="">직급 선택</option>
 												<option value="RANK003"
 													${employee.rank_name == '부장' ? 'selected' : ''}>부장</option>
@@ -124,7 +124,7 @@
 									</tr>
 									<tr>
 										<th>직책</th>
-										<td><select name="emp_lead" required>
+										<td><select name="emp_lead"  >
 												<option value="N"
 													${employee.emp_lead == 'N' ? 'selected' : ''}>일반</option>
 												<option value="D"
@@ -136,13 +136,13 @@
 									<c:if test="${!isUpdate}">
 										<tr>
 											<th>입사일</th>
-											<td><input type="date" name="emp_hire_date" required
+											<td><input type="date" id="emp_hire_date" name="emp_hire_date"  
 												value="${employee.emp_hire_date}" /></td>
 										</tr>
 									</c:if>
 									<tr>
 										<th>권한</th>
-										<td><select name="authority" required>
+										<td><select name="authority" id="authority" >
 												<option value="">권한 변경</option>
 												<option value="U"
 													${employee.authority == 'U' ? 'selected' : ''}>사용자</option>
@@ -155,8 +155,8 @@
 							</table>
 
 							<!-- 제출 버튼 -->
-							<input type="submit" onclick="validateForm()" value="${isUpdate ? '수정' : '등록'}"
-								class="btn btn-info" /> <input class="btn btn-secondary"
+							<button type="button" onclick="validateForm()"
+								class="btn btn-info">${isUpdate ? '수정' : '등록'}</button> <input type="button" class="btn btn-secondary"
 								onclick="javascript:history.back(-1)" value="취소" />
 						</form>
 					</div>
