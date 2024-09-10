@@ -52,11 +52,8 @@
     * ###### Gson으로 검색 기능 구현 
  #### 📂공지게시판
 ###### 
- <details>
-  <summary>접기/펼치기</summary> 
   (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/notice)
   <img width="1259" alt="공지게시판" src="https://github.com/user-attachments/assets/9952455d-0eca-4ca2-a6e9-bdde602965b0">
- </details>
  
   * #### 조회/상세보기/작성/수정/삭제 구현
      * ###### 관리자가 상단에 5개까지 고정/내리기 기능 구현, ckEditor5 사용
