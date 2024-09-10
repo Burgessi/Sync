@@ -8,6 +8,7 @@
 		<result property="participant_id" column="PARTICIPANT_ID"/>
 		<result property="participant_name" column="PARTICIPANT_NAME"/>
 		<result property="participant_team_name" column="PARTICIPANT_TEAM_NAME"/>
+		<result property="emp_profile_pic" column="EMP_PROFILE_PIC"/>
 		<result property="join_at" column="JOIN_AT"/>
 		<result property="leave_at" column="LEAVE_AT"/>
 	</resultMap>
@@ -120,7 +121,7 @@
 	<select id="getAllChatContent" resultMap="chatResultMap">
 		SELECT CONTENT ,SENT_AT ,IS_READ ,c.CHAT_SENDER, e.EMP_NAME AS CHAT_SENDER_NAME, 
 				CHAT_RECEIVER, c.CHATROOM_ID ,
-				cp.EMP_ID AS PARTICIPANT_ID, e2.EMP_NAME AS PARTICIPANT_NAME, 
+				cp.EMP_ID AS PARTICIPANT_ID, e2.EMP_NAME AS PARTICIPANT_NAME, e2.EMP_PROFILE_PIC,
 				t.TEAM_NAME AS PARTICIPANT_TEAM_NAME, JOIN_AT ,LEAVE_AT
 	FROM CHATROOM_PARTICIPANTS cp 
 		LEFT JOIN CHAT c 

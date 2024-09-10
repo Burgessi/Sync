@@ -108,9 +108,4 @@
 <!-- 		SET TOTAL_CERTI=TOTAL_CERTI-#{used_certi} -->
 <!-- 		WHERE EMP_ID=#{emp_id} -->
 <!-- 	</update> -->
-	
-	
-	
-	
-	
 </mapper>

@@ -26,6 +26,7 @@
 ##### *8.API* : JsTree, ckEditor5, HTML2PDF, Signature Pad, FullCalendar API, Google Calendar API, Kakao 주소 API, DataTables
 
 # ERD
+<img width="888" alt="ERD" src="https://github.com/user-attachments/assets/c81686ae-f95d-4a34-947b-38c131c8a414">
 
 # 팀원별 담당
 ### 🧑‍💻원영인

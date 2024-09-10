@@ -22,5 +22,7 @@ public class ChatRoomParticipantsVo {
 	private String participant_team_name;
 	private String join_at;
 	private String leave_at;
-
+	private String emp_profile_pic;
+	
+	
 }

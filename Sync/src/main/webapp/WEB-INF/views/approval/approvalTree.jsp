@@ -15,17 +15,17 @@
 			<div class="col-md-4" style="border: 1px solid;">
 				<div class="card">
 					<div class="card-header"><h4>조직도</h4></div>
-					<div class="card-body form-control" style="height: 250px;padding: 10px; border: 1px solid; overflow: auto;">
+					<div class="card-body form-control" style="height: 400px;padding: 10px; border: 1px solid; overflow: auto;">
 						<!-- jsTree 조직도 -->
 							<div id="approvalLine">
 							</div>
 					</div>
 					<input type="text" id="treeSearchInput" class="form-control" placeholder="검색어를 입력하세요" style="font-size: 0.8em">
-					<div class="card-header"><h4>자주쓰는 결재선</h4></div>
-					<div class="card-body form-control" style="height: 250px;padding: 10px; border: 1px solid; overflow: auto;">
-						<!-- 자주쓰는 결재선 -->
-						hi
-					</div>
+<!-- 					<div class="card-header"><h4>자주쓰는 결재선</h4></div> -->
+<!-- 					<div class="card-body form-control" style="height: 250px;padding: 10px; border: 1px solid; overflow: auto;"> -->
+<!-- 						자주쓰는 결재선 -->
+<!-- 						hi -->
+<!-- 					</div> -->
 				</div>
 			</div>
 			

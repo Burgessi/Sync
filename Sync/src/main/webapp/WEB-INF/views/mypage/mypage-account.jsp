@@ -12,7 +12,7 @@
 <div>
 	<!-- 급여 계좌 영역 -->
 	<div class="card-header mt-1 py-3">
-		<h4 class="mb-0" id="simple-list-item-3">급여 계좌 설정</h4>
+		<h4 class="mb-0" id="simple-list-item-3">급여 계좌 수정</h4>
 		
 	</div>
 	<div class="card-body" style="max-width: 900px">

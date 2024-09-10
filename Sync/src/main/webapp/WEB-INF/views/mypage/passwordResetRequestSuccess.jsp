@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>재설정이네요..</title>
+<title>SYNC</title>
 <script src="https://kit.fontawesome.com/3a92c85ff9.js"
 	crossorigin="anonymous"></script>
 <script
@@ -52,27 +52,15 @@ body {
 	background-color: #fff;
 }
 </style>
-</head>
-
 <body>
-	<%@ include file="/WEB-INF/views/common/toastify.jsp"%>
 	<div class="container"
-		style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-		<div style="position: relative;">
-			<form action="./sendResetLink.do" class="resetPw-form" autocomplete="off" method="post" style="text-align: center;">
-				<h1 class="title">SYNC</h1>
-				<label>아이디와 이메일을 입력해주세요.<br>임시 비밀번호가 발송됩니다.</label>
-				<div class="input-field">
-					<i class="fas fa-user"></i> <input name="emp_id" type="text" placeholder="아이디" required />
-				</div>
-				<div class="input-field">
-					<i class="fa-solid fa-shield-halved"></i>
-					<input name="emp_email" type="text" placeholder="이메일" required />
-				</div>
-				<input type="submit" value="비밀번호 재설정" class="login-btn solid" style="width: 320px;" />
-			</form>
-		</div>
-	</div>
-</body>
+     style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <h1 class="title">SYNC</h1>
+        <label>임시 비밀번호가 발송되었습니다.</label>
+        <button class="login-btn solid" style="width: 320px; margin-top: 20px;" onclick="location.href=${root}/">메인으로 돌아가기</button>
+    </div>
+</div>
 
+</body>
 </html>

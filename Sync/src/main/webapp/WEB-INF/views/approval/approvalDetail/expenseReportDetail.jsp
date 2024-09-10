@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>지출결의서 상세</title>
+<style type="text/css">
+	#pdfDownload{
+		padding: 15px;
+	}
+</style>
 </head>
 <body>
 	<div id="app">
