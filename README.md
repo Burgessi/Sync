@@ -92,7 +92,7 @@
  
    * #### FullCalendar API를 이용하여 캘린더 구현
    * #### 조회/등록/수정/삭제 구현
-      * ###### Ajax를 이용한 비통기 통신
+      * ###### Ajax를 이용한 비동기 통신
  #### 📂시설예약
   ###### 
   (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/reservations)
