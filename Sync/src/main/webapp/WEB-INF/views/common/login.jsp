@@ -98,7 +98,7 @@ function customAlert(message) {
             <h1 class="title">SYNC</h1>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input name="emp_id" type="text" autocomplete="on" placeholder="아이디" required />
+              <input name="emp_id" value="${cookie.emp_id.value}" type="text" autocomplete="on" placeholder="아이디" required />
             </div>
             <div class="input-field">
               <i class="fa-solid fa-shield-halved"></i>
@@ -107,7 +107,7 @@ function customAlert(message) {
             <div class="login-info">
               <div class="save-id form-check form-switch">
 <!--               	아이디 저장 여부 체크-구현 예정 -->
-                <input name="saveId" id="saveCheck" class="form-check-input" type="checkbox" role="switch" />
+                <input name="saveId" id="saveCheck" class="form-check-input" type="checkbox" role="switch" checked/>
                 <label for="saveCheck" class="form-check-label">아이디 저장</label>
               </div>
               <div class="resetPw">

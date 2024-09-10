@@ -49,9 +49,9 @@
 								<c:set var="phone1" value="${fn:substring(infoDto.emp_phone,0,3) }" /> 
 								<c:set var="phone2" value="${fn:substring(infoDto.emp_phone,3,7) }" />
 								<c:set var="phone3" value="${fn:substring(infoDto.emp_phone,7,11) }" /> 
-								<input class="form-control" type="tel" name="phone1" value="${phone1}" maxlength="3" style="width: 55px; display: inline; margin: 5px 5px 5px 0px;"> - 
-								<input class="form-control" type="tel" name="phone2" value="${phone2}" maxlength="4" style="width: 55px; display: inline; margin: 5px 5px 5px 0px;"> -
-								<input class="form-control" type="tel" name="phone3" value="${phone3}" maxlength="4" style="width: 55px; display: inline; margin: 5px 5px 5px 0px;">
+								<input class="form-control" type="tel" pattern="\d*" name="phone1" value="${phone1}" maxlength="3" style="width: 70px; display: inline; margin: 5px 5px 5px 0px;"> - 
+								<input class="form-control" type="tel" pattern="\d*" name="phone2" value="${phone2}" maxlength="4" style="width: 70px; display: inline; margin: 5px 5px 5px 0px;"> -
+								<input class="form-control" type="tel" pattern="\d*" name="phone3" value="${phone3}" maxlength="4" style="width: 70px; display: inline; margin: 5px 5px 5px 0px;">
 							</td>
 						</tr>
 						<tr>

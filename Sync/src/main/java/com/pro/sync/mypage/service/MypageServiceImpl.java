@@ -81,4 +81,5 @@ public class MypageServiceImpl implements IMypageService {
 		return dao.checkUser(map);
 	}
 	 
+	
 }
