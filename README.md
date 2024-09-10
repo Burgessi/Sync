@@ -19,37 +19,12 @@
 
 #### *5.DB oracle* : Oracle 21c
 
-#### *6. Front-End*
+#### *6. Front-End* : JSP, Ajax, Jquery, BootStrap, SweetAlert2, Toastr, Jstl
 
-   - JSP
-   - Ajax
-   - Jquery
-   - BootStrap
-   - SweetAlert2
-   - Toastr
-   - Jstl
+#### *7. Back-end* : Spring Framework, MyBatis, gson, json-simple, commons-fileupload, Mail, Lombok, WebSocket, AOP
 
-#### *7. Back-end*
+#### *8.API* : JsTree, ckEditor5, HTML2PDF, Signature Pad, FullCalendar API, Google Calendar API, Kakao 주소 API, DataTables
 
-   - Spring Framework
-   - MyBatis
-   - gson
-   - json-simple
-   - commons-fileupload
-   - Mail
-   - Lombok
-   - WebSocket
-   - AOP
-
-#### *8.API*
-
-  - JsTree
-   - ckEditor5
-   - HTML2PDF
-   - Signature Pad
-   - FullCalendar
-   - Google Calendar API
-   - Kakao 주소 API
-   - DataTables
+# ERD
   
 
