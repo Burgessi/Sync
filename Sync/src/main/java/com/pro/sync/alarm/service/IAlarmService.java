@@ -16,8 +16,9 @@ public interface IAlarmService {
 	void isRead(String alarm_id);
 	
 	//댓글 알림 추가
-	void addCommentAlarm(String receiver_id, String title);
+	void addCommentAlarm(String receiver_id, String title, int bd_seq);
 
+	//결재 알림 추가
 	void addApprovalAlarm(Map<String, String> approval);
 	
 }

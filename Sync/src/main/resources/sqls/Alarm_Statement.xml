@@ -3,11 +3,12 @@
 <mapper namespace="com.pro.sync.alarm.dao.AlarmDaoImpl">
 
 	<select id="getUnreadAlarms" resultType="AlarmVo" parameterType="map">
-        SELECT a.ALARM_ID, a.RECEIVER_ID, a.ALARM_TYPE, a.TITLE, a.CONTENT, a.STATUS, a.CREATE_AT
+        SELECT a.ALARM_ID, a.RECEIVER_ID, a.ALARM_TYPE, a.TITLE, a.CONTENT, a.STATUS, a.CREATE_AT, BD_SEQ
         FROM ALARM a
         JOIN EMPLOYEE e ON a.RECEIVER_ID = e.EMP_ID
         WHERE a.RECEIVER_ID = #{emp_id}
         AND a.STATUS = 'N'
+        ORDER BY CREATE_AT DESC
 <!--         AND a.ALARM_TYPE=#{alarm_type} -->
     </select>
 
@@ -28,9 +29,9 @@
     
     <!-- 알림 삽입 -->
     <insert id="insertAlarm">
-        INSERT INTO ALARM (ALARM_ID, RECEIVER_ID, ALARM_TYPE, TITLE, CONTENT, STATUS, CREATE_AT)
+        INSERT INTO ALARM (ALARM_ID, RECEIVER_ID, ALARM_TYPE, TITLE, CONTENT, STATUS, CREATE_AT, BD_SEQ)
         VALUES ((SELECT 'A' || LPAD(NVL(MAX(TO_NUMBER(SUBSTR(ALARM_ID, 2))), 0) + 1, 3, '0')
-     	FROM ALARM), #{receiver_id}, #{alarm_type},	 #{title}, #{content}, 'N', CURRENT_DATE)
+     	FROM ALARM), #{receiver_id}, #{alarm_type},	 #{title}, #{content}, 'N', CURRENT_DATE, #{bd_seq})
     </insert>
  
 </mapper>

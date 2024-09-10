@@ -151,7 +151,7 @@ public class EmployeeController {
 //		infoDto = mypageService.getInfo(emp_id);
 //		session.setAttribute("infoDto", infoDto);
 
-		return "employee/test";
+		return "employee/employeeList";
 	}
 	
 //	@GetMapping(value="/employeeSelectOne.do")

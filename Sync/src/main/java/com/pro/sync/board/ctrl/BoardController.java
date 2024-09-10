@@ -98,7 +98,7 @@ public class BoardController {
 	
 	//댓글 생성
 	@PostMapping(value = "/insertComment.do")
-	public String insertComment(BoardVo vo, HttpSession session, int bd_seq) {
+	public String insertComment(BoardVo vo, HttpSession session) {
 		log.info("댓글 생성 {}", vo);
 		int n = service.insertComment(vo);
 		
@@ -109,8 +109,9 @@ public class BoardController {
 				
 				//알림 생성
 				String title=vo.getBd_title();
+				int bd_seq=vo.getBd_seq();
 				//String content=vo.getBd_content();
-				alarmService.addCommentAlarm(boardAuthorId, title);
+				alarmService.addCommentAlarm(boardAuthorId, title, bd_seq);
 			}			
 			return "redirect:/board/detailBoard.do?bd_seq="+vo.getBd_seq();
 		}else {
@@ -220,7 +221,9 @@ public class BoardController {
 				log.info("저장경로 path : {} ", path);
 				log.info("파일 값 : {}", fileList);
 				
+
 				if (!fileList.isEmpty()) {
+
 				boolean filesInsert = service.fileInsert(fileList,bvo.getBd_seq(), bvo.getEmp_id());
 				if(!filesInsert) {
 					 throw new RuntimeException("파일 삽입 실패");
@@ -315,7 +318,9 @@ public class BoardController {
 					log.info("저장경로 path : {} ", path);
 					log.info("파일 값 : {}", fileList);
 					
+
 					if (!fileList.isEmpty()) {
+
 					boolean filesInsert = service.fileInsert(fileList,board.getBd_seq(), board.getEmp_id());
 					if(!filesInsert) {
 						 throw new RuntimeException("파일 삽입 실패");

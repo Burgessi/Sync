@@ -11,28 +11,60 @@
      height: 25px;    
      margin-top: 25%
   }
-.notification-container {
-    max-height: 250px; /* 원하는 높이로 설정 */
-    max-width: 500px;
-    overflow-y: auto;  /* 수직 스크롤을 허용 */
-    border: 1px solid #ddd; /* 테두리 추가 (선택사항) */
-    padding: 10px; /* 내부 여백 (선택사항) */
-    background: #fff; /* 배경색 (선택사항) */
+  
+ /* 전체 너비를 조정하는 부모 요소의 스타일 */
+.dropdown-menu {
+    max-width: 100%; /* 부모 요소의 너비를 제한하지 않음 */
+    min-width: 20rem;
 }
 
+/* hover 상태 색상 */
+.dropdown-item:hover {
+    color: #000; /* hover 시 텍스트 색상 */
+    background-color: #e6ecf2; /* hover 시 배경색 */
+    border-radius: 5px;
+}
+
+/* 알림 컨테이너 스타일 */
+.notification-container {
+    max-height: 250px; /* 원하는 높이로 설정 */
+    max-width: 1200px !important; /* 최대 너비를 강제로 설정 */
+    overflow-y: auto;  /* 수직 스크롤을 허용 */
+    overflow-x: hidden; /* 가로 스크롤 제거 */
+    border: 1px solid #ddd; /* 테두리 추가 */
+    padding: 10px; /* 내부 여백 */
+    background: #fff; 
+    margin: 0; /* 여백 제거 */
+}
+
+/* 스크롤바 스타일 */
+.notification-container::-webkit-scrollbar {
+    width: 10px; /* 스크롤바 너비 */
+}
+
+.notification-container::-webkit-scrollbar-thumb {
+    background-color: #223055; /* 스크롤바 색상 */
+    border-radius: 8px; /* 둥근 스크롤바 */
+}
+
+.notification-container::-webkit-scrollbar-track {
+    background-color: #e8e8e8; /* 스크롤바 트랙 색상 */
+    border-radius: 8px; /* 둥근 스크롤바 트랙 */
+}
+
+/* 알림 항목 스타일 */
 .notification-item {
     margin-bottom: 10px; /* 항목 간 간격 */
     padding-left: 0; /* 왼쪽 여백 제거 */
     font-size: 0.9rem; /* 폰트 크기 줄이기 */
 }
 
-.notification-icon {
-    display: none; /* 아이콘 숨기기 */
-}
 
+/* 알림 텍스트 스타일 */
 .notification-text {
     flex: 1;
     padding-left: 0; /* 왼쪽 여백 제거 */
+   
 }
 
 .notification-title {
@@ -41,6 +73,10 @@
 
 .notification-subtitle {
     font-size: 0.8rem; 
+}
+.notification-icon {
+    font-size: 1.1rem; /* 아이콘 크기 조정 */
+    color: #223055; /* 아이콘 색상 */
 }
 
 
@@ -79,14 +115,14 @@
 
           <li class="nav-item dropdown me-3">
             <a
-              class="nav-link active dropdown-toggle text-gray-600"
+              class="nav-link active"
               href="#"
               data-bs-toggle="dropdown"
               data-bs-display="static"
               aria-expanded="false"
             >
               <i class="bi bi-bell bi-sub fs-4"></i>
-              <span id="alarmCount" class="badge bg-danger" style="position: absolute; top: 10px; right: 0px; font-size: 12px;"></span>             
+              <span id="alarmCount" class="badge bg-danger" style="position: absolute; top: 9px; right: -1px; font-size: 10px;"></span>             
             </a>
             
                      
@@ -97,32 +133,9 @@
   
   <!-- notification-list -->
   <div class="notification-container">
-  <ul id="notification-list">
+  <ul id="notification-list" style="padding: 0;">
     <!-- 알림이 동적으로 추가되는 부분 -->
-<!--     <li class="dropdown-item notification-item"> -->
-<!--       <a class="d-flex align-items-center" href="#"> -->
-<!--         <div class="notification-icon bg-primary"> -->
-<!--           <i class="bi bi-cart-check"></i>  -->
-<!--         </div> -->
-<!--         <div class="notification-text ms-4"> -->
-<!--           <p class="notification-title font-bold">댓글이 달렸습니다</p> -->
-<!--           <p class="notification-subtitle font-thin text-sm">1분 전</p> -->
-<!--         </div> -->
-<!--       </a> -->
-<!--     </li> -->
-<!--     <li class="dropdown-item notification-item"> -->
-<!--       <a class="d-flex align-items-center" href="#"> -->
-<!--         <div class="notification-icon bg-success"> -->
-<!--           <i class="bi bi-file-earmark-check"></i>  -->
-<!--         </div> -->
-<!--         <div class="notification-text ms-4"> -->
-<!--           <p class="notification-title font-bold">결재가 승인되었습니다</p> -->
-<!--           <p class="notification-subtitle font-thin text-sm">2시간 전</p> -->
-<!--         </div> -->
-<!--       </a> -->
-<!--     </li> -->
-<!--   </ul>   -->
-</ul>
+  </ul>
 </div>
 
                  
@@ -192,7 +205,7 @@ $(document).ready(function() {
 
     function fetchNotifications() {
     	$.ajax({
-            url: './alarmList.do',
+            url: '${root}/alarmList.do',
             type: 'GET',
             dataType: 'json',
             success: function(alarms) {
@@ -216,49 +229,112 @@ $(document).ready(function() {
         notificationList.empty(); // 기존 알림 목록 비우기
         
         if (alarms.length === 0) {
-            notificationList.append('<li class="dropdown-item"><p>읽지 않은 알림이 없습니다.</p></li>');
+            notificationList.append('<li class="dropdown-item"><p style="font-weight:Semi Bold; font:sans-serif;"> -- 읽지 않은 알림이 없습니다 --</p></li>');
         } else {
             $.each(alarms, function(index, alarm) {
+            	console.log(alarm);
+            	var notificationItem;
+            	var iconColor;
             	
-            	var notificationItem = 
-            	    '<li class="dropdown-item notification-item">' +
-            	        '<a class="d-flex align-items-center" href="#">' +
-            	            '<div class="notification-text ms-4">' +
-            	                '<p class="notification-title font-bold">' + alarm.content + '</p>' +
-            	                '<p class="notification-subtitle font-thin text-sm">' + alarm.timeAgo + '</p>' +
-            	            '</div>' +
-            	        '</a>' +
-            	    '</li>';
+            	
+            	   switch (alarm.alarm_type) {
+                   case 'C':
+                       icon = '<i class="bi bi-chat-left-dots"></i>'; 
+                       iconColor='gray';
+                       break;
+                   case 'A':
+                       icon = '<i class="bi bi-check-circle"></i>'; 
+                       iconColor='#15358f';
+                       break;
+                   case 'R':
+                       icon = '<i class="bi bi-x-circle"></i>'; 
+                       iconColor='#c22813';
+                       break;
+                   default:
+                       icon = '<i class="bi bi-info-circle"></i>'; 
+                       iconColor='black';
+                       break;
+               }
+            	
+            	if(alarm.alarm_type == 'C'){
+            		notificationItem = 
+            			//'<li class="dropdown-item notification-item" onclick="location.href=\'http://localhost:8080/Sync/board/detailBoard.do?bd_seq=' + alarm.bd_seq + '\'"' + 
+            		 '<li class="dropdown-item notification-item" onclick="goBoard(\'' + alarm.bd_seq + '\', \'' + alarm.alarm_id + '\')">' + 
+                        '<a class="d-flex align-items-center" href="#">' +
+                        '<div class="notification-icon me-2" style="color: ' + iconColor + ';">' + icon + '</div>' +
+                            '<div class="notification-text ms-4">' +
+                                '<p class="notification-title font-bold">' + alarm.content + '</p>' +
+                                '<p class="notification-subtitle font-thin text-sm">' + alarm.timeAgo + '</p>' +
+                            '</div>' +
+                        '</a>' +
+                    '</li>';
+            	}else if(alarm.alarm_type == 'A'||alarm.alarm_type == 'R'){
+            		notificationItem =
+            			//'<li class="dropdown-item notification-item" onclick="location.href=\'http://localhost:8080/Sync/approval/progress.do\'">' + 
+            			 '<li class="dropdown-item notification-item" onclick="goApproval(\'' + alarm.alarm_id + '\')">' + 
+                        '<a class="d-flex align-items-center" href="#">' +
+                        '<div class="notification-icon me-2" style="color: ' + iconColor + ';">' + icon + '</div>' +
+                            '<div class="notification-text ms-4">' +
+                                '<p class="notification-title font-bold">' + alarm.content + '</p>' +
+                                '<p class="notification-subtitle font-thin text-sm">' + alarm.timeAgo + '</p>' +
+                            '</div>' +
+                        '</a>' +
+                    '</li>';
+            	}
+            	
+            	
 
                 notificationList.append(notificationItem);
             });
             
          // 알림 클릭 이벤트 처리
-            $('.notification-item').on('click', function() {
-                var alarmId = $(this).data('alarm_id');
-                isRead(alarmId);
-            });
+//             $('.notification-item').on('click', function() {
+//                 var alarmId = $(this).data('alarm_id');
+//                 console.log(alarmId);
+//                 //var bd_seq = $(this).data('bd_seq');      
+//                 //var approvalId = $(this).data('approval_id');
+                
+//                isRead(alarmId);
+//             });
+         
+         
         }
     }
 
-    function isRead(alarmId) {
-        $.ajax({
-            url: './alarmRead/'+ alarmId,
-            type: 'POST',
-            success: function() {
-                console.log("알림이 읽음으로 처리되었습니다.");
-               
-                fetchNotifications(); //새로 고침
-            },
-            error: function(xhr, status, error) {
-                console.log("알림을 읽음으로 처리하는 중 오류가 발생했습니다.", error);
-            }
-        });
-    }
+    
     
     
 });
+function goBoard(bd_seq, alarm_id) { 
+	isRead(alarm_id);
+	window.location.href = 'http://localhost:8080/Sync/board/detailBoard.do?bd_seq='+bd_seq;    
+}
 
+function goApproval(alarm_id){	
+	isRead(alarm_id);
+	window.location.href = 'http://localhost:8080/Sync/approval/progress.do';	
+	
+}
+
+
+
+function isRead(alarm_id) {
+	console.log(alarm_id);
+    $.ajax({
+        url: '${root}/alarmRead.do',
+        type: 'POST',
+        data: {alarm_id: alarm_id},
+        success: function(data) {
+        	console.log(data);
+            console.log("알림이 읽음으로 처리되었습니다.");
+           
+            fetchNotifications(); //새로 고침
+        },
+        error: function(xhr, status, error) {
+            console.log("알림을 읽음으로 처리하는 중 오류가 발생했습니다.", error);
+        }
+    });
+}
     
     
     ///////        채팅알림입니다      !!!@!?//////
@@ -310,7 +386,7 @@ $(document).ready(function() {
     // 읽지 않은 알림 수를 가져오는 함수
     function fetchUnreadAlarmCount() {
         $.ajax({
-            url: './alarmCnt.do',
+            url: '${root}/alarmCnt.do',
             type: 'GET',
             success: function(count) {
                 console.log("읽지 않은 알림 수: ", count);
@@ -322,10 +398,6 @@ $(document).ready(function() {
         });
     }
 
-//  });
-    
-    
-    
-    
-    
+ //});
+
 </script>

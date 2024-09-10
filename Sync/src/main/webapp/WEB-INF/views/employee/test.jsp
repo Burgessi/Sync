@@ -21,86 +21,7 @@
 <title>Home</title>
 
 <style>
-/* /* 테이블 전체 컨테이너 스타일 */
-/* .table-container { */
-/* 	position: relative; */
-/* } */
 
-/* /* 테이블 헤더 고정 */
-/* .table-fixed-header thead th { */
-/* 	position: -webkit-sticky; /* Safari */
-/* 	position: sticky; */
-/* 	top: 0; /* 페이지 상단에 고정 */
-/* 	background-color: #fff; */
-/* } */
-
-/* /* 기본적으로 가로 스크롤을 없앰 */
-/* .table-container { */
-/* 	overflow-x: hidden; /* 기본 상태에서는 가로 스크롤 숨김 */
-/* } */
-
-/* /* 화면 너비가 1200px 이하일 때 가로 스크롤 적용 */
-/* @media ( max-width : 1200px) { */
-/* 	.table-container { */
-/* 		overflow-x: auto; /* 가로 스크롤 적용 */
-/* 	} */
-/* } */
-
-/* /* 테이블 스타일 */
-/* .table { */
-/* 	width: 100%; /* 테이블 너비를 100%로 설정 */
-/* 	table-layout: fixed; /* 고정 너비 테이블 */
-/* 	border-collapse: collapse; /* 테두리 중복 방지 */
-/* } */
-
-/* /* 테이블 헤더와 데이터 셀 스타일 */
-/* .table th, .table td { */
-/* 	white-space: nowrap; /* 줄바꿈 방지 */
-/* 	overflow: hidden; /* 넘치는 내용 숨기기 */
-/* 	text-overflow: ellipsis; /* 생략 부호 표시 */
-/* 	width: 150px; /* 각 열의 너비 설정 */
-/* 	font-size: 14.5px; */
-/* 	height: 50px; /* 행의 높이를 고정 */
-/* 	vertical-align: middle; /* 내용 중앙 정렬 */
-/* } */
-
-/* /* 테이블의 모든 행 높이 고정 */
-/* .table tr { */
-/* 	height: 50px; /* 행의 높이를 고정 */
-/* } */
-
-/* /* 버튼이 없는 경우에도 행의 높이를 유지하기 위해 빈 셀에 스타일 추가 */
-/* .table td:empty { */
-/* 	height: 50px; /* 빈 셀의 높이 설정 */
-/* } */
-
-/* .action-buttons { */
-/* 	display: flex; /* 버튼들을 가로로 배치 */
-/* 	justify-content: center; /* 버튼들을 가운데 정렬 */
-/* 	gap: 5px; /* 버튼 간격 설정 */
-/* } */
-
-/* #hireDateHeader { */
-/* 	cursor: pointer; */
-/* 	position: relative; */
-/* } */
-
-/* #sortIcon { */
-/* 	margin-left: 5px; /* 아이콘과 텍스트 간의 간격 */
-/* 	transition: transform 0.2s; /* 아이콘의 변환 애니메이션 */
-/* } */
-
-/* .sorted-asc #sortIcon { */
-/* 	transform: rotate(180deg); /* 오름차순일 때 아이콘을 아래로 회전 */
-/* } */
-
-/* .sorted-desc #sortIcon { */
-/* 	transform: rotate(0deg); /* 내림차순일 때 아이콘을 기본 상태로 */
-/* } */
-
-/* .table .resigned { */
-/* 	background-color: #d0d0d0; */
-/* } */
 
 /*상세모달 css 시작*/
 .field-container {
@@ -143,6 +64,36 @@
 .modal-body {
 	padding-top: 0; /* 모달 본문 위쪽 패딩 제거 */
 }
+#member-table {
+        font-size: 0.95rem; 
+    }
+#member-table th, #member-table td {
+        padding: 8px; /* 셀의 패딩을 조정 */
+    }    
+    #member-table th:nth-child(6), /* 이메일 열 */
+    #member-table td:nth-child(6) {
+        width: 16%; 
+    }
+    #member-table th:nth-child(3), /* 본부 열 */
+    #member-table td:nth-child(3){
+    	width: 17%;
+    }
+    #member-table th:nth-child(4), /* 팀 열 */
+    #member-table td:nth-child(4) {
+        width: 16%; 
+    }
+    #member-table th:nth-child(5), 
+    #member-table td:nth-child(5) {
+        width: 8%; 
+    }
+    #member-table th:nth-child(8), 
+    #member-table td:nth-child(8) {
+        width: 10%; 
+    }
+   #member-table thead {
+        background-color: #d9e0fa; 
+    }
+
 </style>
 </head>
 <body>
@@ -533,25 +484,89 @@
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	<script>
-		$(document).ready(function() {
-			$('#member-table').DataTable({
-				"paging" : true, 
-				"ordering" : true, 
-				"info" : false,
-				"pageLength" : 15, 
-				"order" : [ [ 0, "desc" ] ],				
-				"language" : {
-					"search" : "Search:", 
-					//"searchPlaceholder" : "검색어를 입력하세요", 
-					"paginate" : {
-						"previous" : "<", 
-                		"next": ">"
-					}
-				}
+	
+	$("#member-table").DataTable({
+	      
+	      // 표시 건수기능 숨기기
+	       lengthChange: false,
+	       //한페이지 출력개수
+	       pageLength: 15,
+	       // 검색 기능 숨기기
+	       searching: true,
+	       // 정렬 기능 숨기기
+	       ordering: true,
+	       // 정보 표시 숨기기
+	       info: false,
+	       // 페이징 기능 숨기기
+	       paging: true,
+	       //텍스트 언어설정
+	       order: [[7,'asc']],
+	       language: {
+	           search: "<button id='tableSearchBtn' class='btn btn-primary btn-sm' style='margin:0;'>검색</button>",
+	           lengthMenu: "_MENU_ 항목 보기",
+	           paginate: {
+	               previous: "<",   // "Previous" 
+	               next: ">"        // "Next" 
+	           },
+	           searchPlaceholder : "검색어를 입력하세요.",
+	           zeroRecords: "해당 사원이 없습니다."
+	           
+	       }
+	      
+	}); 
+	   
+	   
 
-			});
+	      $(document).ready(function(){
+	         
+	         var table = $('#member-table').DataTable();
 
-		});
+	         //dataTables 기본 검색 막기
+	         $('.dataTables_filter input').off();
+	         
+	         
+	          // 버튼 클릭 시 DataTables 검색 실행
+	          $('#tableSearchBtn').on('click', function() {
+	              var searchTerm = $('.dataTables_filter input').val(); // 기본 검색 상자에서 검색어 가져오기
+	              table.search(searchTerm).draw(); // 검색어 전달하고 테이블 다시 그리기
+	          });
+	         
+	          
+	          // table 다시 그릴때마다 css 설정하기!!
+	          table.on('draw', function() {
+	            draw();
+	          });
+	          
+	          
+	          function draw(){
+	             
+	            $(".paginate_button").addClass("btn btn-outline-secondary");
+	            $(".btn-outline-secondary").removeClass("paginate_button");
+	            $(".paginate_button").css("margin", "0 15px");	            
+	            $(".next").css("padding","3px 7px 3px 7px");
+	            $(".next").css("margin-left","11px");
+	            $(".previous").css("margin-right","11px");
+	            $(".previous").css("padding","3px 7px 3px 7px");
+	            $(".dataTable").css("border-bottom","1px solid #e0e0e0");
+	            $(".dataTables_paginate").css("text-align","center");
+	            $(".dataTables_paginate").css("float","none");
+	            $(".dataTables_paginate").css("margin-top","15px");
+	          }
+	          
+	          $("input[type=search]").addClass("form-control");
+	          $("input[type=search]").css("width", "150px");
+	          $("input[type=search]").css("font-size", "0.8em");
+	          $("input[type=search]").css("margin-left", "10px");
+	          $("input[type=search]").css("margin-right", "10px");
+	          $("input[type=search]").closest("label").css("display","flex");
+	          $("input[type=search]").closest("label").css("margin-bottom","15px");
+	          $("input[type=search]").closest("label").css("flex-direction","row-reverse");
+	          $("input[type=search]").closest("label").css("justify-content","space-between");
+	          $("#progressTable_filter").css("width","220px");
+	         
+	         draw();
+	         
+	      })
 
 		// 본부별 팀 리스트
 		const teamsByDivision = {
@@ -641,22 +656,56 @@
 			});
 		};
 
-		function deleteEmployee(empId) {
-			if (confirm('퇴사 처리 하시겠습니까?')) {
-				var form = document.createElement('form');
-				form.method = 'POST';
-				form.action = '${root}/deleteEmployee.do';
+// 		function deleteEmployee(empId) {
+// 			if (confirm('퇴사 처리 하시겠습니까?')) {
+// 				var form = document.createElement('form');
+// 				form.method = 'POST';
+// 				form.action = '${root}/deleteEmployee.do';
 
-				var input = document.createElement('input');
-				input.type = 'hidden';
-				input.name = 'emp_id';
-				input.value = empId;
-				form.appendChild(input);
+// 				var input = document.createElement('input');
+// 				input.type = 'hidden';
+// 				input.name = 'emp_id';
+// 				input.value = empId;
+// 				form.appendChild(input);
 
-				document.body.appendChild(form);
-				form.submit();
-			}
-		}
+// 				document.body.appendChild(form);
+// 				form.submit();
+// 			}
+// 		}
+function deleteEmployee(empId) {
+    Swal.fire({
+        title: '확인',
+        text: '퇴사 처리 하시겠습니까?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '예',
+        cancelButtonText: '아니요',
+        dangerMode: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+          
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '${root}/deleteEmployee.do'; // 실제 경로에 맞게 수정
+
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'emp_id';
+            input.value = empId;
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+
+           
+            //Swal.fire('처리 완료', '퇴사 처리가 완료되었습니다.', 'success');
+        } else {
+         
+            Swal.fire('취소됨', '퇴사 처리가 취소되었습니다.', 'error');
+        }
+    });
+}
+
 
 		var message = '${message}';
 		if (message && message.trim() !== "") {
@@ -664,17 +713,17 @@
 		}
 
 		// 페이지가 로드될 때 설정
-		document.addEventListener('DOMContentLoaded', function() {
-			updateTeams();
+// 		document.addEventListener('DOMContentLoaded', function() {
+// 			updateTeams();
 
-			const hireDateHeader = document.getElementById('hireDateHeader');
-			if (hireDateHeader) {
-				hireDateHeader.addEventListener('click', function() {
-					sortByHireDate();
-				});
-			}
+// 			const hireDateHeader = document.getElementById('hireDateHeader');
+// 			if (hireDateHeader) {
+// 				hireDateHeader.addEventListener('click', function() {
+// 					sortByHireDate();
+// 				});
+// 			}
 
-		});
+// 		});
 
 		// emp_lead 코드와 직책명을 매핑하는 객체
 		const positionMap = {

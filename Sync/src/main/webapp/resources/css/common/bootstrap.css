@@ -4293,6 +4293,7 @@ fieldset:disabled .btn {
 }
 
 .nav-link {
+	position: relative;
     display: block;
     padding: .5rem 1rem;
     text-decoration: none;
@@ -5031,6 +5032,7 @@ fieldset:disabled .btn {
 }
 
 .badge {
+/* 	position: absolute; */
     display: inline-block;
     padding: .35em .65em;
     font-size: .85em;
