@@ -9,7 +9,7 @@
 
 # 개발환경 & 사용기술
 
-1. Front-End
+*1. Front-End*
 
    - JSP
    - Ajax
@@ -19,7 +19,7 @@
    - Toastr
    - Jstl
 
-2. Back-end
+*2. Back-end*
 
    - Spring Framework
    - MyBatis
