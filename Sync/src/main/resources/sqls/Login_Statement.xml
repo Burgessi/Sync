@@ -23,4 +23,5 @@
 			FROM EMPLOYEE
 			WHERE EMP_ID=#{emp_id}
 	</select>
+	
 </mapper>

@@ -3,6 +3,8 @@ package com.pro.sync.login.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,13 +55,13 @@ public class LoginController {
 
 //암호화 이후 로그인 	
 	@PostMapping("login.do")
-	public String login(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
+	public String login(@RequestParam Map<String, Object> map, HttpSession session, Model model, HttpServletResponse resp) {
 		//전달받은 map에 emp_id emp_password
 		String emp_id = (String) map.get("emp_id");
 		String rawpassword = (String) map.get("emp_password");
 		
-//		EmployeeVo user = service.findByEmpId(emp_id);
 		EmployeeVo loginDto = service.autenticate(emp_id, rawpassword);
+		
 		
 		if (loginDto != null) { // 로그인 성공
             session.setAttribute("loginDto", loginDto);
@@ -73,9 +75,21 @@ public class LoginController {
             session.setAttribute("accDto", accDto);
 
             model.addAttribute("infoDto", infoDto);
+            
+    		//아이디 저장
+    		String saveId= (String)map.get("saveId");
+    		if(saveId != null) {
+    			Cookie idCookie = new Cookie("emp_id", loginDto.getEmp_id());
+    			resp.addCookie(idCookie);
+    		}else {
+    			Cookie idCookie = new Cookie("emp_id", loginDto.getEmp_id());
+    			idCookie.setMaxAge(0);
+    			resp.addCookie(idCookie);
+    		}
+
 
             return "redirect:/main.do"; // 메인 페이지로 이동
-        } else { // 로그인 실패
+        }else { // 로그인 실패
             model.addAttribute("loginFailed", true);
             return "common/login"; // 로그인 페이지로 다시 이동
         }
