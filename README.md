@@ -9,7 +9,7 @@
 
 # 개발환경 & 사용기술
 
-##### *1.Language* : JAVA, JavaScript, SQL
+##### *1.Language* : JAVA, JavaScript, SQL, CSS, HTML, JSP
 
 ##### *2.Development Tool* : Eclipse, DBeaver
 
