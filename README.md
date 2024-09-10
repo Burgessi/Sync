@@ -46,6 +46,12 @@
 <img src="https://img.shields.io/badge/aop-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
 
 ##### *8.API* : JsTree, ckEditor5, HTML2PDF, Signature Pad, FullCalendar API, Google Calendar API, Kakao 주소 API, DataTables
+<img src="https://img.shields.io/badge/JsTree-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/> <img src="https://img.shields.io/badge/ckEditor5-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/> <img src="https://img.shields.io/badge/HTML2PDF-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/Signature Pad-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/FullCalendar API-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/Google Calendar API-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/Kakao API-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/DataTables-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
 
 # ERD
 <img width="888" alt="ERD" src="https://github.com/user-attachments/assets/c81686ae-f95d-4a34-947b-38c131c8a414">
