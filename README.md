@@ -54,6 +54,7 @@
   <summary>접기/펼치기</summary> 
   (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/board)
   <img width="1259" alt="공지게시판" src="https://github.com/user-attachments/assets/9952455d-0eca-4ca2-a6e9-bdde602965b0">
+  <img width="1263" alt="일정" src="https://github.com/user-attachments/assets/ae2e20c4-806a-4ba8-86b2-92815640af1d">
  </details>
  
   * #### 조회/상세보기/작성/수정/삭제 구현
@@ -61,10 +62,24 @@
    * #### 페이징/체크박스/검색 기능 구현
      * ###### Gson으로 검색 기능 구현 
  #### 📂일정관리
+ ###### 
+ <details>
+  <summary>접기/펼치기</summary> 
+  (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/board)
+  <img width="1263" alt="일정" src="https://github.com/user-attachments/assets/ae2e20c4-806a-4ba8-86b2-92815640af1d">
+ </details>
+ 
    * #### FullCalendar API를 이용하여 캘린더 구현
    * #### 조회/등록/수정/삭제 구현
       * ###### Ajax를 이용한 비통기 통신
  #### 📂시설예약
+  ###### 
+ <details>
+  <summary>접기/펼치기</summary> 
+  (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/board)
+  <img width="1263" alt="일정" src="https://github.com/user-attachments/assets/ae2e20c4-806a-4ba8-86b2-92815640af1d">
+ </details>
+ 
    * #### FullCalendar API를 이용하여 전체 예약현황 구현
    * #### 회의실 리스트 조회/생성/수정/삭제 구현
       * ###### 자신이 예약한 회의실 리스트 조회 / 현재 사용 중인 회의실 리스트 조회 / 예약 시 시간대 중복검사 기능 구현
