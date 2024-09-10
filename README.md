@@ -52,7 +52,7 @@
 ###### 
  <details>
   <summary>접기/펼치기</summary> 
-  (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/board)
+  (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/notice)
   <img width="1259" alt="공지게시판" src="https://github.com/user-attachments/assets/9952455d-0eca-4ca2-a6e9-bdde602965b0">
  </details>
  
@@ -64,7 +64,7 @@
  ###### 
  <details>
   <summary>접기/펼치기</summary> 
-  (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/board)
+  (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/plan)
   <img width="1263" alt="일정" src="https://github.com/user-attachments/assets/ae2e20c4-806a-4ba8-86b2-92815640af1d">
  </details>
  
@@ -75,7 +75,7 @@
   ###### 
  <details>
   <summary>접기/펼치기</summary> 
-  (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/board)
+  (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/reservations)
   <img width="1246" alt="회의실" src="https://github.com/user-attachments/assets/8f3cd0a7-a71b-4c53-a0f2-2ae5f7d76309">
  </details>
  
