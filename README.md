@@ -12,23 +12,39 @@
 ##### *1.Language* : JAVA, JavaScript, SQL, CSS, HTML, JSP
 ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white)
+<img src="https://img.shields.io/badge/sql-5294E2?style=for-the-badge&logo&logo=sql&logoColor=white"/>
 ![](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white)
 ![](https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white)
+<img src="https://img.shields.io/badge/jsp-4A154B?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
 
 ##### *2.Development Tool* : Eclipse, DBeaver
 ![](https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=eclipse&logoColor=white)
+<img src="https://img.shields.io/badge/dbeaver-382923?style=for-the-badge&logo&logo=dbeaver&logoColor=white"/>
+
 ##### *3.Test Tool* : Post Man
 ![](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ##### *4.Server* : Apache Tomcat 9.0
-<img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=flat-square&logo=apachetomcat&logoColor=black"/>
+<img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black"/>
 
 ##### *5.DB oracle* : Oracle 21c
 ![](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=Oracle&logoColor=white)
+
 ##### *6. Front-End* : JSP, Ajax, Jquery, BootStrap, SweetAlert2, Toastr, Jstl
+<img src="https://img.shields.io/badge/jsp-4A154B?style=for-the-badge&logo&logo=jsp&logoColor=white"/> <img src="https://img.shields.io/badge/ajax-5294E2?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
 ![](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)
 ![](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
+
 ##### *7. Back-end* : Spring Framework, MyBatis, gson, json-simple, commons-fileupload, Mail, Lombok, WebSocket, AOP
 ![](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+<img src="https://img.shields.io/badge/mybatis-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/gson-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/json simple-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/commons fileupload-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/Mail-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/lombok-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/websocket-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/aop-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+
 ##### *8.API* : JsTree, ckEditor5, HTML2PDF, Signature Pad, FullCalendar API, Google Calendar API, Kakao 주소 API, DataTables
 
 # ERD
