@@ -36,14 +36,14 @@
 
 ##### *7. Back-end* : Spring Framework, MyBatis, gson, json-simple, commons-fileupload, Mail, Lombok, WebSocket, AOP
 ![](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
-<img src="https://img.shields.io/badge/mybatis-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
-<img src="https://img.shields.io/badge/gson-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
-<img src="https://img.shields.io/badge/json simple-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
-<img src="https://img.shields.io/badge/commons fileupload-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
-<img src="https://img.shields.io/badge/Mail-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
-<img src="https://img.shields.io/badge/lombok-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
-<img src="https://img.shields.io/badge/websocket-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
-<img src="https://img.shields.io/badge/aop-000000?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/mybatis-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/gson-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/json simple-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/commons fileupload-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/Mail-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/lombok-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/websocket-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/aop-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
 
 ##### *8.API* : JsTree, ckEditor5, HTML2PDF, Signature Pad, FullCalendar API, Google Calendar API, Kakao 주소 API, DataTables
 
