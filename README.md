@@ -9,6 +9,25 @@
 
 # 개발환경 & 사용기술
 
-1. Back-End
-   -1
+1. Front-End
+
+   - JSP
+   - Ajax
+   - Jquery
+   - BootStrap
+   - SweetAlert2
+   - Toastr
+   - Jstl
+
+2. Back-end
+
+   - Spring Framework
+   - MyBatis
+   - gson
+   - json-simple
+   - commons-fileupload
+   - Mail
+   - Lombok
+   - WebSocket
+   - AOP
 
