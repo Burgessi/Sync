@@ -89,8 +89,39 @@
 #### - UI 설계 및 구현
 
  #### 📂전자결재
+ ###### 
+ <details>
+  <summary>접기/펼치기</summary> 
+  (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/approval)
+  <img width="943" alt="전자결재" src="https://github.com/user-attachments/assets/f2bb3fbd-297f-4e30-9523-92ce32e8a9d4">
+ </details>
 
+ * #### 전자결재 공통 기능
+    * ###### DataTables API를 통한 결재 목록 검색 및 페이징
+ * #### 기안문 작성
+    * ###### Datepicker를 활용한 날짜 설정
+    * ###### Jstree를 통한 결재자, 참조자 지정
+    * ###### 임시저장 / 상신 기능
+ * #### 기안 문서함
+    * ###### 결재가 이루어지지 않은 상태에서만 내용 수정 및 결재 회수
+    * ###### 결재 완료 시 HTML2PDF를 통한 PDF저장
+ * #### 수신 문서함
+    * ###### 결재자의 경우 결재 순서일 때에만 문서 조회 가능
+    * ###### 결재 승인 시 signature_pad를 통한 서명 입력 기능 구현 / 결재 반려 기능
+ * #### 임시 저장함
+    * ###### 임시저장된 문서를 계속 작성 / 회수
+    * ###### 계속 작성 시 결재선 재지정을 통한 문서 상신
  #### 📂채팅
+ ###### 
+ <details>
+  <summary>접기/펼치기</summary> 
+  (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/chat)
+  <img width="944" alt="채팅" src="https://github.com/user-attachments/assets/811ce3f7-6467-4142-b369-0b356cd23c37">
+ </details>
+
+ * #### Spring Websocket을 이용한 실시간 그룹 채팅
+ * #### 채팅방 생성/사원 초대/채팅방 나가기 기능 구현
+ * #### 채팅 참여자 목록 표시
 ### 👩‍💻황채영
 
 #### - DB 설계 담당 : 관계형 데이터베이스 설계 / ERD를 통한 물리 DB 설계 및 구축, 관리
