@@ -37,8 +37,10 @@
 #### - UI 설계 및 구현
 
  #### 📂자유게시판
- <details><summary>접기/펼치기</summary> 접은 내용(ex 소스 코드)</details>
-출처: https://backendcode.tistory.com/173 [무작정 개발:티스토리]
+ <details>
+  <summary>접기/펼치기</summary> 
+  접은 내용(ex 소스 코드)
+ </details>
   * #### 조회/상세보기/작성/수정/삭제 구현
     * ###### commons-fileupload 업로드 / 다운로드 구현, ckEditor5 사용
   * #### 페이징/체크박스/검색/댓글(생성/수정/삭제) 구현
