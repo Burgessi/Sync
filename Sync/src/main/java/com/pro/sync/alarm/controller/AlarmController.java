@@ -84,22 +84,24 @@ public class AlarmController {
     }
 
     //알림 읽음 처리
-    @PostMapping("/alarmRead/{alarm_id}")
-    public void alarmIsRead(@PathVariable("alarm_id") String alarm_id) {
+    @PostMapping(value="/alarmRead.do")
+    public String alarmIsRead(@RequestParam("alarm_id") String alarm_id) {
     	alarmService.isRead(alarm_id);
+    	System.out.println("alarm_id : " + alarm_id);
+    	return "true";
     }
     
     //댓글 알림 생성    
     public ResponseEntity<?> addCommentAlarm(
             @SessionAttribute("loginDto") EmployeeVo loginDto, 
-            @RequestParam String title
-           
+            @RequestParam String title,
+            @RequestParam int bd_seq
            ) {
         String receive_id = loginDto.getEmp_id();  // 댓글을 받을 사용자 ID
         
         try {
             // 알림 생성
-            alarmService.addCommentAlarm(receive_id, title);
+            alarmService.addCommentAlarm(receive_id, title, bd_seq);
             return ResponseEntity.ok().build();  // 성공적으로 처리된 경우
         } catch (Exception e) {
             log.error("알림 생성 실패", e);
@@ -109,6 +111,7 @@ public class AlarmController {
     }
 	
 	
+    
 	
 	}
 	

@@ -40,6 +40,8 @@ public class AlarmServiceImpl implements IAlarmService {
 	//@Transactional
 	@Override
 	public void isRead(String alarm_id) {
+		//AlarmVo alarm = new AlarmVo();
+		//alarm.setStatus("Y");
 		
 		dao.updateStatus(alarm_id);
 		
@@ -47,14 +49,15 @@ public class AlarmServiceImpl implements IAlarmService {
 	
 	//댓글 알림
 	@Override
-	public void addCommentAlarm(String receiver_id, String title) { // 게시물 제목
+	public void addCommentAlarm(String receiver_id, String title, int bd_seq) { // 게시물 제목
 	    AlarmVo alarm = new AlarmVo();
 	    
 	    alarm.setReceiver_id(receiver_id);
 	    alarm.setAlarm_type("C");
-	    alarm.setTitle(title); //이거 게시물 제목,,,으로
+	    alarm.setTitle(title); 
 	    alarm.setContent(title + "에 새로운 댓글이 달렸습니다.");
 	    alarm.setStatus("N");  //읽지 않은 상태
+	    alarm.setBd_seq(bd_seq);
 	    
 	    
 	    

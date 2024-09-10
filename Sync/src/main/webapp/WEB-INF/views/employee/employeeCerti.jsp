@@ -15,7 +15,9 @@
 }
 
 .container {
-    width: 100%;
+/*     width: 100%; */
+	width: 210mm;
+	height: 297mm;
     margin: 0 auto;
     border: 1px solid #000; /* 전체 컨테이너 테두리 추가 */
     padding: 10mm; /* 내용과 테두리 사이의 여백 추가 */
@@ -24,9 +26,11 @@
 }
 
 #pdfContent {
-    width: 680px;
-    height: 842px;
-    margin: 0 auto;
+     width: 680px; 
+     height: 842px; 
+    margin: 0 auto; 
+/* width:100%; */
+/* height:100%; */
     position: relative; /* 도장과 텍스트의 배치를 위해 relative 추가 */
 }
 
@@ -155,7 +159,7 @@ p {
             </tr>
         </table>
 
-        <p>위와 같이 재직하고 있음을
+        <p style="font-weight: bold;">위와 같이 재직하고 있음을
             증명합니다.</p>
 
         <!-- 새로운 도장 및 날짜 영역 추가 -->
@@ -165,8 +169,8 @@ p {
                 <img src="./resources/img/stamp.png" alt="도장 이미지">
                 <!-- 도장 이미지 파일 경로 -->
 
-                <span class="span1" style="z-index: 2; top: 40px; left: 30px;">구디 아카데미</span> 
-                <span class="span1" style="z-index: 2; top: 60px; left: 30px;">대표 이승엽</span>
+                <span class="span1" style="z-index: 2; top: 40px; left: 30px; font-weight: bold;">구디 아카데미</span> 
+                <span class="span1" style="z-index: 2; top: 60px; left: 30px; font-weight: bold;">대표 이승엽</span>
             </div>
         </div>
     </div>
@@ -227,7 +231,8 @@ p {
 
 			// HTML2PDF 옵션 설정
 			const opt = {
-				margin : 1,
+				//margin : 1,
+				margin: [10, 10, 10, 10],
 				filename : '재직증명서.pdf',
 				image : {
 					type : 'jpeg',
@@ -237,8 +242,10 @@ p {
 					scale : 2
 				},
 				jsPDF : {
-					unit : 'in',
-					format : 'a4',
+					//unit : 'in',
+					//format : 'a4',
+					unit: 'mm',
+            		format: [210, 297],
 					orientation : 'portrait'
 				}
 			};

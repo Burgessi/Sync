@@ -86,46 +86,102 @@ var purposeMapping={
 	     "D": "기타"	
 };
 
+// function applyRequest() {
+//     var requestCopies = parseInt(document.getElementById("requestCopies").value); //신청부수
+//     var availableCopiesElement = document.getElementById("availableCopies"); //신청가능부수
+//     var availableCopies = parseInt(availableCopiesElement.innerText); 
+//     var purposeCode = document.getElementById("purposeSelect").value; //발급용도
+//     var purposeText = purposeMapping[purposeCode]; // 발급용도 텍스트
+
+//     if (requestCopies <= availableCopies) {
+//         var isConfirmed = confirm("재직증명서 " + requestCopies + "부를 발급하시겠습니까?");
+
+//         if (isConfirmed) {
+//             availableCopies = availableCopies- requestCopies;
+//             availableCopiesElement.innerText = availableCopies;
+            
+
+//             var issuedCertificatesElement = document.getElementById("issuedCertificates");
+
+//             for (let i = 0; i < requestCopies; i++) {
+//                 var newRow = issuedCertificatesElement.insertRow();
+//                 var today = new Date();
+//                 var issueDate = today.getFullYear() + "-" + (today.getMonth() + 1).toString().padStart(2, '0') + "-" + today.getDate().toString().padStart(2, '0');
+
+//                 newRow.innerHTML = 
+//                     "<td>"+issueDate+"</td>"+
+//                     "<td>재직증명서</td>"+
+//                     "<td>1</td>"+
+// //                     "<td>"+$("#requestCopies").val()+"</td>"+
+// 					"<td>" + purposeText + "</td>" + // 발급용도 텍스트
+//                     "<td><button class='btn btn-primary' onclick='submitForm(this)'>출력</button></td>";
+					
+//             }
+          
+//             document.getElementById("requestCopies").value = 1;
+//         } else {
+//             alert("신청이 취소되었습니다.");
+//         }
+//     } else {
+//         alert("신청 부수가 발급 가능 부수를 초과할 수 없습니다.");
+//     }
+// }
 function applyRequest() {
-    var requestCopies = parseInt(document.getElementById("requestCopies").value); //신청부수
-    var availableCopiesElement = document.getElementById("availableCopies"); //신청가능부수
+    var requestCopies = parseInt(document.getElementById("requestCopies").value); // 신청부수
+    var availableCopiesElement = document.getElementById("availableCopies"); // 신청가능부수
     var availableCopies = parseInt(availableCopiesElement.innerText); 
-    var purposeCode = document.getElementById("purposeSelect").value; //발급용도
+    var purposeCode = document.getElementById("purposeSelect").value; // 발급용도
     var purposeText = purposeMapping[purposeCode]; // 발급용도 텍스트
 
     if (requestCopies <= availableCopies) {
-        var isConfirmed = confirm("재직증명서 " + requestCopies + "부를 발급하시겠습니까?");
+        // SweetAlert2 confirm 대화상자 사용
+        Swal.fire({
+            title: '확인',
+            text: '재직증명서 ' + requestCopies + '부를 발급하시겠습니까?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: '예',
+            cancelButtonText: '아니요'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                
+                availableCopies = availableCopies - requestCopies;
+                availableCopiesElement.innerText = availableCopies;
 
-        if (isConfirmed) {
-            availableCopies = availableCopies- requestCopies;
-            availableCopiesElement.innerText = availableCopies;
             
+                var issuedCertificatesElement = document.getElementById("issuedCertificates");
 
-            var issuedCertificatesElement = document.getElementById("issuedCertificates");
+                for (let i = 0; i < requestCopies; i++) {
+                    var newRow = issuedCertificatesElement.insertRow();
+                    var today = new Date();
+                    var issueDate = today.getFullYear() + "-" + (today.getMonth() + 1).toString().padStart(2, '0') + "-" + today.getDate().toString().padStart(2, '0');
 
-            for (let i = 0; i < requestCopies; i++) {
-                var newRow = issuedCertificatesElement.insertRow();
-                var today = new Date();
-                var issueDate = today.getFullYear() + "-" + (today.getMonth() + 1).toString().padStart(2, '0') + "-" + today.getDate().toString().padStart(2, '0');
+                    newRow.innerHTML = 
+                        "<td>" + issueDate + "</td>" +
+                        "<td>재직증명서</td>" +
+                        "<td>1</td>" +
+                        "<td>" + purposeText + "</td>" +  
+                        "<td><button class='btn btn-primary' onclick='submitForm(this)'>출력</button></td>";
+                }
 
-                newRow.innerHTML = 
-                    "<td>"+issueDate+"</td>"+
-                    "<td>재직증명서</td>"+
-                    "<td>1</td>"+
-//                     "<td>"+$("#requestCopies").val()+"</td>"+
-					"<td>" + purposeText + "</td>" + // 발급용도 텍스트
-                    "<td><button class='btn btn-primary' onclick='submitForm(this)'>출력</button></td>";
-					
+                document.getElementById("requestCopies").value = 1;
+
+                // 성공 알림
+                Swal.fire('발급 완료', '재직증명서 ' + requestCopies + '부가 발급되었습니다.', 'success');
+            } else {
+                // 신청 취소 알림
+                Swal.fire('취소됨', '신청이 취소되었습니다.', 'error');
             }
-          
-            document.getElementById("requestCopies").value = 1;
-        } else {
-            alert("신청이 취소되었습니다.");
-        }
+        });
     } else {
-        alert("신청 부수가 발급 가능 부수를 초과할 수 없습니다.");
+        Swal.fire({
+            title: '오류',
+            text: '신청 부수가 발급 가능 부수를 초과할 수 없습니다.',
+            icon: 'error'
+        });
     }
 }
+
 
 
 function submitForm(button) {

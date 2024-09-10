@@ -59,7 +59,8 @@
 											<table class="table table-bordered approval-table approval-drafter-info">
 												<tr>
 													<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">기안자</th>
-													<td id="requesterId">${approvalDetail.requester_name}</td>
+													<td id="requesterName">${approvalDetail.requester_name}
+													<input type="hidden" id="requesterId" value="${approvalDetail.requester_id}">												
 												</tr>
 												<tr>
 													<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">기안부서</th>
