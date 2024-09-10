@@ -143,7 +143,9 @@
 </details>
     
 ### 👩‍💻황채영
-
+ <details>
+  <summary>접기/펼치기</summary>
+	 
 #### - DB 설계 담당 : 관계형 데이터베이스 설계 / ERD를 통한 물리 DB 설계 및 구축, 관리
 
 #### - UI 설계 및 구현
@@ -151,7 +153,8 @@
  #### 📂인사관리
 
  #### 📂알림
-
+   </details>
+   
 ### 👩‍💻정다정
  <details>
   <summary>접기/펼치기</summary>
