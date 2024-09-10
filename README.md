@@ -20,6 +20,7 @@
 ##### *3.Test Tool* : Post Man
 ![](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ##### *4.Server* : Apache Tomcat 9.0
+<img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=flat-square&logo=apachetomcat&logoColor=black"/>
 
 ##### *5.DB oracle* : Oracle 21c
 ![](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=Oracle&logoColor=white)
