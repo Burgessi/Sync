@@ -31,6 +31,7 @@
     cursor: pointer;
 }
 
+
 .approval-card-header {
     display: flex;
     justify-content: space-between; /* 제목과 오른쪽 콘텐츠를 양쪽 끝으로 정렬 */
@@ -53,7 +54,7 @@
     gap: 4px; /* 이미지와 badge 간의 간격 */
 }
 
-.status-badge {
+.badge2 {
     display: inline-block;
     padding: 4px 10px;
     font-size: 11px;
@@ -62,25 +63,25 @@
     font-weight: bold;
 }
 
-.status-badge.pending {
-    background-color: #ff9800; /* 대기중 상태 색상 */
+/* .status-badge.pending { */
+/*     background-color: #ff9800; /* 대기중 상태 색상 */ 
+/* } */
+
+/* .status-badge.approved { */
+/*     background-color: #4caf50; /* 승인 상태 색상 */ 
+/* } */
+
+/* .status-badge.rejected { */
+/*     background-color: #f44336; /* 거부 상태 색상 */ 
+/* } */
+
+.approval-card-body2 {
+     display: flex; 
+     justify-content: space-between; 
+    	align-items: center;
 }
 
-.status-badge.approved {
-    background-color: #4caf50; /* 승인 상태 색상 */
-}
-
-.status-badge.rejected {
-    background-color: #f44336; /* 거부 상태 색상 */
-}
-
-.approval-card-body {
-    display: flex;
-    justify-content: space-between; /* 요소들을 세로로 나열 */
-   	align-items: center; /* 요소 사이의 간격 */
-}
-
-.approval-card-body p {
+.approval-card-body2 p {
     margin: 0;
     color: #555555;
     font-size: 14px;
@@ -112,7 +113,7 @@
      }
 
      .no-docs-message::before {
-         content: "!";
+/*          content: "!"; */
          position: absolute;
          top: -30px;
          left: 50%;
@@ -136,25 +137,25 @@
          color: #666666;
      }
 
-     @keyframes fadeInUp {
-         0% {
-             opacity: 0;
-             transform: translateY(30px);
-         }
-         100% {
-             opacity: 1;
-             transform: translateY(0);
-         }
-     }
+/*      @keyframes fadeInUp { */
+/*          0% { */
+/*              opacity: 0; */
+/*              transform: translateY(30px); */
+/*          } */
+/*          100% { */
+/*              opacity: 1; */
+/*              transform: translateY(0); */
+/*          } */
+/*      } */
 
-     @keyframes bounce {
-         0%, 100% {
-             transform: translateY(0);
-         }
-         50% {
-             transform: translateY(-20px);
-         }
-     }
+/*      @keyframes bounce { */
+/*          0%, 100% { */
+/*              transform: translateY(0); */
+/*          } */
+/*          50% { */
+/*              transform: translateY(-20px); */
+/*          } */
+/*      } */
 </style>
 <!-- HTML 구조 -->
 <div class="approval-dashboard">
@@ -168,7 +169,7 @@
 	    </div>
 	</c:if>
 	
-	<c:forEach var="list" items="${approval}" begin="0" end="5">
+	<c:forEach var="list" items="${approval}" begin="0" end="2">
 		<div class="approval-card" onclick="getApprovalDetail('${list.approval_id}', '${loginDto.emp_id}','${list.document_type}','${list.temp_save_flag}')">
         <div class="approval-card-header">
             <h5>${list.document_type}</h5>
@@ -210,18 +211,18 @@
             
 			<c:choose>
 				<c:when test="${list.approval_status eq 0}">
-					<span class="status-badge pending">결재진행중</span>
+					<span class="badge2 bg-warning">결재진행중</span>
 				</c:when>
 				<c:when test="${list.approval_status eq 1}">
-					<span class="status-badge approved">결재완료</span>
+					<span class="badge2 bg-success">결재완료</span>
 				</c:when>
 				<c:otherwise>
-					<span class="status-badge rejected">결재반려</span>
+					<span class="badge2 bg-danger">결재반려</span>
 				</c:otherwise>
 			</c:choose>      
 			</div>      
         </div>
-        <div class="approval-card-body">
+        <div class="approval-card-body2">
         	<p>${list.approval_title}</p>
             <p>${list.request_date}</p>
         </div>

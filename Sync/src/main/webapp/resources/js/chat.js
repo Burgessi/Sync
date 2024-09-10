@@ -146,7 +146,7 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 				for(let i=0; i<response.length; i++){
 					$("#dropdownMenu1").append(
 					$("<div id='drop-Part'>").append(
-						$("<img id='dropImg'>").attr('src', 'https://ptetutorials.com/images/user-profile.png'),
+						$("<img id='dropImg'>").attr('src', response[i].participants[0].emp_profile_pic == null ? 'https://ptetutorials.com/images/user-profile.png' : response[i].participants[0].emp_profile_pic),
 						$("<span id='drop-Part-Name'>").text(response[i].participants[0].participant_name),
 						$("<span id='drop-Part-Team'>").text(response[i].participants[0].participant_team_name),
 						$("<input type='hidden' class='drop-Part-Id'>").val(response[i].participants[0].participant_id)
@@ -168,7 +168,7 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 				for(let i=0; i<participants.length; i++){
 					$("#dropdownMenu1").append(
 						$("<div id='drop-Part'>").append(
-							$("<img id='dropImg'>").attr('src', 'https://ptetutorials.com/images/user-profile.png'),
+							$("<img id='dropImg'>").attr('src', participants[i].emp_profile_pic == null ? 'https://ptetutorials.com/images/user-profile.png' : participants[i].emp_profile_pic),
 							$("<span id='drop-Part-Name'>").text(participants[i].participant_name),
 							$("<span id='drop-Part-Team'>").text(participants[i].participant_team_name),
 							$("<input type='hidden' class='drop-Part-Id'>").val(participants[i].participant_id)
@@ -790,6 +790,8 @@ $(document).ready(function(){
 				  showCancelButton: true,
 				  confirmButtonColor: "#3085d6",
 				  cancelButtonColor: "#d33",
+				  confirmButtonText: "확인",
+		  		  cancelButtonText: `취소`
 				}).then((result) => {
 				  if (result.isConfirmed) {
 				   
@@ -1006,12 +1008,15 @@ $(document).ready(function(){
 	        $(".msgDiv").append(
 						    $('<div class="outgoing_msg">').append(
 						        $('<div class="sent_msg">').append(
-									$('<span> style="color=black;"').text("미리보기"),
+									$('<h5 style="color: black; font-size: 0.8em;">').text("미리보기"),
 						           $('<img src="' + e.target.result + '" alt="Image Preview" style="max-width: 350px; max-height: 350px;">'),
 						            $('<span class="time_date">').text(today.toLocaleTimeString())
 						        )
 						    )
 						);
+						
+					let chatContainer = $('.msg_history');
+           		chatContainer.scrollTop(chatContainer[0].scrollHeight);	
 	      };
 			
 			

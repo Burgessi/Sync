@@ -189,7 +189,7 @@
 
 						<div class="card-body" style="padding-left: 20px;">
 
-							<table class="table table-bordered table-hover display"
+							<table class="table table-bordered table-hover"
 								id="member-table" style="text-align: center">
 								<thead id="hireDateHeader" class="table-secondary">
 									<tr>

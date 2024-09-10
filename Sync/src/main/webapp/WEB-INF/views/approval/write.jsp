@@ -38,7 +38,7 @@
         }
 
         .alert-message::before {
-            content: "⚠️";
+/*             content: "⚠️"; */
             position: absolute;
             top: 10px;
             left: -1%;
@@ -261,6 +261,7 @@
 	 			type: 'get',
 	 			data: {form:formNo},
 	 			success:function(data){
+	 				$("#approvalBtn").show();
 	 				$("#document-content").html(data);
 	 				$("#requsterDate").text(today);
 	 			}

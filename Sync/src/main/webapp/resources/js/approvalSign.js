@@ -4,13 +4,16 @@
 		var recipientId = $("#save-signature").val();
 		var dataURL = "";
 		var approvalId = $("#approvalId").val();
-		var documentType = $("#documentType").val();		
+		var documentType = $("#documentType").
+		val();		
 		
 		function pdf(name){
 			
 			
 				let documentType = document.getElementById('documentType').value;
 				var element = document.getElementById('pdfDownload');
+				
+				
 				var opt = {
 				  margin:       1,
 				  filename:     documentType + '_' + name + '.pdf',
@@ -22,8 +25,6 @@
 				// New Promise-based usage:
 				html2pdf().set(opt).from(element).save();
 			
-				// Old monolithic-style usage:
-				html2pdf(element, opt);
 				
 			}
 				

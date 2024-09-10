@@ -122,7 +122,7 @@ function customAlert(message) {
       </div>
       <div class="panel-container">
         <div class="panel">
-          <img src="${root}/resources/img/구름이.png" class="image" alt="" />
+          <img src="${root}/resources/img/loginbackground.svg" class="image" alt="" />
         </div>
       </div>
     </div>

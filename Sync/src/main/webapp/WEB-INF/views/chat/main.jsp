@@ -98,7 +98,7 @@
 /* 두 번째 사이드바 스타일 */
 .sidebar2 {
     left: 400px; /* 첫 번째 사이드바 너비만큼 오른쪽으로 이동 */
-    width: 300px; /* 두 번째 사이드바 너비 */
+    width: 330px; /* 두 번째 사이드바 너비 */
     display: none; /* 기본적으로 숨김 */
     background-color: #f5f5f5; /* 밝은 회색 배경 */
   	border-left: 1px solid #e0e0e0; /* 왼쪽에 연한 회색 선 */
@@ -515,7 +515,7 @@
           			
           			<!-- 숨겨진 파일 입력 필드 -->
 				    <!-- 숨겨진 파일 입력 필드 -->
-				    <input type="file" id="fileInput" accept="image/*">
+				    
           		</div>
           		
           		
@@ -523,6 +523,7 @@
         </div>
         <div class="type_msg">
             <div class="input_msg_write">
+           	 <input type="file" id="fileInput" accept="image/*">
             	<button class="photo_attach_btn" id="attachButton">
 		      📷
 		    </button>
