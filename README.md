@@ -9,21 +9,21 @@
 
 # 개발환경 & 사용기술
 
-#### *1.Language* : JAVA
+##### *1.Language* : JAVA
 
-#### *2.Development Tool* : Eclipse, DBeaver
+##### *2.Development Tool* : Eclipse, DBeaver
 
-#### *3.Test Tool* : Post Man
+##### *3.Test Tool* : Post Man
 
-#### *4.Server* : Apache Tomcat 9.0
+##### *4.Server* : Apache Tomcat 9.0
 
-#### *5.DB oracle* : Oracle 21c
+##### *5.DB oracle* : Oracle 21c
 
-#### *6. Front-End* : JSP, Ajax, Jquery, BootStrap, SweetAlert2, Toastr, Jstl
+##### *6. Front-End* : JSP, Ajax, Jquery, BootStrap, SweetAlert2, Toastr, Jstl
 
-#### *7. Back-end* : Spring Framework, MyBatis, gson, json-simple, commons-fileupload, Mail, Lombok, WebSocket, AOP
+##### *7. Back-end* : Spring Framework, MyBatis, gson, json-simple, commons-fileupload, Mail, Lombok, WebSocket, AOP
 
-#### *8.API* : JsTree, ckEditor5, HTML2PDF, Signature Pad, FullCalendar API, Google Calendar API, Kakao 주소 API, DataTables
+##### *8.API* : JsTree, ckEditor5, HTML2PDF, Signature Pad, FullCalendar API, Google Calendar API, Kakao 주소 API, DataTables
 
 # ERD
 
