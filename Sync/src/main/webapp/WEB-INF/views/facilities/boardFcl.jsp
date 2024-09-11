@@ -9,145 +9,148 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>회의실 관리</title>
 <style type="text/css">
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f7f9;
-        margin: 0;
-        padding: 0;
-    }
+/* 기본 리셋 및 폰트 설정 */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e9ecef; /* 부드러운 회색 배경 */
+}
 
-    #main {
-        padding: 20px;
-    }
+.container {
+    padding: 20px;
+}
 
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+/* 카드 스타일 */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    overflow: hidden;
+}
 
-    .card {
-        border: none;
-        border-radius: 8px;
-        overflow: hidden;
-    }
+#cheader {
+    background-color:#E2E3E5;
+    color: #223055;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #9c27b0; /* 보라색 보더 */
+}
 
-    .card-header {
-        background-color: #007bff;
-        color: #ffffff;
-        padding: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+.card-header span {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.Cbutton {
+    background-color: #6c757d; 
+    border: none;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-align:center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e64a19; /* 버튼 호버 시 어두운 오렌지색 */
+}
+
+/* 테이블 스타일 */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table thead {
+    background-color: #E2E3E5; /* 다크 블루 배경색 */
+    color: #223055;
+}
+
+.table th, .table td {
+    padding: 14px;
+    text-align: center; /* 가운데 정렬 */
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.table th {
+    font-weight: 600;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1; /* 부드러운 회색 */
+}
+
+.table a {
+    color: #3f51b5; /* 다크 블루 */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.table a:hover {
+    text-decoration: underline;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .table, .card-header {
+        font-size: 14px;
     }
 
     .btn-primary {
-        background-color: #007bff;
-        border: none;
-        color: #ffffff;
+        font-size: 14px;
         padding: 10px 20px;
-        font-size: 13px;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        width: 11%;
-        text-align: center;
     }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
-
-    .btn-primary:focus {
-        outline: none;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-    }
-
-    th, td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #007bff;
-        color: #ffffff;
-        font-weight: bold;
-        position: -webkit-sticky; /* For Safari */
-        position: sticky;
-        top: 0;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    tr:hover {
-        background-color: #f1f1f1;
-    }
-
-    a {
-        color: #007bff;
-        text-decoration: none;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
-
-    .card-body {
-        padding: 20px;
-    }
+}
 </style>
 </head>
 <body>
-    <div id="app">
-        <!-- 사이드바 include -> 메뉴 이동 -->
-        <%@ include file="/WEB-INF/views/common/sidebar.jsp"%>
-        <!-- 헤더 include -> 상단 로그인정보 등 -->
-        <div id="main">
-            <%@ include file="/WEB-INF/views/common/header.jsp"%>
-            <h3>회의실 관리</h3>
-            <div class="container">
-                <div class="card">
-                    <div class="card-header">
-                        <span>회의실 목록</span>
-                        <input class="btn-primary" value="회의실 생성"
-                            onclick="location.href='${root}/fcl/insertFcl.do'">
-                    </div>
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr style="background-color: lightblue;">
-                                    <th style="width: 20%; color: black;">회의실 번호</th>
-                                    <th style="width: 40%; color: black;">회의실 이름</th>
-                                    <th style="width: 40%; color: black;">사용여부</th>
+  <div id="app">
+    <!-- 사이드바 include -> 메뉴 이동 -->
+    <%@ include file="/WEB-INF/views/common/sidebar.jsp"%>
+    <!-- 헤더 include -> 상단 로그인정보 등 -->
+    <div id="main">
+        <%@ include file="/WEB-INF/views/common/header.jsp"%>
+        <h3>회의실 관리</h3>
+        <div class="container">
+            <div class="card">
+                <div class="card-header" id="cheader">
+                    <span>회의실 목록</span>
+                    <input class="Cbutton" value="회의실 생성" onclick="location.href='${root}/fcl/insertFcl.do'">
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>회의실 번호</th>
+                                <th>회의실 이름</th>
+                                <th>사용여부</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${fclList}" var="fcl" varStatus="vs">
+                                <tr>
+                                    <td>${fcl.fcl_id}</td>
+                                    <td><a href="${root}/fcl/detailFcl.do?fcl_id=${fcl.fcl_id}">${fcl.fcl_name}</a></td>
+                                    <td>${fcl.fcl_able}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${fclList}" var="fcl" varStatus="vs">
-                                    <tr>
-                                        <td>${fcl.fcl_id}</td>
-                                        <td><a href="${root}/fcl/detailFcl.do?fcl_id=${fcl.fcl_id}">${fcl.fcl_name}</a></td>
-                                        <td>${fcl.fcl_able}</td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <%@ include file="/WEB-INF/views/common/footer.jsp"%>
+</div>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

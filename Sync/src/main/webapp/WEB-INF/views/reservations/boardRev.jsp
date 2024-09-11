@@ -263,7 +263,7 @@ body {
 
 		Swal.fire({
 			title : '회의실',
-			text : '리모델링 중입니다',
+			text : '현재 사용할 수 없습니다.',
 			icon : 'error',
 			confirmButtonText : '확인'
 		});

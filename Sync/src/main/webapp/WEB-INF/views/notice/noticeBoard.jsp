@@ -108,15 +108,17 @@
     padding: 8px;
     font-size: 14px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 5px;
     width: 200px;
 }
 .search-container button {
     padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
+   	border:1.5px solid #17a2b8; /* 기본 버튼 색상 */
+    border-radius: 10px;
     cursor: pointer;
     margin-bottom: 12px;
+    background-color: white;
+    
 }
 .search-container button:hover {
     background-color: #0056b3;
@@ -136,7 +138,40 @@
     vertical-align: middle; /* 텍스트와 함께 정렬되도록 */
     text-align: center;
 }
-
+/* 버튼 커스텀 */
+	.btn-container {
+        display: flex;
+        gap: 10px; /* 버튼 사이의 간격 조정 */
+        margin-top: 10px; /* 버튼 상단과의 간격 조정 */
+    }
+    .Bsuccess {
+   		background-color: white;
+   		border: 2px solid #28a745;
+        color: #28a745; /* 현재 btn-success 색상 */
+        font-weight: bold; /* 폰트 두껍게 */
+        border-radius: 12px; /* 버튼 테두리 둥글기 조정 */
+    }
+    .Bwarning {
+    	background-color: white;
+    	border: 2px solid #ffc107;
+        color: #ffc107; /* 현재 btn-warning 색상 */
+        font-weight: bold; /* 폰트 두껍게 */
+        border-radius: 12px; /* 버튼 테두리 둥글기 조정 */
+    }
+    .Bprimary {
+    	background-color: white;
+    	border: 2px solid #007bff;
+        color: #007bff; /* 현재 btn-primary 색상 */
+        font-weight: bold; /* 폰트 두껍게 */
+        border-radius: 12px; /* 버튼 테두리 둥글기 조정 */
+    }
+    .Bdanger {
+   		background-color: white;
+   		border: 2px solid #dc3545;
+        color: #dc3545; /* 현재 btn-danger 색상 */
+        font-weight: bold; /* 폰트 두껍게 */
+        border-radius: 12px; /* 버튼 테두리 둥글기 조정 */
+    }
 </style>
 <title>공지게시판</title>
 </head>
@@ -156,19 +191,19 @@
 					<div class="card-body">
 						<div id="list" style="overflow: auto;" class="container mt-3">
 							<form action="./deleteNotice.do"  method="post" onsubmit="return checkSubmit(event)">
-								<c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
+								<c:if test="${infoDto.authority == 'A'}">
 									<div class="btn-container">		
-										<input type="button" style="color: black;" class="btn btn-success" value="상단등록" onclick="pin(event)">
-	                       				<input type="button" style="color: black;" class="btn btn-warning" value="상단해제" onclick="cancel(event)">					
-	                        			<input type="button" style="color: black;" class="btn btn-primary" value="글작성" onclick="location.href='./insertNotice.do'">
-	                        			<input type="submit" style="color: black;" class="btn btn-danger" value="삭제">
+										<input type="button" class="Bprimary" value="상단등록" onclick="pin(event)">
+										<input type="button" class="Bprimary" value="상단해제" onclick="cancel(event)">
+										<input type="button" class="Bprimary" value="글작성" onclick="location.href='./insertNotice.do'">
+										<input type="submit" class="Bdanger" value="삭제">
 	                        		</div>
                         		</c:if>
                         		<div id="searchView">
 									<table class="table table-hover">
 										<thead>
 											<tr>
-												<c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
+												<c:if test="${infoDto.authority == 'A'}">
 												<th style="width: 1%"><input type="checkbox" id="chkAll" onclick="allCheck(this.checked)"></th>
 												</c:if>
 												<th style="width: 10%">게시물번호</th>
@@ -181,7 +216,7 @@
 										<tbody>
 										<c:set var="bgColor" value="${no.notice_pinbtn eq 'Y' ? '#F2F2F2': '#FFFFFF'}" />
 												<tr style="background-color: ${bgColor}">
-													<c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
+													<c:if test="${infoDto.authority == 'A'}">
 													<td><input type="checkbox" name="chk" value="${no.notice_seq}"></td>
 													</c:if>
 													<td>${no.notice_seq}</td>
@@ -211,7 +246,7 @@
                                     <option value="author">작성자</option>
                                 </select>
                                 <input type="text" name="keyword" placeholder="검색어를 입력해주세요" value="${keyword}">
-                                <button type="button" class="btn btn-info" onclick="searchNotice(event)">
+                                <button type="button" class="Binfo" onclick="searchNotice(event)">
                                     <img alt="" src="${root}/resources/img/search.png">
                                 </button>
                             </form>
@@ -279,7 +314,7 @@ function searchNotice(event) {
 
     var opt = document.getElementById("type").value; // 검색 유형
     var keyword = document.getElementsByName("keyword")[0].value; // 검색어
-    
+    var authority = "${infoDto.authority}";
     
     $.ajax({
         url: "${root}/notice/searchNotice.do",
@@ -288,19 +323,25 @@ function searchNotice(event) {
         dataType: "json",
         success: function (data) {
             if (data && data.length > 0) {
-                var view = "<table class='table table-hover'><thead><tr><th>게시물번호</th><th>제목</th><th>작성자</th></tr></thead><tbody>";
-
+				var view = null;		
+				if(authority == 'A'){
+					view = "<table class='table table-hover'><thead><tr><th style='width: 1%'><input type='checkbox' id='chkAll' onclick='allCheck(this.checked)'></th><th>게시물번호</th><th>제목</th><th>작성자</th></tr></thead><tbody>";
+				} else{
+					view = "<table class='table table-hover'><thead><tr><th>게시물번호</th><th>제목</th><th>작성자</th></tr></thead><tbody>";
+				}
                 $.each(data, function (index, value) {
-                	
-                    view += "<tr>";
+	                    view += "<tr>";
+                	if(authority == 'A'){
+	                    view += "<td><input type='checkbox' name='chk' value='" + value.notice_seq + "'></td>";
+                	}
                     view += "<td>" + value.notice_seq + "</td>";
                     view += "<td><a href='${root}/notice/detailNotice.do?notice_seq=" + value.notice_seq + "'>" + value.notice_title + "</a></td>";
                     view += "<td>" + escapeHtml(value.employee_name) + "</td>";
                     view += "</tr>";
                     console.log("notice_seq:", value.notice_seq); // 확인용 로그
                     console.log("notice_title:", value.notice_title); // 확인용 로그
+                	
                 });
-
                 view += "</tbody></table>";
                 $('#searchView').html(view);
                 $('#cat').html("");
@@ -353,12 +394,12 @@ function pin(event) {
                 toastr.success('공지사항을 고정하였습니다.');
                 setTimeout(function() {
                     location.href = "${root}/notice/noticeBoard.do";
-                }, 3000); 
+                }, 500); 
             } else if(pin === 'fail') {
                 toastr.error("최대 5개 고정 가능합니다.");
                 setTimeout(function() {
                     location.href = "${root}/notice/noticeBoard.do";
-                }, 3000); 
+                }, 500); 
             }
         },
         error: function(e) {
@@ -391,12 +432,12 @@ function cancel(event) {
                 toastr.success('고정을 해제했습니다.');
                 setTimeout(function() {
                     location.href = "${root}/notice/noticeBoard.do";
-                }, 3000);
+                }, 500);
             } else if(cancel === 'fail') {
                 toastr.error('고정해제를 못했습니다.');
                 setTimeout(function() {
                     location.href = "${root}/notice/noticeBoard.do";
-                }, 3000);
+                }, 500);
             }
         },
         error: function(e) {

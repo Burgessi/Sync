@@ -21,7 +21,6 @@ import com.google.gson.GsonBuilder;
 import com.pro.sync.common.service.PagingService;
 import com.pro.sync.common.vo.PagingVo;
 import com.pro.sync.employee.vo.EmployeeVo;
-import com.pro.sync.mypage.service.IMypageService;
 import com.pro.sync.notice.service.INoticeService;
 import com.pro.sync.notice.vo.NoticeVo;
 
@@ -126,6 +125,7 @@ public class NoticeController {
 	    } else {
 	        return "fail"; // 최대 개수 초과 시 "fail"
 	    }
+	   
 	}
 	
 	
@@ -146,8 +146,9 @@ public class NoticeController {
 	//공지 게시글 검색
 	@PostMapping(value="/searchNotice.do")
 	@ResponseBody
-	public String searchNotice(@RequestParam Map<String, Object> map) {
+	public String searchNotice(@RequestParam Map<String, Object> map, HttpSession session) {
 	    log.info("검색 : {}", map);
+	    
 	    List<NoticeVo> search = service.searchNotice(map);
 	    
 	    Gson gson = new GsonBuilder().create();

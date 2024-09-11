@@ -88,6 +88,7 @@
 	align-items: center;
 	justify-content: flex-end;
 	margin-bottom: 20px;
+	gap: 10px;
 }
 
 .search-container {
@@ -116,17 +117,32 @@
 	width: 200px;
 }
 
-.search-container button {
-	padding: 8px 16px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	margin-bottom: 12px;
+.btnSearch{
+    padding: 8px 16px;
+   	border:1.5px solid #17a2b8; /* 기본 버튼 색상 */
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    background-color: white;
 }
 
 .search-container button:hover {
 	background-color: #0056b3;
 }
+ .Bprimary {
+    	background-color: white;
+    	border: 2px solid #007bff;
+        color: #007bff; /* 현재 btn-primary 색상 */
+        font-weight: bold; /* 폰트 두껍게 */
+        border-radius: 12px; /* 버튼 테두리 둥글기 조정 */
+    }
+    .Bdanger {
+   		background-color: white;
+   		border: 2px solid #dc3545;
+        color: #dc3545; /* 현재 btn-danger 색상 */
+        font-weight: bold; /* 폰트 두껍게 */
+        border-radius: 12px; /* 버튼 테두리 둥글기 조정 */
+    }
 </style>
 <title>자유게시판</title>
 </head>
@@ -148,9 +164,9 @@
 						<div id="list" style="overflow: auto;" class="container mt-3">
 							<form action="./deleteBoard.do" method="post" onsubmit="return checkSub(event)">
 									<div class="btn-container">
-										<input type="button" class="btn btn-primary" value="글작성" onclick="location.href='./insertBoard.do'">
+										<input type="button" class="Bprimary" value="글작성" onclick="location.href='./insertBoard.do'">
 										<c:if test="${infoDto.authority == 'A'}">
-										<input type="submit" class="btn btn-danger" value="삭제">
+										<input type="submit" class="Bdanger" value="삭제">
 										</c:if>
 									</div>
 								<div id="boardSearch">
@@ -199,7 +215,7 @@
 									<option value="author">작성자</option>
 								</select> <input type="text" name="keyword" placeholder="검색어를 입력해주세요"
 									value="${keyword}">
-								<button type="button" class="btn btn-info" onclick="searchBoard(event)">
+								<button type="button" class="btnSearch" onclick="searchBoard(event)">
 									<img alt="" src="${root}/resources/img/search.png">
 								</button>
 							</form>
