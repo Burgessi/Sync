@@ -57,7 +57,7 @@
 									<tr>
 										<td style="width: 44px;">순서</td>
 										<td style="width: 60px;">이름</td>
-										<td style="width: 48px;">직책</td>
+										<td style="width: 48px;">직급</td>
 										<td colspan="2">부서</td>
 									</tr>
 								</thead>
@@ -74,7 +74,7 @@
 								<thead>
 									<tr>
 										<td style="width: 65px;">이름</td>
-										<td style="width: 60px;">직책</td>
+										<td style="width: 60px;">직급</td>
 										<td colspan="2">부서</td>
 									</tr>
 								</thead>
