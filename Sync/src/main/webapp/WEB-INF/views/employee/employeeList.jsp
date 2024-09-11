@@ -7,21 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-
-
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-
-
-
-
 
 <title>Home</title>
 
 <style>
-
+.resigned {
+	background-color: #d3d3d3 !important; /* 퇴사자 행을 연한 회색으로 설정 */
+}
 
 /*상세모달 css 시작*/
 .field-container {
@@ -64,39 +58,44 @@
 .modal-body {
 	padding-top: 0; /* 모달 본문 위쪽 패딩 제거 */
 }
-#member-table {
-        font-size: 0.95rem; 
-    }
-#member-table th, #member-table td {
-        padding: 8px; /* 셀의 패딩을 조정 */
-    }    
-    #member-table th:nth-child(6), /* 이메일 열 */
-    #member-table td:nth-child(6) {
-        width: 16%; 
-    }
-    #member-table th:nth-child(3), /* 본부 열 */
-    #member-table td:nth-child(3){
-    	width: 17%;
-    }
-    #member-table th:nth-child(4), /* 팀 열 */
-    #member-table td:nth-child(4) {
-        width: 16%; 
-    }
-    #member-table th:nth-child(5), 
-    #member-table td:nth-child(5) {
-        width: 8%; 
-    }
-    #member-table th:nth-child(8), 
-    #member-table td:nth-child(8) {
-        width: 10%; 
-    }
-   #member-table thead {
-        background-color: #d9e0fa; 
-    }
 
+#member-table {
+	font-size: 0.95rem;
+}
+
+#member-table th, #member-table td {
+	padding: 8px; /* 셀의 패딩을 조정 */
+}
+
+#member-table th:nth-child(6), /* 이메일 열 */ #member-table td:nth-child(6)
+	{
+	width: 16%;
+}
+
+#member-table th:nth-child(3), /* 본부 열 */ #member-table td:nth-child(3)
+	{
+	width: 17%;
+}
+
+#member-table th:nth-child(4), /* 팀 열 */ #member-table td:nth-child(4) {
+	width: 16%;
+}
+
+#member-table th:nth-child(5), #member-table td:nth-child(5) {
+	width: 8%;
+}
+
+#member-table th:nth-child(8), #member-table td:nth-child(8) {
+	width: 10%;
+}
+
+#member-table thead {
+	background-color: #d9e0fa;
+}
 </style>
 </head>
 <body>
+
 
 	<div id="app">
 		<!-- 사이드바 include -> 메뉴 이동 -->
@@ -140,8 +139,8 @@
 
 						<div class="card-body" style="padding-left: 20px;">
 
-							<table class="table table-bordered table-hover"
-								id="member-table" style="text-align: center">
+							<table class="table table-bordered table-hover" id="member-table"
+								style="text-align: center">
 								<thead id="hireDateHeader" class="table-secondary">
 									<tr>
 										<th>사원번호</th>
@@ -154,11 +153,12 @@
 											class="fa-solid fa-sort-down" id="sortIcon"></i>
 										</th>
 										<th>재직상태</th>
-										
-											<c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A' }">
-												<th></th>
-											</c:if>
-										
+
+										<c:if
+											test="${infoDto.team_code == 'HR' and infoDto.authority == 'A' }">
+											<th></th>
+										</c:if>
+
 									</tr>
 								</thead>
 								<tbody id="employeeTable">
@@ -197,34 +197,32 @@
 													<td>재직중</td>
 												</c:otherwise>
 											</c:choose>
-											
-												<c:if test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
-													<c:choose>
-														<c:when test="${e.emp_status eq 'D'}">
-															<td></td>
-														</c:when>
-														<c:otherwise>
-															<td>
-																<div class="action-buttons">
-																	<button type="button"
-																		class="btn btn-outline-secondary btn-sm"
-																		onclick="location.href='./registForm.do?emp_id=${e.emp_id}'">수정</button>
-																	<button type="button"
-																		class="btn btn-outline-danger btn-sm"
-																		onclick="deleteEmployee('${e.emp_id}')">삭제</button>
-																</div>
-															</td>
-														</c:otherwise>
-													</c:choose>
-													
-												</c:if>
-												
+
+											<c:if
+												test="${infoDto.team_code == 'HR' and infoDto.authority == 'A'}">
+												<c:choose>
+													<c:when test="${e.emp_status eq 'D'}">
+														<td></td>
+													</c:when>
+													<c:otherwise>
+														<td>
+															<div class="action-buttons">
+																<button type="button"
+																	class="btn btn-outline-secondary btn-sm"
+																	onclick="location.href='./registForm.do?emp_id=${e.emp_id}'">수정</button>
+																<button type="button"
+																	class="btn btn-outline-danger btn-sm"
+																	onclick="deleteEmployee('${e.emp_id}')">삭제</button>
+															</div>
+														</td>
+													</c:otherwise>
+												</c:choose>
+											</c:if>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
 						</div>
-
 					</div>
 				</div>
 
@@ -245,10 +243,10 @@
 								<!-- 사원 상세 정보 -->
 								<div class="form-group row">
 									<div class="col-md-6 field-container">
-										<img id="empPic"
-											style="border-radius: 50%; width: 70px; height: 70px; object-fit: cover"
-											src="${employeeVo.emp_profile_pic}" alt="Profile Picture"
-											class="img-fluid" />
+												<img id="empPic"
+													style="border-radius: 50%; width: 70px; height: 70px; object-fit: cover"
+													src="${employeeVo.emp_profile_pic}" alt="Profile"
+													class="img-fluid" />
 									</div>
 								</div>
 								<div class="form-group row">
@@ -484,6 +482,7 @@
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 	<script>
+
 	
 	$("#member-table").DataTable({
 	      
@@ -566,7 +565,7 @@
 	         
 	         draw();
 	         
-	      })
+	      });
 
 		// 본부별 팀 리스트
 		const teamsByDivision = {
@@ -615,7 +614,12 @@
 					// 받은 사원 상세 정보를 모달에 표시
 
 					//$('#empPic').val(employee.emp_profile_pic);
-					$('#empPic').attr('src', employee.emp_profile_pic);
+
+					if (employee.emp_profile_pic) {
+   					$('#empPic').attr('src', employee.emp_profile_pic);
+					} else {
+    				$('#empPic').attr('src', '${root}/resources/img/member-imgs/user.png');
+}
 					$('#empId').val(employee.emp_id);
 					//$('#empId2').val(employee.emp_id);
 					$('#empName').val(employee.emp_name);

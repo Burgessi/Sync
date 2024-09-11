@@ -3897,7 +3897,7 @@ fieldset:disabled .btn {
     position: absolute;
     bottom: 100%;
     right: 75%;
-    left: 60%;
+    left: 53%;
     margin-left: -5px;
     border-width: 10px;
     border-style: solid;
@@ -5042,7 +5042,7 @@ fieldset:disabled .btn {
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
-    border-radius: .25rem
+    border-radius: 1.3rem;
 }
 
 .badge:empty {
