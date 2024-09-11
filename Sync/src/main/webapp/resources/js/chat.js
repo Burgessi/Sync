@@ -290,7 +290,7 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 						
 						console.log("입장 메세지 : " + msg);
 						let text = msg.substring(msg.indexOf('_') + 1);
-						
+						today = new Date();
 						
 						$(".msgDiv").append($("<div class='enterChat'>").html(text));
 						
@@ -305,10 +305,15 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 									}
 							        
 							    }
+							    // 현재 시간으로 .chat_date 설정
+								        $(this).closest('.chat_ib').find('.chat_date').text(today.toLocaleTimeString());
+								        
+								        // 해당 chat_list를 맨 위로 이동
+								        $(this).closest('.chat_list').prependTo('.inbox_chat');
 						});		
 						
 					} else if(msg.startsWith("[나]")){	// 내 메세지 처리 
-						
+						today = new Date();
 						
 						let text = msg.substring(msg.indexOf(']') + 1);
 						$(".msgDiv").append(
@@ -329,6 +334,12 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 										$(this).prev('.latest_message_content').text(text);
 									}
 							        
+							        // 현재 시간으로 .chat_date 설정
+								        $(this).closest('.chat_ib').find('.chat_date').text(today.toLocaleTimeString());
+								        
+								        // 해당 chat_list를 맨 위로 이동
+								        $(this).closest('.chat_list').prependTo('.inbox_chat');
+							        
 							    }
 						});
 						
@@ -336,6 +347,7 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 						
 					// 초대 메세지	
 					} else if (msg.startsWith("#invite_")){
+						today = new Date();
 						console.log("초대메세지 : " + msg);
 						let text = msg.substring(msg.indexOf('_') + 1);
 						
@@ -355,6 +367,11 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 									}
 							        
 							    }
+							    // 현재 시간으로 .chat_date 설정
+								        $(this).closest('.chat_ib').find('.chat_date').text(today.toLocaleTimeString());
+								        
+								        // 해당 chat_list를 맨 위로 이동
+								        $(this).closest('.chat_list').prependTo('.inbox_chat');
 						});
 						// 메시지가 도착했을 때 호출
 						sendMessageToParent("새로운 채팅 메시지가 도착했습니다.");
@@ -362,6 +379,7 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 						
 					//퇴장 메세지
 					} else if(msg.startsWith("#exit_")) {
+						today = new Date();
 						console.log("퇴장 메세지 : " + msg);
 						let text = msg.substring(msg.indexOf('_') + 1);
 						
@@ -378,12 +396,18 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 									}
 							        
 							    }
+							    // 현재 시간으로 .chat_date 설정
+								        $(this).closest('.chat_ib').find('.chat_date').text(today.toLocaleTimeString());
+								        
+								        // 해당 chat_list를 맨 위로 이동
+								        $(this).closest('.chat_list').prependTo('.inbox_chat');
 						});
 						// 메시지가 도착했을 때 호출
 						sendMessageToParent("새로운 채팅 메시지가 도착했습니다.");
 						
 					//다른 사람 메세지
 					} else {
+						today = new Date();
 						
 						let part = msg.split(":");
 						let otherName = part[0];
@@ -392,7 +416,7 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 						$(".msgDiv").append(
 								    $('<div class="incoming_msg">').append(
 								        $('<div class="incoming_msg_img">').append(
-								            $('<img>').attr('src', 'https://ptetutorials.com/images/user-profile.png').attr('alt', 'sunil')
+								            $('<img>').attr('src', 'https://ptetutorials.com/images/user-profile.png')
 								        ),
 								        $('<div class="received_msg">').append(
 								            $('<div class="received_withd_msg">').append(
@@ -407,7 +431,8 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 						
 						//최근 메시지 append
 						$('.list_chatroom_id').each(function() {
-							
+							today = new Date();
+								
 							    if ($(this).val() == chatroomId) {
 									if(otherMsg.length>15){
 										otherMsg = otherMsg.substring(0,16) + " ...... ";
@@ -415,10 +440,14 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 									} else {
 										$(this).prev('.latest_message_content').text(otherMsg);
 									}
-							        
+									$(this).closest('chat_ib').find('chat_date').text(today.toLocaleTimeString());
 							    }
 									
-							    
+							    // 현재 시간으로 .chat_date 설정
+								        $(this).closest('.chat_ib').find('.chat_date').text(today.toLocaleTimeString());
+								        
+								        // 해당 chat_list를 맨 위로 이동
+								        $(this).closest('.chat_list').prependTo('.inbox_chat');
 						});	
 							
 						// 메시지가 도착했을 때 호출
@@ -426,8 +455,13 @@ function newChat(element, empId, empNameParam, chatroomIdParam){
 									
 					}
 					
+					// 채팅 맨 아래로 자동 스크롤
 					let chatContainer = $('.msg_history');
            			chatContainer.scrollTop(chatContainer[0].scrollHeight);
+					
+					// 해당 채팅방을 목록의 맨 위로 이동
+			        var $chatList = $(this).closest('.chat_list');
+			        $chatList.prependTo('.inbox_chat');
 					
 				}
 						
@@ -965,28 +999,44 @@ $(document).ready(function(){
     
     
    		   $('.chat_date').each(function() {
-                var $chatDateElement = $(this);
-                var chatDateText = $chatDateElement.text().trim(); // 텍스트에서 공백 제거
+				    var $chatDateElement = $(this);
+				    var chatDateText = $chatDateElement.text().trim(); // 텍스트에서 공백 제거
+				
+				    // 메시지 날짜와 시간 분리
+				    var parts = chatDateText.split(' ');
+				    var messageDate = parts[0];
+				    var messageTime = parts[1];
+				
+				    // 날짜 객체 생성
+				    var messageDateObj = new Date(messageDate + 'T00:00:00'); // 메시지 날짜를 기준으로 Date 객체 생성
+				    var todayDateObj = new Date(); // 현재 날짜
+				    todayDateObj.setHours(0, 0, 0, 0); // 오늘 날짜의 00:00:00으로 설정
+				
+				    // 시간에 오전/오후 및 초까지 붙여서 변환
+				    function formatAMPM(time) {
+				        var timeParts = time.split(':'); // 시간, 분, 초로 분리
+				        var hours = parseInt(timeParts[0]);
+				        var minutes = timeParts[1];
+				        var seconds = timeParts[2];
+				        var ampm = hours >= 12 ? '오후' : '오전'; // 12보다 크면 오후, 아니면 오전
+				        hours = hours % 12; // 12시간 형식으로 변환
+				        hours = hours ? hours : 12; // 0시를 12시로 변환
+				        return ampm + ' ' + hours + ':' + minutes + ':' + seconds; // 최종 출력 형식 (초 포함)
+				    }
+				
+				    var formattedTime = formatAMPM(messageTime);
+				
+				    // 날짜 비교 및 표시
+				    if (messageDateObj.getTime() === todayDateObj.getTime()) {
+				        // 오늘 날짜와 같다면 시간만 표시 (오전/오후 및 초 포함)
+				        $chatDateElement.text(formattedTime);
+				    } else {
+				        // 오늘 날짜가 아니라면 전체 날짜만 표시
+				        $chatDateElement.text(messageDate);
+				    }
+				});
 
-                // 메시지 날짜와 시간 분리
-                var parts = chatDateText.split(' ');
-                var messageDate = parts[0];
-                var messageTime = parts[1];
 
-                // 날짜 객체 생성
-                var messageDateObj = new Date(messageDate + 'T00:00:00'); // 메시지 날짜를 기준으로 Date 객체 생성
-                var todayDateObj = new Date(); // 현재 날짜
-                todayDateObj.setHours(0, 0, 0, 0); // 오늘 날짜의 00:00:00으로 설정
-
-                // 날짜 비교 및 표시
-                if (messageDateObj.getTime() === todayDateObj.getTime()) {
-                    // 오늘 날짜와 같다면 시간만 표시
-                    $chatDateElement.text(messageTime);
-                } else {
-                    // 오늘 날짜가 아니라면 전체 날짜 표시
-                    $chatDateElement.text(messageDate);
-                }
-            });
 
 	
 	

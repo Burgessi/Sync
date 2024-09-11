@@ -96,12 +96,12 @@
 							<textarea rows="5" class="approval-input form-control" id="content" name="content" style="resize: none;" placeholder="휴가사유를 입력해주세요."></textarea>
 						</td>
 					</tr>
-					<tr>
-						<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">첨부파일</th>
-						<td>
-							<input type="file" class="form-control" style="font-size: 0.8em;">
-						</td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 						<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">첨부파일</th> -->
+<!-- 						<td> -->
+<!-- 							<input type="file" class="form-control" style="font-size: 0.8em;"> -->
+<!-- 						</td> -->
+<!-- 					</tr> -->
 				</table>
 		</div>
 		
