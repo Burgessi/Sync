@@ -102,10 +102,12 @@
 			   	type : "POST",
 			   	url : './approvalJstree.do',
 			   	success: function(data){
+				
 				        menu_json = data;
 				        CreateJSTrees();
 			    }
 			});
+			
 			
 			
 			// 서버에서 가져온 데이터로 JSTree 만듦

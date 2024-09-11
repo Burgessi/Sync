@@ -79,13 +79,44 @@
     margin: 0 auto; 
     box-sizing: content-box; 
   }
-    .ko_event{
-  	background: #F78181 !important;
-  	text-align: center !important;
-  	border: none;
+  
+   .fc-event {
+    background-color: #00BFFF !important; 
+    border: none !important; 
+    padding: 4px 8px !important; 
+    color: white !important; 
+    text-align: center;
+    font-size: 12px;
+    font-family: sans-serif;
+    height: 20px;
+    margin: 1px;
+  }
+  .fc-daygrid-event-dot {
+     display: none !important; /*점 없애기*/
   }
   .fc-event-time {
- 	 display: none; /* 시간 표시를 숨김 */
+     display: none; /* 시간 표시를 숨김 */
+  }
+   .fc-daygrid-block-event .fc-event-title{
+     flex-grow: 1;
+    flex-shrink: 1;
+    font-weight: 700;
+    min-width: 0px;
+    overflow: hidden;
+  }
+  .fc-event-title-container{
+     margin-top: -4px;
+  }
+  /* 일정이 표시되는 셀 안에서의 스타일 설정 */
+  .fc-daygrid-day > .fc-daygrid-day-frame .fc-daygrid-day-events .fc-event {
+    border-radius: 5px; !important; 
+  }  
+  .ko_event{
+     background: #f24080 !important;
+     text-align: center;
+  }
+  .ko_sync{
+     background-color: #3CB371 !important;
   }
 </style>
 </head>
@@ -261,15 +292,11 @@
 <script type="text/javascript" src="./fullcalendar/packages/core/locales/ko.global.min.js"></script>
 <script>
     $(document).ready(function() {
-<%--         <%  --%>
 //             EmployeeVo loginDto = (EmployeeVo) request.getAttribute("loginDto");
 //             EmployeeVo infoDto = (EmployeeVo) request.getAttribute("infoDto");
 //             if (loginDto != null && "A".equals(infoDto.getEmp_status())) {
-<%--          %> --%>
 //             $('#passwordChangeModal').modal('show');
-<%--         <%  --%>
 //             } 
-<%--          %> --%>
 
 		if("${infoDto.emp_status}" =="A"){
 			$('#passwordChangeModal').modal('show');
@@ -348,7 +375,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 {
                     googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
                     className: 'ko_event'
-                }
+                },
+                {
+                    googleCalendarId: '0b8fad07187ca98cacb49f0c0518757171fa74c4576a72d9069fefc38ad6ab62@group.calendar.google.com',
+                    className: 'ko_sync'
+                 }
             ]
             
         });

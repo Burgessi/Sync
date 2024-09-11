@@ -244,6 +244,8 @@ $(document).ready(function(){
 			$(".dataTables_paginate").css("text-align","center");
 			$(".dataTables_paginate").css("float","none");
 			$(".dataTables_paginate").css("margin-top","15px");
+			$(".current").addClass('active');
+            $('.active').css('backrground','#6c757d');
 	    }
 	    
 	    $("input[type=search]").addClass("form-control");

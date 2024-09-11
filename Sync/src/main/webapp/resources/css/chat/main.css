@@ -186,16 +186,6 @@ display: flex;
 
 .chat_people{ overflow:hidden; clear:both;}
 
-.active_chat{ 
-	 background-color: #19bead; /* 눌렸을 때 조금 더 진한 녹청색 */
-    transform: translateY(0); /* 다시 원래 위치로 */
-    box-shadow: 0 3px 6px rgba(0, 137, 123, 0.3); /* 클릭 시 그림자 약화 */
-}
-
-.active_chat p, .active_chat h5 {
-	color: #ffffff;
-}
-
 
 .chat_list:hover::before{
 	content: '';
@@ -240,7 +230,6 @@ display: flex;
 
 
 .inbox_chat { 
-	
 height: 521px; 
 overflow-y: scroll;
 display: flex;
@@ -257,6 +246,7 @@ display: flex;
   position: relative;
 
 }
+
 
 .inbox_chat::-webkit-scrollbar {
   width: 8px; /* 스크롤바 너비 */
@@ -513,13 +503,21 @@ display: flex;
 }
 
 	
+.active_chat{ 
+	 background-color: #19bead; /* 눌렸을 때 조금 더 진한 녹청색 */
+    transform: translateY(0); /* 다시 원래 위치로 */
+    box-shadow: 0 3px 6px rgba(0, 137, 123, 0.3); /* 클릭 시 그림자 약화 */
+}
 
+.active_chat p, .active_chat h5 {
+	color: #ffffff;
+}
 
 
     /* 숨겨진 파일 입력 필드 */
-    #fileInput {
+  #fileInput {
       display: none;
-    }
+  }
 
 
 
