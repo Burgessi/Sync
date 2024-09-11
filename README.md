@@ -37,8 +37,8 @@
 ##### *7. Back-end* : Spring Framework, MyBatis, gson, json-simple, commons-fileupload, Mail, Lombok, WebSocket, AOP
 ![](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
 <img src="https://img.shields.io/badge/mybatis-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
-<img src="https://img.shields.io/badge/JSON-000000?style=flat-square&logo=json&logoColor=white"/>
-<img src="https://img.shields.io/badge/gson-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
+<img src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white"/>
+<img src="https://img.shields.io/badge/gson-3E4348?style=for-the-badge&logo&logo=gson&logoColor=white"/>
 <img src="https://img.shields.io/badge/json simple-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
 <img src="https://img.shields.io/badge/commons fileupload-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
 <img src="https://img.shields.io/badge/Mail-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
