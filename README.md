@@ -55,6 +55,8 @@
 <img src="https://img.shields.io/badge/DataTables-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
 
 # ERD
+🔗 <a href='https://www.erdcloud.com/d/MMSG4eG222dtiaqq8'>SYNC_ERD</a>
+
 ![ERD](https://github.com/user-attachments/assets/79cd147f-5eee-4b18-b7bb-df5a87d4ca1c)
 
 
