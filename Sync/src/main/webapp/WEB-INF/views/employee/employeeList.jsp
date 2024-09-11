@@ -93,7 +93,6 @@
    #member-table thead {
         background-color: #d9e0fa; 
     }
-
 </style>
 </head>
 <body>
@@ -245,10 +244,14 @@
 								<!-- 사원 상세 정보 -->
 								<div class="form-group row">
 									<div class="col-md-6 field-container">
-										<img id="empPic"
-											style="border-radius: 50%; width: 70px; height: 70px; object-fit: cover"
-											src="${employeeVo.emp_profile_pic}" alt="Profile Picture"
-											class="img-fluid" />
+										<c:choose>
+										    <c:when test="${not empty employeeVo.emp_profile_pic}">
+										        <img id="empPic" style="border-radius: 50%; width: 70px; height: 70px; object-fit: cover" src="${employeeVo.emp_profile_pic}" class="img-fluid" />
+										    </c:when>
+										    <c:otherwise>
+										        <img id="empPic" style="border-radius: 50%; width: 70px; height: 70px; object-fit: cover" src="${root}/resources/img/member-imgs/user.png" class="img-fluid" />
+										    </c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -551,6 +554,9 @@
 	            $(".dataTables_paginate").css("text-align","center");
 	            $(".dataTables_paginate").css("float","none");
 	            $(".dataTables_paginate").css("margin-top","15px");
+	            $(".current").addClass('active');
+	            $('.active').css('backrground','#6c757d');
+	            
 	          }
 	          
 	          $("input[type=search]").addClass("form-control");

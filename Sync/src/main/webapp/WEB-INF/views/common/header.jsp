@@ -398,6 +398,5 @@ function isRead(alarm_id) {
         });
     }
 
- //});
 
 </script>

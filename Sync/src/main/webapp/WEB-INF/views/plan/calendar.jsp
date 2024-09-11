@@ -26,7 +26,7 @@
     box-sizing: content-box; 
   }
   .fc-event {
-	 background-color: #FFB7CA !important; 
+	 background-color: #00BFFF !important; 
 	 border: none !important; 
 	 padding: 4px 8px !important; 
 	 color: white !important; 
@@ -58,6 +58,9 @@
   .ko_event{
   	background: #f24080 !important;
   	text-align: center;
+  }
+   .ko_sync{
+     background-color: #3CB371 !important;
   }
   .group{
   	background: #51a1ed;
@@ -290,7 +293,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 {
                     googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
                     className: 'ko_event'
-                }
+                },
+                {
+                    googleCalendarId: '0b8fad07187ca98cacb49f0c0518757171fa74c4576a72d9069fefc38ad6ab62@group.calendar.google.com',
+                    className: 'ko_sync'
+                 }
             ]
             
         });

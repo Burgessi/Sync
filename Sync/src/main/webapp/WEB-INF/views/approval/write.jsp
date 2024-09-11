@@ -38,7 +38,7 @@
         }
 
         .alert-message::before {
-/*             content: "⚠️"; */
+/*             content: "⚠️";  */
             position: absolute;
             top: 10px;
             left: -1%;

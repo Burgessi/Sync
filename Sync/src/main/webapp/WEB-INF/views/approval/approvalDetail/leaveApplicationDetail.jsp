@@ -257,12 +257,12 @@
 													<div id="content"></div>
 												</td>
 											</tr>
-											<tr>
-												<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">첨부파일</th>
-												<td>
-													파일 없음
-												</td>
-											</tr>
+<!-- 											<tr> -->
+<!-- 												<th style="width: 80px;background: #F2F2F2;font: 0.8em sans-serif; font-weight: bold;">첨부파일</th> -->
+<!-- 												<td> -->
+<!-- 													파일 없음 -->
+<!-- 												</td> -->
+<!-- 											</tr> -->
 										</table>
 									</div>
 									
