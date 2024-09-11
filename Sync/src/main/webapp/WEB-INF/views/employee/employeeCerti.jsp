@@ -147,7 +147,8 @@ p {
                 <td colspan="3">${infoDto.emp_hire_date}- <c:if
                         test="${infoDto.emp_leaving_date == null}">
                         현재
-                    </c:if> <c:if test="${infoDto.emp_leaving_date != null}">
+                    </c:if> 
+                    <c:if test="${infoDto.emp_leaving_date != null}">
                         ${infoDto.emp_leaving_date}
                     </c:if>
                 </td>
@@ -251,11 +252,14 @@ p {
 			};
 
 			// 콘텐츠를 PDF로 변환
-			html2pdf().from(element).set(opt).save().then(() => {
+			html2pdf().from(element).set(opt).save()
+			.then(() => {
 				setTimeout(() => {
 					 window.history.back();  
-	            }, 4000);  //4초
+	            }, 3000);  //3초
 	        });
+
+		    
 		}
 
 		window.onload = function() {

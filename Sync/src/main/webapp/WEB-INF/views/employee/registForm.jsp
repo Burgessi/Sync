@@ -13,7 +13,7 @@
 <link rel="stylesheet"
 	href="${root}/resources/css/member/join-style.css" />
 <link rel="stylesheet" href="${root}/resources/css/regist.css" />
-<script src="${root}/resources/js/employee/formValidation.js"></script>
+
 
 
 </head>
@@ -155,8 +155,9 @@
 							</table>
 
 							<!-- 제출 버튼 -->
-							<button type="button" onclick="validateForm()"
-								class="btn btn-info">${isUpdate ? '수정' : '등록'}</button> <input type="button" class="btn btn-secondary"
+							<button type="submit" id="submitButton"
+								class="btn btn-info">${isUpdate ? '수정' : '등록'}</button> 
+								<input type="button" class="btn btn-secondary"
 								onclick="javascript:history.back(-1)" value="취소" />
 						</form>
 					</div>
@@ -166,6 +167,20 @@
 	</div>
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	<script>
+	
+	$(document).ready(function() {
+	    var isUpdate = ${isUpdate}; 
+	    
+	    //등록일 때만
+	    if (!isUpdate) {
+	        $('#submitButton').on('click', function(e) {
+	            e.preventDefault();
+	            if (validateForm()) { 
+	                $('#regist-form').submit(); 
+	            }
+	        });
+	    }
+	});
 
 		function formatSSN(input) {
 			var value = input.value.replace(/\D/g, ''); // 숫자 외 문자 제거
@@ -270,4 +285,5 @@
 	</script>
 
 </body>
+<script src="${root}/resources/js/employee/formValidation.js"></script>
 </html>
