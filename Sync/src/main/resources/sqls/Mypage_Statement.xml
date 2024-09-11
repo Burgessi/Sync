@@ -14,10 +14,11 @@
 	
 	<!-- 특정 사원의 연차이력 -->
 	<select id="getOffHistory" parameterType="java.lang.String" resultType="OffVo">
-		SELECT OFF_HISTORY_ID, TO_CHAR(e.EMP_HIRE_DATE, 'YYYY-MM-DD') AS OFF_DATE, OFF_REASON ,oh.EMP_ID 
+		SELECT OFF_HISTORY_ID, TO_CHAR(OFF_DATE, 'YYYY-MM-DD') AS OFF_DATE, OFF_REASON ,oh.EMP_ID 
 			FROM OFF_HISTORY oh 
 			JOIN EMPLOYEE e ON e.EMP_ID = oh.EMP_ID 
 			WHERE oh.EMP_ID = #{emp_id}
+			ORDER BY OFF_HISTORY_ID DESC
 	</select>
 	
 	<!-- 회원정보 가져오기 -->

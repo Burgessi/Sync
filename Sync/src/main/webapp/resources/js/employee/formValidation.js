@@ -94,20 +94,21 @@ function validateForm() {
 		rankInput.css({"border" : ""});
 	}
     
-    if(hireDate.val() && hireDate.val().trim() !== ""){
-	    //입사일 검사
-	    if(hireDate.val().trim() === ''){
-			hireDate.css({"border" : "2px solid red"});
-			toastr.error("입사일을 선택해주세요.");
-			return;
-		} else if (numericTodayDate > numericHireDate){
-			hireDate.css({"border" : "2px solid red"});
-			toastr.error("입사일은 오늘 이후로 선택 가능합니다. 다시 선택해 주세요.");
-			return;
-		} else {
-			hireDate.css({"border" : ""});
-		}
-    }
+    //입사일 검사
+    if(hireDate != "" || hireDate != null || hireDate != undefined){
+       //입사일 검사
+       if(hireDate.val().trim() === ''){
+         hireDate.css({"border" : "2px solid red"});
+         toastr.error("입사일을 선택해주세요.");
+         return;
+      } else if (numericTodayDate > numericHireDate){
+         hireDate.css({"border" : "2px solid red"});
+         toastr.error("입사일은 오늘 이후로 선택 가능합니다. 다시 선택해 주세요.");
+         return;
+      } else {
+         hireDate.css({"border" : ""});
+      }
+   }
     
     //권한 검사
     if(authority.val().trim() === ''){
