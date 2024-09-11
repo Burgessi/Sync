@@ -91,7 +91,7 @@ $("#progressTable").DataTable({
          },
          searchPlaceholder : "검색어를 입력하세요.",
          zeroRecords: "검색 결과가 없습니다.",
-         emptyTable: "연차 사용 내역이 없습니다."
+         emptyTable: "연차 사용내역이 없습니다."
      }
     
 })   
