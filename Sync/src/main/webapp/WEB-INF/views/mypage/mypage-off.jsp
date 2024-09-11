@@ -91,7 +91,7 @@ $("#progressTable").DataTable({
          },
          searchPlaceholder : "검색어를 입력하세요.",
          zeroRecords: "검색 결과가 없습니다.",
-         emptyTable: "기안 문서가 없습니다."
+         emptyTable: "연차 사용 내역이 없습니다."
      }
     
 })   
@@ -131,6 +131,8 @@ $("#progressTable").DataTable({
           $(".dataTables_paginate").css("text-align","center");
           $(".dataTables_paginate").css("float","none");
           $(".dataTables_paginate").css("margin-top","15px");
+          $(".current").addClass('active');
+          $('.active').css('backrground','#6c757d');
         }
         
         $("input[type=search]").addClass("form-control");
