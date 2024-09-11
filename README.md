@@ -55,7 +55,8 @@
 <img src="https://img.shields.io/badge/DataTables-3E4348?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
 
 # ERD
-<img width="888" alt="ERD" src="https://github.com/user-attachments/assets/c81686ae-f95d-4a34-947b-38c131c8a414">
+![ERD](https://github.com/user-attachments/assets/79cd147f-5eee-4b18-b7bb-df5a87d4ca1c)
+
 
 # 팀원별 담당
 ### 🧑‍💻원영인
