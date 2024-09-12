@@ -140,7 +140,7 @@
 						<div class="card-body" style="padding-left: 20px;">
 
 							<table class="table table-bordered table-hover" id="member-table"
-								style="text-align: center">
+								style="text-align: center; white-space: nowrap;">
 								<thead id="hireDateHeader" class="table-secondary">
 									<tr>
 										<th>사원번호</th>

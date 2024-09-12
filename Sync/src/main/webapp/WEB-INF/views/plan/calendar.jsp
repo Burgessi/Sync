@@ -54,6 +54,7 @@
   /* 일정이 표시되는 셀 안에서의 스타일 설정 */
   .fc-daygrid-day > .fc-daygrid-day-frame .fc-daygrid-day-events .fc-event {
 	 border-radius: 5px; !important; 
+	     margin-bottom: 3px;
   }  
   .ko_event{
   	background: #f24080 !important;
@@ -108,6 +109,12 @@
         	<div class="container"> 
         		<div class="card"> 
         			<div style="padding: 30px; height: 950px;">
+        			<div style="display: flex;">
+        				<p style="color: #3CB371 ;">●</p><span style="font: 0.8 em sans-serif;">전체 일정</span>
+        			</div>
+        			<div style="display: flex;">
+						<p style="color: #00BFFF;">●</p><span style="font: 0.8 em sans-serif;">팀 일정</span>        			
+        			</div>
 						<div id='div-calendar'></div>
 					</div>
 				</div> 

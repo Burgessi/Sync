@@ -230,7 +230,7 @@
 
 							if (alarms.length === 0) {
 								notificationList
-										.append('<li class="dropdown-item"><p style="font-weight:Semi Bold; font:sans-serif;"> -- 읽지 않은 알림이 없습니다 --</p></li>');
+										.append('<li class="dropdown-item"><p style="font-weight:Semi Bold; font:sans-serif; text-align:center;"> -- 읽지 않은 알림이 없습니다 --</p></li>');
 							} else {
 								$
 										.each(
