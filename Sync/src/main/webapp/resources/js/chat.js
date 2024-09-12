@@ -719,7 +719,7 @@ $(document).ready(function(){
 			    	var newChatRecipient = 
 			    	    '<div id="chatRecipient">' +
 			    	        '<div id="chatRecipientProfile">' +
-			    	            '<img id="RecipientProfile" src="http://localhost:8080/Sync/resources/img/구름이.png">' +
+			    	            '<img id="RecipientProfile" src="http://localhost:8080/Sync/resources/img/member-imgs/user.png">' +
 			    	        '</div>' +
 			    	        '<div id="chatRecipientName">' +
 			    	            '<h5>' + name.substring(0, name.indexOf(" (")) + '</h5>' +

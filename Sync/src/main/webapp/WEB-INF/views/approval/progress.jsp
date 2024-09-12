@@ -55,17 +55,23 @@
 										                    </c:forEach>
 										                    
 										                    <!-- 최종 상태 결정 -->
-										                    <c:choose>
-										                        <c:when test="${hasRejected}">
-										                            <span class="badge bg-danger">결재반려</span>
-										                        </c:when>
-										                        <c:when test="${hasInProgress}">
-										                            <span class="badge bg-warning">결재진행중</span>
-										                        </c:when>
-										                        <c:otherwise>
-										                            <span class="badge bg-success">결재완료</span>
-										                        </c:otherwise>
-										                    </c:choose>
+										                   <c:choose>
+											                            	<c:when test="${card.approval_status eq 0}">
+											                            		<span class="item-field" style="text-align: center;">
+													                            	<span class="badge bg-warning">결재진행중</span>
+													                            </span>
+											                            	</c:when>
+											                            	<c:when test="${card.approval_status eq 1}">
+											                            		<span class="item-field" style="text-align: center;">
+													                            	<span class="badge bg-success">결재완료</span>
+													                            </span>
+											                            	</c:when>
+											                            	<c:otherwise>
+											                            		<span class="item-field" style="text-align: center;">
+													                            	<span class="badge bg-danger">결재반려</span>
+													                            </span>
+											                            	</c:otherwise>
+											                            </c:choose>
 									                    <!-- card 상태 end -->
 									                    
 									                    <!-- card image 시작 -->
@@ -135,21 +141,6 @@
 							
 							<!-- table div -->
 							<div class="card">
-<!-- 								<div class="card-header"> -->
-<!-- 									<div style="float: right; text-align: right;"> -->
-<!-- 										<div style="float: right;"> -->
-<!-- 											<div class="typeSelect" style="display: inline-block;"> -->
-<!-- 												<select id="searchSelect" class="form-select" style="font: 0.8em sans-serif;">	 -->
-<!-- 													<option value="title">제목</option> -->
-<!-- 													<option value="requester">기안자</option> -->
-<!-- 													<option value="requesterDate">기안일자</option> -->
-<!-- 												</select> -->
-<!-- 											</div> -->
-<!-- 											<input type="text" id="searchInputBox" class="form-control" style="display: inline-block; width: 40%; font-size: 0.8em; padding-bottom: 3px;" placeholder="검색"> -->
-<!-- 											<button id="searchBtn" class="btn btn-sm btn-primary" style="display: inline-block; margin-top: -2px; margin-left: 4px;">검색</button>	 -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
 								
 								<div class="card-body">
 								
@@ -166,13 +157,6 @@
 											</tr>
 										</thead>
 										<tbody>
-<%-- 											<c:choose> --%>
-<%-- 												<c:when test="${fn:length(myApprovalList) == 0}"> --%>
-<!-- 													<tr> -->
-<!-- 														<td colspan="6">결재문서가 존재하지 않습니다.</td> -->
-<!-- 													</tr> -->
-<%-- 												</c:when> --%>
-<%-- 												<c:otherwise> --%>
 												<c:forEach var="approvalList" items="${myApprovalList}">
 															<tr onclick="getApproval('${approvalList.approval_id}', '${loginDto.emp_id}', '${approvalList.document_type}', '${approvalList.temp_save_flag }')">
 																<td>${approvalList.approval_id}</td>
@@ -181,46 +165,26 @@
 																<td>${approvalList.requester_name}</td>
 																<td>${approvalList.request_date}</td>
 																<td>
-											                    	  <!-- 상태를 초기화 -->
-													                    <c:set var="overallStatus" value="completed" />
-													                    <c:set var="hasInProgress" value="false" />
-													                    <c:set var="hasRejected" value="false" />
-													                    <c:set var="loop_flag" value="false" />
-													                    <!-- 상태 점검 -->
-													                    <c:forEach var="line" items="${approvalList.lineList}">
-													                    	<c:if test="${line.step > 0}">
-													                    		<c:choose>
-													                            <c:when test="${line.status == 0}">
-													                                <!-- 진행중 상태가 발견된 경우 -->
-													                                <c:set var="hasInProgress" value="true" />
-													                            </c:when>
-													                            <c:when test="${line.status == 2}">
-													                                <!-- 반려 상태가 발견된 경우 -->
-													                                <c:set var="hasRejected" value="true" />
-													                                <!-- 반려 상태 발견 시 이후 체크는 필요 없음 -->
-													                               <c:set var="loop_flag" value="true"/>
-													                            </c:when>
-													                        </c:choose>
-													                        </c:if>
-													                    </c:forEach>
-													                    
-													                    <!-- 최종 상태 결정 -->
-													                    <c:choose>
-													                        <c:when test="${hasRejected}">
-													                            <span class="badge bg-danger">결재반려</span>
-													                        </c:when>
-													                        <c:when test="${hasInProgress}">
-													                            <span class="badge bg-warning">결재진행중</span>
-													                        </c:when>
-													                        <c:otherwise>
-													                            <span class="badge bg-success">결재완료</span>
-													                        </c:otherwise>
-													                    </c:choose>
+											                    	  <c:choose>
+											                            	<c:when test="${approvalList.approval_status eq 0}">
+											                            		<span class="item-field" style="text-align: center;">
+													                            	<span class="badge bg-warning">결재진행중</span>
+													                            </span>
+											                            	</c:when>
+											                            	<c:when test="${approvalList.approval_status eq 1}">
+											                            		<span class="item-field" style="text-align: center;">
+													                            	<span class="badge bg-success">결재완료</span>
+													                            </span>
+											                            	</c:when>
+											                            	<c:otherwise>
+											                            		<span class="item-field" style="text-align: center;">
+													                            	<span class="badge bg-danger">결재반려</span>
+													                            </span>
+											                            	</c:otherwise>
+											                            </c:choose>
 																</td>	
 															</tr>
 												</c:forEach>
-<%-- 												</c:otherwise> --%>
-<%-- 											</c:choose> --%>
 										</tbody>
 									</table>
 								</div>

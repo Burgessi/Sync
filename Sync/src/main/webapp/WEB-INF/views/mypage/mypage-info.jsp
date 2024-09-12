@@ -21,8 +21,8 @@
 				        </c:when>
 				        <c:otherwise>
 				            <img id="imagePreview"
-				                style="border-radius: 5%; width: 150px; height: 200px; object-fit: cover"
-				                src="${root}/resources/img/member-imgs/cloud.jpeg" 
+				                style="border-radius: 5%; width: 150px; height: 150px; object-fit: cover"
+				                src="${root}/resources/img/member-imgs/user.png" 
 				                alt="profile" onclick="showForm()"/>
 				        </c:otherwise>
 				    </c:choose>

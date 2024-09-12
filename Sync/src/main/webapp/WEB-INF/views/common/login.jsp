@@ -98,7 +98,7 @@ function customAlert(message) {
             <h1 class="title">SYNC</h1>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input name="emp_id" value="${cookie.emp_id.value}" type="text" autocomplete="on" placeholder="아이디" required />
+              <input name="emp_id" value="${cookie.emp_id.value}" type="text" autocomplete="off" placeholder="아이디" required  />
             </div>
             <div class="input-field">
               <i class="fa-solid fa-shield-halved"></i>

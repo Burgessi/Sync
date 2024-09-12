@@ -37,8 +37,6 @@
 
 
 
-
-
 <style>
 
 .container{
@@ -567,7 +565,7 @@
                 		
                 			<div id="chatRecipient">
                 					<div id="chatRecipientProfile">
-                						<img id="RecipientProfile" src="${root}/resources/img/구름이.png">
+                						<img id="RecipientProfile" src="${root}/resources/img/member-imgs/user.png">
                 					</div>
                 					<div id="chatRecipientName">
                 						<h5>${infoDto.emp_name}</h5>

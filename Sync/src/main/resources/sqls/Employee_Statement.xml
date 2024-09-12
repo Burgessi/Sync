@@ -15,8 +15,8 @@
 		AUTHORITY
 		) VALUES
 		((SELECT
-		'SYNC' || LPAD(NVL(MAX(TO_NUMBER(SUBSTR(EMP_ID, 2))), 0)
-		+ 1, 3,
+		'SYNC' || LPAD(NVL(MAX(TO_NUMBER(SUBSTR(EMP_ID, 5))), 0)
+		+ 1, 4,
 		'0')
 		FROM
 		EMPLOYEE),#{emp_name},#{emp_ssn},
