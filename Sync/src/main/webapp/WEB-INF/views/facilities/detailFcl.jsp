@@ -197,7 +197,12 @@ body {
 									</tr>
 									<tr>
 										<td><strong>사용여부</strong></td>
-										<td>${detailVo.fcl_able}</td>
+										<c:if test="${detailVo.fcl_able eq 'Y'}">
+											<td style="color:green; font-weight: bold;"> 사용가능 </td>
+										</c:if>
+										<c:if test="${detailVo.fcl_able eq 'N'}">
+											<td style="color:red; font-weight: bold;"> 사용불가 </td>
+										</c:if>
 									</tr>
 									<tr>
 										<td><strong>회의실 설명</strong></td>
