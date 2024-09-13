@@ -155,14 +155,19 @@
 #### - UI 설계 및 구현
 
  #### 📂인사관리
+ 
 #### 전체 사원 조회
   * ###### DataTables API를 통한 결재 목록 검색 및 페이징
-https://github.com/user-attachments/assets/06f757b7-a9eb-4c06-beb5-e17eaf2ff89b
+![KakaoTalk_20240913_143319731](https://github.com/user-attachments/assets/6ad9d086-2923-414a-9592-317a492bb7dd)
+
+
 
 
 #### 관리자 모드(사원 등록, 수정, 삭제)와 사용자 모드 구분  
 * ###### Ajax를 이용한 비동기 통신
-https://github.com/user-attachments/assets/98f1fdf1-8490-46be-b9bf-cde55317b81c
+![KakaoTalk_20240913_143311417](https://github.com/user-attachments/assets/8e6486f1-223c-487e-bdd7-61d501f08125)
+
+
 
 
  #### 재직증명서 출력
@@ -171,9 +176,10 @@ https://github.com/user-attachments/assets/98f1fdf1-8490-46be-b9bf-cde55317b81c
 
 
 
+
  #### 📂알림
 ###### DB를 통해 사용자 관련 알림 수신 가능(결재 승인/반려, 댓글 등)/ Ajax
-https://github.com/user-attachments/assets/262900ec-cb3d-49b4-9008-0a5790efb786
+![KakaoTalk_20240913_143319731_01](https://github.com/user-attachments/assets/ce4042e2-652a-4edf-85fb-a72d5da740ea)
 
 
  
