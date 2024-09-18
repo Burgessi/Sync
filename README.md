@@ -83,7 +83,7 @@
  #### 📂공지게시판
 ###### 
   (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/notice)
-  <img width="1259" alt="공지게시판" src="https://github.com/user-attachments/assets/9952455d-0eca-4ca2-a6e9-bdde602965b0">
+  ![공지](https://github.com/user-attachments/assets/a4d5ecf0-bb23-4368-b05e-87d694a31fd5)
  
   * #### 조회/상세보기/작성/수정/삭제 구현
      * ###### 관리자가 상단에 5개까지 고정/내리기 기능 구현, ckEditor5 사용
@@ -92,7 +92,7 @@
  #### 📂일정관리
  ###### 
   (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/plan)
-  <img width="1263" alt="일정" src="https://github.com/user-attachments/assets/ae2e20c4-806a-4ba8-86b2-92815640af1d">
+  ![예약](https://github.com/user-attachments/assets/9b6e1de1-432d-4dc3-ab72-c289094a6b90)
  
    * #### FullCalendar API를 이용하여 캘린더 구현
    * #### 조회/등록/수정/삭제 구현
@@ -100,7 +100,7 @@
  #### 📂시설예약
   ###### 
   (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/reservations)
-  <img width="1246" alt="회의실" src="https://github.com/user-attachments/assets/8f3cd0a7-a71b-4c53-a0f2-2ae5f7d76309">
+ ![시설예약](https://github.com/user-attachments/assets/b7de7d1b-1806-4367-9a84-6fedaed48a0c)
  
    * #### FullCalendar API를 이용하여 전체 예약현황 구현
    * #### 회의실 리스트 조회/생성/수정/삭제 구현
