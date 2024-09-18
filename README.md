@@ -74,7 +74,7 @@
  #### 📂자유게시판
 ###### 
   (https://github.com/Burgessi/Sync/tree/main/Sync/src/main/java/com/pro/sync/board)
-  <img width="1265" alt="자유게시판" src="https://github.com/user-attachments/assets/ffcaa9e8-1397-4ab0-af00-d3a439d5a0e6">
+ ![다운](https://github.com/user-attachments/assets/aabcb7bf-c712-42aa-b6c2-d692bd44b672)
  
   * #### 조회/상세보기/작성/수정/삭제 구현
     * ###### commons-fileupload 업로드 / 다운로드 구현, ckEditor5 사용
