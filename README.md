@@ -9,20 +9,20 @@
 
 # 개발환경 & 사용기술
 
-##### *1.Language* : JAVA, JavaScript, SQL, CSS, HTML, JSP
+##### *1.Language* : JAVA, JavaScript, SQL, CSS, HTML
 ![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white)
 <img src="https://img.shields.io/badge/sql-5294E2?style=for-the-badge&logo&logo=sql&logoColor=white"/>
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
-<img src="https://img.shields.io/badge/jsp-4A154B?style=for-the-badge&logo&logo=jsp&logoColor=white"/>
 
 ##### *2.Development Tool* : Eclipse, DBeaver
 ![](https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=eclipse&logoColor=white)
 <img src="https://img.shields.io/badge/dbeaver-382923?style=for-the-badge&logo&logo=dbeaver&logoColor=white"/>
 
-##### *3.Test Tool* : Post Man
+##### *3.Test Tool* : Postman, JUnit
 ![](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+<img src="https://img.shields.io/badge/JUnit5-#25A162?style=for-the-badge&logo&logo=JUnit5&logoColor=#25A162"/>
 ##### *4.Server* : Apache Tomcat 9.0
 <img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black"/>
 
