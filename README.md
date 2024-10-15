@@ -22,7 +22,7 @@
 
 ##### *3.Test Tool* : Postman, JUnit5
 ![](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
-<img src="https://img.shields.io/badge/JUnit5-#25A162?style=for-the-badge&logo&logo=JUnit5&logoColor=white"/>
+<img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo&logo=JUnit5&logoColor=white"/>
 ##### *4.Server* : Apache Tomcat 9.0
 <img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black"/>
 
